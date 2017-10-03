@@ -1,0 +1,41 @@
+<!-- <p>
+  demo-component works!
+</p>
+ -->
+
+
+    <!-- Login Page Wrap Start -->
+    <div class="ac-login-wrap">
+      <div class="ac-logo-bg"><!-- Logo Background -->
+        <div class="ac-fix-table">
+          <div class="ac-fix-cell">
+            <!-- Login box start -->
+            <div class="ac-login-box">
+              <span class="ac-login-logo">
+                <h3>App<i>Cohesion</i></h3>
+              </span>
+              <span class="ac-login-row ac-login-username">
+                <label>User Name</label>
+                <input type="text" name="ac_username" placeholder="Enter your username" autocomplete="off" #name />
+              </span>
+              <span class="ac-login-row ac-login-password">
+                <label>Password</label>
+                <input type="password" name="ac_password" placeholder="Enter your password" autocomplete="off" #password />
+                <a href="javascript:void(0);" class="ac-password-text"></a>
+              </span>
+              <label class="ac-required-field">{{errorMessage}}</label>
+              <span class="ac-login-row ac-login-submit">
+                <button type="submit" (click)="login(name.value,password.value)">Login Now</button>
+              </span>
+              <span class="ac-login-row ac-login-reset">
+                <p>Forgot Password? <a (click)="resetPassword()" >Reset Now!</a></p>
+              </span>
+            </div>
+            <!-- Login box end -->
+          </div>
+        </div>
+      </div>
+      <span class="ac-copyright">&copy; 2017 AppCohesion. All Rights Reserved.</span>
+    </div>
+    <!-- Login Page Wrap End -->
+

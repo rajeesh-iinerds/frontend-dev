@@ -1,0 +1,8 @@
+{
+	"/searchProduct": {
+		"target": "https://api.appcohesion.io",
+		"secure": false,
+		"pathRewrite": {"^/searchProduct" : ""},
+		"changeOrigin": true
+	}
+}

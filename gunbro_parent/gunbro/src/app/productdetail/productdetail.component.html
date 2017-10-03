@@ -1,0 +1,339 @@
+
+
+  
+    <!-- Left Side Nav Start -->
+    
+    <!-- Left Side Nav End -->
+
+    <!-- Main Section Start -->
+    
+    <div class="" style = "text-align: left">
+      <!-- Global Header Start -->
+      <!-- <div class="ac-global-header">
+        <div class="col-xs-8 col-sm-8 col-lg-7 ac-search-wrap">
+          <div class="ac-search-inset">
+              <span class="ac-search-shrinked" style="opacity: 0;">
+                <i class="glyphicon glyphicon-search"></i>
+                <input type="search" placeholder="Search for firmarms, distributors, manufacturers, equipments, status etc..." name="">
+              </span>
+              <a href="javascript:void(0);" class="ac-search-trigger"><i class="glyphicon glyphicon-search"></i></a>
+          </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-lg-5 ac-user-controls">
+          <span class="ac-place-order-btn">
+            <a href="javascript:void(0);" class="ac-place-order">Place an Order</a>
+          </span>
+          <span class="ac-notification-links">
+            <a href="javascript:void(0);"><i class="glyphicon glyphicon-envelope"></i><i class="ac-notification">20</i></a>
+            <a href="javascript:void(0);"><i class="glyphicon glyphicon-bell"></i><i class="ac-notification">3</i></a>
+          </span>
+          <span class="ac-user-actions">
+            <span class="ac-user-img">
+              <img src="images/demo-avatar.png" alt="FIRST NAME HERE">
+              <i class="glyphicon glyphicon-menu-down"></i>
+            </span>
+            <h3>Adriana Blandford </h3>
+            <span class="ac-user-drop-wrap" style="display: none;">
+              <ul class="ac-user-dropdown">
+                <li><a href="javascript:void(0);">My Profile</a></li>
+                <li><a href="javascript:void(0);">Menu Item</a></li>
+                <li><a href="login.html">Log Out</a></li>
+              </ul>
+            </span>
+          </span>
+        </div>
+      </div> -->
+      <!-- Global Header End -->
+
+      <!-- Generic wrap start -->
+      <div class="ac-generic-wrap">
+        <div class="container-fluid">
+          <div class="row ac-prod-detail-upper">
+            <!-- Descripion Part -->
+            <div class="col-xs-12 col-sm-12 col-lg-6 ac-prod-left">
+
+                <h2 class="ac-prod-title">{{demoService.productInfo && demoService.productInfo.manufacturerName ? demoService.productInfo.manufacturerName : ''}} {{demoService.productInfo && demoService.productInfo.model ? demoService.productInfo.model : ''}}</h2>
+                <span class="ac-prod-cost">MSRP<strong><em>$</em>{{demoService.productInfo && demoService.productInfo.productPrice ? demoService.productInfo.productPrice : ''}}</strong></span>
+                <span class="ac-prod-feat">Manufacturer Part Number<br><strong>{{demoService.productInfo && demoService.productInfo.mpn ? demoService.productInfo.mpn : ''}}</strong></span>
+                <div class="ac-prod-logo-row">
+                  <span class="ac-prod-feat">Manufacturer<br><strong>{{demoService.productInfo && demoService.productInfo.manufacturerName ? demoService.productInfo.manufacturerName : ''}}</strong></span>
+                  <img src="assets/demo-assets/dealer6.png">
+                </div>
+                <span class="ac-prod-feat">Distributor<br><strong>United Firearms LLC.</strong></span>
+                <span class="ac-prod-feat">FFL No.<strong><br>{{ffl}}</strong> <i class="ac-tool-tip" title="Tooltip Descripion Here"></i></span>
+                <span class="ac-store-location">Select a Shipping method<br>
+                  <!-- <select [(ngModel)]="selectedShipping" name ="method">
+                    <option [value]="1" selected="selected"> Ground (3-5 days) </option>
+                    <option [value]="2"> Priority (2 days) Priority </option>
+                    <option [value]="3"> Next Day Air</option>
+                  </select> -->
+                  <select [(ngModel)]="selectedShipping">
+                    <option *ngFor="let value of values" [ngValue]="value.key">{{value.name}}</option>
+                  </select>
+                </span>
+                <div class="ac-prod-buying-options" *ngIf="demoService.productInfo && demoService.productInfo.inStock && demoService.productInfo.inStock > 0">
+                    <input type="number" name="quantity" min="1" max="5" [(ngModel)]="selectedQuantity" (ngModelChange)="onQuantityChange($event)">
+                    <button class="ac-result-quick-order" (click) = "placeOrder()">PLACE MY ORDER</button>
+                     <span class="ac-prod-cost">Amount Payable<strong><em>$</em>{{amount}}</strong></span>
+                </div>
+                <div class="ac-prod-buying-options" *ngIf="demoService.productInfo && demoService.productInfo.inStock && demoService.productInfo.inStock <= 0">
+                    <button class="ac-result-quick-order">OUT OF STOCK</button>
+                </div>
+            </div>
+            <!-- Image Viewer -->
+            <div class="col-xs-12 col-sm-12 col-lg-6 ac-prod-right">
+                <div class="ac-image-viewer">
+                  <span class="ac-iv-pane"><img src="assets/demo-assets/gun9.png"></span>
+                  <ul>
+                    <li class="active"><img src="assets/demo-assets/gun1.png"></li>
+                    <li><img src="assets/demo-assets/gun2.png"></li>
+                    <li><img src="assets/demo-assets/gun5.png"></li>
+                  </ul>
+                </div>
+            </div>
+          </div>
+
+          <div class="row ac-prod-detail-lower">
+            <div class="col-xs-12 col-sm-12 col-lg-12">
+              <!-- Tab Header -->
+              <ul class="ac-order-info-tabs">
+                <li><a href="javascript:void(0);" class="active">Product Specifications</a></li>
+                <li><a href="javascript:void(0);">Product Specifications</a></li>
+                <li><a href="javascript:void(0);">Shipping Terms</a></li>
+                <li><a href="javascript:void(0);">Legal</a></li>
+              </ul>
+              <!-- Tab Body -->
+              <div class="ac-order-info-tab-contents">
+                  <div class="ac-order-tab-content active" style="display: none;">
+                      <p>This Rifle features the Howa 1500 black barreled action w/H.A.C.T. trigger, &amp; the AB Arms MOD X GEN III Modular Rifle<br>System w/black synthetic Urban Sniper Stock &amp; SBR P-Grip<br>Aluminum, hard coat anodized to MIL-SPEC Type III<br>0 MOA built into MIL-SPEC 1913 rail<br>11.5" free-floating modular forearm w/(3) sides of KeyMod attachment points<br>Multi-point radial cut inlet (no V-block)<br>LOP: 10.62"-15.69"<br>Integrated push button mag release located at front of trigger guard<br>Uses AICS-style mags in .308 &amp; .223/300 Blackout<br>Includes hard case &amp; cable lock<br>Wt.: 7.4 lbs.<br>Made in USA<br>Capacity: 10 rounds<br>Barrel length: 22"<br>Manufacturer Part: {{demoService.productInfo && demoService.productInfo.mpn ? demoService.productInfo.mpn : ''}}<br>SKU: {{demoService.productInfo && demoService.productInfo.sku ? demoService.productInfo.sku : ''}}<br>UPC: {{demoService.productInfo && demoService.productInfo.upc ? demoService.productInfo.upc : ''}}</p>
+                  </div>
+                  <div class="ac-order-tab-content" style="display: none;">
+                      -Content Here-
+                  </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- Generic wrap end -->
+    </div>
+    <!-- Main Section End -->
+
+    <!-- Quick Access Bar Start -->
+    <!-- <div class="ac-quick-access-wrap">
+      <a href="javascript:void(0);" class="ac-quick-access-togglr"><i class="glyphicon glyphicon-th-large flip"></i><i class="glyphicon glyphicon-th-list flop" style="display:none;"></i></a>
+      <ul class="ac-quick-access-buttons">
+        <li><a href="javascript:void(0);" class="ac-qacc-item1"><i style="display: none;">Menu Name1</i></a></li>
+        <li><a href="javascript:void(0);" class="ac-qacc-item2"><i style="display: none;">Menu Name2</i></a></li>
+        <li><a href="javascript:void(0);" class="ac-qacc-item3"><i style="display: none;">Menu Name3</i></a></li>
+        <li><a href="javascript:void(0);" class="ac-qacc-item4"><i style="display: none;">Menu Name4</i></a></li>
+        <li><a href="javascript:void(0);" class="ac-qacc-item5"><i style="display: none;">Menu Name5</i></a></li>
+        <li><a href="javascript:void(0);" class="ac-qacc-item6"><i style="display: none;">Menu Name6</i></a></li>
+      </ul>
+    </div> -->
+    <!-- Quick Access Bar End -->
+
+        <!-- CREATE NEW EMPLOYEE : START -->
+    <div class="ac-create-employee-drawer" style="right:-400px;opacity:0;">
+    <div (click) = "placeMyOrderClose()">
+      <span class="placeMyOrderClose"></span>
+      </div>
+      <!--<span class="shippingInfoWrapper">
+        <a href="" class="shippingInfoWrapperIcon"></a>
+        <h4>Shipping Info</h4>
+      </span>
+      <div class="clearfix"></div>
+       <div class="shippingInfoWrapperAccordian">
+      <div class="shippingInfoSubHead">Choose a shipping method</div>
+      <div class="shippingInfoSubHead">Enter shipping address</div>
+      <form class="ac-create-employee-body">
+        <div class="form-group">
+          <label for="usr_firstname">RETAILER NAME</label>
+          <input type="text" class="form-control" placeholder="Enter your first name" id="usr_firstname">
+        </div>
+        <div class="form-group" style="width:48%;">
+          <label for="usr_lastname">CONTACT PERSON FIRST NAME</label>
+          <input type="text" class="form-control" placeholder="Enter your last name" id="usr_lastname">
+        </div>
+        <div class="form-group pull-right" style="width:48%;">
+          <label for="usr_emailid">CONTACT PERSON LAST NAME</label>
+          <input type="email" class="form-control" placeholder="Enter your email address" id="usr_emailid">
+        </div>
+        <div class="form-group">
+          <label for="usr_password">STREET ADDRESS</label>
+          <input type="text" class="form-control" placeholder="Enter your password" id="usr_password">
+        </div>
+        <div class="form-group pull-left" style="width:28%;">
+          <label for="usr_confirm_password">ZIP CODE</label>
+          <input type="text" class="form-control" placeholder="Confirm your password" id="usr_confirm_password">
+        </div>
+        <div class="form-group" style="width:38%;padding-left: 15px;">
+          <label for="usr_confirm_password">CITY</label>
+          <input type="text" class="form-control" placeholder="Confirm your password" id="usr_confirm_password">
+        </div>
+        <div class="form-group pull-right" style="width:28%;">
+          <label for="usr_confirm_password">STATE</label>
+          <input type="text" class="form-control" placeholder="Confirm your password" id="usr_confirm_password">
+        </div>
+        <span class="ac-create-employee-foot">
+          <button type="submit" class="btn btn-default">CONTINUE TO CUSTOMER INFO</button>
+        </span>
+      </form>
+      </div> -->
+
+
+      <span class="shippingInfoWrapper">
+        <a href="" class="customerInfoIcon shippingInfoWrapperIcon"></a>
+        <h4>Customer Info</h4>
+      </span>
+      <div class="clearfix"></div>
+      <form class="ac-create-employee-body" #shippingForm="ngForm" >
+        <div class="form-group">
+          <label for="name">FIRST NAME</label>
+          <input type="text" class="form-control" name = "name" placeholder="Enter your first name" id="name" [(ngModel)]="firstName" maxlength="30" pattern="[a-zA-Z][a-zA-Z ]+" required #name="ngModel">
+          <!-- <input type="text" class="form-control" id="name" required pattern="[a-zA-Z][a-zA-Z ]+" [(ngModel)]="firstName" name="firstName" #name="ngModel"> -->
+          <div *ngIf= "name.errors && (name.dirty || name.touched)" class="ac-required-field">
+            <!-- <div [hidden]="!name.errors.minlength">
+              First name must be at least 5 characters long.
+            </div>
+            <div [hidden]="!name.errors.maxlength">
+              First name cannot be more than 30 characters long.
+            </div> -->
+            <div [hidden]="!name.errors.pattern">
+              Numbers not allowed!
+            </div>
+          </div>
+
+
+
+                  <!-- <input type="text" class="form-control" placeholder="John" name="firstName" ngModel required> -->
+
+        </div>
+
+
+  <!-- <div class="form-group">
+   <label for="name">Name</label>
+   <input type="text" class="form-control" id="name" required pattern="[a-zA-Z][a-zA-Z ]+" [(ngModel)]="firstName" name="name" #name="ngModel">
+   <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+      <div [hidden]="!name.hasError('required')">Name is required</div>
+      <div [hidden]="!name.hasError('pattern')">Only alphabetsallowed</div>
+   </div>
+</div> -->
+
+
+
+
+
+
+
+        <div class="form-group" style="width:48%;">
+          <label for="usr_lastname">LAST NAME</label>
+          <input type="text" class="form-control" placeholder="Enter your last name" id="usr_lastname" [(ngModel)]="lastName" name="usr_lastname" pattern="[a-zA-Z][a-zA-Z ]+" required minlength="1" maxlength="10" #usr_lastname="ngModel">
+          <div *ngIf= "usr_lastname.errors && (usr_lastname.dirty || usr_lastname.touched)" class="ac-required-field">
+            <div [hidden]="!usr_lastname.errors.minlength">
+              Last name must be at least 1 character long.
+            </div>
+            <div [hidden]="!usr_lastname.errors.maxlength">
+              Last name cannot be more than 10 characters long.
+            </div>
+            <div [hidden]="!usr_lastname.errors.pattern">
+              Numbers not allowed!
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group pull-right" style="width:48%;">
+          <label for="phone_number">PHONE</label>
+          <input type="text" class="form-control" placeholder="Enter your phone#" id="phone_number" [(ngModel)]="phone" name="phone_number" required pattern="[0-9]*" minlength="1" maxlength="10" #phone_number="ngModel">
+
+          <div *ngIf= "phone_number.errors && (phone_number.dirty || phone_number.touched)" class="ac-required-field">
+            <div [hidden]="!phone_number.errors.minlength">
+              Phone # must be 10 characters long.
+            </div>
+            <div [hidden]="!phone_number.errors.maxlength">
+              Phone # cannot be more than 10 characters long.
+            </div>
+            <div [hidden]="!phone_number.errors.pattern">
+              Only numbers allowed!
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="usr_email">EMAIL</label>
+          <input type="text" class="form-control" placeholder="Enter your email " id="usr_email" [(ngModel)]="email" name="usr_email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #usr_email="ngModel">
+          <div *ngIf= "usr_email.errors && (usr_email.dirty || usr_email.touched)" class="ac-required-field">
+            <div [hidden]="!usr_email.errors.pattern">
+              Invalid email format!
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="usr_address">STREET ADDRESS</label>
+          <input type="text" class="form-control" placeholder="Enter your address" id="usr_address" [(ngModel)]="address" name="usr_address" required pattern="^[a-zA-Z0-9\s,'-]*$" #usr_address="ngModel">
+          <div *ngIf= "usr_address.errors && (usr_address.dirty || usr_address.touched)" class="ac-required-field">
+            <div [hidden]="!usr_address.errors.pattern">
+              Invalid address format!
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group pull-left" style="width:28%;">
+          <label for="usr_zipcode">ZIP CODE</label>
+          <input type="text" class="form-control" placeholder="Enter your zip code" id="usr_zipcode" [(ngModel)]="zipcode" name="usr_zipcode" required pattern="[0-9]*" minlength="1" maxlength="6" #usr_zipcode="ngModel">
+          <div *ngIf= "usr_zipcode.errors && (usr_zipcode.dirty || usr_zipcode.touched)" class="ac-required-field">
+            <!-- <div [hidden]="!usr_zipcode.errors.minlength">
+              Zip code must be 6 characters long.
+            </div> -->
+            <div [hidden]="!usr_zipcode.errors.pattern">
+              Invalid zipcode format!
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="width:38%;padding-left: 15px;">
+          <label for="usr_city">CITY</label>
+          <input type="text" class="form-control" placeholder="Enter your city" id="usr_city" [(ngModel)]="city" name="city" required>
+        </div>
+        <div class="form-group pull-right" style="width:28%;">
+          <label for="usr_state">STATE</label>
+          <input type="text" class="form-control" placeholder="Enter your state" id="usr_state" [(ngModel)]="state" name="state" required>
+        </div>
+        <span class="ac-create-employee-foot">
+          <button type="submit" class="btn btn-default custom-button" [disabled]="!shippingForm.form.valid" (click) = "getToken(shippingForm)">CONFIRM ORDER</button>
+
+<!--           <button type="submit" class="btn btn-default" [disabled]="!bookForm.form.valid">Submit</button>
+ -->          
+        </span>
+      </form>
+    </div>
+    <!-- CREATE NEW EMPLOYEE : END -->
+
+
+    <!-- success popup starts -->
+    <div class="row fadebg" [class.show]="demoService.showPopup"></div>
+    <!-- <div class="" [ngClass]="demoService.showPopup ? 'confirmPopup' : 'hideLayout'"> -->
+    <div class="confirmPopup" [class.show]="demoService.showPopup">
+      <div class="successImgIcon"></div>
+      <div class="sucessMsgText text-center">
+        <h4>SUCCESS</h4>
+        <P>Congratulations!! You have successfully placed the order.</P>
+      </div>
+      <div class=" col-md-6 gotoDashboardBtn text-right">
+        <span routerLink="/dashboard">GO TO DASHBOARD</span>
+      </div>
+      <div class=" col-md-6 checkOrderStatusBtn text-left">
+        <span>CHECK ORDER STATUS</span>
+      </div>
+    </div>
+    <!-- success popup ends -->
+
+<!-- <div [class.show]="demoService.showPopup" class="step">
+  <h4>All of these elements will be faded out using a CSS3 opacity transition.</h4>
+  <div>
+     this element will fade out also when the booleanFromComponentClass variable is false
+  </div>
+</div> -->
+    

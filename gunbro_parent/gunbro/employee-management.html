@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AppCohesion - Employee Management</title>
+    
+    <!-- CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700|Roboto:300" rel="stylesheet">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" >
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  
+    <!-- Left Side Nav Start -->
+    <div class="ac-main-nav-wrap">
+      <div class="ac-main-nav-head">
+        <a href="dashboard.html" class="ac-main-nav-logo">APP<i>COHESION</i></a>
+        <a href="javascript:void(0);" class="ac-main-nav-toggle"><i></i><i></i><i></i></a>
+      </div>
+      <div class="ac-main-nav-body">
+        <div class="ac-main-nav-gen-items">
+          <ul>
+            <li><a href="dashboard.html" class="ac-dash-item-1"><i>Dashboard</i></a></li>
+            <li><a href="javascript:void(0);" class="ac-dash-item-2"><i class="flip">Distributor Management</i><i class="flop" style="display:none;">Distributor</i></a></li>
+            <li><a href="employee-management.html" class="ac-dash-item-3 active"><i class="flip">Employee Management</i><i class="flop" style="display:none;">Employee</i></a></li>
+            <li><a href="javascript:void(0);" class="ac-dash-item-4"><i>Orders</i></a></li>
+            <li><a href="javascript:void(0);" class="ac-dash-item-5"><i>Customers</i></a></li>
+            <li><a href="javascript:void(0);" class="ac-dash-item-6"><i>Reports</i></a></li>
+            <li><a href="javascript:void(0);" class="ac-dash-item-7"><i>Settings</i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Left Side Nav End -->
+
+    <!-- Main Section Start -->
+    <div class="ac-main-content-wrap">
+      <!-- Global Header Start -->
+      <div class="ac-global-header">
+        <div class="col-xs-8 col-sm-8 col-lg-7 ac-search-wrap">
+          <div class="ac-search-inset">
+              <span class="ac-search-shrinked" style="opacity: 0;">
+                <i class="glyphicon glyphicon-search"></i>
+                <input type="search" placeholder="Search for firmarms, distributors, manufacturers, equipments, status etc..." name="">
+              </span>
+              <a href="javascript:void(0);" class="ac-search-trigger"><i class="glyphicon glyphicon-search"></i></a>
+          </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-lg-5 ac-user-controls">
+          <span class="ac-place-order-btn">
+            <a href="javascript:void(0);" class="ac-place-order">Place an Order</a>
+          </span>
+          <span class="ac-notification-links">
+            <a href="javascript:void(0);"><i class="glyphicon glyphicon-envelope"></i><i class="ac-notification">20</i></a>
+            <a href="javascript:void(0);"><i class="glyphicon glyphicon-bell"></i><i class="ac-notification">3</i></a>
+          </span>
+          <span class="ac-user-actions">
+            <span class="ac-user-img">
+              <!-- DEFAULT IMAGE <img src="images/default-avatar.png" alt=""> -->
+              <img src="images/demo-avatar.png" alt="FIRST NAME HERE">
+              <i class="glyphicon glyphicon-menu-down"></i>
+            </span>
+            <h3>Adriana Blandford </h3>
+            <span class="ac-user-drop-wrap" style="display: none;">
+              <ul class="ac-user-dropdown">
+                <li><a href="javascript:void(0);">My Profile</a></li>
+                <li><a href="javascript:void(0);">Menu Item</a></li>
+                <li><a href="index.html">Log Out</a></li>
+              </ul>
+            </span>
+          </span>
+        </div>
+      </div>
+      <!-- Global Header End -->
+      <!-- Generic wrap start -->
+      <div class="ac-generic-wrap">
+        <div class="container-fluid">
+          <div class="row"><!-- Page Title -->
+            <div class="col-xs-12 col-sm-9 col-lg-9">
+              <h3 class="ac-page-title">Employee Management</h3>
+            </div>
+            <div class="col-xs-12 col-sm-3 col-lg-3 text-right xs-text-left">
+              <a href="javascript:void(0);" class="ac-button-outlined ac-create-employee"><i>+</i>CREATE NEW</a>
+            </div>
+          </div>
+          <div class="row"><!-- Employee Listing -->
+            <div class="col-xs-12 col-sm-12 col-lg-12 ac-employee-listing">
+              <ul class="ac-employees-unsorted">
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user1.png" alt="Andrew Wilkinson" /></span>
+                    <h4>Andrew Wilkinson</h4>
+                    <h5>Store Manager</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user2.png" alt="Elexa Styan" /></span>
+                    <h4>Elexa Styan</h4>
+                    <h5>Marketing Executive</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user3.png" alt="Emma Bell" /></span>
+                    <h4>Emma Bell</h4>
+                    <h5>Store Supervisor</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user4.png" alt="Ian Hoar" /></span>
+                    <h4>Ian Hoar</h4>
+                    <h5>Sales Associate</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user1.png" alt="Andrew Wilkinson" /></span>
+                    <h4>Andrew Wilkinson</h4>
+                    <h5>Store Manager</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user2.png" alt="Elexa Styan" /></span>
+                    <h4>Elexa Styan</h4>
+                    <h5>Marketing Executive</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user3.png" alt="Emma Bell" /></span>
+                    <h4>Emma Bell</h4>
+                    <h5>Store Supervisor</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user4.png" alt="Ian Hoar" /></span>
+                    <h4>Ian Hoar</h4>
+                    <h5>Sales Associate</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user1.png" alt="Andrew Wilkinson" /></span>
+                    <h4>Andrew Wilkinson</h4>
+                    <h5>Store Manager</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user2.png" alt="Elexa Styan" /></span>
+                    <h4>Elexa Styan</h4>
+                    <h5>Marketing Executive</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user3.png" alt="Emma Bell" /></span>
+                    <h4>Emma Bell</h4>
+                    <h5>Store Supervisor</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user4.png" alt="Ian Hoar" /></span>
+                    <h4>Ian Hoar</h4>
+                    <h5>Sales Associate</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user1.png" alt="Andrew Wilkinson" /></span>
+                    <h4>Andrew Wilkinson</h4>
+                    <h5>Store Manager</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user2.png" alt="Elexa Styan" /></span>
+                    <h4>Elexa Styan</h4>
+                    <h5>Marketing Executive</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user3.png" alt="Emma Bell" /></span>
+                    <h4>Emma Bell</h4>
+                    <h5>Store Supervisor</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user4.png" alt="Ian Hoar" /></span>
+                    <h4>Ian Hoar</h4>
+                    <h5>Sales Associate</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user1.png" alt="Andrew Wilkinson" /></span>
+                    <h4>Andrew Wilkinson</h4>
+                    <h5>Store Manager</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user2.png" alt="Elexa Styan" /></span>
+                    <h4>Elexa Styan</h4>
+                    <h5>Marketing Executive</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user3.png" alt="Emma Bell" /></span>
+                    <h4>Emma Bell</h4>
+                    <h5>Store Supervisor</h5>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <span><img src="demo-assets/user4.png" alt="Ian Hoar" /></span>
+                    <h4>Ian Hoar</h4>
+                    <h5>Sales Associate</h5>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Generic wrap end -->
+    </div>
+    <!-- Main Section End -->
+
+    <!-- Quick Access Bar Start -->
+    <div class="ac-quick-access-wrap">
+      <a href="javascript:void(0);" class="ac-quick-access-togglr"><i class="glyphicon glyphicon-th-large flip"></i><i class="glyphicon glyphicon-th-list flop" style="display:none;"></i></a>
+      <ul class="ac-quick-access-buttons">
+        <li><a href="javascript:void(0);" class="ac-qacc-item1"><i style="display: none;">Menu Name1</i></a></li>
+        <li><a href="javascript:void(0);" class="ac-qacc-item2"><i style="display: none;">Menu Name2</i></a></li>
+        <li><a href="javascript:void(0);" class="ac-qacc-item3"><i style="display: none;">Menu Name3</i></a></li>
+        <li><a href="javascript:void(0);" class="ac-qacc-item4"><i style="display: none;">Menu Name4</i></a></li>
+        <li><a href="javascript:void(0);" class="ac-qacc-item5"><i style="display: none;">Menu Name5</i></a></li>
+        <li><a href="javascript:void(0);" class="ac-qacc-item6"><i style="display: none;">Menu Name6</i></a></li>
+      </ul>
+    </div>
+    <!-- Quick Access Bar End -->
+
+
+    <!-- CREATE NEW EMPLOYEE : START -->
+    <div class="ac-create-employee-drawer" style="right:-400px;opacity:0;">
+      <span class="ac-create-employee-head">
+        <a href="javascript:void(0);" class="ac-close-employee-drawer"></a>
+        <h4>Add Employee</h4>
+      </span>
+      <form class="ac-create-employee-body">
+        <div class="form-group">
+          <label for="usr_firstname">FIRST NAME</label>
+          <input type="text" class="form-control" placeholder="Enter your first name" id="usr_firstname">
+        </div>
+        <div class="form-group">
+          <label for="usr_lastname">LAST NAME</label>
+          <input type="text" class="form-control" placeholder="Enter your last name" id="usr_lastname">
+        </div>
+        <div class="form-group">
+          <label for="usr_emailid">EMAIL ID</label>
+          <input type="email" class="form-control" placeholder="Enter your email address" id="usr_emailid">
+        </div>
+        <div class="form-group">
+          <label for="usr_password">PASSWORD</label>
+          <input type="password" class="form-control" placeholder="Enter your password" id="usr_password">
+        </div>
+        <div class="form-group">
+          <label for="usr_confirm_password">CONFIRM PASSWORD</label>
+          <input type="password" class="form-control" placeholder="Confirm your password" id="usr_confirm_password">
+        </div>
+        <span class="ac-create-employee-foot">
+          <button type="submit" class="btn btn-default">CREATE EMPLOYEE</button>
+        </span>
+      </form>
+    </div>
+    <!-- CREATE NEW EMPLOYEE : END -->
+
+    <div class="ac-actions-overlay" style="display:none;"></div><!-- Its Complicated -->
+
+    <!--   __   ___        __      __                
+          |  \ |__   |\/| /  \    /  \ |\ | |    \ / 
+          |__/ |___  |  | \__/    \__/ | \| |___  |  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        // Toggle Search
+        $('body').on('click', '.ac-search-trigger', function() {
+          $('.ac-global-header').toggleClass('ac-search-on');
+        });
+        // Toggle Quick Access
+        $('body').on('click', '.ac-quick-access-togglr', function() {
+          $('body').toggleClass('ac-quick-access-on');
+        });
+        // Toggle Main Nav
+        $('body').on('click', '.ac-main-nav-toggle', function() {
+          $('body').toggleClass('ac-main-nav-on');
+        });
+        // Create Employee
+        $('body').on('click', '.ac-create-employee', function() {
+          $('body').addClass('ac-create-employee-on');
+        });
+        $('body').on('click', '.ac-close-employee-drawer', function() {
+          $('body').removeClass('ac-create-employee-on');
+        });
+      });
+    </script>
+    <!--   __   ___        __      __                
+          |  \ |__   |\/| /  \    /  \ |\ | |    \ / 
+          |__/ |___  |  | \__/    \__/ | \| |___  |  -->
+
+
+  </body>
+</html>
