@@ -39,16 +39,23 @@ export class DashboardComponentComponent implements OnInit {
   errorMessage: string;
   disableSearch: boolean = false;
   userName: string;
+  userGroup: string;
   
   constructor(private route: ActivatedRoute,private router: Router, public demoService: DemoService,private http:Http) {
     this.hideMFGSearch = true;
     this.hideGSINSearch = true;
     this.disableSearch = true;
     this.searchKey = '';
+    this.userGroup = '';
   }
   
   ngOnInit() {
     this.userName = this.demoService.getCognitoUser().getUsername();
+    console.log(localStorage.getItem('userGroup'));
+    if(localStorage.getItem('userGroup') && localStorage.getItem('userGroup') != '') {
+      this.userGroup = localStorage.getItem('userGroup');
+    }
+    
   }
 
     clickedSearch(){

@@ -12,10 +12,14 @@ import { EmployeeComponent } from './employee/employee.component';
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MdSidenavModule} from '@angular/material';
+import { MdSidenavModule } from '@angular/material';
 import { ProductSearchComponent } from './product-search/product-search.component';
 import { AuthGuard } from './dashboard-component/auth.guard';
 import { ProductdetailComponent } from './productdetail/productdetail.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { OrdersComponent } from './orders/orders.component';
+//import { DistMarkupComponent } from './dist-markup/dist-markup.component';
 
 const appRoutes: Routes = [
   {
@@ -26,20 +30,30 @@ const appRoutes: Routes = [
       { path: '',  component:  DashboardHomeComponent },
       { path: 'employee', component:  EmployeeComponent},
       { path: 'search', component:  ProductSearchComponent},
-       { path: 'productdetail', component:  ProductdetailComponent}
-      
+       { path: 'productdetail', component:  ProductdetailComponent},
+       { path: 'order', component:  OrdersComponent}
       //{ path: 'specs', component: Specs }
     ]
+  },
+  {
+    path: 'forgot',
+    component: ForgotPasswordComponent,
+    
+  },
+  {
+    path: 'changepwd',
+    component: ChangePasswordComponent,
+    
   },
   {
     path: '',
     component: DemoComponentComponent,
     canActivate: [AuthGuard]
   }
+
+  /*this.productID = route.snapshot.params['id'];
+  this.isProdEnvironment = route.snapshot.data[0]['isProd'];*/  
 ];
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +62,10 @@ const appRoutes: Routes = [
     EmployeeComponent,
     DashboardHomeComponent,
     ProductSearchComponent,
-    ProductdetailComponent
+    ProductdetailComponent,
+    ForgotPasswordComponent,
+    ChangePasswordComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +77,7 @@ const appRoutes: Routes = [
       appRoutes,
 
 
-      { enableTracing: true } // <-- debugging purposes only
+       // <-- debugging purposes only
     )
   ],
   providers: [

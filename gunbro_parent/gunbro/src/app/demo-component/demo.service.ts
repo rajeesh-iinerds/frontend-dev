@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import {AuthenticationDetails, CognitoUser, CognitoUserAttribute, CognitoUserPool, CognitoUserSession} from 'amazon-cognito-identity-js';
-import {Observable} from 'rxjs/Rx'; 
+import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+import {JwtHelper} from 'angular2-jwt/angular2-jwt';
 
 import * as constant from '../shared/config';
 
@@ -22,7 +23,8 @@ export class DemoService {
 	productsearch_type ? :any;
 	body: Object = {};
 	usersList :any;
-   
+  resultsdb :any;
+
 	loading :boolean = false;
   	subMenuToggle : boolean = false;
   	showNav : boolean = false;
@@ -59,15 +61,24 @@ export class DemoService {
 		}
 	}
 
+	/*useJwtHelper() {
+		var token = localStorage.getItem('id_token');
+		console.log(
+			this.jwtHelper.decodeToken(token),
+		    this.jwtHelper.getTokenExpirationDate(token),
+		    this.jwtHelper.isTokenExpired(token)
+		);
+	}*/
+
 	userLogin (name, password): Observable<any> {
 		return Observable.create(observer => {
 			var self = this;
-		   	// var poolData = { 
+		   	// var poolData = {
 		    //     UserPoolId : 'us-east-1_Q3sA5af5A',
 		    //     ClientId : '7iaf7o5ja7su88mjb8du0pqigv',
 		    // };
 		    var poolData = constant.userPoolData;
-		    var userPool = new CognitoUserPool(poolData);	
+		    var userPool = new CognitoUserPool(poolData);
 			var authenticationData = {
 		        Username : name,
 		        Password : password
@@ -121,6 +132,15 @@ export class DemoService {
 					    }
 					});*/
 
+     				var group = new JwtHelper().decodeToken(this.jwt);
+     				if(group['cognito:groups'] && group['cognito:groups'][0]) {
+     					localStorage.setItem('userGroup', group['cognito:groups'][0]);
+     				}
+     				else {
+     					localStorage.setItem('userGroup', '');
+     				}
+
+
 		       		result=>result.json();
 					observer.next(result);
 	      			observer.complete();
@@ -129,19 +149,19 @@ export class DemoService {
 				   	console.log(err);
 				   	observer.next(err);
 	      			observer.complete();
-		        }, 
+		        },
 		    });
 		}, err =>{console.log("error on user",err)})
 	};
 
 	userLogout = function() {
-	 	// var poolData = { 
+	 	// var poolData = {
 	  //       UserPoolId : 'us-east-1_Q3sA5af5A',
 	  //       ClientId : '7iaf7o5ja7su88mjb8du0pqigv',
 	  //   };
 	  	var poolData = constant.userPoolData;
 	    // this.jwt = '';
-	    var userPool = new CognitoUserPool(poolData);	
+	    var userPool = new CognitoUserPool(poolData);
 	    this.userSession = userPool.getCurrentUser();
 	    console.log(this.userSession);
 	    if(this.userSession) {
@@ -153,6 +173,7 @@ export class DemoService {
 	    	// this.isLoggedIn = false;
 	    	localStorage.setItem('isLoggedIn', 'false');
 	    	localStorage.removeItem('tokenExpiryTime');
+	    	localStorage.removeItem('userGroup');
 	    	this.router.navigate(['']);
 	    }
 	}
@@ -169,12 +190,12 @@ export class DemoService {
 		var self = this;
 		this.loading = true;
 		return Observable.create(observer => {
-		// var poolData = { 
+		// var poolData = {
 	 //        UserPoolId : 'us-east-1_Q3sA5af5A',
 	 //        ClientId : '7iaf7o5ja7su88mjb8du0pqigv',
 	 //    };
 	 	var poolData = constant.userPoolData;
-	    var userPool = new CognitoUserPool(poolData);	
+	    var userPool = new CognitoUserPool(poolData);
 	    var cognitoUser = userPool.getCurrentUser();
 
 	    if (cognitoUser != null) {
@@ -212,7 +233,7 @@ export class DemoService {
 	        		// });
 	        		session=>session.json();
 					observer.next(session);
-	      			observer.complete();  
+	      			observer.complete();
 	        	}
 	        	else { // session false OR token expired
 	        		self.userLogout();
@@ -223,7 +244,7 @@ export class DemoService {
 	}
 
 	getCognitoUser = function() {
-		// const poolData = { 
+		// const poolData = {
 		// 	UserPoolId : 'us-east-1_Q3sA5af5A',
 		//     ClientId : '7iaf7o5ja7su88mjb8du0pqigv'
 		// };
@@ -231,7 +252,7 @@ export class DemoService {
 		const userPool = new CognitoUserPool(poolData);
 		this.userSession = userPool.getCurrentUser();
 		const userData = {
-		    Username : this.userSession.username, 
+		    Username : this.userSession.username,
 		    Pool : userPool
 		};
 		return new CognitoUser(userData);
@@ -249,7 +270,7 @@ export class DemoService {
         // var reqBody = {this.productsearch_type : this.productsearch_name};
         this.body[this.productsearch_type] = this.productsearch_name;
         var reqBody = this.body;
-        
+
         // const url = 'https://api.appcohesion.io/searchProduct';
         const url = constant.appcohesionURL.productSearch_URL;
         this.http
@@ -257,7 +278,7 @@ export class DemoService {
             .subscribe(data => {
             	this.loading = false;
                 this.results = data ? data.json() : {};
-                
+
                 if(this.results && this.results.status) {
                 	if(this.results.status.code == constant.statusCode.success_code) {
                 		this.resultForloop = this.results.stockDetails;
@@ -268,15 +289,17 @@ export class DemoService {
                 		this.resultCount = 0;
                 	}
                 	this.router.navigate(['/dashboard/search'],{ queryParams: reqBody});
-                }  
+                }
             }, error => {
             	this.loading = false;
                 console.log(JSON.stringify(error));
             });
     }
 
-    confirmOrderfromService(orderInfo, jwt) {
+    confirmOrderfromService (orderInfo, jwt): Observable<any>  {
     	this.loading = true;
+
+      return Observable.create(observer => {
     	let headers = new Headers({'Content-Type': 'application/json', 'Authorization': jwt });
 	    let options = new RequestOptions({ headers: headers });
 	   	let req_body = {
@@ -292,18 +315,18 @@ export class DemoService {
 			"FFL": orderInfo.FFL?orderInfo.FFL:"",
 			"CustomerPrice": "123.35",
 			"SellerType": "Distributor",
-			"GSIN": this.productInfo && this.productInfo.gsin ? this.productInfo.gsin : "", 
-			"Custom4": "Custom4", 
-			"SKUNumber": this.productInfo && this.productInfo.sku ? this.productInfo.sku : "", 
+			"GSIN": this.productInfo && this.productInfo.gsin ? this.productInfo.gsin : "",
+			"Custom4": "Custom4",
 			"ShipToPostalCode": orderInfo.ShipToPostalCode?orderInfo.ShipToPostalCode:"",
-			"Custom3": "Custom3", 
+			"Custom3": "Custom3",
 			"Custom2": "Custom2",
 			"Custom1": "Custom1",
 			"ShipToState": orderInfo.ShipToState?orderInfo.ShipToState:"",
 			"BuyerID": "1",
 			"Phone": orderInfo.Phone?orderInfo.Phone:"",
-			"SellerID": "1",
-			"action": "processNewOrder" 
+			"SellerID": "3",
+			"action": "processNewOrder",
+
 		};
 		 //let req_body = {  "ecomdashID": "ecomdashID",  "Quandity": orderInfo.Quandity?orderInfo.Quandity:"",  "ShippingMethod": orderInfo.ShippingMethod?orderInfo.ShippingMethod:"",  "ShipToStreetLine1": "",  "ShipToStreetLine2": "ShipToStreetLine2",  "ShipToCity": "ShipToCity",  "BuyerType": "Retailer",  "ConsumerName": "ConsumerName",  "ProductPrice": "123.45",  "CustomerPrice": "123.35",  "GSIN": this.productsearch_name,  "Custom1": "Custom1",  "Custom2": "Custom2",  "Custom3": "Custom3",  "Custom4": "Custom4",  "SKUNumber": "100386",  "ShipToPostalCode": "ShipToPostalCode",  "ShipToState": "ShipToState",  "BuyerID": "1",  "SellerID": "1",  "Phone": "3474845476",  "FFL": "FFLLicense",  "SellerType": "Distributor"}
 		// const url = 'https://api.appcohesion.io/placeOrder';
@@ -313,23 +336,88 @@ export class DemoService {
 	        .post(url, req_body, options)
 	        .subscribe(data => {
 	        	this.loading = false;
-	            this.results = data.json();
+	            this.results = data ? data.json():'';
+
+            if(this.results){
+
+
+           // alert("sdadasdasdasdasd" +  JSON.stringify(this.results));
 	            if(this.results.status.code == 2000) {
 	            	this.orderId = this.results.order.orderId;
 	            	this.showclickorder = false;
 	            	this.showPopup = !this.showPopup;
+                console.log(JSON.stringify(this.results));
+                observer.next(this.results);
+                observer.complete();
 	            }
 	            else {
-	            	alert(this.results);
+                alert(this.results.status);
 	            }
 	            // alert(this.results.status);
 	            console.log(this.results);
-	            
+            }
+            else{
+              alert("Result is empty");
+            }
 	        }, error => {
 	        	this.loading = false;
+            observer.next(error);
+            observer.complete();
 	            console.log(JSON.stringify(error));
 	    });
+      }, (err) => {
+          console.log('Error');
+      });
     }
+
+
+  updateRecordinDB (information_fetchdb,fieldName): Observable<any> {
+    return Observable.create(observer => {
+    let headers = new Headers({'Content-Type': 'application/json'});
+    let options = new RequestOptions({ headers: headers });
+    let req_body = {
+      "order_id": information_fetchdb.toString()
+    };
+    const url = 'https://bh7906mpaf.execute-api.us-east-1.amazonaws.com/prod/orderstatus';
+    this.http
+      .post(url, req_body, options)
+      .subscribe(data => {
+        this.resultsdb = data.json();
+        alert(JSON.stringify(this.resultsdb));
+        observer.next(this.resultsdb);
+        observer.complete();
+      }, error => {
+        console.log(error.json());
+      });
+    }, err =>{console.log("error",err)})
+  }
+
+
+  csvfileUpload (body_csv): Observable<any> {
+    var self = this;
+    //this.loading = true;
+    return Observable.create(observer => {
+      // var poolData = {
+      //this.loading = true;
+      let headers = new Headers({'Content-Type': 'application/json' });
+      let options = new RequestOptions({ headers: headers });
+      const url = 'https://api.appcohesion.io/uploadCsv';
+      this.http
+        .post(url, body_csv, options)
+        .subscribe(csvdata => {
+          this.loading = false;
+          alert(csvdata);
+          observer.next(csvdata);
+          observer.complete();
+          //alert( "asddasdasdas " + JSON.stringify(data));
+        }, error => {
+          this.loading = false;
+          console.log(JSON.stringify(error));
+          observer.next(error);
+          observer.complete();
+        });
+    }, err =>{console.log("error",err)})
+  }
 
     createUser(jwt, userInfo) {
     	this.loading = true;
@@ -343,7 +431,7 @@ export class DemoService {
 		  		"email" : userInfo.email,
 		  		"first_name": userInfo.firstName,
 		  		"last_name": userInfo.lastName
-			} 
+			}
 		};
 		// const url = 'https://7v5j1r1r92.execute-api.us-east-1.amazonaws.com/prod/cognitoSignin';
 		const url = constant.appcohesionURL.createUser_URL;
@@ -367,13 +455,13 @@ export class DemoService {
 
     //Listing users in cognito Pool
     listUsers() {
-    	this.loading = true;    	
+    	this.loading = true;
 	    //Taking Session Value for passing token
 	    return this.getSessionToken().subscribe((response) => {
 	      if(response.getIdToken().getJwtToken()) {
 	        this.jwt = response.getIdToken().getJwtToken();
 	        let headers = new Headers({'Authorization': this.jwt });
-		    let options = new RequestOptions({ headers: headers });	
+		    let options = new RequestOptions({ headers: headers });
 		    var req_body = '';
 			// const url = 'https://dtnqjf4q15.execute-api.us-east-1.amazonaws.com/prod';
 			const url = constant.appcohesionURL.listUsers_URL;
@@ -381,7 +469,7 @@ export class DemoService {
 		        .post(url, req_body, options)
 		        .subscribe(data => {
 		        	this.loading = false;
-		            this.usersList = data.json();	
+		            this.usersList = data.json();
 		        }, error => {
 		        	this.loading = false;
 		            console.log("error" + JSON.stringify(error));

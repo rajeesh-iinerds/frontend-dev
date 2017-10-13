@@ -10,7 +10,8 @@ export const userPoolData = {
 
 export const appcohesionURL = {
 	"productSearch_URL": "https://api.appcohesion.io/searchProduct",
-	"placeOrder_URL": "https://jp7oyuf6ch.execute-api.us-east-1.amazonaws.com/prod/",
+	
+	"placeOrder_URL": "https://api.appcohesion.io/placeOrder",
 	"createUser_URL": "https://7v5j1r1r92.execute-api.us-east-1.amazonaws.com/prod/cognitoSignin",
 	"listUsers_URL": "https://dtnqjf4q15.execute-api.us-east-1.amazonaws.com/prod"
 };

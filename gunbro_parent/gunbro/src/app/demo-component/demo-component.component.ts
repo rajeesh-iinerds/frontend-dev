@@ -40,6 +40,7 @@ export class DemoComponentComponent implements OnInit {
     }
     resetPassword () {
      	console.log("reset");
+		this.router.navigate(['/forgot']);
     }
 
 }

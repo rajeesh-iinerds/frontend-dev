@@ -2,7 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ProductSearchComponent } from '../product-search/product-search.component';
 import { DemoService } from '../demo-component/demo.service';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-
+import {Observable} from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 @Component({
   selector: 'app-productdetail',
   templateUrl: './productdetail.component.html',
@@ -35,7 +36,7 @@ results: any;
 	orderInfo : any;
 	model: Object = {};
 
-  	constructor(public searchComponent: ProductSearchComponent, public demoService: DemoService, private http:Http) { 
+  	constructor(public searchComponent: ProductSearchComponent, public demoService: DemoService, private http:Http) {
 		this.selectedQuantity = 1;
 		this.ffl = "5-76-339-07-6M-02775";
 		this.amount = demoService.productInfo && demoService.productInfo.productPrice ? demoService.productInfo.productPrice : '';
@@ -43,7 +44,8 @@ results: any;
 	}
 
 	ngOnInit() {
-	}
+    this.demoService.showPopup = false;
+  }
 
  	placeOrder() {
  		this.demoService.showclickorder = true;
@@ -83,7 +85,36 @@ results: any;
 			"ShipToState": this.state ? this.state : "",
 			"Phone": this.phone ? this.phone : ""
 		};
-		this.demoService.confirmOrderfromService(this.orderInfo, jwt);
+		//this.demoService.confirmOrderfromService(this.orderInfo, jwt);
+
+    return this.demoService.confirmOrderfromService(this.orderInfo, jwt).subscribe((resp) => {
+      this.demoService.loading = false;
+      console.log(resp);
+      if(resp && resp.order && resp.order.orderId) {
+        if(resp.order.distributor_id == 3) resp.order.distributor_name = 'ss';
+        if(resp.order.distributor_id == 1) resp.order.distributor_name = 'ellet';
+        var orderId = resp.order.orderId
+         this.demoService.updateRecordinDB(orderId,"order_id").subscribe((csvresponse) => {
+          alert("dunamodb updated with order status");
+          console.log(csvresponse);
+        }, (err) => {
+          console.log(err);
+        });
+      }
+      var body_csv = {
+        "response" : resp && resp.order ? resp.order :''
+      }
+       this.demoService.csvfileUpload(body_csv).subscribe((csvresponse) => {
+        alert("CSV Upload Complete");
+        console.log(csvresponse);
+      }, (err) => {
+        console.log(err);
+      });
+    }, (err) => {
+      console.log(err);
+    });
+
+
 		/*let headers = new Headers({'Content-Type': 'application/json', 'x-api-key': 'TxGFDgDFec7M6E94pgbLJ5duzkvWYEYJ2XQSMER0' });
 	    let options = new RequestOptions({ headers: headers });
 	    let req_body = {
@@ -99,18 +130,18 @@ results: any;
 			"FFL": this.ffl,
 			"CustomerPrice": "123.35",
 			"SellerType": "Distributor",
-			"GSIN": this.demoService.productInfo && this.demoService.productInfo.gsin ? this.demoService.productInfo.gsin : '', 
-			"Custom4": "Custom4", 
+			"GSIN": this.demoService.productInfo && this.demoService.productInfo.gsin ? this.demoService.productInfo.gsin : '',
+			"Custom4": "Custom4",
 			"SKUNumber": this.demoService.productInfo && this.demoService.productInfo.skuNumber ? this.demoService.productInfo.skuNumber : '',
 			"ShipToPostalCode": this.zipcode,
-			"Custom3": "Custom3", 
+			"Custom3": "Custom3",
 			"Custom2": "Custom2",
 			"Custom1": "Custom1",
 			"ShipToState": this.state,
 			"BuyerID": "1",
 			"Phone": this.phone,
 			"SellerID": "1",
-			"action": "processNewOrder" 
+			"action": "processNewOrder"
 		}
 
 	    const url = 'https://api.appcohesion.io/placeOrder';
@@ -125,6 +156,7 @@ results: any;
 	            alert("Enterd err");
 	            console.log(JSON.stringify(error));
 	    });*/
+
 	}
 
 	submitForm(form: any): void{

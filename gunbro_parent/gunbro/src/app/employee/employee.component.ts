@@ -9,7 +9,6 @@ import { DemoService } from '../demo-component/demo.service';
   styleUrls: ['./employee.component.css']
 })
 
-
 export class EmployeeComponent implements OnInit {
 
   marginTop:number = 0;
