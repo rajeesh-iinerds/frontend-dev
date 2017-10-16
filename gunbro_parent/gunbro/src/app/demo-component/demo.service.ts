@@ -301,7 +301,9 @@ export class DemoService {
 
       return Observable.create(observer => {
     	let headers = new Headers({'Content-Type': 'application/json', 'Authorization': jwt });
-	    let options = new RequestOptions({ headers: headers });
+		let options = new RequestOptions({ headers: headers });
+		alert("product info"+ JSON.stringify(this.productInfo));
+		console.log("product info"+ this.productInfo);
 	   	let req_body = {
 			"Quantity": orderInfo.Quandity?orderInfo.Quandity:"",
 			"ShippingMethod": orderInfo.ShippingMethod?orderInfo.ShippingMethod:"",
@@ -325,6 +327,8 @@ export class DemoService {
 			"BuyerID": "1",
 			"Phone": orderInfo.Phone?orderInfo.Phone:"",
 			"SellerID": "3",
+			"distributor_name" : this.productInfo && this.productInfo.distributor_name ? this.productInfo.distributor_name : "",
+			"product_name" : this.productInfo && this.productInfo.product_name ? this.productInfo.product_name : "",			
 			"action": "processNewOrder",
 
 		};
@@ -351,13 +355,13 @@ export class DemoService {
                 observer.complete();
 	            }
 	            else {
-                alert(this.results.status);
+                //alert(this.results.status);
 	            }
 	            // alert(this.results.status);
 	            console.log(this.results);
             }
             else{
-              alert("Result is empty");
+              //alert("Result is empty");
             }
 	        }, error => {
 	        	this.loading = false;
@@ -383,7 +387,7 @@ export class DemoService {
       .post(url, req_body, options)
       .subscribe(data => {
         this.resultsdb = data.json();
-        alert(JSON.stringify(this.resultsdb));
+        //alert(JSON.stringify(this.resultsdb));
         observer.next(this.resultsdb);
         observer.complete();
       }, error => {
@@ -406,7 +410,7 @@ export class DemoService {
         .post(url, body_csv, options)
         .subscribe(csvdata => {
           this.loading = false;
-          alert(csvdata);
+          //alert(csvdata);
           observer.next(csvdata);
           observer.complete();
           //alert( "asddasdasdas " + JSON.stringify(data));

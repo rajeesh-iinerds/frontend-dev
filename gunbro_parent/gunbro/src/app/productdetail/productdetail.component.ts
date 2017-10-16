@@ -95,8 +95,7 @@ results: any;
         if(resp.order.distributor_id == 1) resp.order.distributor_name = 'ellet';
         var orderId = resp.order.orderId
          this.demoService.updateRecordinDB(orderId,"order_id").subscribe((csvresponse) => {
-          alert("dunamodb updated with order status");
-          console.log(csvresponse);
+          console.log("updated db" + csvresponse);
         }, (err) => {
           console.log(err);
         });
@@ -105,8 +104,7 @@ results: any;
         "response" : resp && resp.order ? resp.order :''
       }
        this.demoService.csvfileUpload(body_csv).subscribe((csvresponse) => {
-        alert("CSV Upload Complete");
-        console.log(csvresponse);
+        console.log( "CSV upload completed" + csvresponse );
       }, (err) => {
         console.log(err);
       });
