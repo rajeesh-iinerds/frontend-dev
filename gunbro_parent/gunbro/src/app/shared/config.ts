@@ -17,6 +17,6 @@ export const appcohesionURL = {
 };
 
 export const statusCode = {
-	"success_code": "2000",
+	"success_code": "200",
 	"empty_code": "2003"
 };
