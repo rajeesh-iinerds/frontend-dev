@@ -27,8 +27,8 @@
                       <th>Customer</th>
                       <th>Date</th>
                       <th>Total</th>
-                      <th><!--Status--></th>
-                      <th><!--View--></th>
+                      <th>Status</th>
+                      <th>View</th>
                   </tr>
               </thead>
               <tbody>
@@ -37,8 +37,8 @@
                       <td>{{order.Product}}</td>
                       <td>{{order.Distributor}}</td>
                       <td>{{order.ConsumerName}}</td>
-                      <td>09-09-2017</td>
-                      <td>{{order.CustomerPrice}}</td>
+                      <td>{{order.OrderPlacedDate | date: 'dd/MM/yyyy'}}</td>
+                      <td>{{order.CustomerPrice | currency:'USD':true}}</td>
                       <td class="ac-stat-ordered">{{order.order_status}}</td>
                       <td><a class="ac-button-outlined" (click)="viewOrderDetails(order.OrderID)">VIEW</a></td>
                   </tr>
@@ -51,7 +51,7 @@
 </div>
 
  <!-- Quick Access Bar Start -->
- <div class="ac-quick-access-wrap">
+ <!-- <div class="ac-quick-access-wrap">
   <a href="javascript:void(0);" class="ac-quick-access-togglr"><i class="glyphicon glyphicon-th-large flip"></i><i class="glyphicon glyphicon-th-list flop" style="display:none;"></i></a>
   <ul class="ac-quick-access-buttons">
     <li><a href="javascript:void(0);" class="ac-qacc-item1"><i style="display: none;">Menu Name1</i></a></li>
@@ -61,7 +61,7 @@
     <li><a href="javascript:void(0);" class="ac-qacc-item5"><i style="display: none;">Menu Name5</i></a></li>
     <li><a href="javascript:void(0);" class="ac-qacc-item6"><i style="display: none;">Menu Name6</i></a></li>
   </ul>
-</div>
+</div> -->
 <!-- Quick Access Bar End -->
 
 
@@ -71,9 +71,9 @@
       <h4>Order Details</h4>
   </span>
   <div class="clearfix"></div>
-  <div class="inprogress_field">
+  <!-- <div class="inprogress_field">
       <span class="order-inprogress-Btn">In-Progress</span>
-  </div>
+  </div> -->
   <div class="ac-order-details">
       <span>
           <p>Order #</p>
@@ -81,11 +81,11 @@
       </span>
       <span>
           <p>Order Total</p>
-          <h5 *ngIf="showOrderDetails == true">{{selectedOrder.CustomerPrice}}</h5>
+          <h5 *ngIf="showOrderDetails == true">{{selectedOrder.CustomerPrice | currency:'USD':true}}</h5>
       </span>
       <span>
           <p>Ordered on</p>
-          <h5>10/10/2017</h5>
+          <h5 *ngIf="showOrderDetails == true">{{selectedOrder.OrderPlacedDate | date: 'dd/MM/yyyy'}}</h5>
       </span>
       <span>
           <p>Estimated Arrival</p>
@@ -98,7 +98,7 @@
       </span>
       <div class="col-md-3 ac-productimg-field">
           <div class="productInfo-img-viewer">
-              <img src="demo-assets/gun1.png">
+              <img src="assets/demo-assets/gun1.png">
           </div>
       </div>
       <div class="col-md-9 productinfo-field">
@@ -144,18 +144,19 @@
   </span>
   <div class="col-md-2 ac-productimg-field ac-shippinginfo-logo">
       <div class="shippingInfo-img-viewer">
-          <img src="demo-assets/logo_fedex.jpg">
+          <img src="assets/demo-assets/logo_fedex.jpg">
       </div>
   </div>
   <div class="col-md-10">
       <div class="productinfo-field">
            <span>
               <p>Tracking #</p>
-              <h5>2503/2017</h5>
+              <h5 *ngIf="showOrderDetails == true">{{selectedOrder.tracking}}</h5>
           </span>
           <span>
               <p>Status</p>
-              <h5 *ngIf="showOrderDetails == true">{{selectedOrder.order_status}}</h5>
+              <!-- <h5 *ngIf="showOrderDetails == true">{{selectedOrder.order_status}}</h5> -->
+              <h5 *ngIf="showOrderDetails == true && selectedOrder.service"> Processed with {{selectedOrder.service}}</h5>
           </span>
       </div>
   </div>

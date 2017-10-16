@@ -66,14 +66,17 @@ export class OrdersComponent implements OnInit {
      this.selectedOrder = {};
     for(var i = 0; i < this.orderDetails.length; i++){
         if(this.orderDetails[i].OrderID == $event){
-            this.selectedOrder.OrderID = this.orderDetails[i].OrderID;
-            this.selectedOrder.CustomerPrice = this.orderDetails[i].CustomerPrice;
-            this.selectedOrder.Phone = this.orderDetails[i].Phone;
-            this.selectedOrder.FFL =  this.orderDetails[i].FFL;
-            this.selectedOrder.order_status = this.orderDetails[i].order_status;
-            this.selectedOrder.ConsumerName = this.orderDetails[i].ConsumerName;
+            this.selectedOrder.OrderID = this.orderDetails[i].OrderID ? this.orderDetails[i].OrderID:'';
+            this.selectedOrder.CustomerPrice = this.orderDetails[i].CustomerPrice ? this.orderDetails[i].CustomerPrice : '';
+            this.selectedOrder.Phone = this.orderDetails[i].Phone ? this.orderDetails[i].Phone : '';
+            this.selectedOrder.FFL =  this.orderDetails[i].FFL ? this.orderDetails[i].FFL : '';
+            this.selectedOrder.order_status = this.orderDetails[i].order_status ? this.orderDetails[i].order_status : '';
+            this.selectedOrder.ConsumerName = this.orderDetails[i].ConsumerName ? this.orderDetails[i].ConsumerName : '';
             this.selectedOrder.address = this.orderDetails[i].ShipToCity + ',' + this.orderDetails[i].ShipToState + ',' + this.orderDetails[i].ShipToPostalCode;
-            this.selectedOrder.Quantity = this.orderDetails[i].Quandity;
+            this.selectedOrder.Quantity = this.orderDetails[i].Quandity ? this.orderDetails[i].Quandity : 0;
+            this.selectedOrder.OrderPlacedDate = this.orderDetails[i].OrderPlacedDate ? this.orderDetails[i].OrderPlacedDate : '';
+            this.selectedOrder.tracking = this.orderDetails[i].tracking ? this.orderDetails[i].tracking : '';
+            this.selectedOrder.service = this.orderDetails[i].service ? this.orderDetails[i].service : '';
         }
      }
    }
