@@ -33,13 +33,13 @@
               </thead>
               <tbody>
                   <tr *ngFor = "let order of orderDetails">
-                      <td>{{order.OrderID}}</td>
-                      <td>{{order.Product}}</td>
-                      <td>{{order.Distributor}}</td>
-                      <td>{{order.ConsumerName}}</td>
-                      <td>{{order.OrderPlacedDate | date: 'dd/MM/yyyy'}}</td>
-                      <td>{{order.CustomerPrice | currency:'USD':true}}</td>
-                      <td class="ac-stat-ordered">{{order.order_status}}</td>
+                      <td>{{ order.OrderID ? order.OrderID : ''}}</td>
+                      <td>{{order.ProductName && order.ProductName!='null' ? order.ProductName : ''}}</td>
+                      <td>{{order.DistributorName && order.DistributorName!= 'null' ? order.DistributorName : ''}}</td>
+                      <td>{{order.ConsumerName ? order.ConsumerName : ''}}</td>
+                      <td>{{order.OrderPlacedDate ? (order.OrderPlacedDate | date: 'dd/MM/yyyy') : ''}}</td>
+                      <td>{{order.CustomerPrice ? (order.CustomerPrice | currency:'USD':true) : ''}}</td>
+                      <td class="ac-stat-ordered">{{order.order_status ? order.order_status : ''}}</td>
                       <td><a class="ac-button-outlined" (click)="viewOrderDetails(order.OrderID)">VIEW</a></td>
                   </tr>
               </tbody>
@@ -89,7 +89,7 @@
       </span>
       <span>
           <p>Estimated Arrival</p>
-          <h5>Oct 15,2017</h5>
+          <h5 *ngIf="showOrderDetails == true">{{selectedOrder.arrival | date: 'dd/MM/yyyy'}}</h5>
       </span>
   </div>
   <div class="product-information-wrapper">
@@ -102,10 +102,11 @@
           </div>
       </div>
       <div class="col-md-9 productinfo-field">
-           <h3>American Classic 1911 Amigo 45 ACP 3.5" 7+1Rds</h3>
+           <!-- <h3>American Classic 1911 Amigo 45 ACP 3.5" 7+1Rds</h3> -->
+           <h3 *ngIf="showOrderDetails == true">{{selectedOrder.ProductName}}</h3>
            <span>
               <p>MSRP</p>
-              <h5>$399.00</h5>
+              <h5 *ngIf="showOrderDetails == true">{{selectedOrder.msrp}}</h5>
           </span>
           <span>
               <p>Qty</p>
@@ -114,11 +115,11 @@
           <div class="clearfix"></div>
           <span>
               <p>Manufacturer</p>
-              <h5>American Classic</h5>
+              <h5 *ngIf="showOrderDetails == true">{{selectedOrder.manufacturer}}</h5>
           </span>
           <span>
               <p>Manufacturer Part Number</p>
-              <h5>ACA45B</h5>
+              <h5 *ngIf="showOrderDetails == true">{{selectedOrder.part}}</h5>
           </span>
       </div>
   </div>
@@ -132,7 +133,7 @@
       </span>
       <span style="width: 25%;">
           <p>Email</p>
-          <h5>Jjoseph@yahoo.com</h5>
+          <h5 *ngIf="showOrderDetails == true">{{selectedOrder.email}}</h5>
       </span>
       <span style="width: 25%;">
           <p>Phone</p>

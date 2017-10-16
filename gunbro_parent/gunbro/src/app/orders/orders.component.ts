@@ -77,6 +77,13 @@ export class OrdersComponent implements OnInit {
             this.selectedOrder.OrderPlacedDate = this.orderDetails[i].OrderPlacedDate ? this.orderDetails[i].OrderPlacedDate : '';
             this.selectedOrder.tracking = this.orderDetails[i].tracking ? this.orderDetails[i].tracking : '';
             this.selectedOrder.service = this.orderDetails[i].service ? this.orderDetails[i].service : '';
+
+            this.selectedOrder.arrival = this.orderDetails[i].arrival ? this.orderDetails[i].arrival : '';
+            this.selectedOrder.ProductName = this.orderDetails[i].ProductName && this.orderDetails[i].ProductName!='null' ? this.orderDetails[i].ProductName : '';
+            this.selectedOrder.msrp = this.orderDetails[i].msrp ? this.orderDetails[i].msrp : '';
+            this.selectedOrder.manufacturer = this.orderDetails[i].manufacturer ? this.orderDetails[i].manufacturer : '';
+            this.selectedOrder.part = this.orderDetails[i].part ? this.orderDetails[i].part : '';
+            this.selectedOrder.email = this.orderDetails[i].email ? this.orderDetails[i].email : '';
         }
      }
    }
