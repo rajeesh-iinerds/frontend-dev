@@ -328,7 +328,7 @@ export class DemoService {
 			"Phone": orderInfo.Phone?orderInfo.Phone:"",
 			"SellerID": "3",
 			"distributor_name" : this.productInfo && this.productInfo.distributor_name ? this.productInfo.distributor_name : "",
-			"product_Name" : this.productInfo && this.productInfo.product_Name ? this.productInfo.product_Name : "",			
+			"product_name" : this.productInfo && this.productInfo.product_Name ? this.productInfo.product_Name : "",			
 			// "manufacturer_partnumber" : this.productInfo && this.productInfo.mpn ? this.productInfo.mpn : "",
 			// "manufacturer" : this.productInfo && this.productInfo.manufacturerName ? this.productInfo.manufacturerName : "",
 			"action": "processNewOrder",
