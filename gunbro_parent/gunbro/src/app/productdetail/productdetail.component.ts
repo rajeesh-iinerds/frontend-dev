@@ -90,10 +90,10 @@ results: any;
     return this.demoService.confirmOrderfromService(this.orderInfo, jwt).subscribe((resp) => {
       this.demoService.loading = false;
       console.log(resp);
-      if(resp && resp.order && resp.order.orderId) {
-        if(resp.order.distributor_id == 3) resp.order.distributor_name = 'ss';
-        if(resp.order.distributor_id == 1) resp.order.distributor_name = 'ellet';
-        var orderId = resp.order.orderId
+      if(resp && resp.data[0] && resp.data[0].orderId) {
+        if(resp.data[0].distributor_id == 3) resp.data[0].distributor_name = 'ss';
+        if(resp.data[0].distributor_id == 1) resp.data[0].distributor_name = 'ellet';
+        var orderId = resp.data[0].orderId
          this.demoService.updateRecordinDB(orderId,"order_id").subscribe((csvresponse) => {
           console.log("updated db" + csvresponse);
         }, (err) => {
@@ -101,7 +101,7 @@ results: any;
         });
       }
       var body_csv = {
-        "response" : resp && resp.order ? resp.order :''
+        "response" : resp && resp.data[0] ? resp.data[0] :''
       }
        this.demoService.csvfileUpload(body_csv).subscribe((csvresponse) => {
         console.log( "CSV upload completed" + csvresponse );

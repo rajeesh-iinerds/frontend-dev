@@ -45,7 +45,7 @@ export class OrdersComponent implements OnInit {
                     this.demoService.loading = false;
                       this.results = data.json();
                       if(this.results && this.results.statusCode){
-                          if (this.results.statusCode == constant.statusCode.success_code) {
+                          if (this.results.statusCode == 2000) {
                           this.orderDetails = this.results.data;
                           } else if (this.results.statusCode == constant.statusCode.empty_code) {
                           this.orderDetails = [];

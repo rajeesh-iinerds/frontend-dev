@@ -328,7 +328,9 @@ export class DemoService {
 			"Phone": orderInfo.Phone?orderInfo.Phone:"",
 			"SellerID": "3",
 			"distributor_name" : this.productInfo && this.productInfo.distributor_name ? this.productInfo.distributor_name : "",
-			"product_name" : this.productInfo && this.productInfo.product_name ? this.productInfo.product_name : "",			
+			"product_Name" : this.productInfo && this.productInfo.product_Name ? this.productInfo.product_Name : "",			
+			"manufacturer_partnumber" : this.productInfo && this.productInfo.mpn ? this.productInfo.mpn : "",
+			"manufacturer" : this.productInfo && this.productInfo.manufacturerName ? this.productInfo.manufacturerName : "",
 			"action": "processNewOrder",
 
 		};
@@ -346,8 +348,8 @@ export class DemoService {
 
 
            // alert("sdadasdasdasdasd" +  JSON.stringify(this.results));
-	            if(this.results.status.code == 2000) {
-	            	this.orderId = this.results.order.orderId;
+	            if(this.results.status.code == constant.statusCode.success_code) {
+	            	this.orderId = this.results.data[0].orderId;
 	            	this.showclickorder = false;
 	            	this.showPopup = !this.showPopup;
                 console.log(JSON.stringify(this.results));
