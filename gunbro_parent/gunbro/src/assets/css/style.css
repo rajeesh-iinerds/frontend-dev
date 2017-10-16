@@ -1760,7 +1760,7 @@ transition: .5s ease-in-out all;
 
 /*order list drawer starts*/
 .order-list-drawer {
-  width: 600px;
+  width: 550px;
   padding: 5px 20px;
 }
 span.ac-order-drawer-head {
