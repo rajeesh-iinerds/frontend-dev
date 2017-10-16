@@ -12,7 +12,6 @@ import { EmployeeComponent } from './employee/employee.component';
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdSidenavModule } from '@angular/material';
 import { ProductSearchComponent } from './product-search/product-search.component';
 import { AuthGuard } from './dashboard-component/auth.guard';
 import { ProductdetailComponent } from './productdetail/productdetail.component';
@@ -71,7 +70,6 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpModule,
     BrowserAnimationsModule,
-    MdSidenavModule,
     FormsModule,
     RouterModule.forRoot(
       appRoutes,
