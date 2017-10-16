@@ -329,8 +329,8 @@ export class DemoService {
 			"SellerID": "3",
 			"distributor_name" : this.productInfo && this.productInfo.distributor_name ? this.productInfo.distributor_name : "",
 			"product_Name" : this.productInfo && this.productInfo.product_Name ? this.productInfo.product_Name : "",			
-			"manufacturer_partnumber" : this.productInfo && this.productInfo.mpn ? this.productInfo.mpn : "",
-			"manufacturer" : this.productInfo && this.productInfo.manufacturerName ? this.productInfo.manufacturerName : "",
+			// "manufacturer_partnumber" : this.productInfo && this.productInfo.mpn ? this.productInfo.mpn : "",
+			// "manufacturer" : this.productInfo && this.productInfo.manufacturerName ? this.productInfo.manufacturerName : "",
 			"action": "processNewOrder",
 
 		};
