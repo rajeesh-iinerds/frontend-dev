@@ -69,7 +69,7 @@ export class OrdersComponent implements OnInit {
             console.log("order details array : " + JSON.stringify(this.orderDetails[i]));
             this.selectedOrder.OrderID = this.orderDetails[i].OrderID ? this.orderDetails[i].OrderID:'';
             this.selectedOrder.CustomerPrice = this.orderDetails[i].CustomerPrice ? this.orderDetails[i].CustomerPrice : '';
-            this.selectedOrder.manufacturer_partnumber = this.orderDetails[i].manufacturer_partnumber ? this.orderDetails[i].manufacturer_partnumber : '';
+            this.selectedOrder.manufacturer_partnumber = this.orderDetails[i].manufacturer_partnumber && this.orderDetails[i].manufacturer_partnumber !='null'? this.orderDetails[i].manufacturer_partnumber : '';
             this.selectedOrder.Phone = this.orderDetails[i].Phone ? this.orderDetails[i].Phone : '';
             this.selectedOrder.FFL =  this.orderDetails[i].FFL ? this.orderDetails[i].FFL : '';
             this.selectedOrder.order_status = this.orderDetails[i].order_status ? this.orderDetails[i].order_status : '';
@@ -82,10 +82,10 @@ export class OrdersComponent implements OnInit {
             console.log("selected service : " + this.selectedOrder.service);
             this.selectedOrder.arrival = this.orderDetails[i].arrival ? this.orderDetails[i].arrival : '';
             this.selectedOrder.ProductName = this.orderDetails[i].ProductName && this.orderDetails[i].ProductName !='null' ? this.orderDetails[i].ProductName : '';
-            this.selectedOrder.msrp = this.orderDetails[i].msrp ? this.orderDetails[i].msrp : '';
-            this.selectedOrder.manufacturer = this.orderDetails[i].manufacturer ? this.orderDetails[i].manufacturer : '';
-            this.selectedOrder.part = this.orderDetails[i].part ? this.orderDetails[i].part : '';
-            this.selectedOrder.email = this.orderDetails[i].Email ? this.orderDetails[i].Email : '';
+            this.selectedOrder.msrp = this.orderDetails[i].msrp && this.orderDetails[i].msrp !='null' ? this.orderDetails[i].msrp : '';
+            this.selectedOrder.manufacturer = this.orderDetails[i].manufacturer && this.orderDetails[i].manufacturer !='null' ? this.orderDetails[i].manufacturer : '';
+            //this.selectedOrder.part = this.orderDetails[i].part ? this.orderDetails[i].part : '';
+            this.selectedOrder.email = this.orderDetails[i].Email && this.orderDetails[i].Email !='null' ? this.orderDetails[i].Email : '';
             this.selectedOrder.SS_order = this.orderDetails[i].SS_OrderNumber ? this.orderDetails[i].SS_OrderNumber : '';
         }
      }
