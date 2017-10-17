@@ -330,13 +330,13 @@ export class DemoService {
 			"BuyerID": "1",
 			"Phone": orderInfo.Phone?orderInfo.Phone:"",
 			"SellerID": "3",
-			"distributor_name" : this.productInfo && this.productInfo.distributor_name ? this.productInfo.distributor_name : "",
-			"product_name" : this.productInfo && this.productInfo.product_Name ? this.productInfo.product_Name : "",			
+			"distributor_name" : this.productInfo && this.productInfo.distributor_name ? JSON.stringify(this.productInfo.distributor_name) : "",
+			"product_name" : this.productInfo && this.productInfo.product_Name ? JSON.stringify(this.productInfo.product_Name) : "",			
 			"manufacturer_partnumber" : this.productInfo && this.productInfo.mpn ? this.productInfo.mpn : "",
-			"manufacturer" : this.productInfo && this.productInfo.manufacturerName ? this.productInfo.manufacturerName : "",
+			"manufacturer" : this.productInfo && this.productInfo.manufacturerName ? JSON.stringify(this.productInfo.manufacturerName) : "",
 			"msrp" : this.productInfo && this.productInfo.productPrice ? this.productInfo.productPrice : "",
 			"email" : orderInfo.Email ? orderInfo.Email : "",
-			"delivery_instructions" : orderInfo.delivery_instructions ? orderInfo.delivery_instructions : "NULL",
+			"delivery_instructions" : orderInfo.delivery_instructions ? JSON.stringify(orderInfo.delivery_instructions) : "NULL",
 			"action": "processNewOrder",
 
 		};
@@ -347,7 +347,8 @@ export class DemoService {
 	    this.http
 	        .post(url, req_body, options)
 	        .subscribe(data => {
-	        	this.loading = false;
+				this.loading = false;
+				alert(JSON.stringify(data));
 	            this.results = data ? data.json():'';
 
             if(this.results){
