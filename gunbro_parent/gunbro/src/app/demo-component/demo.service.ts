@@ -305,7 +305,7 @@ export class DemoService {
       return Observable.create(observer => {
     	let headers = new Headers({'Content-Type': 'application/json', 'Authorization': jwt });
 		let options = new RequestOptions({ headers: headers });
-		alert("product info"+ JSON.stringify(this.productInfo));
+		//alert("product info"+ JSON.stringify(this.productInfo));
 		console.log("product info"+ this.productInfo);
 	   	let req_body = {
 			"Quantity": orderInfo.Quandity?orderInfo.Quandity:"",
@@ -348,7 +348,7 @@ export class DemoService {
 	        .post(url, req_body, options)
 	        .subscribe(data => {
 				this.loading = false;
-				alert(JSON.stringify(data));
+				//alert(JSON.stringify(data));
 	            this.results = data ? data.json():'';
 
             if(this.results){
