@@ -23,7 +23,8 @@ export class DemoService {
 	productsearch_type ? :any;
 	body: Object = {};
 	usersList :any;
-  resultsdb :any;
+  	resultsdb :any;
+  	product_manufacturerId: any;
 
 	loading :boolean = false;
   	subMenuToggle : boolean = false;
@@ -258,20 +259,22 @@ export class DemoService {
 		return new CognitoUser(userData);
 	};
 
-	productSearchfromService(request_productsearch_type, request_productsearch_name, jwt) {
+	productSearchfromService(request_productsearch_type, request_productsearch_name, jwt, request_manufacturerId) {
 		this.body= {};
 		this.results = '';
 		this.globalresultForLoop = '';
 		var data = '';
 		this.productsearch_name = request_productsearch_name ? request_productsearch_name : "";
 		this.productsearch_type = request_productsearch_type ? request_productsearch_type : "";
+		// this.product_manufacturerId = request_manufacturerId ? request_manufacturerId : "";
         let headers = new Headers({ 'Authorization': jwt});
         let options = new RequestOptions({ headers: headers });
         // var reqBody = {this.productsearch_type : this.productsearch_name};
         this.body[this.productsearch_type] = this.productsearch_name;
+        if(request_manufacturerId) {
+        	this.body['manufacturerID'] = request_manufacturerId ? request_manufacturerId : "";
+        }
         var reqBody = this.body;
-
-        // const url = 'https://api.appcohesion.io/searchProduct';
         const url = constant.appcohesionURL.productSearch_URL;
         this.http
             .post(url, reqBody, options)
@@ -333,7 +336,7 @@ export class DemoService {
 			"manufacturer" : this.productInfo && this.productInfo.manufacturerName ? this.productInfo.manufacturerName : "",
 			"msrp" : this.productInfo && this.productInfo.productPrice ? this.productInfo.productPrice : "",
 			"email" : orderInfo.Email ? orderInfo.Email : "",
-			"delivery_instructions" : orderInfo.delivery_instructions ? orderInfo.delivery_instructions : "",
+			"delivery_instructions" : orderInfo.delivery_instructions ? orderInfo.delivery_instructions : "NULL",
 			"action": "processNewOrder",
 
 		};

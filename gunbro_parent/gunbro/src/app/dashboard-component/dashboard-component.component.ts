@@ -32,16 +32,16 @@ export class DashboardComponentComponent implements OnInit {
   searchMFG: string;
   manufacturers = [
     {"name":'Select Manufacturer', key:''},
-    {"name":'Ruger', key:'1'},
-    {"name":'Sig Sauer', key:'2'},
-    {"name":'Browning', key:'3'},
-    {"name":'Colt', key:'4'},
-    {"name":'Springfield', key:'5'},
-    {"name":'Blackhawk', key:'6'},
-    {"name":'Remington', key:'7'},
-    {"name":'Glock', key:'8'},
-    {"name":'Mossberg', key:'9'},
-    {"name":'Savage Arms', key:'10'}
+    {"name":'Ruger', key:'8'},
+    {"name":'Sig Sauer', key:'3'},
+    {"name":'Browning', key:'7'},
+    {"name":'Colt', key:'150'},
+    {"name":'Springfield', key:'58'},
+    {"name":'Blackhawk', key:'21'},
+    {"name":'Remington', key:'40'},
+    {"name":'Glock', key:'61'},
+    {"name":'Mossberg', key:'157'},
+    {"name":'Savage Arms', key:'128'}
   ];
   selectManufacturer =  this.manufacturers[0].key;
   searchKey: string;
@@ -49,6 +49,7 @@ export class DashboardComponentComponent implements OnInit {
   disableSearch: boolean = false;
   userName: string;
   userGroup: string;
+  manufacturerId: any;
   
   constructor(private route: ActivatedRoute,private router: Router, public demoService: DemoService,private http:Http) {
     this.hideMFGSearch = true;
@@ -78,11 +79,13 @@ export class DashboardComponentComponent implements OnInit {
 
     getToken () {
       // let searchKey = '';
+      this.manufacturerId = '';
       if(this.searchType == 'gsin') {
         this.searchKey = this.searchGSIN;
       }
       if(this.searchType == 'mpn') {
         this.searchKey = this.searchMFG;
+        this.manufacturerId = this.selectManufacturer;
       }
 
       // if(this.searchType == "") {
@@ -96,7 +99,7 @@ export class DashboardComponentComponent implements OnInit {
         return this.demoService.getSessionToken().subscribe((response) => {
             if(response.getIdToken().getJwtToken()) {
                 const jwt = response.getIdToken().getJwtToken();
-                this.demoService.productSearchfromService(this.searchType, this.searchKey, jwt);
+                this.demoService.productSearchfromService(this.searchType, this.searchKey, jwt, this.manufacturerId);
             }
         }, (err) => {
           console.log(err);
