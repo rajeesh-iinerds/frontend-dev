@@ -32,7 +32,16 @@ export class DashboardComponentComponent implements OnInit {
   searchMFG: string;
   manufacturers = [
     {"name":'Select Manufacturer', key:''},
-    {"name":'ABA - AMERICAN BUILT ARMS COMPANY', key:'1'}
+    {"name":'Ruger', key:'1'},
+    {"name":'Sig Sauer', key:'2'},
+    {"name":'Browning', key:'3'},
+    {"name":'Colt', key:'4'},
+    {"name":'Springfield', key:'5'},
+    {"name":'Blackhawk', key:'6'},
+    {"name":'Remington', key:'7'},
+    {"name":'Glock', key:'8'},
+    {"name":'Mossberg', key:'9'},
+    {"name":'Savage Arms', key:'10'}
   ];
   selectManufacturer =  this.manufacturers[0].key;
   searchKey: string;
