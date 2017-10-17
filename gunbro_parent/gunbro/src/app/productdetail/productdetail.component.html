@@ -193,7 +193,7 @@
       </span>
       <div class="clearfix"></div>
       <form class="ac-create-employee-body" #shippingForm="ngForm" >
-        <div class="form-group">
+        <div class="form-group" style="width:48%;">
           <label for="name">FIRST NAME</label>
           <input type="text" class="form-control" name = "name" placeholder="Enter your first name" id="name" [(ngModel)]="firstName" maxlength="30" pattern="[a-zA-Z][a-zA-Z ]+" required #name="ngModel">
           <!-- <input type="text" class="form-control" id="name" required pattern="[a-zA-Z][a-zA-Z ]+" [(ngModel)]="firstName" name="firstName" #name="ngModel"> -->
@@ -231,7 +231,7 @@
 
 
 
-        <div class="form-group" style="width:48%;">
+        <div class="form-group pull-right" style="width:48%;">
           <label for="usr_lastname">LAST NAME</label>
           <input type="text" class="form-control" placeholder="Enter your last name" id="usr_lastname" [(ngModel)]="lastName" name="usr_lastname" pattern="[a-zA-Z][a-zA-Z ]+" required minlength="1" maxlength="10" #usr_lastname="ngModel">
           <div *ngIf= "usr_lastname.errors && (usr_lastname.dirty || usr_lastname.touched)" class="ac-required-field">
@@ -247,7 +247,7 @@
           </div>
         </div>
 
-        <div class="form-group pull-right" style="width:48%;">
+        <div class="form-group pull-right">
           <label for="phone_number">PHONE</label>
           <input type="text" class="form-control" placeholder="Enter your phone#" id="phone_number" [(ngModel)]="phone" name="phone_number" required pattern="[0-9]*" minlength="1" maxlength="10" #phone_number="ngModel">
 
@@ -305,6 +305,12 @@
           <label for="usr_state">STATE</label>
           <input type="text" class="form-control" placeholder="Enter your state" id="usr_state" [(ngModel)]="state" name="state" required>
         </div>
+
+        <div class="form-group">
+          <label for="usr_address">DELIVERY INSTRUCTIONS</label>
+          <input type="text" class="form-control">
+        </div>
+        
         <span class="ac-create-employee-foot">
           <button type="submit" class="btn btn-default custom-button" [disabled]="!shippingForm.form.valid" (click) = "getToken(shippingForm)">CONFIRM ORDER</button>
 
