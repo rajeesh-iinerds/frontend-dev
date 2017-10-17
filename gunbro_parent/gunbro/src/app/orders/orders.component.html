@@ -34,8 +34,8 @@
               <tbody>
                   <tr *ngFor = "let order of orderDetails">
                       <td>{{ order.OrderID ? order.OrderID : ''}}</td>
-                      <td>{{order.ProductName && order.ProductName!='null' ? order.ProductName : ''}}</td>
-                      <td>{{order.DistributorName && order.DistributorName!= 'null' ? order.DistributorName : ''}}</td>
+                      <td>{{order.ProductName && order.ProductName != 'null' ? order.ProductName : ''}}</td>
+                      <td>{{order.DistributorName && order.DistributorName != 'null' ? order.DistributorName : ''}}</td>
                       <td>{{order.ConsumerName ? order.ConsumerName : ''}}</td>
                       <td>{{order.OrderPlacedDate ? (order.OrderPlacedDate | date: 'dd/MM/yyyy') : ''}}</td>
                       <td>{{order.CustomerPrice ? (order.CustomerPrice | currency:'USD':true) : ''}}</td>
@@ -119,7 +119,7 @@
           </span>
           <span>
               <p>Manufacturer Part Number</p>
-              <h5 *ngIf="showOrderDetails == true">{{selectedOrder.part}}</h5>
+              <h5 *ngIf="showOrderDetails == true">{{selectedOrder.manufacturer_partnumber}}</h5>
           </span>
       </div>
   </div>
