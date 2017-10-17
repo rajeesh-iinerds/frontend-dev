@@ -333,6 +333,7 @@ export class DemoService {
 			"manufacturer" : this.productInfo && this.productInfo.manufacturerName ? this.productInfo.manufacturerName : "",
 			"msrp" : this.productInfo && this.productInfo.productPrice ? this.productInfo.productPrice : "",
 			"email" : orderInfo.Email ? orderInfo.Email : "",
+			"delivery_instructions" : orderInfo.delivery_instructions ? orderInfo.delivery_instructions : "",
 			"action": "processNewOrder",
 
 		};

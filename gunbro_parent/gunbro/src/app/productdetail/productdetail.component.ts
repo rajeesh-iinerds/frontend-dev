@@ -34,6 +34,7 @@ results: any;
 	amount: number;
 	temp : number;
 	orderInfo : any;
+	delivery: string;
 	model: Object = {};
 
   	constructor(public searchComponent: ProductSearchComponent, public demoService: DemoService, private http:Http) {
@@ -84,7 +85,8 @@ results: any;
 			"ShipToPostalCode": this.zipcode ? this.zipcode : "",
 			"ShipToState": this.state ? this.state : "",
 			"Phone": this.phone ? this.phone : "",
-			"Email": this.email ? this.email : ""
+			"Email": this.email ? this.email : "",
+			"delivery_instructions": this.delivery ? this.delivery : ""
 		};
 		//this.demoService.confirmOrderfromService(this.orderInfo, jwt);
 

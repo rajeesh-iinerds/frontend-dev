@@ -307,10 +307,10 @@
         </div>
 
         <div class="form-group">
-          <label for="usr_address">DELIVERY INSTRUCTIONS</label>
-          <input type="text" class="form-control">
+          <label for="delivery_inst">DELIVERY INSTRUCTIONS</label>
+          <input type="text" class="form-control" id="delivery_inst" [(ngModel)]="delivery" name="delivery">
         </div>
-        
+
         <span class="ac-create-employee-foot">
           <button type="submit" class="btn btn-default custom-button" [disabled]="!shippingForm.form.valid" (click) = "getToken(shippingForm)">CONFIRM ORDER</button>
 
