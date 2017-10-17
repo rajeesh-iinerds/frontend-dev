@@ -329,8 +329,10 @@ export class DemoService {
 			"SellerID": "3",
 			"distributor_name" : this.productInfo && this.productInfo.distributor_name ? this.productInfo.distributor_name : "",
 			"product_name" : this.productInfo && this.productInfo.product_Name ? this.productInfo.product_Name : "",			
-			// "manufacturer_partnumber" : this.productInfo && this.productInfo.mpn ? this.productInfo.mpn : "",
-			// "manufacturer" : this.productInfo && this.productInfo.manufacturerName ? this.productInfo.manufacturerName : "",
+			"manufacturer_partnumber" : this.productInfo && this.productInfo.mpn ? this.productInfo.mpn : "",
+			"manufacturer" : this.productInfo && this.productInfo.manufacturerName ? this.productInfo.manufacturerName : "",
+			"msrp" : this.productInfo && this.productInfo.productPrice ? this.productInfo.productPrice : "",
+			"email" : orderInfo.Email ? orderInfo.Email : "",
 			"action": "processNewOrder",
 
 		};
@@ -345,9 +347,6 @@ export class DemoService {
 	            this.results = data ? data.json():'';
 
             if(this.results){
-
-
-           // alert("sdadasdasdasdasd" +  JSON.stringify(this.results));
 	            if(this.results.status.code == constant.statusCode.success_code) {
 	            	this.orderId = this.results.data[0].orderId;
 	            	this.showclickorder = false;

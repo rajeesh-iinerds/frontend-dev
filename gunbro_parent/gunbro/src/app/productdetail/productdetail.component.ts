@@ -83,7 +83,8 @@ results: any;
 			"FFL": this.ffl ? this.ffl : "",
 			"ShipToPostalCode": this.zipcode ? this.zipcode : "",
 			"ShipToState": this.state ? this.state : "",
-			"Phone": this.phone ? this.phone : ""
+			"Phone": this.phone ? this.phone : "",
+			"Email": this.email ? this.email : ""
 		};
 		//this.demoService.confirmOrderfromService(this.orderInfo, jwt);
 

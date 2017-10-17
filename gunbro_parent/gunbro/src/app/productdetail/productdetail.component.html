@@ -52,15 +52,16 @@
             <!-- Descripion Part -->
             <div class="col-xs-12 col-sm-12 col-lg-6 ac-prod-left">
 
-                <h2 class="ac-prod-title">{{demoService.productInfo && demoService.productInfo.manufacturerName ? demoService.productInfo.manufacturerName : ''}} {{demoService.productInfo && demoService.productInfo.model ? demoService.productInfo.model : ''}}</h2>
+                <!-- <h2 class="ac-prod-title">{{demoService.productInfo && demoService.productInfo.manufacturerName ? demoService.productInfo.manufacturerName : ''}} {{demoService.productInfo && demoService.productInfo.model ? demoService.productInfo.model : ''}}</h2> -->
+                <h2>{{demoService.productInfo && demoService.productInfo.product_Name ? demoService.productInfo.product_Name : ''}}</h2>
                 <span class="ac-prod-cost">MSRP<strong><em>$</em>{{demoService.productInfo && demoService.productInfo.productPrice ? demoService.productInfo.productPrice : ''}}</strong></span>
                 <span class="ac-prod-feat">Manufacturer Part Number<br><strong>{{demoService.productInfo && demoService.productInfo.mpn ? demoService.productInfo.mpn : ''}}</strong></span>
                 <div class="ac-prod-logo-row">
                   <span class="ac-prod-feat">Manufacturer<br><strong>{{demoService.productInfo && demoService.productInfo.manufacturerName ? demoService.productInfo.manufacturerName : ''}}</strong></span>
-                  <img src="assets/demo-assets/dealer6.png">
+                  <!-- <img src="assets/demo-assets/dealer6.png"> -->
                 </div>
-                <span class="ac-prod-feat">Distributor<br><strong>United Firearms LLC.</strong></span>
-                <span class="ac-prod-feat">FFL No.<strong><br>{{ffl}}</strong> <i class="ac-tool-tip" title="Tooltip Descripion Here"></i></span>
+                <span class="ac-prod-feat">Distributor<br><strong>{{demoService.productInfo && demoService.productInfo.distributor_name ? demoService.productInfo.distributor_name : ''}}</strong></span>
+                <span class="ac-prod-feat">UPC<strong><br>{{demoService.productInfo && demoService.productInfo.upc ? demoService.productInfo.upc : ''}}</strong> <i class="ac-tool-tip" title="Tooltip Descripion Here"></i></span>
                 <span class="ac-store-location">Select a Shipping method<br>
                   <!-- <select [(ngModel)]="selectedShipping" name ="method">
                     <option [value]="1" selected="selected"> Ground (3-5 days) </option>
@@ -98,14 +99,17 @@
               <!-- Tab Header -->
               <ul class="ac-order-info-tabs">
                 <li><a href="javascript:void(0);" class="active">Product Specifications</a></li>
-                <li><a href="javascript:void(0);">Product Specifications</a></li>
+                <!-- <li><a href="javascript:void(0);">Product Specifications</a></li>
                 <li><a href="javascript:void(0);">Shipping Terms</a></li>
-                <li><a href="javascript:void(0);">Legal</a></li>
+                <li><a href="javascript:void(0);">Legal</a></li> -->
               </ul>
               <!-- Tab Body -->
               <div class="ac-order-info-tab-contents">
                   <div class="ac-order-tab-content active" style="display: none;">
-                      <p>This Rifle features the Howa 1500 black barreled action w/H.A.C.T. trigger, &amp; the AB Arms MOD X GEN III Modular Rifle<br>System w/black synthetic Urban Sniper Stock &amp; SBR P-Grip<br>Aluminum, hard coat anodized to MIL-SPEC Type III<br>0 MOA built into MIL-SPEC 1913 rail<br>11.5" free-floating modular forearm w/(3) sides of KeyMod attachment points<br>Multi-point radial cut inlet (no V-block)<br>LOP: 10.62"-15.69"<br>Integrated push button mag release located at front of trigger guard<br>Uses AICS-style mags in .308 &amp; .223/300 Blackout<br>Includes hard case &amp; cable lock<br>Wt.: 7.4 lbs.<br>Made in USA<br>Capacity: 10 rounds<br>Barrel length: 22"<br>Manufacturer Part: {{demoService.productInfo && demoService.productInfo.mpn ? demoService.productInfo.mpn : ''}}<br>SKU: {{demoService.productInfo && demoService.productInfo.sku ? demoService.productInfo.sku : ''}}<br>UPC: {{demoService.productInfo && demoService.productInfo.upc ? demoService.productInfo.upc : ''}}</p>
+                      <!-- <p>This Rifle features the Howa 1500 black barreled action w/H.A.C.T. trigger, &amp; the AB Arms MOD X GEN III Modular Rifle<br>System w/black synthetic Urban Sniper Stock &amp; SBR P-Grip<br>Aluminum, hard coat anodized to MIL-SPEC Type III<br>0 MOA built into MIL-SPEC 1913 rail<br>11.5" free-floating modular forearm w/(3) sides of KeyMod attachment points<br>Multi-point radial cut inlet (no V-block)<br>LOP: 10.62"-15.69"<br>Integrated push button mag release located at front of trigger guard<br>Uses AICS-style mags in .308 &amp; .223/300 Blackout<br>Includes hard case &amp; cable lock<br>Wt.: 7.4 lbs.<br>Made in USA<br>Capacity: 10 rounds<br>Barrel length: 22"<br>Manufacturer Part: {{demoService.productInfo && demoService.productInfo.mpn ? demoService.productInfo.mpn : ''}}<br>SKU: {{demoService.productInfo && demoService.productInfo.sku ? demoService.productInfo.sku : ''}}<br>UPC: {{demoService.productInfo && demoService.productInfo.upc ? demoService.productInfo.upc : ''}}</p> -->
+                      <p>
+                        {{demoService.productInfo && demoService.productInfo.longDescription ? demoService.productInfo.longDescription : ''}}<br>Manufacturer Part: {{demoService.productInfo && demoService.productInfo.mpn ? demoService.productInfo.mpn : ''}}<br><!-- SKU: {{demoService.productInfo && demoService.productInfo.sku ? demoService.productInfo.sku : ''}}<br> -->UPC: {{demoService.productInfo && demoService.productInfo.upc ? demoService.productInfo.upc : ''}}
+                      </p>
                   </div>
                   <div class="ac-order-tab-content" style="display: none;">
                       -Content Here-
