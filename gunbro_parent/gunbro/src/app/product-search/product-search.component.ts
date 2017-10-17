@@ -25,8 +25,8 @@ export class ProductSearchComponent implements OnInit {
   	
   	productDetail(detail) {
   		this.demoService.setProductDetails(detail);
-		this.resultssearch = detail;
-		console.log(this.resultssearch);
+		  this.resultssearch = detail;
+		  console.log(this.resultssearch);
 	  	this.router.navigate(['/dashboard/productdetail']);
   	}
 }
