@@ -124,14 +124,14 @@
   outline: none;
 }
 .ac-login-username input{
-	background-image: url("../images/login-user.png") !important;
+  background-image: url("../images/login-user.png") !important;
 }
 .ac-login-password input{
-	background-image: url("../images/login-password.png") !important;
+  background-image: url("../images/login-password.png") !important;
 }
 .ac-login-row input:-webkit-autofill{
-	-webkit-box-shadow: 0 0 0 300px #fff inset;
-	color: #FFF;
+  -webkit-box-shadow: 0 0 0 300px #fff inset;
+  color: #FFF;
 }
 .ac-login-row input::-webkit-input-placeholder {color: #8b95ad;}
 .ac-login-row input::-moz-placeholder {color: #8b95ad;}
@@ -289,6 +289,7 @@ background-image: linear-gradient(135deg, #198ed2 0%,#24b4c7 65%,#21bfab 100%);
   color: #ffffff;
   font-size: 15px;
   font-weight: 700;
+  text-align: left;
   height: 68px;
   line-height: 20px;
   min-width: 245px;
@@ -1835,7 +1836,7 @@ width: 100%;
 }
 .productinfo-field span{
 float: left;
-width: 45%;
+width: 46%;
 margin-top: 10px;
 }
 .productinfo-field span p{
@@ -2126,7 +2127,7 @@ padding: 0px;
 }
 
 @media only screen and (max-width:450px){
-	.ac-logo-bg {background-size: contain;}
+  .ac-logo-bg {background-size: contain;}
 .ac-search-wrap {
   left: 80px;
   position: absolute;
