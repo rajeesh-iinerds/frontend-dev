@@ -127,15 +127,15 @@
       <h4 style="font-size: 13px;">Customer Info</h4>
   </span>
   <div class="ac-order-details">
-      <span style="width: 25%;">
+      <span style="width: 30%;">
           <p>Name</p>
           <h5 *ngIf="showOrderDetails == true">{{selectedOrder.ConsumerName}}</h5>
       </span>
-      <span style="width: 25%;">
+      <span style="width: 30%;">
           <p>Email</p>
           <h5 *ngIf="showOrderDetails == true">{{selectedOrder.email}}</h5>
       </span>
-      <span style="width: 25%;">
+      <span style="width: 30%;">
           <p>Phone</p>
           <h5 *ngIf="showOrderDetails == true">{{selectedOrder.Phone}}</h5>
       </span>
@@ -150,11 +150,15 @@
   </div>
   <div class="col-md-10">
       <div class="productinfo-field">
-           <span>
+           <span style="width: 33%;">
               <p>Tracking #</p>
               <h5 *ngIf="showOrderDetails == true">{{selectedOrder.tracking}}</h5>
           </span>
-          <span>
+          <span style="width: 33%;">
+            <p>Distributor OrderID</p>
+            <h5 *ngIf="showOrderDetails == true">{{selectedOrder.SS_order}}</h5>
+        </span>
+          <span style="width: 33%;">
               <p>Status</p>
               <!-- <h5 *ngIf="showOrderDetails == true">{{selectedOrder.order_status}}</h5> -->
               <h5 *ngIf="showOrderDetails == true && selectedOrder.service"> Processed with {{selectedOrder.service}}</h5>
