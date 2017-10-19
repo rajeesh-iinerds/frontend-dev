@@ -25,10 +25,12 @@ export class DemoComponentComponent implements OnInit {
                   this.errorMessage = response.message;
                 }
                 else {
+                  console.log("inside success : " + JSON.stringify(response));
                   this.router.navigate(['/dashboard']);
                 }
             }, (err) => {
-                console.log(err);
+               this.demoService.loading = false;
+                console.log("error in login ",err);
             });
         }
         else if (name == "" || name == undefined) {
@@ -39,8 +41,7 @@ export class DemoComponentComponent implements OnInit {
         }
     }
     resetPassword () {
-     	console.log("reset");
+       console.log("reset");
 		this.router.navigate(['/forgot']);
     }
-
 }

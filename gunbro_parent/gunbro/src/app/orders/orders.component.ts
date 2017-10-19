@@ -17,19 +17,17 @@ export class OrdersComponent implements OnInit {
   results: any;
   selectedOrder : any;
   showOrderDetails : boolean = false;
-  check : any;
   
   constructor(public demoService: DemoService, private http: Http, private router: Router) {}
 
   ngOnInit() {
       this.listOrders().subscribe((response) => {
-              console.log("response : " + JSON.stringify(response));
           },
           (err) => console.error(err)
       );
   }
 
-  //Method for listing Order list
+  // Method for listing Order list
   listOrders(): Observable < any > {
       return Observable.create(observer => {
           return this.demoService.getSessionToken().subscribe((response) => {
@@ -40,7 +38,7 @@ export class OrdersComponent implements OnInit {
                   let req_body = {
                       "BuyerID": "1"
                   };
-                  const url = 'https://api.appcohesion.io/orderList';
+                  const url = constant.appcohesionURL.orderList_URL;
                   this.http.post(url, req_body, options).subscribe(data => {
                     this.demoService.loading = false;
                       this.results = data.json();
@@ -61,12 +59,11 @@ export class OrdersComponent implements OnInit {
       })
    }
 
-   viewOrderDetails($event: any){
+   viewOrderDetails(orderID: any){
      this.showOrderDetails = true;
      this.selectedOrder = {};
     for(var i = 0; i < this.orderDetails.length; i++){
-        if(this.orderDetails[i].OrderID == $event){
-            console.log("order details array : " + JSON.stringify(this.orderDetails[i]));
+        if(this.orderDetails[i].OrderID == orderID){
             this.selectedOrder.OrderID = this.orderDetails[i].OrderID ? this.orderDetails[i].OrderID:'';
             this.selectedOrder.CustomerPrice = this.orderDetails[i].CustomerPrice ? this.orderDetails[i].CustomerPrice : '';
             this.selectedOrder.manufacturer_partnumber = this.orderDetails[i].manufacturer_partnumber && this.orderDetails[i].manufacturer_partnumber !='null'? this.orderDetails[i].manufacturer_partnumber : '';
@@ -79,7 +76,6 @@ export class OrdersComponent implements OnInit {
             this.selectedOrder.OrderPlacedDate = this.orderDetails[i].OrderPlacedDate ? this.orderDetails[i].OrderPlacedDate : '';
             this.selectedOrder.tracking = this.orderDetails[i].tracking ? this.orderDetails[i].tracking : '';
             this.selectedOrder.service = this.orderDetails[i].service ? this.orderDetails[i].service : '';
-            console.log("selected service : " + this.selectedOrder.service);
             this.selectedOrder.arrival = this.orderDetails[i].arrival ? this.orderDetails[i].arrival : '';
             this.selectedOrder.ProductName = this.orderDetails[i].ProductName && this.orderDetails[i].ProductName !='null' ? this.orderDetails[i].ProductName : '';
             this.selectedOrder.msrp = this.orderDetails[i].msrp && this.orderDetails[i].msrp !='null' ? this.orderDetails[i].msrp : '';
@@ -92,7 +88,6 @@ export class OrdersComponent implements OnInit {
    }
 
    closeOrderList(){
-       console.log("inside close order");
     this.showOrderDetails = false;
    }
 }

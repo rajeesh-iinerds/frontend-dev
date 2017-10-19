@@ -79,7 +79,8 @@ export class DemoService {
 		    //     ClientId : '7iaf7o5ja7su88mjb8du0pqigv',
 		    // };
 		    var poolData = constant.userPoolData;
-		    var userPool = new CognitoUserPool(poolData);
+			var userPool = new CognitoUserPool(poolData);
+			
 			var authenticationData = {
 		        Username : name,
 		        Password : password
@@ -93,11 +94,12 @@ export class DemoService {
 
 		    userCognito.authenticateUser(authDetails, {
 		       	onSuccess: function (result) {
-		       		console.log(result);
+		       		console.log("result conginitive token : " , result);
 		       		this.jwt = result.getIdToken().getJwtToken();
 		       		localStorage.setItem('isLoggedIn', 'true');
 
 					const idEpxiry = result.getIdToken().getExpiration();
+					console.log("expiration id : " + idEpxiry);
 					const str =  idEpxiry + "";
 					const pad = "0000000000000";
 					// timestamp by default should have 13 digits.
@@ -152,7 +154,10 @@ export class DemoService {
 	      			observer.complete();
 		        },
 		    });
-		}, err =>{console.log("error on user",err)})
+		}, err =>{
+			//this.loading = false;
+			console.log("error on user",err)
+		})
 	};
 
 	userLogout = function() {
@@ -198,7 +203,7 @@ export class DemoService {
 	 	var poolData = constant.userPoolData;
 	    var userPool = new CognitoUserPool(poolData);
 	    var cognitoUser = userPool.getCurrentUser();
-
+		console.log("congintio user : " + cognitoUser);
 	    if (cognitoUser != null) {
 	        cognitoUser.getSession(function(err, session) {
 	        	console.log('session validity: ' + session.getIdToken().getJwtToken());
