@@ -4,9 +4,7 @@ import { Location } from '@angular/common';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx'; 
 import 'rxjs/add/operator/map';
-
 import { DemoService } from '../demo-component/demo.service';
-// import { TEST } from '../shared/config';
 import * as constant from '../shared/config';
 
 @Component({
@@ -50,6 +48,7 @@ export class DashboardComponentComponent implements OnInit {
   userName: string;
   userGroup: string;
   manufacturerId: any;
+  configUserGroup: any;
   
   constructor(private route: ActivatedRoute,private router: Router, public demoService: DemoService,private http:Http) {
     this.hideMFGSearch = true;
@@ -61,11 +60,8 @@ export class DashboardComponentComponent implements OnInit {
   
   ngOnInit() {
     this.userName = this.demoService.getCognitoUser().getUsername();
-    console.log(localStorage.getItem('userGroup'));
-    if(localStorage.getItem('userGroup') && localStorage.getItem('userGroup') != '') {
-      this.userGroup = localStorage.getItem('userGroup');
-    }
-    
+    this.userGroup = localStorage.getItem('userGroup') && localStorage.getItem('userGroup') != 'null' ? localStorage.getItem('userGroup') : '';
+    this.configUserGroup = constant.user.userGroup && constant.user.userGroup != 'null' ? constant.user.userGroup : '';
   }
 
     clickedSearch(){

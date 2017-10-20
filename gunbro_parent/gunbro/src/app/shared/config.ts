@@ -2,6 +2,9 @@
 export const TEST = {
 	"hi": "value"
 };
+export const user = {
+	"userGroup": "admin"
+};
 
 export const userPoolData = {
 	"UserPoolId" : 'us-east-1_Q3sA5af5A',

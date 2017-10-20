@@ -257,6 +257,7 @@ export class DemoService {
 		var poolData = constant.userPoolData;
 		const userPool = new CognitoUserPool(poolData);
 		this.userSession = userPool.getCurrentUser();
+
 		const userData = {
 		    Username : this.userSession.username,
 		    Pool : userPool

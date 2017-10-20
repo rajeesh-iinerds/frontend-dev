@@ -38,7 +38,7 @@ export class OrdersComponent implements OnInit {
                   let req_body = {
                       "BuyerID": "1"
                   };
-                  const url = constant.appcohesionURL.orderList_URL;
+                  const url = constant.appcohesionURL.orderList_URL && constant.appcohesionURL.orderList_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
                   this.http.post(url, req_body, options).subscribe(data => {
                     this.demoService.loading = false;
                       this.results = data.json();
