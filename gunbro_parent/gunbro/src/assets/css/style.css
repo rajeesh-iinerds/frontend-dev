@@ -242,7 +242,7 @@ background-image: linear-gradient(135deg, #198ed2 0%,#24b4c7 65%,#21bfab 100%);
   z-index: 50;
 }
 .ac-main-nav-logo {
-  background-image: url("../images/ac-logo-sm.png");
+  background-image: url("../images/fav.png");
   background-position: left center;
   background-repeat: no-repeat;
   background-size: 25px auto;
