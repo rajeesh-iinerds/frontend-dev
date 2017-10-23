@@ -15,17 +15,17 @@ import * as constant from '../shared/config';
 export class RetailersComponent implements OnInit {
   retailerDetails: any;
   RetailerDemo : boolean = true;
-  constructor(public demoService: DemoService) { }
+  constructor(public demoService: DemoService , private http: Http) { }
 
   ngOnInit() {
     this.getRetailerDetails().subscribe((response) => {
       },
       (err) => console.error(err)
      );
-  //   this.storeDetails().subscribe((response) => {
-  //   },
-  //   (err) => console.error(err)
-  //  );
+    this.storeDetails().subscribe((response) => {
+    },
+    (err) => console.error(err)
+   );
   }
 
   getRetailerDetails(): Observable < any >  {
@@ -55,18 +55,49 @@ export class RetailersComponent implements OnInit {
   //             const jwt = response.getIdToken().getJwtToken();
   //             let headers = new Headers({ 'Authorization': jwt });
   //             let options = new RequestOptions({ headers: headers });
+  //             console.log("options : " + options)
   //             let req_body = {
-  //                 "Retailer_Id": "1"
-  //             };
-  //            /* this.http.post(url, req_body, options).subscribe(data => {
+  //               "retailerId": "1"
+  //             }
+  //             const url = constant.appcohesionURL.retailerStore_URL && constant.appcohesionURL.retailerStore_URL != 'null' ? constant.appcohesionURL.retailerStore_URL : '';
+  //             this.http.post(url, req_body, options).subscribe(data => {
+  //               console.log("store details : " + JSON.stringify(data));
   //               this.demoService.loading = false;
-  //             });*/
-  //             observer.next();
-  //             observer.complete();
+  //               observer.next();
+  //               observer.complete();
+  //             });
   //         }
   //     });
   // }, (err) => {
   //     console.log(err);
   //   });
-  // }*/
+  // }
+
+   // Method for listing Order list
+   storeDetails(): Observable < any > {
+    return Observable.create(observer => {
+        return this.demoService.getSessionToken().subscribe((response) => {
+            if (response.getIdToken().getJwtToken()) {
+                const jwt = response.getIdToken().getJwtToken();
+                console.log("jwt : " +  JSON.stringify(jwt));
+                let headers = new Headers({ 'Authorization': jwt });
+                console.log("headers : " + JSON.stringify(headers));
+                let options = new RequestOptions({ headers: headers });
+                console.log("options : " + JSON.stringify(options));
+                let req_body = {
+                    "retailerId": "1"
+                };
+                const url = constant.appcohesionURL.retailerStore_URL && constant.appcohesionURL.retailerStore_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
+                this.http.post(url, req_body, options).subscribe(data => {
+                  this.demoService.loading = false;
+                    console.log("retailer details : " + JSON.stringify(data));
+                    observer.next();
+                    observer.complete();
+                });
+            }
+        });
+    }, err => {
+        console.log("error on order", err)
+    })
+ }
 }

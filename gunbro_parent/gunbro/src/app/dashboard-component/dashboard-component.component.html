@@ -11,7 +11,7 @@
         <ul>
           <!--<li><a href="dashboard.html" class="ac-dash-item-1"><i>Dashboard</i></a></li>-->
           <li><a routerLink="../dashboard"   class="ac-dash-item-1"><i>Dashboard</i></a></li>
-          <li *ngIf="userGroup == configUserGroup"><a routerLink="retailer" routerLinkActive="active" class="ac-dash-item-2"><i class="flip">Distributor Management</i><i class="flop" style="display:none;">Distributor</i></a></li>
+          <li><a class="ac-dash-item-2"><i class="flip">Distributor Management</i><i class="flop" style="display:none;">Distributor</i></a></li>
    
     <!-- <li><a  routerLink="markup" routerLinkActive="active"  class="ac-dash-item-2"><i class="flip">Distributor Management</i><i class="flop" style="display:none;">Distributor</i></a></li> -->
           <!--<li><a href="employee-management.html" class="ac-dash-item-3 active"><i class="flip">Employee Management</i><i class="flop" style="display:none;">Employee</i></a></li> -->
@@ -19,7 +19,8 @@
           <li><a routerLink="order" routerLinkActive="active" class="ac-dash-item-4"><i class="flip">Orders</i><i class="flop" style="display:none;">order</i></a></li>
           <li><a href="javascript:void(0);" class="ac-dash-item-5"><i>Customers</i></a></li>
           <li><a href="javascript:void(0);" class="ac-dash-item-6"><i>Reports</i></a></li>
-          <li><a href="javascript:void(0);" class="ac-dash-item-7"><i>Settings</i></a></li>
+          <!-- <li><a href="javascript:void(0);" class="ac-dash-item-7"><i>Settings</i></a></li> -->
+          <li *ngIf="userGroup == configUserGroup"><a routerLink="retailer" routerLinkActive="active" class="ac-dash-item-7"><i class="flip">Settings</i><i class="flop" style="display:none;">Settings</i></a></li>
         </ul>
       </div>
     </div>
