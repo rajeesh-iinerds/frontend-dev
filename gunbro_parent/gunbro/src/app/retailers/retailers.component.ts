@@ -15,10 +15,15 @@ import * as constant from '../shared/config';
 export class RetailersComponent implements OnInit {
   retailerDetails: any;
   RetailerDemo : boolean = true;
-  constructor(public demoService: DemoService , private http: Http) { }
+  results : any;
+  storeLocations: any;
+  retailerStoreDetails: any;
+  constructor(public demoService: DemoService , private http: Http) { 
+   
+  }
 
   ngOnInit() {
-    this.getRetailerDetails().subscribe((response) => {
+   this.getRetailerDetails().subscribe((response) => {
       },
       (err) => console.error(err)
      );
@@ -37,9 +42,9 @@ export class RetailersComponent implements OnInit {
            var retailerInfoFromtoken = new JwtHelper().decodeToken(jwt);
            this.demoService.loading = false;
            if(retailerInfoFromtoken != null && retailerInfoFromtoken){
-            console.log("retailerDetails  : " + JSON.stringify(retailerInfoFromtoken));
             this.retailerDetails.email = retailerInfoFromtoken.email ? retailerInfoFromtoken.email : '';
             this.retailerDetails.name = retailerInfoFromtoken.name ? retailerInfoFromtoken.name : '';
+            console.log("retailer name : " + JSON.stringify(retailerInfoFromtoken));
            }
        }
     });
@@ -48,56 +53,44 @@ export class RetailersComponent implements OnInit {
     });
   }
 
-  // storeDetails():  Observable < any >  {
-  //   return Observable.create(observer => {
-  //     return this.demoService.getSessionToken().subscribe((response) => {
-  //         if (response.getIdToken().getJwtToken()) {
-  //             const jwt = response.getIdToken().getJwtToken();
-  //             let headers = new Headers({ 'Authorization': jwt });
-  //             let options = new RequestOptions({ headers: headers });
-  //             console.log("options : " + options)
-  //             let req_body = {
-  //               "retailerId": "1"
-  //             }
-  //             const url = constant.appcohesionURL.retailerStore_URL && constant.appcohesionURL.retailerStore_URL != 'null' ? constant.appcohesionURL.retailerStore_URL : '';
-  //             this.http.post(url, req_body, options).subscribe(data => {
-  //               console.log("store details : " + JSON.stringify(data));
-  //               this.demoService.loading = false;
-  //               observer.next();
-  //               observer.complete();
-  //             });
-  //         }
-  //     });
-  // }, (err) => {
-  //     console.log(err);
-  //   });
-  // }
-
-   // Method for listing Order list
+   // Method for listing Store details
    storeDetails(): Observable < any > {
+    this.storeLocations = {};
+    this.retailerStoreDetails = [];
     return Observable.create(observer => {
         return this.demoService.getSessionToken().subscribe((response) => {
             if (response.getIdToken().getJwtToken()) {
                 const jwt = response.getIdToken().getJwtToken();
-                console.log("jwt : " +  JSON.stringify(jwt));
                 let headers = new Headers({ 'Authorization': jwt });
-                console.log("headers : " + JSON.stringify(headers));
                 let options = new RequestOptions({ headers: headers });
-                console.log("options : " + JSON.stringify(options));
                 let req_body = {
                     "retailerId": "1"
                 };
-                const url = constant.appcohesionURL.retailerStore_URL && constant.appcohesionURL.retailerStore_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
+                const url = constant.appcohesionURL.retailerStore_URL && constant.appcohesionURL.retailerStore_URL != 'null' ? constant.appcohesionURL.retailerStore_URL : '';
                 this.http.post(url, req_body, options).subscribe(data => {
                   this.demoService.loading = false;
-                    console.log("retailer details : " + JSON.stringify(data));
-                    observer.next();
-                    observer.complete();
+                  this.results = data.json();
+                  if(this.results && this.results.status){
+                   if(this.results.status.code == 200){
+                     for(var i = 0; i < this.results.data.length; i++){
+                        this.storeLocations.StoreAddress = this.results.data[i].StoreAddress && this.results.data[i].StoreAddress !=null ? this.results.data[i].StoreAddress : '';
+                        this.storeLocations.StoreName = this.results.data[i].StoreName && this.results.data[i].StoreName ? this.results.data[i].StoreName : '';
+                        this.storeLocations.StoreLocation = this.results.data[i].StoreLocation && this.results.data[i].StoreLocation ? this.results.data[i].StoreLocation : '';
+                        this.storeLocations.StoreContact = this.results.data[i].StoreContact ? this.results.data[i].StoreContact : '';
+                        this.retailerStoreDetails.push(this.storeLocations);
+                      }
+                    }
+                    else if(this.results.status.code == constant.statusCode.empty_code){
+                      this.retailerStoreDetails = {};
+                    }
+                  }
+                   observer.next(this.storeLocations);
+                   observer.complete();
                 });
             }
         });
     }, err => {
         console.log("error on order", err)
     })
- }
+  }
 }

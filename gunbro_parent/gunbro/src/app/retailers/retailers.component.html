@@ -13,7 +13,7 @@
           <div class="profile-base-info">
           <span class="profile-base-info-box border-rgt">Store Outlets<br><strong>50</strong></span>
           <span class="profile-base-info-box border-rgt">Sales Associates<br><strong>150</strong></span>
-          <span class="profile-base-info-box border-rgt">Total Experience<br><strong>20</strong><span>yrs</span></span>
+          <span *ngIf="RetailerDemo == false" class="profile-base-info-box border-rgt">Total Experience<br><strong>20</strong><span>yrs</span></span>
           <span class="profile-base-info-box">Net Turnover<br><span>$</span><strong>750,000</strong></span>
         </div>
         <div class="profile-sub-heads">
@@ -21,9 +21,9 @@
         </div>
         <div class="profile-extra-info" style="margin-bottom: 10px;">
           <h6>Primary Contact Person</h6>
-          <span>Adriana Blandford</span>
+          <span>{{retailerDetails.name}}</span>
         </div>
-        <div class="profile-extra-info" *ngIf = "RetailerDemo == true">
+        <div *ngIf="RetailerDemo == false" class="profile-extra-info">
           <h6>Corporate Profile</h6>
           <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed neque nisl. Aliquam facilisis sem volutpat felis mollis varius fringilla non nibh. Nam fermentum accumsan nibh vitae dictum. Aenean ornare lorem velit, at vulputate tellus vehicula et. Ut eu est ex. Maecenas porttitor libero eu pharetra pellentesque. Mauris nulla augue, feugiat eu quam non, euismod mattis enim. Suspendisse mattis odio non sem rutrum porta.</span>
         </div>
@@ -42,38 +42,24 @@
             </ul>
           </div>
         </div> -->
-        <div class="store-location-unsorted">
+        <div class="store-location-unsorted" *ngFor = "let item of retailerStoreDetails">
           <div class="col-sm-4 store-location-unsorted-list">
             <div class="col-sm-4 store-location-img"></div>
             <div class="col-sm-8 store-location-details">
-              <h5>Las Vegas</h5>
-              <span>Pier 33 - Alcatras Island San Francisco,CA,USA<br>Ph:+1 702-567-5118</span>
+              <h5>{{item.StoreLocation ? item.StoreLocation : ''}}</h5>
+              <span>{{item.StoreName ? item.StoreName : ''}}{{item.StoreAddress ? item.StoreAddress : ''}}<br>{{item.StoreContact ? item.StoreContact : ''}}</span>
             </div>
-          </div>
-          <div class="col-sm-4 store-location-unsorted-list">
-            <div class="col-sm-4 store-location-img"></div>
-            <div class="col-sm-8 store-location-details">
-              <h5>San Francisco</h5>
-              <span>Pier 33 - Alcatras Island San Francisco,CA,USA<br>Ph:+1 702-567-5118</span>
-            </div>
-          </div>
-          <div class="col-sm-4 store-location-unsorted-list">
-            <div class="col-sm-4 store-location-img"></div>
-            <div class="col-sm-8 store-location-details">
-              <h5>Charlotte</h5>
-              <span>Pier 33 - Alcatras Island San Francisco,CA,USA<br>Ph:+1 702-567-5118</span>
-            </div>
-          </div>
+          </div> 
         </div>
         </div>
         </div>
         <div class="col-xs-12 col-sm-3 col-lg-3 ac-quick-profile-info">
         <div class="ac-quick-profile-img">
           <img src="assets/demo-assets/user1.png">
-          <h4>{{retailerDetails.name}}</h4>
-          <span>San Francisco,United States</span>
+          <h4>{{retailerDetails.name ? retailerDetails.name : ''}}</h4>
+          <span>{{storeLocations.StoreAddress}}</span>
         </div>
-        <div class="col-xs-12 col-sm-12 col-lg-12 socialmedia-listing">
+        <div *ngIf="RetailerDemo == false" class="col-xs-12 col-sm-12 col-lg-12 socialmedia-listing">
           <ul class="socialmedia-unsorted">
             <li>
               <a href="#">
@@ -95,13 +81,13 @@
         <div class="clearfix"></div>
         <div class="contact-info-wrapper">{{retailerDetails.email}}
         </div>
-        <div class="contact-info-wrapper contact-call">702-567-1158
+        <div class="contact-info-wrapper contact-call">{{storeLocations.StoreContact}}
         </div>
         <div class="contact-info-wrapper contact-fax">702-567-1158
         </div>
         <div class="retailer-address-wrapper">
           <h4>Primary Address</h4>
-          <span>Pier 33 - Alcatras Island San Francisco,CA,USA</span>
+          <span>{{storeLocations.StoreAddress}},USA</span>
         </div>
         <div class="retailer-address-wrapper">
           <h4>Open Hours</h4>
