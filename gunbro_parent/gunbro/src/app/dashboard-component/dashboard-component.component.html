@@ -19,8 +19,8 @@
           <li><a routerLink="order" routerLinkActive="active" class="ac-dash-item-4"><i class="flip">Orders</i><i class="flop" style="display:none;">order</i></a></li>
           <li><a href="javascript:void(0);" class="ac-dash-item-5"><i>Customers</i></a></li>
           <li><a href="javascript:void(0);" class="ac-dash-item-6"><i>Reports</i></a></li>
-          <!-- <li><a href="javascript:void(0);" class="ac-dash-item-7"><i>Settings</i></a></li> -->
-          <li *ngIf="userGroup == configUserGroup"><a routerLink="retailer" routerLinkActive="active" class="ac-dash-item-7"><i class="flip">Settings</i><i class="flop" style="display:none;">Settings</i></a></li>
+          <li><a href="javascript:void(0);" class="ac-dash-item-7"><i>Settings</i></a></li>
+         <!-- <li *ngIf="userGroup == configUserGroup"><a routerLink="retailer" routerLinkActive="active" class="ac-dash-item-7"><i class="flip">Settings</i><i class="flop" style="display:none;">Settings</i></a></li> -->
         </ul>
       </div>
     </div>
@@ -80,7 +80,8 @@
           <h3>Elizabeth Grace</h3>
           <span class="ac-user-drop-wrap" style="display: none;">
             <ul class="ac-user-dropdown">
-              <li><a href="javascript:void(0);">My Profile</a></li>
+            <!--  <li><a href="javascript:void(0);">My Profile</a></li> -->
+              <li *ngIf="userGroup == configUserGroup"><a routerLink="retailer">My Profile</a></li>
               <li><a href="javascript:void(0);">Menu Item</a></li>
               <li><a (click)="logout()">Log Out</a></li>
             </ul>
