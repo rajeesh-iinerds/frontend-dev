@@ -14,6 +14,7 @@ import * as constant from '../shared/config';
 })
 export class RetailersComponent implements OnInit {
   retailerDetails: any;
+  RetailerDemo : boolean = true;
   constructor(public demoService: DemoService) { }
 
   ngOnInit() {
@@ -21,6 +22,10 @@ export class RetailersComponent implements OnInit {
       },
       (err) => console.error(err)
      );
+  //   this.storeDetails().subscribe((response) => {
+  //   },
+  //   (err) => console.error(err)
+  //  );
   }
 
   getRetailerDetails(): Observable < any >  {
@@ -43,4 +48,25 @@ export class RetailersComponent implements OnInit {
     });
   }
 
+  // storeDetails():  Observable < any >  {
+  //   return Observable.create(observer => {
+  //     return this.demoService.getSessionToken().subscribe((response) => {
+  //         if (response.getIdToken().getJwtToken()) {
+  //             const jwt = response.getIdToken().getJwtToken();
+  //             let headers = new Headers({ 'Authorization': jwt });
+  //             let options = new RequestOptions({ headers: headers });
+  //             let req_body = {
+  //                 "Retailer_Id": "1"
+  //             };
+  //            /* this.http.post(url, req_body, options).subscribe(data => {
+  //               this.demoService.loading = false;
+  //             });*/
+  //             observer.next();
+  //             observer.complete();
+  //         }
+  //     });
+  // }, (err) => {
+  //     console.log(err);
+  //   });
+  // }*/
 }

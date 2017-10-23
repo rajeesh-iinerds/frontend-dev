@@ -384,7 +384,9 @@ export class DemoService {
       }, (err) => {
           console.log('Error');
       });
-    }
+	}
+	
+	
 
 
   updateRecordinDB (information_fetchdb,fieldName): Observable<any> {
