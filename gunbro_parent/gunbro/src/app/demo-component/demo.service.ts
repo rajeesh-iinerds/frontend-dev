@@ -392,8 +392,8 @@ export class DemoService {
         if(request_manufacturerId) {
         	this.body['manufacturerID'] = request_manufacturerId ? request_manufacturerId : "";
 		}
-		var store_id = JSON.parse(localStorage.getItem("User_Information"))[0].store_id;
-		var retailer_id = JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityTypeId:"";
+		var store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id:"";
+		var retailer_id = localStorage.getItem("User_Information")?JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityTypeId:"":"";
 		this.body['store_id'] =  store_id;
 		this.body['retailer_id'] =  retailer_id;
 
