@@ -29,7 +29,7 @@ export class DemoComponentComponent implements OnInit {
                   console.log("inside success : " + JSON.stringify(response));
                   this.jwt = response.getIdToken().getJwtToken();
                   return this.demoService.userDetails(name, password,this.jwt).subscribe((responseDetails) => {                   
-                       alert(responseDetails)
+                       // alert(responseDetails)
                        this.router.navigate(['/dashboard']);
 
                 }, (err) => {
