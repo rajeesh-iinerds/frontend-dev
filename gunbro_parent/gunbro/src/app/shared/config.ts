@@ -1,4 +1,5 @@
 
+
 export const TEST = {
 	"hi": "value"
 };
@@ -17,7 +18,8 @@ export const appcohesionURL = {
 	"orderList_URL" : "https://api.appcohesion.io/orderList",
 	"retailerStore_URL" : "https://api.appcohesion.io/getStorelist",
 	"createUser_URL": "https://7v5j1r1r92.execute-api.us-east-1.amazonaws.com/prod/cognitoSignin",
-	"listUsers_URL": "https://dtnqjf4q15.execute-api.us-east-1.amazonaws.com/prod"
+	"listUsers_URL": "https://dtnqjf4q15.execute-api.us-east-1.amazonaws.com/prod",
+	"userDetails_URL" : "https://api.appcohesion.io/userDetails"
 };
 
 export const statusCode = {

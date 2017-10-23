@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { DemoService } from './demo.service';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
@@ -8,7 +9,7 @@ import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 })
 export class DemoComponentComponent implements OnInit {
     errorMessage: string;
-    
+    jwt : string;
     constructor(private demoService: DemoService , private route: ActivatedRoute,private router: Router) {
     }
     
@@ -26,7 +27,15 @@ export class DemoComponentComponent implements OnInit {
                 }
                 else {
                   console.log("inside success : " + JSON.stringify(response));
-                  this.router.navigate(['/dashboard']);
+                  this.jwt = response.getIdToken().getJwtToken();
+                  return this.demoService.userDetails(name, password,this.jwt).subscribe((responseDetails) => {                   
+                       alert(responseDetails)
+                       this.router.navigate(['/dashboard']);
+
+                }, (err) => {
+                  this.demoService.loading = false;
+                   console.log("error in login Details Page ",err);
+               });                
                 }
             }, (err) => {
                this.demoService.loading = false;

@@ -71,6 +71,116 @@ export class DemoService {
 		);
 	}*/
 
+
+
+	userDetails (name, password,jwt): Observable<any> {
+				
+		return Observable.create(observer => {
+			var self = this;
+			var reqBodys = {
+		        userName : name,
+		        password : password
+		    };
+			let headers = new Headers({ 'Authorization': jwt});
+			let options = new RequestOptions({ headers: headers });
+			const url = constant.appcohesionURL.userDetails_URL;
+		   
+		   
+			this.http  
+            .post(url, reqBodys, options)
+            .subscribe(data => {
+            	this.loading = false;
+                this.results = data ? data.json() : {};
+               
+                if(this.results && this.results.status) {
+                	if(this.results.status.code == constant.statusCode.success_code) {
+                		localStorage.setItem("User_Information" , JSON.stringify(this.results.data));
+                	}
+                	else if(this.results.status.code == constant.statusCode.empty_code) {
+                		localStorage.setItem("User_Information" , "");
+					}
+					//this.result=>result.json();
+					observer.next(this.results);
+	      			observer.complete();
+                	//this.router.navigisate(['/dashboard/search'],{ queryParams: reqBody});
+                }
+            }, error => {
+            	this.loading = false;
+				console.log(JSON.stringify(error));				
+				observer.next(error);
+			   observer.complete();
+            });
+
+
+
+		   /* userCognito.authenticateUser(authDetails, {
+		       	onSuccess: function (result) {
+		       		console.log("result conginitive token : " , result);
+		       		this.jwt = result.getIdToken().getJwtToken();
+		       		localStorage.setItem('isLoggedIn', 'true');
+
+					const idEpxiry = result.getIdToken().getExpiration();
+					console.log("expiration id : " + idEpxiry);
+					const str =  idEpxiry + "";
+					const pad = "0000000000000";
+					// timestamp by default should have 13 digits.
+					const epxiryTime = str + pad.substring(0, pad.length - str.length);
+					localStorage.setItem('tokenExpiryTime', epxiryTime);
+					console.log(epxiryTime);
+
+					const now = new Date();
+					const exp = new Date(parseInt(epxiryTime));
+					// if (exp.valueOf() < now.valueOf()) {
+					//     exp.setDate(exp.getDate() + 1);
+					// }
+					const expiryValue = exp.valueOf();
+					const nowValue = now.getTime();
+					const diff = expiryValue-nowValue;
+					console.log('diff', diff);
+		           	let intervalId = setInterval(() => {
+						console.log('inside interval');
+						if (exp.valueOf() < now.valueOf()) {
+							clearInterval(intervalId);
+						    // exp.setDate(exp.getDate() + 1);
+						    self.userLogout();
+						}
+					}, diff);
+
+		           	/*cognitoUser.getUserAttributes(function(err, result) {
+					    if (err) {
+					        alert(err);
+					        return;
+					    }
+					    for (i = 0; i < result.length; i++) {
+					        console.log('attribute ' + result[i].getName() + ' has value ' + result[i].getValue());
+					    }
+					});*/
+
+     			/*	var group = new JwtHelper().decodeToken(this.jwt);
+     				if(group['cognito:groups'] && group['cognito:groups'][0]) {
+     					localStorage.setItem('userGroup', group['cognito:groups'][0]);
+     				}
+     				else {
+     					localStorage.setItem('userGroup', '');
+     				}
+
+
+		       		result=>result.json();
+					observer.next(result);
+	      			observer.complete();
+		        },
+		        onFailure: function(err) {
+				   	console.log(err);
+				   	observer.next(err);
+	      			observer.complete();
+		        },
+		    }); */
+		}, err =>{
+			//this.loading = false;
+			console.log("error on user",err)
+		})
+	};
+
 	userLogin (name, password): Observable<any> {
 		return Observable.create(observer => {
 			var self = this;
@@ -179,8 +289,11 @@ export class DemoService {
 	    	// this.isLoggedIn = false;
 	    	localStorage.setItem('isLoggedIn', 'false');
 	    	localStorage.removeItem('tokenExpiryTime');
-	    	localStorage.removeItem('userGroup');
-	    	this.router.navigate(['']);
+			localStorage.removeItem('userGroup');
+			localStorage.removeItem('User_Information');
+
+			this.router.navigate(['']);
+			
 	    }
 	}
 
@@ -257,7 +370,6 @@ export class DemoService {
 		var poolData = constant.userPoolData;
 		const userPool = new CognitoUserPool(poolData);
 		this.userSession = userPool.getCurrentUser();
-
 		const userData = {
 		    Username : this.userSession.username,
 		    Pool : userPool
@@ -384,12 +496,11 @@ export class DemoService {
       }, (err) => {
           console.log('Error');
       });
-	}
-	
-	
+    }
 
 
-  updateRecordinDB (information_fetchdb,fieldName): Observable<any> {
+  updateRecordinDB (
+	  information_fetchdb,fieldName): Observable<any> {
     return Observable.create(observer => {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
@@ -436,7 +547,6 @@ export class DemoService {
         });
     }, err =>{console.log("error",err)})
   }
-
     createUser(jwt, userInfo) {
     	this.loading = true;
     	let headers = new Headers({'Content-Type': 'application/json', 'Authorization': jwt });
