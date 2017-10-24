@@ -35,9 +35,15 @@ export class OrdersComponent implements OnInit {
                   const jwt = response.getIdToken().getJwtToken();
                   let headers = new Headers({ 'Authorization': jwt });
                   let options = new RequestOptions({ headers: headers });
+                  var store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id:"";
+                  var retailer_id = localStorage.getItem("User_Information")?JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityTypeId:"":"";
                   let req_body = {
-                      "BuyerID": "1"
+                      "BuyerID": "1",
+                      "storeId": store_id,
+                      "retailer_id" : retailer_id 
                   };
+                 //req_body['storeId'] =  store_id;
+                 // req_body['retailer_id'] =  retailer_id;
                   const url = constant.appcohesionURL.orderList_URL && constant.appcohesionURL.orderList_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
                   this.http.post(url, req_body, options).subscribe(data => {
                     this.demoService.loading = false;
