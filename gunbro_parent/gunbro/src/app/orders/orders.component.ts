@@ -42,8 +42,6 @@ export class OrdersComponent implements OnInit {
                       "storeId": store_id,
                       "retailer_id" : retailer_id 
                   };
-                 //req_body['storeId'] =  store_id;
-                 // req_body['retailer_id'] =  retailer_id;
                   const url = constant.appcohesionURL.orderList_URL && constant.appcohesionURL.orderList_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
                   this.http.post(url, req_body, options).subscribe(data => {
                     this.demoService.loading = false;

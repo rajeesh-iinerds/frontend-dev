@@ -18,8 +18,8 @@ export class RetailersComponent implements OnInit {
   results : any;
   storeLocations: any;
   retailerStoreDetails: any;
+  userName: any;
   constructor(public demoService: DemoService , private http: Http) { 
-   
   }
 
   ngOnInit() {
@@ -35,6 +35,7 @@ export class RetailersComponent implements OnInit {
 
   getRetailerDetails(): Observable < any >  {
     this.retailerDetails = {};
+    this.userName = this.demoService.getCognitoUser().getUsername();
     return Observable.create(observer => {
     this.demoService.getSessionToken().subscribe((response) => {
       if(response.getIdToken().getJwtToken()) {
@@ -43,9 +44,9 @@ export class RetailersComponent implements OnInit {
            this.demoService.loading = false;
            if(retailerInfoFromtoken != null && retailerInfoFromtoken){
             this.retailerDetails.email = retailerInfoFromtoken.email ? retailerInfoFromtoken.email : '';
-            this.retailerDetails.name = retailerInfoFromtoken.name ? retailerInfoFromtoken.name : '';
-            console.log("retailer name : " + JSON.stringify(retailerInfoFromtoken));
-           }
+            this.retailerDetails.name = retailerInfoFromtoken.name ? retailerInfoFromtoken.name : this.userName;
+           console.log("retailerDetailes : " + JSON.stringify(retailerInfoFromtoken));
+          }
        }
     });
     }, (err) => {
