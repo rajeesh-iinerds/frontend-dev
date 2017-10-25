@@ -278,3 +278,20 @@
 
 
 <div class="ac-actions-overlay" style="display:none;"></div>
+
+
+<div class="row fadebg" [class.show]="demoService.createUserPopup"></div>
+<!-- <div class="" [ngClass]="demoService.showPopup ? 'confirmPopup' : 'hideLayout'"> -->
+    <h4>SUCCESS</h4>
+    <h4>SUCCESS</h4>
+<div class="confirmPopup" [class.show]="demoService.createUserPopup">
+  <div class="successImgIcon"></div>
+  <div class="sucessMsgText text-center">
+    <h4>SUCCESS</h4>
+    <P>Congratulations!! You have successfully added user. Email has been sent to his email id!</P>
+  </div>
+  <div class=" col-md-6 gotoDashboardBtn text-right">
+    <span routerLink="/dashboard">ok</span>
+  </div>
+  
+</div>
