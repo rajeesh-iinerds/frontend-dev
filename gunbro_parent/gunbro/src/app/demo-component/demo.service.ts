@@ -49,7 +49,8 @@ export class DemoService {
     loading: boolean = false;
     subMenuToggle: boolean = false;
     showNav: boolean = false;
-    showPopup: boolean = false;
+	showPopup: boolean = false;
+	createUserPopup: boolean = false;
     orderId: number;
     public demoService: DemoService;
 
@@ -487,9 +488,10 @@ export class DemoService {
             .post(url, req_body, options)
             .subscribe(data => {
                 this.loading = false;
-                this.results = data.json();
-                if (this.results.success) {
-                    alert(this.results.data.user.username + " has been created successfully and an email has been sent to his email id!");
+				this.results = data.json();
+				if (this.results.status.code == constant.statusCode.success_code) {             
+					this.createUserPopup =true;
+                   // alert(this.results.data.user.username + " has been created successfully and an email has been sent to his email id!");
                 } else {
                     alert(this.results.Error.message + " ! ");
                 }
