@@ -39,7 +39,7 @@ export class OrdersComponent implements OnInit {
                   var retailer_id = localStorage.getItem("User_Information")?JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityTypeId:"":"";
                   let req_body = {
                       "BuyerID": "1",
-                      "storeId": store_id,
+                      "store_id": store_id,
                       "retailer_id" : retailer_id 
                   };
                   const url = constant.appcohesionURL.orderList_URL && constant.appcohesionURL.orderList_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';

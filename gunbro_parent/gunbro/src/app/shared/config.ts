@@ -4,7 +4,8 @@ export const TEST = {
 	"hi": "value"
 };
 export const user = {
-	"userGroup": "admin"
+	"userGroup": "admin",
+	"superadminUser": "superadmin"
 };
 
 export const userPoolData = {
@@ -19,7 +20,8 @@ export const appcohesionURL = {
 	"retailerStore_URL" : "https://api.appcohesion.io/getStorelist",
 	"createUser_URL": "https://7v5j1r1r92.execute-api.us-east-1.amazonaws.com/prod/cognitoSignin",
 	"listUsers_URL": "https://dtnqjf4q15.execute-api.us-east-1.amazonaws.com/prod",
-	"userDetails_URL" : "https://api.appcohesion.io/userDetails"
+	"userDetails_URL" : "https://api.appcohesion.io/userDetails",
+	"retailerList_URL" : "https://lmzc2xjexg.execute-api.us-east-1.amazonaws.com/prod"
 };
 
 export const statusCode = {

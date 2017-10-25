@@ -60,7 +60,9 @@ export class DashboardComponentComponent implements OnInit {
   
   ngOnInit() {
     this.userName = this.demoService.getCognitoUser().getUsername();
+    console.log("username : " + this.userName);
     this.userGroup = localStorage.getItem('userGroup') && localStorage.getItem('userGroup') != 'null' ? localStorage.getItem('userGroup') : '';
+    console.log("userGroup : " + this.userGroup);
     this.configUserGroup = constant.user.userGroup && constant.user.userGroup != 'null' ? constant.user.userGroup : '';
   }
 
