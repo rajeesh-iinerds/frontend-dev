@@ -1,8 +1,5 @@
 
 
-export const TEST = {
-	"hi": "value"
-};
 export const user = {
 	"userGroup": "admin"
 };

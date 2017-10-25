@@ -1,0 +1,68 @@
+   
+        <div class="container-fluid">
+          <div class="row"><!-- Page Title -->
+            <div class="col-xs-12 col-sm-9 col-lg-9" *ngIf="category && category.distributor_name">
+              <h3 class="ac-page-title ac-page-title-logo"><img src="assets/demo-assets/dealer1.png">{{category.distributor_name}}</h3>
+            </div>
+            <div class="col-xs-12 col-sm-3 col-lg-3 text-right xs-text-left">
+              <a routerLink="../markup" class="ac-back-to-listing">Back to Distributor</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-lg-12 ac-distributor-listing">
+                <!-- Distributor Product Cards Start -->
+              <div class="ac-distributor-cards">
+
+                  <!-- Single Card Start -->
+                  
+			<div *ngIf="category && category.markups.length >0" >
+                <div *ngFor="let markup of category.markups; let i = index">                
+                  <div class="ac-distributor-card" [ngClass]="{ 'ac-show-markup': temp && temp.categoryId == markup.categoryId }">
+                     <div class="ac-distributor-head">
+                        <span class="ac-distributor-head-right">
+                          <!-- More Menu -->
+                          <span class="ac-more-menu"> 
+                            <i class="ac-more-dots"></i>
+                            <ul style="display: none;">
+                              <li><a href="#">Option One</a></li>
+                              <li><a href="#">Option Two</a></li>
+                              <li><a href="#">Option Three</a></li>
+                            </ul>
+                          </span>
+                          <!-- More Menu End -->
+                        </span>
+                     </div>
+                     <div class="ac-distributor-clickable" id="{{markup.categoryId}}">
+                         <div class="ac-distributor-body">
+                            <img src="assets/images/gun-long.png" alt="Long Gun" class="ac-product-logo">
+                            <h4>{{markup.categoryName}}</h4>
+                         </div>
+                         <!-- <div class="ac-distributor-foot">
+                           <span class="ac-distributor-foot-left"><strong>50</strong><br>Pipeline Orders</span>
+                           <span class="ac-distributor-foot-right"><strong>250</strong><br>Live Inventory</span>
+                         </div> -->
+                         <!-- Markup Button -->
+                         <span class="ac-dist-add-markup" style="display:none;">
+                           <a (click) = "addMarkup(markup)">Add Markup</a>
+                         </span>
+                     </div>
+                     <!-- Markup Form -->
+                     <div class="ac-dist-add-markup-form" style="display:none;">
+                       <span class="ac-markup-form">
+                          <label>Enter your markup (%)</label>
+                          <input type="text" name="markupValue" [(ngModel)]="markupValue" placeholder="Markup (%)">
+                          <button class="ac-markup-form-btn" (click)="updateMarkup(markupValue)">APPLY</button>
+                       </span>
+                       <a class="ac-close-markup" (click) = "cancelMarkup(markup)">Cancel</a>
+                     </div>
+                  </div>
+                  </div>
+                </div>
+                  <!-- Single Card End -->
+                 <!-- Removed dummy cards -->
+              </div>
+              <!-- Distributor Product Cards Start -->
+
+            </div>
+          </div>
+        </div>

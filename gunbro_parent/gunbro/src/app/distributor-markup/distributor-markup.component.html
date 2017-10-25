@@ -1,0 +1,332 @@
+<div class="">
+        <div class="container-fluid">
+          <div class="row"><!-- Page Title -->
+            <div class=" text-left col-xs-12 col-sm-9 col-lg-9">
+              <h3 class="ac-page-title">Distributor Management</h3>
+            </div>
+            <div class="col-xs-12 col-sm-3 col-lg-3"><!-- Solve E=mc2 --></div>
+          </div>
+          <div class="row"><!-- Employee Listing -->
+            <div class="col-xs-12 col-sm-12 col-lg-12 ac-distributor-listing">
+              
+              <!-- Distributor Cards Start -->
+              <div class="ac-distributor-cards">
+
+                  <!-- Single Card Start -->
+                  <div *ngIf="results_markup && results_markup.distributors.length >0">
+                  <div class="ac-distributor-card" *ngFor="let z of results_markup.distributors">
+                     <div class="ac-distributor-head">
+                        <!-- <span class="ac-distributor-head-left">1 Sep 2017</span> -->
+                        <span class="ac-distributor-head-right">
+                          <span class="ac-more-menu"> 
+                            <i class="ac-more-dots"></i>
+                            <ul style="display: none;">
+                              <li><a href="#">Option One</a></li>
+                              <li><a href="#">Option Two</a></li>
+                              <li><a href="#">Option Three</a></li>
+                            </ul>
+                          </span>
+                        </span>
+                     </div>
+                     <div class="ac-distributor-clickable" id="{{z.distributorId}}" (click)="test(z.distributorId)">
+                         <div class="ac-distributor-body">
+                            <img src="assets/demo-assets/dealer1_lg.png" alt="United Firmarms" class="ac-distrb-logo">
+                            <h4>{{z.distributorName}}</h4>
+                         </div>
+                         <!-- <div class="ac-distributor-foot">
+                           <span class="ac-distributor-foot-left"><strong>150</strong><br>Total Orders</span>
+                           <span class="ac-distributor-foot-right"><strong>2500</strong><br>Live Inventory</span>
+                         </div> -->
+                     </div>
+                  </div>
+                  </div>
+                  <!-- Single Card End -->
+
+
+
+
+                 <!--  <div class="ac-distributor-card">
+                     <div class="ac-distributor-head">
+                        <span class="ac-distributor-head-left">1 Sep 2017</span>
+                        <span class="ac-distributor-head-right">
+                          <span class="ac-more-menu"> 
+                            <i class="ac-more-dots"></i>
+                            <ul style="display: none;">
+                              <li><a href="#">Option One</a></li>
+                              <li><a href="#">Option Two</a></li>
+                              <li><a href="#">Option Three</a></li>
+                            </ul>
+                          </span>
+                        </span>
+                     </div>
+                     <div class="ac-distributor-clickable" onclick="location.href='distributor-single.html';">
+                         <div class="ac-distributor-body">
+                            <img src="demo-assets/dealer2_lg.png" alt="United Firmarms" class="ac-distrb-logo">
+                            <h4>SixGun Gospel</h4>
+                         </div>
+                         <div class="ac-distributor-foot">
+                           <span class="ac-distributor-foot-left"><strong>150</strong><br>Total Orders</span>
+                           <span class="ac-distributor-foot-right"><strong>2500</strong><br>Live Inventory</span>
+                         </div>
+                     </div>
+                  </div>
+                  <div class="ac-distributor-card">
+                     <div class="ac-distributor-head">
+                        <span class="ac-distributor-head-left">1 Sep 2017</span>
+                        <span class="ac-distributor-head-right">
+                          <span class="ac-more-menu"> 
+                            <i class="ac-more-dots"></i>
+                            <ul style="display: none;">
+                              <li><a href="#">Option One</a></li>
+                              <li><a href="#">Option Two</a></li>
+                              <li><a href="#">Option Three</a></li>
+                            </ul>
+                          </span>
+                        </span>
+                     </div>
+                     <div class="ac-distributor-clickable" onclick="location.href='distributor-single.html';">
+                         <div class="ac-distributor-body">
+                            <img src="demo-assets/dealer3_lg.png" alt="United Firmarms" class="ac-distrb-logo">
+                            <h4>Teton Arms</h4>
+                         </div>
+                         <div class="ac-distributor-foot">
+                           <span class="ac-distributor-foot-left"><strong>150</strong><br>Total Orders</span>
+                           <span class="ac-distributor-foot-right"><strong>2500</strong><br>Live Inventory</span>
+                         </div>
+                     </div>
+                  </div>
+                  <div class="ac-distributor-card">
+                     <div class="ac-distributor-head">
+                        <span class="ac-distributor-head-left">1 Sep 2017</span>
+                        <span class="ac-distributor-head-right">
+                          <span class="ac-more-menu"> 
+                            <i class="ac-more-dots"></i>
+                            <ul style="display: none;">
+                              <li><a href="#">Option One</a></li>
+                              <li><a href="#">Option Two</a></li>
+                              <li><a href="#">Option Three</a></li>
+                            </ul>
+                          </span>
+                        </span>
+                     </div>
+                     <div class="ac-distributor-clickable" onclick="location.href='distributor-single.html';">
+                         <div class="ac-distributor-body">
+                            <img src="demo-assets/dealer4_lg.png" alt="United Firmarms" class="ac-distrb-logo">
+                            <h4>Texas Wild</h4>
+                         </div>
+                         <div class="ac-distributor-foot">
+                           <span class="ac-distributor-foot-left"><strong>150</strong><br>Total Orders</span>
+                           <span class="ac-distributor-foot-right"><strong>2500</strong><br>Live Inventory</span>
+                         </div>
+                     </div>
+                  </div>
+
+                  <div class="ac-distributor-card">
+                     <div class="ac-distributor-head">
+                        <span class="ac-distributor-head-left">1 Sep 2017</span>
+                        <span class="ac-distributor-head-right">
+                          <span class="ac-more-menu"> 
+                            <i class="ac-more-dots"></i>
+                            <ul style="display: none;">
+                              <li><a href="#">Option One</a></li>
+                              <li><a href="#">Option Two</a></li>
+                              <li><a href="#">Option Three</a></li>
+                            </ul>
+                          </span>
+                        </span>
+                     </div>
+                     <div class="ac-distributor-clickable" onclick="location.href='distributor-single.html';">
+                         <div class="ac-distributor-body">
+                            <img src="demo-assets/dealer1_lg.png" alt="United Firmarms" class="ac-distrb-logo">
+                            <h4>United Firmarms</h4>
+                         </div>
+                         <div class="ac-distributor-foot">
+                           <span class="ac-distributor-foot-left"><strong>150</strong><br>Total Orders</span>
+                           <span class="ac-distributor-foot-right"><strong>2500</strong><br>Live Inventory</span>
+                         </div>
+                     </div>
+                  </div>
+                  <div class="ac-distributor-card">
+                     <div class="ac-distributor-head">
+                        <span class="ac-distributor-head-left">1 Sep 2017</span>
+                        <span class="ac-distributor-head-right">
+                          <span class="ac-more-menu"> 
+                            <i class="ac-more-dots"></i>
+                            <ul style="display: none;">
+                              <li><a href="#">Option One</a></li>
+                              <li><a href="#">Option Two</a></li>
+                              <li><a href="#">Option Three</a></li>
+                            </ul>
+                          </span>
+                        </span>
+                     </div>
+                     <div class="ac-distributor-clickable" onclick="location.href='distributor-single.html';">
+                         <div class="ac-distributor-body">
+                            <img src="demo-assets/dealer2_lg.png" alt="United Firmarms" class="ac-distrb-logo">
+                            <h4>SixGun Gospel</h4>
+                         </div>
+                         <div class="ac-distributor-foot">
+                           <span class="ac-distributor-foot-left"><strong>150</strong><br>Total Orders</span>
+                           <span class="ac-distributor-foot-right"><strong>2500</strong><br>Live Inventory</span>
+                         </div>
+                     </div>
+                  </div>
+                  <div class="ac-distributor-card">
+                     <div class="ac-distributor-head">
+                        <span class="ac-distributor-head-left">1 Sep 2017</span>
+                        <span class="ac-distributor-head-right">
+                          <span class="ac-more-menu"> 
+                            <i class="ac-more-dots"></i>
+                            <ul style="display: none;">
+                              <li><a href="#">Option One</a></li>
+                              <li><a href="#">Option Two</a></li>
+                              <li><a href="#">Option Three</a></li>
+                            </ul>
+                          </span>
+                        </span>
+                     </div>
+                     <div class="ac-distributor-clickable" onclick="location.href='distributor-single.html';">
+                         <div class="ac-distributor-body">
+                            <img src="demo-assets/dealer3_lg.png" alt="United Firmarms" class="ac-distrb-logo">
+                            <h4>Teton Arms</h4>
+                         </div>
+                         <div class="ac-distributor-foot">
+                           <span class="ac-distributor-foot-left"><strong>150</strong><br>Total Orders</span>
+                           <span class="ac-distributor-foot-right"><strong>2500</strong><br>Live Inventory</span>
+                         </div>
+                     </div>
+                  </div>
+                  <div class="ac-distributor-card">
+                     <div class="ac-distributor-head">
+                        <span class="ac-distributor-head-left">1 Sep 2017</span>
+                        <span class="ac-distributor-head-right">
+                          <span class="ac-more-menu"> 
+                            <i class="ac-more-dots"></i>
+                            <ul style="display: none;">
+                              <li><a href="#">Option One</a></li>
+                              <li><a href="#">Option Two</a></li>
+                              <li><a href="#">Option Three</a></li>
+                            </ul>
+                          </span>
+                        </span>
+                     </div>
+                     <div class="ac-distributor-clickable" onclick="location.href='distributor-single.html';">
+                         <div class="ac-distributor-body">
+                            <img src="demo-assets/dealer4_lg.png" alt="United Firmarms" class="ac-distrb-logo">
+                            <h4>Texas Wild</h4>
+                         </div>
+                         <div class="ac-distributor-foot">
+                           <span class="ac-distributor-foot-left"><strong>150</strong><br>Total Orders</span>
+                           <span class="ac-distributor-foot-right"><strong>2500</strong><br>Live Inventory</span>
+                         </div>
+                     </div>
+                  </div>
+
+                  <div class="ac-distributor-card">
+                     <div class="ac-distributor-head">
+                        <span class="ac-distributor-head-left">1 Sep 2017</span>
+                        <span class="ac-distributor-head-right">
+                          <span class="ac-more-menu"> 
+                            <i class="ac-more-dots"></i>
+                            <ul style="display: none;">
+                              <li><a href="#">Option One</a></li>
+                              <li><a href="#">Option Two</a></li>
+                              <li><a href="#">Option Three</a></li>
+                            </ul>
+                          </span>
+                        </span>
+                     </div>
+                     <div class="ac-distributor-clickable" onclick="location.href='distributor-single.html';">
+                         <div class="ac-distributor-body">
+                            <img src="demo-assets/dealer1_lg.png" alt="United Firmarms" class="ac-distrb-logo">
+                            <h4>United Firmarms</h4>
+                         </div>
+                         <div class="ac-distributor-foot">
+                           <span class="ac-distributor-foot-left"><strong>150</strong><br>Total Orders</span>
+                           <span class="ac-distributor-foot-right"><strong>2500</strong><br>Live Inventory</span>
+                         </div>
+                     </div>
+                  </div>
+                  <div class="ac-distributor-card">
+                     <div class="ac-distributor-head">
+                        <span class="ac-distributor-head-left">1 Sep 2017</span>
+                        <span class="ac-distributor-head-right">
+                          <span class="ac-more-menu"> 
+                            <i class="ac-more-dots"></i>
+                            <ul style="display: none;">
+                              <li><a href="#">Option One</a></li>
+                              <li><a href="#">Option Two</a></li>
+                              <li><a href="#">Option Three</a></li>
+                            </ul>
+                          </span>
+                        </span>
+                     </div>
+                     <div class="ac-distributor-clickable" onclick="location.href='distributor-single.html';">
+                         <div class="ac-distributor-body">
+                            <img src="demo-assets/dealer2_lg.png" alt="United Firmarms" class="ac-distrb-logo">
+                            <h4>SixGun Gospel</h4>
+                         </div>
+                         <div class="ac-distributor-foot">
+                           <span class="ac-distributor-foot-left"><strong>150</strong><br>Total Orders</span>
+                           <span class="ac-distributor-foot-right"><strong>2500</strong><br>Live Inventory</span>
+                         </div>
+                     </div>
+                  </div>
+                  <div class="ac-distributor-card">
+                     <div class="ac-distributor-head">
+                        <span class="ac-distributor-head-left">1 Sep 2017</span>
+                        <span class="ac-distributor-head-right">
+                          <span class="ac-more-menu"> 
+                            <i class="ac-more-dots"></i>
+                            <ul style="display: none;">
+                              <li><a href="#">Option One</a></li>
+                              <li><a href="#">Option Two</a></li>
+                              <li><a href="#">Option Three</a></li>
+                            </ul>
+                          </span>
+                        </span>
+                     </div>
+                     <div class="ac-distributor-clickable" onclick="location.href='distributor-single.html';">
+                         <div class="ac-distributor-body">
+                            <img src="demo-assets/dealer3_lg.png" alt="United Firmarms" class="ac-distrb-logo">
+                            <h4>Teton Arms</h4>
+                         </div>
+                         <div class="ac-distributor-foot">
+                           <span class="ac-distributor-foot-left"><strong>150</strong><br>Total Orders</span>
+                           <span class="ac-distributor-foot-right"><strong>2500</strong><br>Live Inventory</span>
+                         </div>
+                     </div>
+                  </div>
+                  <div class="ac-distributor-card">
+                     <div class="ac-distributor-head">
+                        <span class="ac-distributor-head-left">1 Sep 2017</span>
+                        <span class="ac-distributor-head-right">
+                          <span class="ac-more-menu"> 
+                            <i class="ac-more-dots"></i>
+                            <ul style="display: none;">
+                              <li><a href="#">Option One</a></li>
+                              <li><a href="#">Option Two</a></li>
+                              <li><a href="#">Option Three</a></li>
+                            </ul>
+                          </span>
+                        </span>
+                     </div>
+                     <div class="ac-distributor-clickable" onclick="location.href='distributor-single.html';">
+                         <div class="ac-distributor-body">
+                            <img src="demo-assets/dealer4_lg.png" alt="United Firmarms" class="ac-distrb-logo">
+                            <h4>Texas Wild</h4>
+                         </div>
+                         <div class="ac-distributor-foot">
+                           <span class="ac-distributor-foot-left"><strong>150</strong><br>Total Orders</span>
+                           <span class="ac-distributor-foot-right"><strong>2500</strong><br>Live Inventory</span>
+                         </div>
+                     </div>
+                  </div> -->
+
+              </div>
+              <!-- Distributor Cards Start -->
+
+            </div>
+          </div>
+        </div>
+      </div>
