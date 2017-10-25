@@ -36,7 +36,7 @@ export class OrdersComponent implements OnInit {
                   let headers = new Headers({ 'Authorization': jwt });
                   let options = new RequestOptions({ headers: headers });
                   var store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id:"";
-                  var retailer_id = localStorage.getItem("User_Information")?JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityTypeId:"":"";
+                  var retailer_id = localStorage.getItem("User_Information")?JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId:"":"";
                   let req_body = {
                       "BuyerID": "1",
                       "storeId": store_id,
