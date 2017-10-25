@@ -19,8 +19,6 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { OrdersComponent } from './orders/orders.component';
 import { RetailersComponent } from './retailers/retailers.component';
-import { DistributorMarkupComponent } from './distributor-markup/distributor-markup.component';
-import { DistributorSingleComponent } from './distributor-single/distributor-single.component';
 //import { DistMarkupComponent } from './dist-markup/dist-markup.component';
 
 const appRoutes: Routes = [
@@ -34,9 +32,7 @@ const appRoutes: Routes = [
       { path: 'search', component:  ProductSearchComponent},
       { path: 'productdetail', component:  ProductdetailComponent},
       { path: 'order', component:  OrdersComponent},
-      { path: 'retailer', component: RetailersComponent},
-      { path: 'DistMarkup', component: DistributorMarkupComponent},
-      { path: 'DistributorSingle', component: DistributorSingleComponent}
+      { path: 'retailer', component: RetailersComponent}
       //{ path: 'specs', component: Specs }
     ]
   },
@@ -71,9 +67,7 @@ const appRoutes: Routes = [
     ForgotPasswordComponent,
     ChangePasswordComponent,
     OrdersComponent,
-    RetailersComponent,
-    DistributorMarkupComponent,
-    DistributorSingleComponent
+    RetailersComponent
   ],
   imports: [
     BrowserModule,
