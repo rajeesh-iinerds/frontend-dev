@@ -46,8 +46,9 @@ export class OrdersComponent implements OnInit {
                   this.http.post(url, req_body, options).subscribe(data => {
                     this.demoService.loading = false;
                       this.results = data.json();
+                      console.log("order list details : " + JSON.stringify(this.results));
                       if(this.results && this.results.statusCode){
-                          if (this.results.statusCode == 2000) {
+                          if (this.results.statusCode == 200) {
                           this.orderDetails = this.results.data;
                           } else if (this.results.statusCode == constant.statusCode.empty_code) {
                           this.orderDetails = [];
