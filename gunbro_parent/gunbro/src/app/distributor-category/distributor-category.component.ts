@@ -20,6 +20,7 @@ export class DistributorCategoryComponent implements OnInit {
 	jwt: any;
 	markupValue: string;
 	res: any;
+	updateMarkupPopup: boolean = false;
 
   	constructor(private route: ActivatedRoute, private router: Router, public demoService: DemoService, private http: Http) {
   	}
@@ -108,12 +109,11 @@ export class DistributorCategoryComponent implements OnInit {
 	                if (this.res && this.res.status) {
 	                    if (this.res.status.code == constant.statusCode.success_code) {
 	                    	// show popup & navigate to Dashboard
-	                    } else if (this.res.status.code == constant.statusCode.empty_code) {
-
+	                    	this.updateMarkupPopup = true;
+	                    } else {
+	                    	alert(this.res.Error.message + " ! ");
 	                    }
-	                    //this.router.navigate(['/dashboard/search'],{ queryParams: reqBody});
 	                }
-
 	            }, error => {
 	                this.demoService.loading = false;
 	                console.log(JSON.stringify(error));
