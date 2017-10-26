@@ -1,8 +1,5 @@
 
 
-export const TEST = {
-	"hi": "value"
-};
 export const user = {
 	"userGroup": "admin"
 };
@@ -19,10 +16,18 @@ export const appcohesionURL = {
 	"retailerStore_URL" : "https://api.appcohesion.io/getStorelist",
 	"createUser_URL": "https://7v5j1r1r92.execute-api.us-east-1.amazonaws.com/prod/cognitoSignin",
 	"listUsers_URL": "https://dtnqjf4q15.execute-api.us-east-1.amazonaws.com/prod",
-	"userDetails_URL" : "https://api.appcohesion.io/userDetails"
+	"userDetails_URL" : "https://api.appcohesion.io/userDetails",
+	"getDistributorsList_URL" : "https://api.appcohesion.io/getDistList",
+	"getDistributorMarkup_URL" : "https://api.appcohesion.io/getMarkup",
+	"addDistributorMarkup_URL" : "https://api.appcohesion.io/setMarkup"
 };
 
 export const statusCode = {
 	"success_code": "200",
-	"empty_code": "2003"
+	"empty_code": "2003",
+	"error_code": "400"
 };
+export const distributor_markup_messages = {
+	"success_title": "SUCCESS",
+	"success_description": "Markup has been added successfully!"
+}
