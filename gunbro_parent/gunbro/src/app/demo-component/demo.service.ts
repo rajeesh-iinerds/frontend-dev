@@ -489,7 +489,7 @@ export class DemoService {
             .subscribe(data => {
                 this.loading = false;
 				this.results = data.json();
-				if (this.results.status.code == constant.statusCode.success_code) {             
+				if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {             
 					this.createUserPopup =true;
                    // alert(this.results.data.user.username + " has been created successfully and an email has been sent to his email id!");
                 } else {
