@@ -16,7 +16,7 @@
                   <!-- Single Card Start -->
                   
 			<div *ngIf="category && category.markups.length >0" >
-                <div *ngFor="let markup of category.markups; let i = index">                
+                <div *ngFor="let markup of markupList; let i = index">                
                   <div class="ac-distributor-card" [ngClass]="{ 'ac-show-markup': temp && temp.categoryId == markup.categoryId }">
                      <div class="ac-distributor-head">
                         <span class="ac-distributor-head-right">
@@ -51,7 +51,7 @@
                        <span class="ac-markup-form">
                           <label>Enter your markup (%)</label>
                           <input type="text" name="markupValue" [(ngModel)]="markupValue" placeholder="Markup (%)" pattern="^([0-9]{1,2}){1}(\.[0-9]{1,2})?$" #model="ngModel">
-                          <div *ngIf="model.errors && (model.dirty || model.touched)" style="color: red;">
+                          <div *ngIf="model.errors && (model.dirty || model.touched)" style="color: red;" class="ac-required-field">
                             <div [hidden]="!model.errors.pattern">
                               Only numbers (decimals inclusive) 0-99.99 allowed!
                             </div>
@@ -81,7 +81,8 @@
     <P>Markup has been added successfully!</P>
   </div>
   <div class=" col-md-6 gotoDashboardBtn text-right">
-    <span routerLink="/dashboard">OK</span>
+    <!-- <span routerLink="/dashboard">OK</span> -->
+    <span (click) ="updateMarkupPopup = !updateMarkupPopup" style = " margin-right: -25px;">OK</span>
   </div>
   
 </div>

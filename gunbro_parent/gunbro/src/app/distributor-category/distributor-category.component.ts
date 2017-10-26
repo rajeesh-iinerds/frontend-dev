@@ -21,6 +21,9 @@ export class DistributorCategoryComponent implements OnInit {
 	markupValue: string;
 	res: any;
 	updateMarkupPopup: boolean = false;
+	successTitle : string;
+	successDescription: string;
+	markupList: any;
 
   	constructor(private route: ActivatedRoute, private router: Router, public demoService: DemoService, private http: Http) {
   	}
@@ -47,7 +50,8 @@ export class DistributorCategoryComponent implements OnInit {
 				"action": "getMarkupForDistributor"
 	        };
 
-	        const url = 'https://api.appcohesion.io/getMarkup';
+	        // const url = 'https://api.appcohesion.io/getMarkup';
+	        const url = constant.appcohesionURL.getDistributorMarkup_URL;
 	        this.http
 	            .post(url, reqBody, options)
 	            .subscribe(data => {
@@ -57,12 +61,11 @@ export class DistributorCategoryComponent implements OnInit {
 	                if (this.category && this.category.status) {
 	                    if (this.category.status.code == constant.statusCode.success_code) {
 	                    	console.log('Success');
-	                    } else if (this.category.status.code == constant.statusCode.empty_code) {
-	                    	console.log("Error");
+	                    	this.markupList = this.category.markups;
+	                    } else {
+	                    	alert(this.category.Error.message + " ! ");
 	                    }
-	                    //this.router.navigate(['/dashboard/search'],{ queryParams: reqBody});
 	                }
-
 	            }, error => {
 	                this.demoService.loading = false;
 	                console.log(JSON.stringify(error));
@@ -99,19 +102,22 @@ export class DistributorCategoryComponent implements OnInit {
 				"categoryId": this.temp.categoryId
 	        };
 
-	        const url = 'https://api.appcohesion.io/setMarkup';
+	        // const url = 'https://api.appcohesion.io/setMarkup';
+	        const url = constant.appcohesionURL.addDistributorMarkup_URL;
 	        this.http
 	            .post(url, reqBody, options)
 	            .subscribe(data => {
 	                this.demoService.loading = false;
 	                this.res = data ? data.json() : {};
 	                console.log(this.res);
-	                if (this.res && this.res.status) {
-	                    if (this.res.status.code == constant.statusCode.success_code) {
+	                if (this.res && this.res.code) {
+	                    if (this.res.code == constant.statusCode.success_code) {
 	                    	// show popup & navigate to Dashboard
 	                    	this.updateMarkupPopup = true;
+	                    	this.successTitle = constant.distributor_markup_messages.success_title;
+	                    	this.successDescription = constant.distributor_markup_messages.success_description;
 	                    } else {
-	                    	alert(this.res.Error.message + " ! ");
+	                    	alert(this.res.message + " ! ");
 	                    }
 	                }
 	            }, error => {
