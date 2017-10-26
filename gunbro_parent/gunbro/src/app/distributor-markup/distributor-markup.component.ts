@@ -15,6 +15,7 @@ export class DistributorMarkupComponent implements OnInit {
 	public ac_email_forgot: any;
     public results_markup: any;
     jwt: any;
+    distList: any;
 
 	constructor(private http: Http, public demoService: DemoService, private router: Router) {
 	}
@@ -36,7 +37,8 @@ export class DistributorMarkupComponent implements OnInit {
 				"action": "getDistributorsList"
 	        };
 
-	        const url = 'https://api.appcohesion.io/getDistList';
+	        // const url = 'https://api.appcohesion.io/getDistList';
+	        const url = constant.appcohesionURL.getDistributorsList_URL;
 	        this.http
 	            .post(url, reqBody, options)
 	            .subscribe(data => {
@@ -45,26 +47,23 @@ export class DistributorMarkupComponent implements OnInit {
 	                console.log(this.results_markup.distributors);
 	                if (this.results_markup && this.results_markup.status) {
 	                    if (this.results_markup.status.code == constant.statusCode.success_code) {
-	                    	console.log('Success');
-	                    } else if (this.results_markup.status.code == constant.statusCode.empty_code) {
+	                    	this.distList = this.results_markup.distributors;
+	                    } else {
 	                    	console.log("Error");
+	                    	alert(this.results_markup.status.message + " ! ");
 	                    }
-	                    //this.router.navigate(['/dashboard/search'],{ queryParams: reqBody});
 	                }
-
 	            }, error => {
 	                this.demoService.loading = false;
 	                console.log(JSON.stringify(error));
 	            });
-
 	  	}
 	  	else {
 	  		console.log("Missing Token");
 	  	}
-
 	}
 
-	test (dist_id) {
+	getDistCategory (dist_id) {
 		console.log(dist_id);
 		var param = {};
 		param['dist_id'] = dist_id;
@@ -72,6 +71,4 @@ export class DistributorMarkupComponent implements OnInit {
 		// this.router.navigate(['/dashboard/markup/dist-category'],{ queryParams: reqBody});
 		this.router.navigate(['/dashboard/dist-category'],{ queryParams: reqBody});
 	}
-
-
 }

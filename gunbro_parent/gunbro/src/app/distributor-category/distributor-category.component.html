@@ -53,7 +53,7 @@
                           <input type="text" name="markupValue" [(ngModel)]="markupValue" placeholder="Markup (%)" pattern="^([0-9]{1,2}){1}(\.[0-9]{1,2})?$" #model="ngModel">
                           <div *ngIf="model.errors && (model.dirty || model.touched)" style="color: red;" class="ac-required-field">
                             <div [hidden]="!model.errors.pattern">
-                              Only numbers (decimals inclusive) 0-99.99 allowed!
+                              Enter a value between 0-99.99 (two decimals only)!
                             </div>
                           </div>
                           <button class="ac-markup-form-btn" (click)="updateMarkup(markupValue)">APPLY</button>
@@ -77,8 +77,8 @@
 <div class="confirmPopup" [class.show]="updateMarkupPopup">
   <div class="successImgIcon"></div>
   <div class="sucessMsgText text-center">
-    <h4>SUCCESS</h4>
-    <P>Markup has been added successfully!</P>
+    <h4>{{successTitle}}</h4>
+    <P>{{successDescription}}</P>
   </div>
   <div class=" col-md-6 gotoDashboardBtn text-right">
     <!-- <span routerLink="/dashboard">OK</span> -->

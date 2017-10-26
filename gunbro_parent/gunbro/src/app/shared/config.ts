@@ -17,7 +17,7 @@ export const appcohesionURL = {
 	"createUser_URL": "https://7v5j1r1r92.execute-api.us-east-1.amazonaws.com/prod/cognitoSignin",
 	"listUsers_URL": "https://dtnqjf4q15.execute-api.us-east-1.amazonaws.com/prod",
 	"userDetails_URL" : "https://api.appcohesion.io/userDetails",
-	"getDistributorsList_URL" : "",
+	"getDistributorsList_URL" : "https://api.appcohesion.io/getDistList",
 	"getDistributorMarkup_URL" : "https://api.appcohesion.io/getMarkup",
 	"addDistributorMarkup_URL" : "https://api.appcohesion.io/setMarkup"
 };
