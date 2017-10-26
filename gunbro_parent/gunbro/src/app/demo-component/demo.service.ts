@@ -45,16 +45,15 @@ export class DemoService {
     usersList: any;
     resultsdb: any;
     product_manufacturerId: any;
+    retailerId : any;
+    result : any;
+    
     loading: boolean = false;
     subMenuToggle: boolean = false;
     showNav: boolean = false;
 	showPopup: boolean = false;
 	createUserPopup: boolean = false;
     orderId: number;
-    createUserMessage : any;
-    createUserStatus : any;
-
-    
     public demoService: DemoService;
 
     constructor(private http: Http, private router: Router) {
@@ -490,24 +489,62 @@ export class DemoService {
         this.http
             .post(url, req_body, options)
             .subscribe(data => {
-
                 this.loading = false;
-                this.results = data.json();this.createUserMessage = "";
-                this.createUserStatus = ""
-				if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {             
-                    this.createUserMessage = "Congratulations!! You have successfully added user. Email has been sent to his email id!";
-                    this.createUserStatus = "SUCCESS"
-                   } else {
-                    this.createUserMessage = this.results.status.message.message + " ! ";
-                    this.createUserStatus = "SORRY";
-                   }
-                this.createUserPopup =true;
+				this.results = data.json();
+				if (this.results.status.code == constant.statusCode.success_code) {             
+					this.createUserPopup =true;
+                   // alert(this.results.data.user.username + " has been created successfully and an email has been sent to his email id!");
+                } else {
+                    alert(this.results.Error.message + " ! ");
+                }
                 console.log(this.results);
             }, error => {
                 this.loading = false;
                 console.log("error" + JSON.stringify(error));
             });
     }
+
+    // Method for setting retailer id for retailer markup
+    setRetailerIdforCategory(retailerId){
+        this.retailerId = retailerId;
+    }
+
+    // Method for Listing Retailer Category
+    listCategoryforRetailer(jwt) : Observable < any >{
+        this.loading = true;
+        return Observable.create(observer => {
+        this.retailerId =  this.retailerId ?  this.retailerId : "";
+        console.log("retailer is inside another fn : " + this.retailerId);
+        //this.loading = false;
+        let headers = new Headers({ 'Content-Type': 'application/json','Authorization': jwt });
+        let options = new RequestOptions({ headers: headers });
+        let req_body = {
+            "retailer_id" : this.retailerId
+        };
+        const url = constant.appcohesionURL.retailercategorylist_URL;
+        this.http.post(url, req_body, options).subscribe(data => {
+            this.loading = false;
+            this.result = data.json();
+             if (this.result && this.result.status) {
+                if(this.result.status.code == constant.statusCode.success_code){
+                    this.resultForloop = this.result.markups;
+                    console.log("retailer category : " + JSON.stringify(this.resultForloop));
+                } else if (this.results.status.code == constant.statusCode.empty_code) {
+                    this.resultForloop = [];
+                }
+             }
+            }, error => {
+            this.loading = false;
+            observer.next(error);
+            observer.complete();
+            console.log(JSON.stringify(error));
+        });
+       }, (err) => {
+        this.loading = false;
+        console.log('Error');
+     });
+    }
+
 
     //Listing users in cognito Pool
     listUsers() {

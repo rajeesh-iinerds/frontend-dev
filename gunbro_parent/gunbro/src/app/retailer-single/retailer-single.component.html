@@ -1,0 +1,363 @@
+ <!-- Generic wrap start -->
+ <div [ngClass]="showMarkup ? 'ac-show-markup' : ''">
+    <div class="container-fluid">
+      <div class="row"><!-- Page Title -->
+        <div class="col-xs-12 col-sm-9 col-lg-9">
+          <h3 class="ac-page-title ac-page-title-logo"><img src="assets/demo-assets/dealer1.png">United Firearms</h3>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-lg-3 text-right xs-text-left">
+          <a routerLink="/dashboard/RetailerMarkup" class="ac-back-to-listing">Back to Distributor</a>
+        </div>
+      </div>
+      <div class="row"><!-- Employee Listing -->
+        <div class="col-xs-12 col-sm-12 col-lg-12 ac-distributor-listing">
+            <!-- Distributor Product Cards Start -->
+          <div class="ac-distributor-cards">
+            
+              <!-- Single Card Start -->
+              <div class="ac-distributor-card" >
+                
+                 <div class="ac-distributor-head">
+                    <span class="ac-distributor-head-right">
+                      <!-- More Menu -->
+                      <span class="ac-more-menu"> 
+                        <i class="ac-more-dots"></i>
+                        <ul style="display: none;">
+                          <li><a href="#">Option One</a></li>
+                          <li><a href="#">Option Two</a></li>
+                          <li><a href="#">Option Three</a></li>
+                        </ul>
+                      </span>
+                      <!-- More Menu End -->
+                    </span>
+                 </div>
+                 <div class="ac-distributor-clickable">
+                     <div class="ac-distributor-body">
+                        <img src="assets/images/gun-long.png" alt="Long Gun" class="ac-product-logo">
+                        <h4>Long Gun</h4>
+                     </div>
+                     <div class="ac-distributor-foot">
+                       <span class="ac-distributor-foot-left"><strong>50</strong><br>Pipeline Orders</span>
+                       <span class="ac-distributor-foot-right"><strong>250</strong><br>Live Inventory</span>
+                     </div>
+                     <!-- Markup Button -->
+                     <span class="ac-dist-add-markup" style="display:none;">
+                       <a href="javascript:void(0)" (click) = "viewMarkup()">Add Markup</a>
+                     </span>
+                 </div>
+                 <!-- Markup Form -->
+                 <div class="ac-dist-add-markup-form" style="display:none;">
+                   <span class="ac-markup-form">
+                      <label>Enter your markup (%)</label>
+                      <input type="text" name="" placeholder="Markup (%)">
+                      <button class="ac-markup-form-btn">APPLY</button>
+                   </span>
+                   <a href="javascript:void(0)" class="ac-close-markup"  (click)= "closeMarkup()">Cancel</a>
+                 </div>
+                 </div>
+            
+  
+              <!-- Single Card End -->
+              <div class="ac-distributor-card">
+              
+                 <div class="ac-distributor-head">
+                    <span class="ac-distributor-head-right">
+                      <!-- More Menu -->
+                      <span class="ac-more-menu"> 
+                        <i class="ac-more-dots"></i>
+                        <ul style="display: none;">
+                          <li><a href="#">Option One</a></li>
+                          <li><a href="#">Option Two</a></li>
+                          <li><a href="#">Option Three</a></li>
+                        </ul>
+                      </span>
+                      <!-- More Menu End -->
+                    </span>
+                 </div>
+                 <div class="ac-distributor-clickable">
+                     <div class="ac-distributor-body">
+                        <img src="assets/images/gun-hand.png" alt="Hand Gun" class="ac-product-logo">
+                        <h4>Hand Gun</h4>
+                     </div>
+                     <div class="ac-distributor-foot">
+                       <span class="ac-distributor-foot-left"><strong>50</strong><br>Pipeline Orders</span>
+                       <span class="ac-distributor-foot-right"><strong>250</strong><br>Live Inventory</span>
+                     </div>
+                     <!-- Markup Button -->
+                     <span class="ac-dist-add-markup" style="display:none;">
+                       <a href="javascript:void(0)" (click) = "viewMarkup()">Add Markup</a>
+                     </span>
+                 </div>
+                 <!-- Markup Form -->
+                 <div class="ac-dist-add-markup-form" style="display:none;">
+                   <span class="ac-markup-form">
+                      <label>Enter your markup (%)</label>
+                      <input type="text" name="" placeholder="Markup (%)">
+                      <button class="ac-markup-form-btn">APPLY</button>
+                   </span>
+                   <a href="javascript:void(0)" class="ac-close-markup">Cancel</a>
+                 </div>
+               </div>
+            
+  
+              <div class="ac-distributor-card">
+                 <div class="ac-distributor-head">
+                    <span class="ac-distributor-head-right">
+                      <!-- More Menu -->
+                      <span class="ac-more-menu"> 
+                        <i class="ac-more-dots"></i>
+                        <ul style="display: none;">
+                          <li><a href="#">Option One</a></li>
+                          <li><a href="#">Option Two</a></li>
+                          <li><a href="#">Option Three</a></li>
+                        </ul>
+                      </span>
+                      <!-- More Menu End -->
+                    </span>
+                 </div>
+                 <div class="ac-distributor-clickable">
+                     <div class="ac-distributor-body">
+                        <img src="assets/images/gun-ammo.png" alt="Ammo" class="ac-product-logo">
+                        <h4>Ammo</h4>
+                     </div>
+                     <div class="ac-distributor-foot">
+                       <span class="ac-distributor-foot-left"><strong>50</strong><br>Pipeline Orders</span>
+                       <span class="ac-distributor-foot-right"><strong>250</strong><br>Live Inventory</span>
+                     </div>
+                     <!-- Markup Button -->
+                     <span class="ac-dist-add-markup" style="display:none;">
+                       <a href="javascript:void(0)">Add Markup</a>
+                     </span>
+                 </div>
+                 <!-- Markup Form -->
+                 <div class="ac-dist-add-markup-form" style="display:none;">
+                   <span class="ac-markup-form">
+                      <label>Enter your markup (%)</label>
+                      <input type="text" name="" placeholder="Markup (%)">
+                      <button class="ac-markup-form-btn">APPLY</button>
+                   </span>
+                   <a href="javascript:void(0)" class="ac-close-markup">Cancel</a>
+                 </div>
+              </div>
+              <div class="ac-distributor-card">
+                 <div class="ac-distributor-head">
+                    <span class="ac-distributor-head-right">
+                      <!-- More Menu -->
+                      <span class="ac-more-menu"> 
+                        <i class="ac-more-dots"></i>
+                        <ul style="display: none;">
+                          <li><a href="#">Option One</a></li>
+                          <li><a href="#">Option Two</a></li>
+                          <li><a href="#">Option Three</a></li>
+                        </ul>
+                      </span>
+                      <!-- More Menu End -->
+                    </span>
+                 </div>
+                 <div class="ac-distributor-clickable">
+                     <div class="ac-distributor-body">
+                        <img src="assets/images/gun-barrel.png" alt="Barrels and BBL Actions" class="ac-product-logo">
+                        <h4>Barrels and BBL Actions</h4>
+                     </div>
+                     <div class="ac-distributor-foot">
+                       <span class="ac-distributor-foot-left"><strong>50</strong><br>Pipeline Orders</span>
+                       <span class="ac-distributor-foot-right"><strong>250</strong><br>Live Inventory</span>
+                     </div>
+                     <!-- Markup Button -->
+                     <span class="ac-dist-add-markup" style="display:none;">
+                       <a href="javascript:void(0)">Add Markup</a>
+                     </span>
+                 </div>
+                 <!-- Markup Form -->
+                 <div class="ac-dist-add-markup-form" style="display:none;">
+                   <span class="ac-markup-form">
+                      <label>Enter your markup (%)</label>
+                      <input type="text" name="" placeholder="Markup (%)">
+                      <button class="ac-markup-form-btn">APPLY</button>
+                   </span>
+                   <a href="javascript:void(0)" class="ac-close-markup">Cancel</a>
+                 </div>
+              </div>
+              <div class="ac-distributor-card">
+                 <div class="ac-distributor-head">
+                    <span class="ac-distributor-head-right">
+                      <!-- More Menu -->
+                      <span class="ac-more-menu"> 
+                        <i class="ac-more-dots"></i>
+                        <ul style="display: none;">
+                          <li><a href="#">Option One</a></li>
+                          <li><a href="#">Option Two</a></li>
+                          <li><a href="#">Option Three</a></li>
+                        </ul>
+                      </span>
+                      <!-- More Menu End -->
+                    </span>
+                 </div>
+                 <div class="ac-distributor-clickable">
+                     <div class="ac-distributor-body">
+                        <img src="assets/images/gun-powder.png" alt="Black Powder" class="ac-product-logo">
+                        <h4>Black Powder</h4>
+                     </div>
+                     <div class="ac-distributor-foot">
+                       <span class="ac-distributor-foot-left"><strong>50</strong><br>Pipeline Orders</span>
+                       <span class="ac-distributor-foot-right"><strong>250</strong><br>Live Inventory</span>
+                     </div>
+                     <!-- Markup Button -->
+                     <span class="ac-dist-add-markup" style="display:none;">
+                       <a href="javascript:void(0)">Add Markup</a>
+                     </span>
+                 </div>
+                 <!-- Markup Form -->
+                 <div class="ac-dist-add-markup-form" style="display:none;">
+                   <span class="ac-markup-form">
+                      <label>Enter your markup (%)</label>
+                      <input type="text" name="" placeholder="Markup (%)">
+                      <button class="ac-markup-form-btn">APPLY</button>
+                   </span>
+                   <a href="javascript:void(0)" class="ac-close-markup">Cancel</a>
+                 </div>
+              </div>
+              <div class="ac-distributor-card">
+                 <div class="ac-distributor-head">
+                    <span class="ac-distributor-head-right">
+                      <!-- More Menu -->
+                      <span class="ac-more-menu"> 
+                        <i class="ac-more-dots"></i>
+                        <ul style="display: none;">
+                          <li><a href="#">Option One</a></li>
+                          <li><a href="#">Option Two</a></li>
+                          <li><a href="#">Option Three</a></li>
+                        </ul>
+                      </span>
+                      <!-- More Menu End -->
+                    </span>
+                 </div>
+                 <div class="ac-distributor-clickable">
+                     <div class="ac-distributor-body">
+                        <img src="assets/images/gun-reload.png" alt="Reloading" class="ac-product-logo">
+                        <h4>Reloading</h4>
+                     </div>
+                     <div class="ac-distributor-foot">
+                       <span class="ac-distributor-foot-left"><strong>50</strong><br>Pipeline Orders</span>
+                       <span class="ac-distributor-foot-right"><strong>250</strong><br>Live Inventory</span>
+                     </div>
+                     <!-- Markup Button -->
+                     <span class="ac-dist-add-markup" style="display:none;">
+                       <a href="javascript:void(0)">Add Markup</a>
+                     </span>
+                 </div>
+                 <!-- Markup Form -->
+                 <div class="ac-dist-add-markup-form" style="display:none;">
+                   <span class="ac-markup-form">
+                      <label>Enter your markup (%)</label>
+                      <input type="text" name="" placeholder="Markup (%)">
+                      <button class="ac-markup-form-btn">APPLY</button>
+                   </span>
+                   <a href="javascript:void(0)" class="ac-close-markup">Cancel</a>
+                 </div>
+              </div>
+              <div class="ac-distributor-card">
+                 <div class="ac-distributor-head">
+                    <span class="ac-distributor-head-right">
+                      <!-- More Menu -->
+                      <span class="ac-more-menu"> 
+                        <i class="ac-more-dots"></i>
+                        <ul style="display: none;">
+                          <li><a href="#">Option One</a></li>
+                          <li><a href="#">Option Two</a></li>
+                          <li><a href="#">Option Three</a></li>
+                        </ul>
+                      </span>
+                      <!-- More Menu End -->
+                    </span>
+                 </div>
+                 <div class="ac-distributor-clickable">
+                     <div class="ac-distributor-body">
+                        <img src="assets/images/gun-optics.png" alt="Optics" class="ac-product-logo">
+                        <h4>Optics</h4>
+                     </div>
+                     <div class="ac-distributor-foot">
+                       <span class="ac-distributor-foot-left"><strong>50</strong><br>Pipeline Orders</span>
+                       <span class="ac-distributor-foot-right"><strong>250</strong><br>Live Inventory</span>
+                     </div>
+                     <!-- Markup Button -->
+                   
+                     <span class="ac-dist-add-markup" style="display:none;">
+                       <a href="javascript:void(0)">Add Markup</a>
+                     </span>
+                   
+                 </div>
+                 <!-- Markup Form -->
+                 <div class="ac-dist-add-markup-form" style="display:none;">
+                   <span class="ac-markup-form">
+                      <label>Enter your markup (%)</label>
+                      <input type="text" name="" placeholder="Markup (%)">
+                      <button class="ac-markup-form-btn">APPLY</button>
+                   </span>
+                   <a href="javascript:void(0)" class="ac-close-markup">Cancel</a>
+                 </div>
+              </div>
+              <div class="ac-distributor-card">
+                 <div class="ac-distributor-head">
+                    <span class="ac-distributor-head-right">
+                      <!-- More Menu -->
+                      <span class="ac-more-menu"> 
+                        <i class="ac-more-dots"></i>
+                        <ul style="display: none;">
+                          <li><a href="#">Option One</a></li>
+                          <li><a href="#">Option Two</a></li>
+                          <li><a href="#">Option Three</a></li>
+                        </ul>
+                      </span>
+                      <!-- More Menu End -->
+                    </span>
+                 </div>
+                 <div class="ac-distributor-clickable">
+                     <div class="ac-distributor-body">
+                        <img src="assets/images/gun-sling.png" alt="Slings/Cases/Holsters" class="ac-product-logo">
+                        <h4>Slings/Cases/Holsters</h4>
+                     </div>
+                     <div class="ac-distributor-foot">
+                       <span class="ac-distributor-foot-left"><strong>50</strong><br>Pipeline Orders</span>
+                       <span class="ac-distributor-foot-right"><strong>250</strong><br>Live Inventory</span>
+                     </div>
+                     <!-- Markup Button -->
+                     <span class="ac-dist-add-markup" style="display:none;">
+                       <a href="javascript:void(0)">Add Markup</a>
+                     </span>
+                 </div>
+                 <!-- Markup Form -->
+                 <div class="ac-dist-add-markup-form" style="display:none;">
+                   <span class="ac-markup-form">
+                      <label>Enter your markup (%)</label>
+                      <input type="text" name="" placeholder="Markup (%)">
+                      <button class="ac-markup-form-btn">APPLY</button>
+                   </span>
+                   <a href="javascript:void(0)" class="ac-close-markup">Cancel</a>
+                 </div>
+              </div>
+          </div>
+          <!-- Distributor Product Cards Start -->
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Generic wrap end -->
+  <!-- Main Section End -->
+  
+  <!-- Quick Access Bar Start -->
+  <div class="ac-quick-access-wrap">
+  <a href="javascript:void(0);" class="ac-quick-access-togglr"><i class="glyphicon glyphicon-th-large flip"></i><i class="glyphicon glyphicon-th-list flop" style="display:none;"></i></a>
+  <ul class="ac-quick-access-buttons">
+    <li><a href="javascript:void(0);" class="ac-qacc-item1"><i style="display: none;">Menu Name1</i></a></li>
+    <li><a href="javascript:void(0);" class="ac-qacc-item2"><i style="display: none;">Menu Name2</i></a></li>
+    <li><a href="javascript:void(0);" class="ac-qacc-item3"><i style="display: none;">Menu Name3</i></a></li>
+    <li><a href="javascript:void(0);" class="ac-qacc-item4"><i style="display: none;">Menu Name4</i></a></li>
+    <li><a href="javascript:void(0);" class="ac-qacc-item5"><i style="display: none;">Menu Name5</i></a></li>
+    <li><a href="javascript:void(0);" class="ac-qacc-item6"><i style="display: none;">Menu Name6</i></a></li>
+  </ul>
+  </div>
+  
+  
+  
