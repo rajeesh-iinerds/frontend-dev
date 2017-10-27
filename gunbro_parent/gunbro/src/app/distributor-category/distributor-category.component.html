@@ -47,19 +47,39 @@
                          </span>
                      </div>
                      <!-- Markup Form -->
-                     <div class="ac-dist-add-markup-form" style="display:none;">
+                     <!-- <div class="ac-dist-add-markup-form" style="display:none;">
                        <span class="ac-markup-form">
                           <label>Enter your markup (%)</label>
                           <input type="text" name="markupValue" [(ngModel)]="markupValue" placeholder="Markup (%)" pattern="^([0-9]{1,2}){1}(\.[0-9]{1,2})?$" #model="ngModel">
                           <div *ngIf="model.errors && (model.dirty || model.touched)" style="color: red;" class="ac-required-field">
                             <div [hidden]="!model.errors.pattern">
-                              Enter a value between 0-99.99 (two decimals only)!
+                              Enter a value between 0-99.99 (upto two decimals)!
                             </div>
                           </div>
-                          <button class="ac-markup-form-btn" (click)="updateMarkup(markupValue)">APPLY</button>
+                          <span>{{!markupValue}}</span>
+                          <span>{{markupValue}}</span>
+                          <button class="ac-markup-form-btn" (click)="updateMarkup(markupValue)" [disabled]="!markupValue || markupValue.invalid">APPLY</button>
                        </span>
                        <a class="ac-close-markup" (click) = "cancelMarkup(markup)">Cancel</a>
+                     </div> -->
+
+                     <div class="ac-dist-add-markup-form" style="display:none;">
+                       <span class="ac-markup-form">
+                       <form #loginForm="ngForm">
+                          <label>Enter your markup (%)</label>
+                            <input type="text" name="markupValue" [(ngModel)]="markupValue" placeholder="Markup (%)" pattern="^([0-9]{1,2}){1}(\.[0-9]{1,2})?$" #model="ngModel">
+                            <div *ngIf="model.errors && (model.dirty || model.touched)" style="color: red;" class="ac-required-field">
+                              <div [hidden]="!model.errors.pattern">
+                                Enter a value between 0-99.99 (upto two decimals)!
+                              </div>
+                            </div>
+                          <button  [disabled]="!loginForm.form.valid" class="ac-markup-form-btn" (click)="updateMarkup(markupValue)" [disabled]="!markupValue || markupValue.invalid" >APPLY</button>
+                        </form>
+                      </span>
+                      <a class="ac-close-markup" (click) = "cancelMarkup(markup)">Cancel</a>
                      </div>
+
+
                   </div>
                   </div>
                 </div>

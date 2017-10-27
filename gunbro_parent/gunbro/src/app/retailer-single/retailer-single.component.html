@@ -1,0 +1,117 @@
+
+
+<div class="ac-generic-wrap">
+    <div class="container-fluid">
+      <div class="row"><!-- Page Title -->
+        <div class="col-xs-12 col-sm-9 col-lg-9">
+          <h3 class="ac-page-title ac-page-title-logo"><img src="demo-assets/dealer1.png">Jims firearms LLC.</h3>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-lg-3 text-right xs-text-left">
+          <a class="ac-back-to-listing" (click) = "backtoRetailer()">Back to Retailer</a>
+        </div>
+      </div>
+      <div class="row"><!-- Employee Listing -->
+        <div class="col-xs-12 col-sm-12 col-lg-12 ac-distributor-listing">
+            <!-- Distributor Product Cards Start -->
+          <div class="ac-distributor-cards" *ngFor="let retailer of demoService.retailerCategory">
+
+              <!-- Single Card Start -->
+              <div class="ac-distributor-card" [ngClass]="{ 'ac-show-retailmarkup-apply': temp && temp.categoryId == retailer.categoryId , 'ac-show-retailmarkup-view' :  viewtemp &&  viewtemp.categoryId == retailer.categoryId}">
+                 <div class="ac-distributor-head">
+                    <span class="ac-distributor-head-right">
+                      <!-- More Menu -->
+                      <span class="ac-more-menu"> 
+                        <i class="ac-more-dots"></i>
+                        <ul style="display: none;">
+                          <li><a href="#">Option One</a></li>
+                          <li><a href="#">Option Two</a></li>
+                          <li><a href="#">Option Three</a></li>
+                        </ul>
+                      </span>
+                      <!-- More Menu End -->
+                    </span>
+                 </div>
+                 <div class="ac-distributor-clickable">
+                     <div class="ac-distributor-body">
+                        <img src="assets/images/gun-long.png" alt="Long Gun" class="ac-product-logo">
+                        <h4>{{retailer.categoryName}}</h4>
+                     </div>
+                     <div class="ac-distributor-foot">
+                       <span class="ac-distributor-foot-left" style="width: 100%;border-right: none;"><strong>50</strong><br>Product Available</span>
+                     </div>
+                     <!-- Markup Button -->
+                       <span class="ac-dist-add-markup" style="display:none;">
+                         <a href="javascript:void(0)"  (click) = "applyMarkupform(retailer)" class="ac-retailer-addmarkup" >Add Markup</a>
+                         <a href="javascript:void(0)" (click) = "viewMarkupForm(retailer)" class="ac-retailer-viewmarkup">View Markup</a>
+                       </span>
+                 </div>
+                 <!-- Markup Form -->
+                 <div class="ac-dist-add-markup-form retailer-markup-apply" style="display:none;">
+                   <div class="ac-markup-close" (click)= "cancelApplyMarkup(retailer)"></div>
+                   <span class="ac-markup-form" style="bottom: 50px;">
+                      <label>Enter your markup (%)</label>
+                      <input type="text" name="markupValue" [(ngModel)]="markup" placeholder="Markup (%)" pattern="^([0-9]{1,2}){1}(\.[0-9]{1,2})?$" #model="ngModel">
+                      <div *ngIf="model.errors && (model.dirty || model.touched)" style="color: red;" class="ac-required-field">
+                        <div [hidden]="!model.errors.pattern">
+                          Enter a value between 0-99.99 (upto two decimals)!
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="ac-markup-applybtn">
+                        <button class="ac-markup-form-btn markup-apply" (click) = "applyMarkupEvent(markup,retailer,'single')">Apply</button>
+                        <button class="ac-markup-form-btn markup-apply-all" (click) = "applyMarkupEvent(markup,retailer,'all')">Apply to All</button>
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="ac-markup-percentage">
+                        <span>RETAILER<br>MARKUP</span>
+                        <h3>5%</h3>
+                      </div>
+                   </span>
+                 </div>
+
+                 <div class="ac-dist-add-markup-form retailer-markup-view" style="display:none;">
+                   <div class="ac-markup-close" (click)= "cancelViewMarkup(retailer)"></div>
+                   <span class="ac-markup-form" style="bottom: 50px;">
+                      <label>Current markup (%)</label>
+                      <input type="text" name="markupValue" [(ngModel)]="markupUpdate" placeholder="Markup (%)" pattern="^([0-9]{1,2}){1}(\.[0-9]{1,2})?$" #model="ngModel">
+                      <div *ngIf="model.errors && (model.dirty || model.touched)" style="color: red;" class="ac-required-field">
+                        <div [hidden]="!model.errors.pattern">
+                          Enter a value between 0-99.99 (upto two decimals)!
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="ac-markup-applybtn">
+                        <button class="ac-markup-form-btn markup-apply" (click) = "applyMarkupEvent(markupUpdate,retailer,'single')">Update</button>
+                        <button class="ac-markup-form-btn markup-apply-all" (click) = "applyMarkupEvent(markupUpdate,retailer,'all')">Update to All</button>
+                      </div>
+                      <div class="clearfix"></div>
+                      <div class="ac-markup-percentage">
+                        <span>RETAILER<br>MARKUP</span>
+                        <h3>5%</h3>
+                      </div>
+                   </span>
+                 </div>
+              </div>
+
+            
+          </div>
+          <!-- Distributor Product Cards Start -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row fadebg" [class.show]="updateMarkupPopup"></div>
+  <div class="confirmPopup" [class.show]="updateMarkupPopup">
+    <div class="successImgIcon"></div>
+    <div class="sucessMsgText text-center">
+      <h4>{{successTitle}}</h4>
+      <P>{{successDescription}}</P>
+    </div>
+    <div class=" col-md-6 gotoDashboardBtn text-right">
+      <!-- <span routerLink="/dashboard">OK</span> -->
+      <span (click) ="updateMarkupPopup = !updateMarkupPopup" style = " margin-right: -25px;">OK</span>
+    </div>
+    
+  </div>

@@ -1,0 +1,53 @@
+ <!-- Generic wrap start -->
+ <div class="">
+    <div class="container-fluid">
+      <div class="row"><!-- Page Title -->
+        <div class="col-xs-12 col-sm-9 col-lg-9">
+          <h3 class="ac-page-title">Retailers</h3>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-lg-3"><!-- Solve E=mc2 --></div>
+      </div>
+      <div class="row"><!-- Employee Listing -->
+        <div class="col-xs-12 col-sm-12 col-lg-12 ac-distributor-listing">
+          
+          <!-- Distributor Cards Start -->
+          <div class="ac-distributor-cards">
+              <div *ngFor="let markup of retailerDetails; let i = index">    
+              <!-- Single Card Start -->
+              <div class="ac-distributor-card">
+                 <div class="ac-distributor-head">
+                    <span class="ac-distributor-head-left">1 Sep 2017</span>
+                    <span class="ac-distributor-head-right">
+                      <!-- More Menu -->
+                      <span class="ac-more-menu"> 
+                        <i class="ac-more-dots"></i>
+                        <ul style="display: none;">
+                          <li><a href="#">Option One</a></li>
+                          <li><a href="#">Option Two</a></li>
+                          <li><a href="#">Option Three</a></li>
+                        </ul>
+                      </span>
+                      <!-- More Menu End -->
+                    </span>
+                 </div>
+                 <div class="ac-distributor-clickable" (click)="distributorSingle(markup.retailerId)">
+                     <div class="ac-distributor-body">
+                        <img src="assets/demo-assets/dealer1_lg.png" alt="United Firmarms" class="ac-distrb-logo">
+                        <h4>{{markup.retailerName}}</h4>
+                     </div>
+                     <div class="ac-distributor-foot">
+                       <span class="ac-distributor-foot-left" style="width:100%;border-right:none;"><strong>8</strong><br>Catogaries Available</span>
+                     </div>
+                 </div>
+               </div>
+              </div>
+              <!-- Single Card End -->
+          </div>
+          <!-- Distributor Cards Start -->
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Generic wrap end -->
+  

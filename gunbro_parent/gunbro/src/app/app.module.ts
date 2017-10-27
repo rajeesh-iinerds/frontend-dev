@@ -20,8 +20,14 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { OrdersComponent } from './orders/orders.component';
 import { RetailersComponent } from './retailers/retailers.component';
 import { DistributorMarkupComponent } from './distributor-markup/distributor-markup.component';
+
+
+import { RetailerMarkupComponent } from './retailer-markup/retailer-markup.component';
+import { RetailerSingleComponent } from './retailer-single/retailer-single.component';
+
 import { DistributorCategoryComponent } from './distributor-category/distributor-category.component';
-//import { DistMarkupComponent } from './dist-markup/dist-markup.component';
+
+
 
 const appRoutes: Routes = [
   {
@@ -35,6 +41,8 @@ const appRoutes: Routes = [
       { path: 'productdetail', component:  ProductdetailComponent},
       { path: 'order', component:  OrdersComponent},
       { path: 'retailer', component: RetailersComponent},
+      { path: 'RetailerMarkup', component: RetailerMarkupComponent},
+      { path: 'RetailerSingle', component: RetailerSingleComponent},
       { path: 'markup', component:  DistributorMarkupComponent},
       { path: 'dist-category', component:  DistributorCategoryComponent}
     ]
@@ -72,7 +80,10 @@ const appRoutes: Routes = [
     OrdersComponent,
     RetailersComponent,
     DistributorMarkupComponent,
+    RetailerMarkupComponent,
+    RetailerSingleComponent,
     DistributorCategoryComponent
+
   ],
   imports: [
     BrowserModule,

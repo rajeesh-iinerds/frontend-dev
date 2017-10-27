@@ -49,6 +49,7 @@ export class DashboardComponentComponent implements OnInit {
   userGroup: string;
   manufacturerId: any;
   configUserGroup: any;
+  configSuperAdminUserGroup: any;
   
   constructor(private route: ActivatedRoute,private router: Router, public demoService: DemoService,private http:Http) {
     this.hideMFGSearch = true;
@@ -62,6 +63,7 @@ export class DashboardComponentComponent implements OnInit {
     this.userName = this.demoService.getCognitoUser().getUsername();
     this.userGroup = localStorage.getItem('userGroup') && localStorage.getItem('userGroup') != 'null' ? localStorage.getItem('userGroup') : '';
     this.configUserGroup = constant.user.userGroup && constant.user.userGroup != 'null' ? constant.user.userGroup : '';
+    this.configSuperAdminUserGroup =  constant.user.superadminUser && constant.user.superadminUser != 'null' ? constant.user.superadminUser : '';
   }
 
     clickedSearch(){
