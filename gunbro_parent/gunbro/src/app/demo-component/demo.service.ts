@@ -364,6 +364,7 @@ export class DemoService {
             
             req_body['storeId'] = store_id;
             req_body['retailer_id'] = retailer_id;
+            req_body['user_id'] = user_id;
             //let req_body = {  "ecomdashID": "ecomdashID",  "Quandity": orderInfo.Quandity?orderInfo.Quandity:"",  "ShippingMethod": orderInfo.ShippingMethod?orderInfo.ShippingMethod:"",  "ShipToStreetLine1": "",  "ShipToStreetLine2": "ShipToStreetLine2",  "ShipToCity": "ShipToCity",  "BuyerType": "Retailer",  "ConsumerName": "ConsumerName",  "ProductPrice": "123.45",  "CustomerPrice": "123.35",  "GSIN": this.productsearch_name,  "Custom1": "Custom1",  "Custom2": "Custom2",  "Custom3": "Custom3",  "Custom4": "Custom4",  "SKUNumber": "100386",  "ShipToPostalCode": "ShipToPostalCode",  "ShipToState": "ShipToState",  "BuyerID": "1",  "SellerID": "1",  "Phone": "3474845476",  "FFL": "FFLLicense",  "SellerType": "Distributor"}
             // const url = 'https://api.appcohesion.io/placeOrder';
             // const url = 'https://jp7oyuf6ch.execute-api.us-east-1.amazonaws.com/prod/';
