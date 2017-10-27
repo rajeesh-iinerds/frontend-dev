@@ -336,7 +336,7 @@ export class DemoService {
                 "ConsumerName": orderInfo.ConsumerName ? orderInfo.ConsumerName : "",
                 "ProductPrice": orderInfo.ProductPrice ? orderInfo.ProductPrice : "",
                 "FFL": orderInfo.FFL ? orderInfo.FFL : "",
-                "CustomerPrice": "123.35",
+                "CustomerPrice": orderInfo.ProductPrice ? orderInfo.ProductPrice : "",
                 "SellerType": "Distributor",
                 "GSIN": this.productInfo && this.productInfo.gsin ? this.productInfo.gsin : "",
                 "Custom4": "Custom4",
@@ -345,9 +345,9 @@ export class DemoService {
                 "Custom2": "Custom2",
                 "Custom1": "Custom1",
                 "ShipToState": orderInfo.ShipToState ? orderInfo.ShipToState : "",
-                "BuyerID": "1",
+               
                 "Phone": orderInfo.Phone ? orderInfo.Phone : "",
-                "SellerID": "3",
+               
                 "distributor_name": this.productInfo && this.productInfo.distributor_name ? JSON.stringify(this.productInfo.distributor_name) : "",
                 "product_name": this.productInfo && this.productInfo.product_Name ? JSON.stringify(this.productInfo.product_Name) : "",
                 "manufacturer_partnumber": this.productInfo && this.productInfo.mpn ? this.productInfo.mpn : "",
@@ -363,6 +363,8 @@ export class DemoService {
             var user_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : "";
             
             req_body['storeId'] = store_id;
+            req_body['BuyerID'] = retailer_id;
+            req_body['SellerID'] = "3";
             req_body['retailer_id'] = retailer_id;
             req_body['user_id'] = user_id;
             //let req_body = {  "ecomdashID": "ecomdashID",  "Quandity": orderInfo.Quandity?orderInfo.Quandity:"",  "ShippingMethod": orderInfo.ShippingMethod?orderInfo.ShippingMethod:"",  "ShipToStreetLine1": "",  "ShipToStreetLine2": "ShipToStreetLine2",  "ShipToCity": "ShipToCity",  "BuyerType": "Retailer",  "ConsumerName": "ConsumerName",  "ProductPrice": "123.45",  "CustomerPrice": "123.35",  "GSIN": this.productsearch_name,  "Custom1": "Custom1",  "Custom2": "Custom2",  "Custom3": "Custom3",  "Custom4": "Custom4",  "SKUNumber": "100386",  "ShipToPostalCode": "ShipToPostalCode",  "ShipToState": "ShipToState",  "BuyerID": "1",  "SellerID": "1",  "Phone": "3474845476",  "FFL": "FFLLicense",  "SellerType": "Distributor"}
