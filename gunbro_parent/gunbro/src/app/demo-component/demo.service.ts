@@ -47,13 +47,14 @@ export class DemoService {
     product_manufacturerId: any;
     retailerId : any;
     result : any;
-    
+    retailerCategory : any;
     loading: boolean = false;
     subMenuToggle: boolean = false;
     showNav: boolean = false;
 	showPopup: boolean = false;
 	createUserPopup: boolean = false;
     orderId: number;
+    applyMarkup: boolean = false;
     public demoService: DemoService;
 
     constructor(private http: Http, private router: Router) {
@@ -510,40 +511,7 @@ export class DemoService {
     }
 
     // Method for Listing Retailer Category
-    listCategoryforRetailer(jwt) : Observable < any >{
-        this.loading = true;
-        return Observable.create(observer => {
-        this.retailerId =  this.retailerId ?  this.retailerId : "";
-        console.log("retailer is inside another fn : " + this.retailerId);
-        //this.loading = false;
-        let headers = new Headers({ 'Content-Type': 'application/json','Authorization': jwt });
-        let options = new RequestOptions({ headers: headers });
-        let req_body = {
-            "retailer_id" : this.retailerId
-        };
-        const url = constant.appcohesionURL.retailercategorylist_URL;
-        this.http.post(url, req_body, options).subscribe(data => {
-            this.loading = false;
-            this.result = data.json();
-             if (this.result && this.result.status) {
-                if(this.result.status.code == constant.statusCode.success_code){
-                    this.resultForloop = this.result.markups;
-                    console.log("retailer category : " + JSON.stringify(this.resultForloop));
-                } else if (this.results.status.code == constant.statusCode.empty_code) {
-                    this.resultForloop = [];
-                }
-             }
-            }, error => {
-            this.loading = false;
-            observer.next(error);
-            observer.complete();
-            console.log(JSON.stringify(error));
-        });
-       }, (err) => {
-        this.loading = false;
-        console.log('Error');
-     });
-    }
+    
 
 
     //Listing users in cognito Pool
@@ -576,5 +544,60 @@ export class DemoService {
             console.log(err);
         });
     }
+
+    listRetailer(){
+        this.loading = true;
+        this.retailerId =  this.retailerId ?  this.retailerId : "";
+          //Taking Session Value for passing token
+          return this.getSessionToken().subscribe((response) => {
+            if (response.getIdToken().getJwtToken()) {
+                this.jwt = response.getIdToken().getJwtToken();
+            }
+            let headers = new Headers({
+                'Authorization': this.jwt
+            });
+            let options = new RequestOptions({
+                headers: headers
+            });
+            let req_body = {
+                "retailer_id" : this.retailerId
+            };
+            const url = constant.appcohesionURL.retailercategorylist_URL;
+            this.http
+            .post(url, req_body, options)
+            .subscribe(data => {
+                this.loading = false;
+                console.log("retailer data : " + data)
+                this.result = data.json();
+                if (this.result && this.result.status) {
+                   if(this.result.status.code == constant.statusCode.success_code){
+                       this.retailerCategory = this.result.markups;
+                       console.log("retailer category : " + JSON.stringify(this.retailerCategory));
+                   } else if (this.results.status.code == constant.statusCode.empty_code) {
+                       this.retailerCategory = [];
+                   }
+                }
+            }, error => {
+                this.loading = false;
+                console.log("error" + JSON.stringify(error));
+            });
+
+          },(err) => {
+            console.log(err);
+        });
+    }
+
+    //Method for displaying apply markup
+    // applyMarkupform(categoryId){
+    //     console.log("inside applymarkup ")
+    //   for(var i = 0; i <  this.retailerCategory.length; i++ ){
+    //     console.log("inside applymarkup retailerCategory " + JSON.stringify(this.retailerCategory[i]));
+    //       if(categoryId == this.retailerCategory[i].categoryId){
+
+    //         this.applyMarkup = true;
+    //         console.log(" this.applyMarkup boolean  " + JSON.stringify(this.applyMarkup));
+    //       }
+    //   }
+    // }
 
 }

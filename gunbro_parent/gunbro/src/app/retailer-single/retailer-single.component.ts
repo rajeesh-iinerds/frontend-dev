@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DemoService } from '../demo-component/demo.service';
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-retailer-single',
@@ -8,45 +9,34 @@ import { DemoService } from '../demo-component/demo.service';
 })
 export class RetailerSingleComponent implements OnInit {
 
-  showMarkup: boolean = false;
-  retailerId: number = 1;
-
-    constructor(public demoService: DemoService) { 
+  applyMarkup: boolean = false;
+  viewMarkup:boolean = false;
+  closeMarkup:boolean = false; 
+    constructor(public demoService: DemoService, private router: Router) { 
 
     }
   
     ngOnInit() {
-      return this.demoService.getSessionToken().subscribe((response) => {
-        if(response.getIdToken().getJwtToken()) {
-             const jwt = response.getIdToken().getJwtToken();
-            // this.demoService.productSearchfromService(this.searchType, this.searchKey, jwt);
-            this.getCategoryList(jwt);
-        }
-      }, (err) => {
-        console.log(err);
-      });
+      this.demoService.listRetailer();
+     
     }
 
 
-  // Method for getting category list for an retailer
-   getCategoryList(jwt){
-     console.log("get category list")
-    this.demoService.listCategoryforRetailer(jwt).subscribe((data) => {
-      console.log("list category" + data);
-      }, (err) => {
-       console.log(err);
-     });
-   }
 
   // Method for showing markup
-    viewMarkup(){
-      if(this.retailerId == 1){
-        this.showMarkup = true;
-      }
+   applyMarkupform(){
+      this.applyMarkup = true;
+    }
+    viewMarkupForm(){
+      this.viewMarkup = true;
     }
 
   // Method for closing markup
-    closeMarkup(){
-      this.showMarkup = false;
+    closeMarkupForm(){
+     this.closeMarkup = true;
+    }
+    
+    backtoRetailer(){
+      this.router.navigate(['/dashboard/RetailerMarkup']);
     }
 }
