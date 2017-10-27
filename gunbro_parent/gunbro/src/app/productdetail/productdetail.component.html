@@ -143,48 +143,7 @@
     <div (click) = "placeMyOrderClose()">
       <span class="placeMyOrderClose"></span>
       </div>
-      <!--<span class="shippingInfoWrapper">
-        <a href="" class="shippingInfoWrapperIcon"></a>
-        <h4>Shipping Info</h4>
-      </span>
-      <div class="clearfix"></div>
-       <div class="shippingInfoWrapperAccordian">
-      <div class="shippingInfoSubHead">Choose a shipping method</div>
-      <div class="shippingInfoSubHead">Enter shipping address</div>
-      <form class="ac-create-employee-body">
-        <div class="form-group">
-          <label for="usr_firstname">RETAILER NAME</label>
-          <input type="text" class="form-control" placeholder="Enter your first name" id="usr_firstname">
-        </div>
-        <div class="form-group" style="width:48%;">
-          <label for="usr_lastname">CONTACT PERSON FIRST NAME</label>
-          <input type="text" class="form-control" placeholder="Enter your last name" id="usr_lastname">
-        </div>
-        <div class="form-group pull-right" style="width:48%;">
-          <label for="usr_emailid">CONTACT PERSON LAST NAME</label>
-          <input type="email" class="form-control" placeholder="Enter your email address" id="usr_emailid">
-        </div>
-        <div class="form-group">
-          <label for="usr_password">STREET ADDRESS</label>
-          <input type="text" class="form-control" placeholder="Enter your password" id="usr_password">
-        </div>
-        <div class="form-group pull-left" style="width:28%;">
-          <label for="usr_confirm_password">ZIP CODE</label>
-          <input type="text" class="form-control" placeholder="Confirm your password" id="usr_confirm_password">
-        </div>
-        <div class="form-group" style="width:38%;padding-left: 15px;">
-          <label for="usr_confirm_password">CITY</label>
-          <input type="text" class="form-control" placeholder="Confirm your password" id="usr_confirm_password">
-        </div>
-        <div class="form-group pull-right" style="width:28%;">
-          <label for="usr_confirm_password">STATE</label>
-          <input type="text" class="form-control" placeholder="Confirm your password" id="usr_confirm_password">
-        </div>
-        <span class="ac-create-employee-foot">
-          <button type="submit" class="btn btn-default">CONTINUE TO CUSTOMER INFO</button>
-        </span>
-      </form>
-      </div> -->
+     
 
 
       <span class="shippingInfoWrapper">
@@ -211,19 +170,11 @@
 
 
 
-                  <!-- <input type="text" class="form-control" placeholder="John" name="firstName" ngModel required> -->
-
+                 
         </div>
 
 
-  <!-- <div class="form-group">
-   <label for="name">Name</label>
-   <input type="text" class="form-control" id="name" required pattern="[a-zA-Z][a-zA-Z ]+" [(ngModel)]="firstName" name="name" #name="ngModel">
-   <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-      <div [hidden]="!name.hasError('required')">Name is required</div>
-      <div [hidden]="!name.hasError('pattern')">Only alphabetsallowed</div>
-   </div>
-</div> -->
+  
 
 
 
@@ -288,10 +239,7 @@
           <label for="usr_zipcode">ZIP CODE</label>
           <input type="text" class="form-control" placeholder="Enter your zip code" id="usr_zipcode" [(ngModel)]="zipcode" name="usr_zipcode" required pattern="[0-9]*" minlength="1" maxlength="6" #usr_zipcode="ngModel">
           <div *ngIf= "usr_zipcode.errors && (usr_zipcode.dirty || usr_zipcode.touched)" class="ac-required-field">
-            <!-- <div [hidden]="!usr_zipcode.errors.minlength">
-              Zip code must be 6 characters long.
-            </div> -->
-            <div [hidden]="!usr_zipcode.errors.pattern">
+             <div [hidden]="!usr_zipcode.errors.pattern">
               Invalid zipcode format!
             </div>
           </div>
@@ -313,9 +261,7 @@
 
         <span class="ac-create-employee-foot">
           <button type="submit" class="btn btn-default custom-button" [disabled]="!shippingForm.form.valid" (click) = "getToken(shippingForm)">CONFIRM ORDER</button>
-
-<!--           <button type="submit" class="btn btn-default" [disabled]="!bookForm.form.valid">Submit</button>
- -->          
+         
         </span>
       </form>
     </div>
@@ -324,7 +270,6 @@
 
     <!-- success popup starts -->
     <div class="row fadebg" [class.show]="demoService.showPopup"></div>
-    <!-- <div class="" [ngClass]="demoService.showPopup ? 'confirmPopup' : 'hideLayout'"> -->
     <div class="confirmPopup" [class.show]="demoService.showPopup">
       <div class="successImgIcon"></div>
       <div class="sucessMsgText text-center">
@@ -335,15 +280,10 @@
         <span routerLink="/dashboard">GO TO DASHBOARD</span>
       </div>
       <div class=" col-md-6 checkOrderStatusBtn text-left">
-        <span routerLink="/dashboard/order">CHECK ORDER STATUS</span>
+        <span routerLink="../order">CHECK ORDER STATUS</span>
       </div>
     </div>
     <!-- success popup ends -->
 
-<!-- <div [class.show]="demoService.showPopup" class="step">
-  <h4>All of these elements will be faded out using a CSS3 opacity transition.</h4>
-  <div>
-     this element will fade out also when the booleanFromComponentClass variable is false
-  </div>
-</div> -->
+
     
