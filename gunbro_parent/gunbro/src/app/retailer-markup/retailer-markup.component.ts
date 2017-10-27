@@ -14,6 +14,7 @@ export class RetailerMarkupComponent implements OnInit {
   result: any;
   retailerDetails: any;
   retailerList : any;
+  allretailerList : any;
   constructor(private http: Http, private router: Router, public demoService: DemoService) { }
 
   ngOnInit() {
@@ -39,14 +40,11 @@ export class RetailerMarkupComponent implements OnInit {
           this.http.post(url, req_body, options).subscribe(data => {
             this.demoService.loading = false;
             this.result = data.json();
-            console.log("result details : " + JSON.stringify(this.result));
+          
             this.retailerDetails = this.result.retailers;
-            for (let retailerList of this.retailerDetails) {
-              this.retailerList = {
-                "address" : retailerList.address ? retailerList.address : "",
-                "retailerName": retailerList.retailerName ? retailerList.retailerName : "",
-                "retailerId": retailerList.retailerId ? retailerList.retailerId : "" };
-              }
+            console.log("result details : " + JSON.stringify(this.retailerDetails));
+            
+              //this.allretailerList.push(this.retailerList);
               observer.next(this.retailerList);
               observer.complete();
           });
@@ -59,12 +57,15 @@ export class RetailerMarkupComponent implements OnInit {
 
   // Method for directing the distributor to their corresponding own page
   distributorSingle(retailerId){
-    if(this.retailerList.retailerId == retailerId){
-    this.demoService.setRetailerIdforCategory(retailerId);
-    this.router.navigate(['/dashboard/RetailerSingle']);
-    }
-    else{
-      this.router.navigate(['/dashboard/RetailerMarkup']);
+    console.log("retailer id : " + retailerId)
+    for(var i = 0; i <  this.retailerDetails.length; i++){
+      if(this.retailerDetails[i].retailerId == retailerId){
+        this.demoService.setRetailerIdforCategory(retailerId);
+        this.router.navigate(['/dashboard/RetailerSingle']);
+        }
+      else{
+            this.router.navigate(['/dashboard/RetailerMarkup']);
+          }
     }
   }
 }

@@ -23,7 +23,8 @@ export const appcohesionURL = {
 	"retailercategorylist_URL" : "https://hpbrogcqal.execute-api.us-east-1.amazonaws.com/prod",
 	"getDistributorsList_URL" : "https://api.appcohesion.io/getDistList",
 	"getDistributorMarkup_URL" : "https://api.appcohesion.io/getMarkup",
-	"addDistributorMarkup_URL" : "https://api.appcohesion.io/setMarkup"
+	"addDistributorMarkup_URL" : "https://api.appcohesion.io/setMarkup",
+	"retailerApply_URL": "https://i0ko9akgah.execute-api.us-east-1.amazonaws.com/prod"
 
 };
 
