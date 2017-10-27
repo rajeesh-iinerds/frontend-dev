@@ -55,6 +55,8 @@ export class DemoService {
 	createUserPopup: boolean = false;
     orderId: number;
     applyMarkup: boolean = false;
+    createUserMessage : any;
+    createUserStatus : any;
     public demoService: DemoService;
 
     constructor(private http: Http, private router: Router) {
@@ -497,14 +499,16 @@ export class DemoService {
             .post(url, req_body, options)
             .subscribe(data => {
                 this.loading = false;
-				this.results = data.json();
-				if (this.results.status.code == constant.statusCode.success_code) {             
-					this.createUserPopup =true;
-                   // alert(this.results.data.user.username + " has been created successfully and an email has been sent to his email id!");
-                } else {
-                    alert(this.results.Error.message + " ! ");
-                }
-                console.log(this.results);
+                this.results = data.json();
+                this.createUserMessage = "";
+                this.createUserStatus = ""
+                if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {             
+                    this.createUserMessage = "Congratulations!! You have successfully added user. Email has been sent to his email id!";
+                    this.createUserStatus = "SUCCESS"
+                   } else {
+                    this.createUserMessage = this.results.status.message.message + " ! ";
+                    this.createUserStatus = "SORRY";
+                   }
             }, error => {
                 this.loading = false;
                 console.log("error" + JSON.stringify(error));
