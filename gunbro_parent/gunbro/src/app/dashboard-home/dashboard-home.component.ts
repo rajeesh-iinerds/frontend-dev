@@ -19,13 +19,13 @@ export class DashboardHomeComponent implements OnInit {
   }
 
   // Method for viewing Retailer page 
-  viewRetailer(){
-   if(this.userGroup == constant.user.superadminUser){
-    this.router.navigate(['/dashboard/RetailerMarkup']);
-   }
-   else{
-     this.router.navigate(['/dashboard']);
-   }
-  }
+  // viewRetailer(){
+  //  if(this.userGroup == constant.user.superadminUser){
+  //   this.router.navigate(['/dashboard/RetailerMarkup']);
+  //  }
+  //  else{
+  //    this.router.navigate(['/dashboard']);
+  //  }
+  // }
 
 }

@@ -102,4 +102,16 @@
     </div>
   </div>
 
-  <!-- Generic wrap end -->
+  <div class="row fadebg" [class.show]="updateMarkupPopup"></div>
+  <div class="confirmPopup" [class.show]="updateMarkupPopup">
+    <div class="successImgIcon"></div>
+    <div class="sucessMsgText text-center">
+      <h4>{{successTitle}}</h4>
+      <P>{{successDescription}}</P>
+    </div>
+    <div class=" col-md-6 gotoDashboardBtn text-right">
+      <!-- <span routerLink="/dashboard">OK</span> -->
+      <span (click) ="updateMarkupPopup = !updateMarkupPopup" style = " margin-right: -25px;">OK</span>
+    </div>
+    
+  </div>

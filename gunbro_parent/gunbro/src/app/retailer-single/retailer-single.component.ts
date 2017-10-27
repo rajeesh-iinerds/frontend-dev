@@ -35,7 +35,6 @@ export class RetailerSingleComponent implements OnInit {
   
     ngOnInit() {
       this.demoService.listRetailer();
-     
     }
 
 
@@ -46,7 +45,7 @@ export class RetailerSingleComponent implements OnInit {
 		  console.log("this.temp:" + JSON.stringify(this.temp));
   		// this.markupValue = category.markup && category.markup > 0 ? category.markup : '';
 		 // this.markupValue = category.markup;
-	//	  console.log("this.markupValue:" + this.markupValue);
+	
     }
     
   // Method for viewing markup
@@ -55,6 +54,7 @@ export class RetailerSingleComponent implements OnInit {
 		  this.markupUpdate = category.markup;
    }
 
+   // Method for canceling a
     cancelApplyMarkup(category) {
   		this.temp = {
 			"categoryId": ''
@@ -71,11 +71,10 @@ export class RetailerSingleComponent implements OnInit {
       this.router.navigate(['/dashboard/RetailerMarkup']);
     }
     
+    // Method for Markup functionality : apply, applyAll, Update, UpdateAll
     applyMarkupEvent(markup,retailer,flag){
       this.applyFlag = flag && flag == "single" ? "single" : "all";
-      console.log("apply flag : " + this.applyFlag);
       this.categoryId = retailer.categoryId ? retailer.categoryId : "";
-      console.log("category id : " +  this.categoryId);
       this.demoService.loading = true;
       return this.demoService.getSessionToken().subscribe((response) => {
         if (response.getIdToken().getJwtToken()) {
@@ -92,19 +91,16 @@ export class RetailerSingleComponent implements OnInit {
           this.http.post(url, req_body, options).subscribe(data => {
             this.demoService.loading = false;
             this.result = data.json();
-            console.log("resullt from apply : " + this.result);
-           // if(this.result && this.result.status){
-              console.log("inside result check")
-           //   if(this.result.status.code == 200){
-                console.log("result inside popup check")
+           if(this.result && this.result.status){
+              if(this.result.status.code == 200){
                 this.updateMarkupPopup = true;
                 this.successTitle = constant.distributor_markup_messages.success_title;
                 this.successDescription = constant.distributor_markup_messages.success_description;
-            //  }
-            //  else if(this.result.status.code == constant.statusCode.empty_code){
-             //   console.log("error");
-            //  }
-           // }
+               }
+              else if(this.result.status.code == constant.statusCode.empty_code){
+                console.log("error");
+              }
+            }
           });
         }
       });

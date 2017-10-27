@@ -40,12 +40,15 @@ export class RetailerMarkupComponent implements OnInit {
           this.http.post(url, req_body, options).subscribe(data => {
             this.demoService.loading = false;
             this.result = data.json();
-          
-            this.retailerDetails = this.result.retailers;
-            console.log("result details : " + JSON.stringify(this.retailerDetails));
-            
-              //this.allretailerList.push(this.retailerList);
-              observer.next(this.retailerList);
+            if(this.result && this.result.status){
+              if(this.result.status.code == 200){
+                this.retailerDetails = this.result.retailers;
+              }
+              else if (this.result.statusCode == constant.statusCode.empty_code) {
+                this.retailerDetails = [];
+                }
+              }
+              observer.next(this.retailerDetails);
               observer.complete();
           });
         }
