@@ -24,10 +24,12 @@ export const appcohesionURL = {
 	"getDistributorsList_URL" : "https://api.appcohesion.io/getDistList",
 	"getDistributorMarkup_URL" : "https://api.appcohesion.io/getMarkup",
 	"addDistributorMarkup_URL" : "https://api.appcohesion.io/setMarkup",
-	"retailerApply_URL": "https://i0ko9akgah.execute-api.us-east-1.amazonaws.com/prod"
+	"retailerApply_URL": "https://i0ko9akgah.execute-api.us-east-1.amazonaws.com/prod",
+	"placeOrder_SS_URL" : "https://webservices.theshootingwarehouse.com/smart/orders.asmx"
 
 };
 
+export const distApiList = ["ss"];
 export const statusCode = {
 	"success_code": "200",
 	"empty_code": "2003",

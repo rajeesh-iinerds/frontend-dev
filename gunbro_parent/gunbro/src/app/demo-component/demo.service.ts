@@ -313,6 +313,55 @@ export class DemoService {
             });
     }
 
+    apiIntegrationForDist(orderInfo, jwt,body,options): Observable < any > {
+        return Observable.create(observer => {
+            var req_body_api ={"CustomerNumber": "","UserName":"","Password":"Password","Source":"Source","PO":"PO",
+            "OrderNumber" : "" ,"SalesMessage": "","ShipVia": "","ShipToName": "","ShipToAttn": "","ShipToAddr1": "",
+            "ShipToAddr2" : "" ,"ShipToCity": "","ShipToState": "","ShipToZip":123456 ,"ShipToPhone": "","AdultSignature": true,
+            "Signature":true
+        };
+            alert("reqbodyapi");
+            const url = constant.appcohesionURL.placeOrder_SS_URL;
+            this.http
+            .post(url, req_body_api, options)
+            .subscribe(data1 => {
+                this.loading = false;
+                alert("datassssssssssssssssssss" + JSON.stringify(data1));
+                //alert(JSON.stringify(data));
+                this.results = data1 ? data1.json() : '';
+
+                if (this.results) {
+                    if (this.results.status.code == constant.statusCode.success_code) {
+                        this.orderId = this.results.data[0].orderId;
+                        this.showclickorder = false;
+                        this.showPopup = !this.showPopup;
+                        console.log(JSON.stringify(this.results));
+                        observer.next(this.results);
+                        observer.complete();
+                    } else {
+                        //alert(this.results.status);
+                    }
+                     alert(this.results.status);
+                    console.log(this.results);
+                } else {
+                alert("Result is empty");
+                }
+            }, error => {
+                this.loading = false;
+                alert("Inside" + JSON.stringify(error))
+                observer.next(error);
+                observer.complete();
+                console.log(JSON.stringify(error));
+            });
+
+            observer.next(this.results);
+            observer.complete();
+        },
+         (err) => {
+            console.log('Error');
+        });
+    }
+
     confirmOrderfromService(orderInfo, jwt): Observable < any > {
         this.loading = true;
 
@@ -384,10 +433,21 @@ export class DemoService {
                         if (this.results.status.code == constant.statusCode.success_code) {
                             this.orderId = this.results.data[0].orderId;
                             this.showclickorder = false;
-                            this.showPopup = !this.showPopup;
-                            console.log(JSON.stringify(this.results));
-                            observer.next(this.results);
-                            observer.complete();
+                            this.showPopup = !this.showPopup; 
+                            if(constant.distApiList.indexOf(this.productInfo.distributor_name) > -1   ){                        
+                            return this.apiIntegrationForDist(orderInfo, jwt,req_body,options).subscribe((responseFromdistApi) => {
+                                observer.next(this.results);
+                                observer.complete();
+                              }, (err) => {
+                                console.log(err);
+                                observer.next(err);
+                                observer.complete();
+                              });    
+                            } 
+                            else{
+                                observer.next(this.results);
+                                observer.complete(); 
+                            }                                                
                         } else {
                             //alert(this.results.status);
                         }
