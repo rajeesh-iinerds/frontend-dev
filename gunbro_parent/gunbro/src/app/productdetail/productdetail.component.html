@@ -72,11 +72,20 @@
                     <option *ngFor="let value of values" [ngValue]="value.key">{{value.name}}</option>
                   </select>
                 </span>
+                <div>
+                    <span class="ac-prod-cost">Base Price<strong><em>$</em>{{demoService.productInfo && demoService.productInfo.retailerPrice ? demoService.productInfo.retailerPrice : 0}}</strong></span>
+                    
+                <span class="ac-prod-cost">Retailer Markup<strong><em>$</em>{{demoService.productInfo && demoService.productInfo.retailerMarkup ? demoService.productInfo.retailerMarkup : 0}}%</strong></span>
+                
+                
+                <span class="ac-prod-cost">Amount Payable<strong><em>$</em>{{amount}}</strong></span>
+          
+              </div>
                 <div class="ac-prod-buying-options" *ngIf="demoService.productInfo && demoService.productInfo.inStock && demoService.productInfo.inStock > 0">
                     <input type="number" name="quantity" min="1" max="5" [(ngModel)]="selectedQuantity" (ngModelChange)="onQuantityChange($event)">
                     <button class="ac-result-quick-order" (click) = "placeOrder()">PLACE MY ORDER</button>
-                     <span class="ac-prod-cost">Amount Payable<strong><em>$</em>{{amount}}</strong></span>
-                </div>
+                       </div>
+               
                 <div class="ac-prod-buying-options" *ngIf="demoService.productInfo && demoService.productInfo.inStock && demoService.productInfo.inStock <= 0">
                     <button class="ac-result-quick-order">OUT OF STOCK</button>
                 </div>
