@@ -34,7 +34,7 @@
                        </div>
                         <div class="storeDetails">
                           <h6>FFL#</h6>
-                          <span>5-76-339-07-6M-02775</span>
+                          <span>{{store.StoreFFLId}}</span>
                         </div>
                         <div class="storeDetails">
                           <h6>Store Address</h6>
@@ -62,49 +62,59 @@
     <!-- CREATE NEW STORE : START -->
     <div class="ac-create-employee-drawer ac-create-store-drawer" style="right:-400px;opacity:0;">
       <span class="placeMyOrderClose" (click) = "showCreateStore = !showCreateStore"></span>
-      <form class="ac-create-employee-body">
+      <form class="ac-create-employee-body" #employeeForm="ngForm">
         <div class="form-group">
-          <label for="usr_firstname">CONTACT PERSON</label>
-          <input type="text" class="form-control" placeholder="Enter your first name" id="usr_firstname">
+          <label for="name">STORE NAME</label>
+          <input type="text" class="form-control" placeholder="Enter store name" id="name" name="name" [(ngModel)]="userInfo.firstName" pattern="[a-zA-Z ]*" required #name="ngModel">
+          <div *ngIf= "name.errors && (name.dirty || name.touched)" class="ac-required-field">
+            <div [hidden]="!name.errors.pattern">
+              Invalid characters not allowed!
+            </div>
+      		</div>
         </div>
         <div class="form-group">
-          <label for="usr_lastname">FFL NO.</label>
-          <input type="text" class="form-control" placeholder="Enter your FFL#" id="usr_lastname">
+          <label for="ffl">FFL NO.</label>
+          <input type="text" class="form-control" placeholder="Enter FFL#" id="ffl" name="ffl" [(ngModel)]="userInfo.ffl" required #ffl="ngModel">
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="usr_lastname">UPLOAD FFL</label>
           <div class="ffl-upload-field">upload FFL Here</div>
-        </div>
+        </div> -->
         <div class="form-group" style="width: 48%;">
-          <label for="usr_lastname">CITY</label>
-          <input type="text" class="form-control" placeholder="Enter city" id="usr_lastname">
+          <label for="city">CITY</label>
+          <input type="text" class="form-control" placeholder="Enter city" id="city" name="city" [(ngModel)]="userInfo.city" required #city="ngModel">
         </div>
         <div class="form-group pull-right" style="width: 48%;">
-          <label for="usr_lastname">STATE</label>
-          <input type="text" class="form-control" placeholder="Enter state" id="usr_lastname">
+          <label for="state">STATE</label>
+          <input type="text" class="form-control" placeholder="Enter state" id="state" name="state" [(ngModel)]="userInfo.state" required #state="ngModel">
         </div>
         <div class="form-group">
-          <label for="usr_emailid">STORE ADDRESS</label>
-          <input type="email" class="form-control" placeholder="Enter address" id="usr_emailid">
+          <label for="address">STORE ADDRESS</label>
+          <input type="text" class="form-control" placeholder="Enter address" id="address" name="address" [(ngModel)]="userInfo.address" required #address="ngModel">
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
           <label for="usr_lastname">UPLOAD STORE PHOTO</label>
           <div class="ffl-upload-field">upload Photo Here</div>
+        </div> -->
+        <div class="form-group">
+          <label for="phone">PHONE</label>
+          <input type="text" class="form-control" placeholder="Enter phone" id="phone" name="phone" [(ngModel)]="userInfo.phone" required #phone="ngModel">
         </div>
         <div class="form-group">
-          <label for="usr_password">PHONE</label>
-          <input type="text" class="form-control" placeholder="Enter phone#" id="usr_lastname">
+          <label for="fax">FAX</label>
+          <input type="text" class="form-control" placeholder="Enter fax" id="fax" name="fax" [(ngModel)]="userInfo.fax" required #fax="ngModel">
         </div>
         <div class="form-group">
-          <label for="usr_confirm_password">FAX</label>
-          <input type="text" class="form-control" placeholder="Enter fax" id="usr_lastname">
-        </div>
-        <div class="form-group">
-          <label for="usr_confirm_password">EMAIL</label>
-          <input type="text" class="form-control" placeholder="Enter email Id" id="usr_lastname">
+          <label for="usr_email">EMAIL ID</label>
+	      <input type="email" class="form-control" placeholder="Enter email Id" id="usr_email" [(ngModel)]="userInfo.email" name="usr_email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #usr_email="ngModel">
+	    	<div *ngIf= "usr_email.errors && (usr_email.dirty || usr_email.touched)" class="ac-required-field">
+		        <div [hidden]="!usr_email.errors.pattern">
+		          Invalid email format!
+	        	</div>
+      		</div>
         </div>
         <span class="ac-create-employee-foot">
-          <button type="submit" class="btn btn-default">CREATE STORE</button>
+          <button type="submit" class="btn btn-default" (click) = "createStoreClick()" [disabled]="!employeeForm.form.valid">CREATE STORE</button>
         </span>
       </form>
     </div>

@@ -18,6 +18,16 @@ export class StoreLocationComponent implements OnInit {
   	showViewStore: boolean = false;
   	selectedStore : any;
   	showCreateStore: boolean = false;
+  	userInfo = {
+      "firstName": '',
+      "ffl": '',
+      "city": '',
+      "state": '',
+      "address": '',
+      "phone": '',
+      "fax": '',
+      "email": ''
+    };
 
   constructor(public demoService: DemoService , private http: Http) {
   }
@@ -92,5 +102,56 @@ export class StoreLocationComponent implements OnInit {
   	// }
   	createStore() {
   		this.showCreateStore = true;
+  	}
+  	createStoreClick() {
+  		console.log(this.userInfo);
+  		var entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
+  		return this.demoService.getSessionToken().subscribe((response) => {
+	      	if(response.getIdToken().getJwtToken()) {
+	           const jwt = response.getIdToken().getJwtToken();
+	           this.demoService.loading = true;
+	        	let headers = new Headers({
+		            'Content-Type': 'application/json',
+		            'Authorization': jwt
+		        });
+		        let options = new RequestOptions({
+		            headers: headers
+		        });
+		        // var entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
+
+		        let req_body = {
+					"entity_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "",
+					"store_name": this.userInfo.firstName,
+					"ffl" : this.userInfo.ffl,
+					"city": this.userInfo.city,
+					"state": this.userInfo.state,
+					"address": this.userInfo.address,
+					"phone": this.userInfo.phone,
+					"fax:" : this.userInfo.fax
+		        };
+		        // const url = constant.appcohesionURL.placeOrder_URL;
+		        /*this.http
+	            .post(url, req_body, options)
+	            .subscribe(data => {
+	                this.demoService.loading = false;
+	                this.results = data.json();
+	                this.createUserMessage = "";
+	                this.createUserStatus = ""
+	                if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {             
+	                    this.createUserMessage = "Congratulations!! You have successfully added user. Email has been sent to his email id!";
+	                    this.createUserStatus = "SUCCESS"
+	                   } else {
+	                    this.createUserMessage = this.results.status.message.message + " ! ";
+	                    this.createUserStatus = "SORRY";
+	                   }
+	            }, error => {
+	                this.demoService.loading = false;
+	                console.log("error" + JSON.stringify(error));
+	            });*/
+
+		      }
+		    }, (err) => {
+		    console.log(err);
+		});
   	}
 }
