@@ -17,6 +17,7 @@ export class StoreLocationComponent implements OnInit {
   	retailerStoreDetails: any;
   	showViewStore: boolean = false;
   	selectedStore : any;
+  	showCreateStore: boolean = false;
 
   constructor(public demoService: DemoService , private http: Http) {
   }
@@ -89,4 +90,7 @@ export class StoreLocationComponent implements OnInit {
   	// closeView() {
   	// 	this.showAddStore = !this.showAddStore;
   	// }
+  	createStore() {
+  		this.showCreateStore = true;
+  	}
 }

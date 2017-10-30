@@ -1,5 +1,6 @@
       
       <div [ngClass]="showViewStore ? 'ac-locationDetails-on' : ''">
+      <div [ngClass]="showCreateStore ? 'ac-create-employee-on' : ''">
       <!-- Generic wrap start -->
       <div class="ac-generic-wrap">
         <div class="container-fluid">
@@ -8,7 +9,7 @@
               <h3 class="ac-page-title">Store Locations</h3>
             </div>
             <div class="col-xs-12 col-sm-3 col-lg-3 text-right xs-text-left">
-              <a href="javascript:void(0);" class="ac-button-outlined ac-create-employee"><i>+</i>CREATE NEW</a>
+              <a class="ac-button-outlined ac-create-employee" (click) = "createStore()"><i>+</i>CREATE NEW</a>
             </div>
           </div>
           <div class="row"><!-- Employee Listing -->
@@ -60,7 +61,7 @@
 
     <!-- CREATE NEW STORE : START -->
     <div class="ac-create-employee-drawer ac-create-store-drawer" style="right:-400px;opacity:0;">
-      <span class="placeMyOrderClose" (click) = "showViewStore = !showViewStore"></span>
+      <span class="placeMyOrderClose" (click) = "showCreateStore = !showCreateStore"></span>
       <form class="ac-create-employee-body">
         <div class="form-group">
           <label for="usr_firstname">CONTACT PERSON</label>
@@ -68,7 +69,7 @@
         </div>
         <div class="form-group">
           <label for="usr_lastname">FFL NO.</label>
-          <input type="text" class="form-control" placeholder="Enter your last name" id="usr_lastname">
+          <input type="text" class="form-control" placeholder="Enter your FFL#" id="usr_lastname">
         </div>
         <div class="form-group">
           <label for="usr_lastname">UPLOAD FFL</label>
@@ -76,15 +77,15 @@
         </div>
         <div class="form-group" style="width: 48%;">
           <label for="usr_lastname">CITY</label>
-          <input type="text" class="form-control" placeholder="Enter your last name" id="usr_lastname">
+          <input type="text" class="form-control" placeholder="Enter city" id="usr_lastname">
         </div>
         <div class="form-group pull-right" style="width: 48%;">
           <label for="usr_lastname">STATE</label>
-          <input type="text" class="form-control" placeholder="Enter your last name" id="usr_lastname">
+          <input type="text" class="form-control" placeholder="Enter state" id="usr_lastname">
         </div>
         <div class="form-group">
           <label for="usr_emailid">STORE ADDRESS</label>
-          <input type="email" class="form-control" placeholder="Enter your email address" id="usr_emailid">
+          <input type="email" class="form-control" placeholder="Enter address" id="usr_emailid">
         </div>
         <div class="form-group">
           <label for="usr_lastname">UPLOAD STORE PHOTO</label>
@@ -92,15 +93,15 @@
         </div>
         <div class="form-group">
           <label for="usr_password">PHONE</label>
-          <input type="password" class="form-control" placeholder="Enter your password" id="usr_password">
+          <input type="text" class="form-control" placeholder="Enter phone#" id="usr_lastname">
         </div>
         <div class="form-group">
           <label for="usr_confirm_password">FAX</label>
-          <input type="password" class="form-control" placeholder="Confirm your password" id="usr_confirm_password">
+          <input type="text" class="form-control" placeholder="Enter fax" id="usr_lastname">
         </div>
         <div class="form-group">
           <label for="usr_confirm_password">EMAIL</label>
-          <input type="password" class="form-control" placeholder="Confirm your password" id="usr_confirm_password">
+          <input type="text" class="form-control" placeholder="Enter email Id" id="usr_lastname">
         </div>
         <span class="ac-create-employee-foot">
           <button type="submit" class="btn btn-default">CREATE STORE</button>
@@ -158,4 +159,5 @@
       </form>
     </div>
     <!-- STORE VIEW DETAILS : END -->
+</div>
 </div>
