@@ -1,6 +1,3 @@
-
-
-  
     <!-- Left Side Nav Start -->
     
     <!-- Left Side Nav End -->
@@ -8,43 +5,6 @@
     <!-- Main Section Start -->
     
     <div class="" style = "text-align: left">
-      <!-- Global Header Start -->
-      <!-- <div class="ac-global-header">
-        <div class="col-xs-8 col-sm-8 col-lg-7 ac-search-wrap">
-          <div class="ac-search-inset">
-              <span class="ac-search-shrinked" style="opacity: 0;">
-                <i class="glyphicon glyphicon-search"></i>
-                <input type="search" placeholder="Search for firmarms, distributors, manufacturers, equipments, status etc..." name="">
-              </span>
-              <a href="javascript:void(0);" class="ac-search-trigger"><i class="glyphicon glyphicon-search"></i></a>
-          </div>
-        </div>
-        <div class="col-xs-4 col-sm-4 col-lg-5 ac-user-controls">
-          <span class="ac-place-order-btn">
-            <a href="javascript:void(0);" class="ac-place-order">Place an Order</a>
-          </span>
-          <span class="ac-notification-links">
-            <a href="javascript:void(0);"><i class="glyphicon glyphicon-envelope"></i><i class="ac-notification">20</i></a>
-            <a href="javascript:void(0);"><i class="glyphicon glyphicon-bell"></i><i class="ac-notification">3</i></a>
-          </span>
-          <span class="ac-user-actions">
-            <span class="ac-user-img">
-              <img src="images/demo-avatar.png" alt="FIRST NAME HERE">
-              <i class="glyphicon glyphicon-menu-down"></i>
-            </span>
-            <h3>Adriana Blandford </h3>
-            <span class="ac-user-drop-wrap" style="display: none;">
-              <ul class="ac-user-dropdown">
-                <li><a href="javascript:void(0);">My Profile</a></li>
-                <li><a href="javascript:void(0);">Menu Item</a></li>
-                <li><a href="login.html">Log Out</a></li>
-              </ul>
-            </span>
-          </span>
-        </div>
-      </div> -->
-      <!-- Global Header End -->
-
       <!-- Generic wrap start -->
       <div class="ac-generic-wrap">
         <div class="container-fluid">
@@ -90,14 +50,15 @@
                     <button class="ac-result-quick-order">OUT OF STOCK</button>
                 </div>
             </div>
+
             <!-- Image Viewer -->
             <div class="col-xs-12 col-sm-12 col-lg-6 ac-prod-right">
                 <div class="ac-image-viewer">
-                  <span class="ac-iv-pane"><img src="assets/demo-assets/gun9.png"></span>
+                  <span class="ac-iv-pane" *ngIf="demoService.productInfo && demoService.productInfo.largeImage"><img src="{{demoService.productInfo.largeImage}}" style="filter: none;"></span>
                   <ul>
-                    <li class="active"><img src="assets/demo-assets/gun1.png"></li>
-                    <li><img src="assets/demo-assets/gun2.png"></li>
-                    <li><img src="assets/demo-assets/gun5.png"></li>
+                    <li class="active" *ngIf="demoService.productInfo && demoService.productInfo.smallImage"><img src="{{demoService.productInfo.smallImage}}" style="filter: none;"></li>
+                    <!-- <li><img src="assets/demo-assets/gun2.png"></li>
+                    <li><img src="assets/demo-assets/gun5.png"></li> -->
                   </ul>
                 </div>
             </div>
@@ -115,7 +76,6 @@
               <!-- Tab Body -->
               <div class="ac-order-info-tab-contents">
                   <div class="ac-order-tab-content active" style="display: none;">
-                      <!-- <p>This Rifle features the Howa 1500 black barreled action w/H.A.C.T. trigger, &amp; the AB Arms MOD X GEN III Modular Rifle<br>System w/black synthetic Urban Sniper Stock &amp; SBR P-Grip<br>Aluminum, hard coat anodized to MIL-SPEC Type III<br>0 MOA built into MIL-SPEC 1913 rail<br>11.5" free-floating modular forearm w/(3) sides of KeyMod attachment points<br>Multi-point radial cut inlet (no V-block)<br>LOP: 10.62"-15.69"<br>Integrated push button mag release located at front of trigger guard<br>Uses AICS-style mags in .308 &amp; .223/300 Blackout<br>Includes hard case &amp; cable lock<br>Wt.: 7.4 lbs.<br>Made in USA<br>Capacity: 10 rounds<br>Barrel length: 22"<br>Manufacturer Part: {{demoService.productInfo && demoService.productInfo.mpn ? demoService.productInfo.mpn : ''}}<br>SKU: {{demoService.productInfo && demoService.productInfo.sku ? demoService.productInfo.sku : ''}}<br>UPC: {{demoService.productInfo && demoService.productInfo.upc ? demoService.productInfo.upc : ''}}</p> -->
                       <p>
                         {{demoService.productInfo && demoService.productInfo.longDescription ? demoService.productInfo.longDescription : ''}}<br>Manufacturer Part: {{demoService.productInfo && demoService.productInfo.mpn ? demoService.productInfo.mpn : ''}}<br><!-- SKU: {{demoService.productInfo && demoService.productInfo.sku ? demoService.productInfo.sku : ''}}<br> -->UPC: {{demoService.productInfo && demoService.productInfo.upc ? demoService.productInfo.upc : ''}}
                       </p>
@@ -133,28 +93,12 @@
     </div>
     <!-- Main Section End -->
 
-    <!-- Quick Access Bar Start -->
-    <!-- <div class="ac-quick-access-wrap">
-      <a href="javascript:void(0);" class="ac-quick-access-togglr"><i class="glyphicon glyphicon-th-large flip"></i><i class="glyphicon glyphicon-th-list flop" style="display:none;"></i></a>
-      <ul class="ac-quick-access-buttons">
-        <li><a href="javascript:void(0);" class="ac-qacc-item1"><i style="display: none;">Menu Name1</i></a></li>
-        <li><a href="javascript:void(0);" class="ac-qacc-item2"><i style="display: none;">Menu Name2</i></a></li>
-        <li><a href="javascript:void(0);" class="ac-qacc-item3"><i style="display: none;">Menu Name3</i></a></li>
-        <li><a href="javascript:void(0);" class="ac-qacc-item4"><i style="display: none;">Menu Name4</i></a></li>
-        <li><a href="javascript:void(0);" class="ac-qacc-item5"><i style="display: none;">Menu Name5</i></a></li>
-        <li><a href="javascript:void(0);" class="ac-qacc-item6"><i style="display: none;">Menu Name6</i></a></li>
-      </ul>
-    </div> -->
-    <!-- Quick Access Bar End -->
 
         <!-- CREATE NEW EMPLOYEE : START -->
     <div class="ac-create-employee-drawer text-left" style="right:-400px;opacity:0;">
     <div (click) = "placeMyOrderClose()">
       <span class="placeMyOrderClose"></span>
       </div>
-     
-
-
       <span class="shippingInfoWrapper">
         <a href="" class="customerInfoIcon shippingInfoWrapperIcon"></a>
         <h4>Customer Info</h4>
@@ -176,20 +120,7 @@
               Numbers not allowed!
             </div>
           </div>
-
-
-
-                 
         </div>
-
-
-  
-
-
-
-
-
-
 
         <div class="form-group pull-right" style="width:48%;">
           <label for="usr_lastname">LAST NAME</label>
