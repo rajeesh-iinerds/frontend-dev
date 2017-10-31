@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx'; 
 import 'rxjs/add/operator/map';
+
 import { DemoService } from '../demo-component/demo.service';
 import * as constant from '../shared/config';
 

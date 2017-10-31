@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+
 import * as constant from '../shared/config';
+import { DemoService } from '../demo-component/demo.service';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -9,13 +11,15 @@ import * as constant from '../shared/config';
 })
 export class DashboardHomeComponent implements OnInit {
   userGroup : any;
+  userName: string;
 
-  constructor(private router: Router) { 
+  constructor(private router: Router, public demoService: DemoService) { 
   this.userGroup = '';
   }
 
   ngOnInit() {
     this.userGroup = localStorage.getItem('userGroup') && localStorage.getItem('userGroup') != 'null' ? localStorage.getItem('userGroup') : '';
+    this.userName = this.demoService.getCognitoUser().getUsername();
   }
 
   // Method for viewing Retailer page 
