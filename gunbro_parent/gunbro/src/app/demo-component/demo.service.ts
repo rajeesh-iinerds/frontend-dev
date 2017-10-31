@@ -45,21 +45,21 @@ export class DemoService {
     usersList: any;
     resultsdb: any;
     product_manufacturerId: any;
-    retailerId : any;
-    result : any;
-    retailerCategory : any;
+    retailerId: any;
+    result: any;
+    retailerCategory: any;
     loading: boolean = false;
     subMenuToggle: boolean = false;
     showNav: boolean = false;
-	showPopup: boolean = false;
-	createUserPopup: boolean = false;
+    showPopup: boolean = false;
+    createUserPopup: boolean = false;
     orderId: number;
     applyMarkup: boolean = false;
-    createUserMessage : any;
-    createUserStatus : any;
+    createUserMessage: any;
+    createUserStatus: any;
     public demoService: DemoService;
     userCred: any;
-
+    resultsApiIntegration: any;
     constructor(private http: Http, private router: Router) {
         console.log(constant.appcohesionURL);
         this.showclickorder = false;
@@ -121,7 +121,7 @@ export class DemoService {
                     observer.complete();
                 });
         }, err => {
-           
+
             console.log("error on user", err)
         })
     };
@@ -319,55 +319,81 @@ export class DemoService {
             });
     }
 
-    apiIntegrationForDist(orderInfo, jwt,body,options): Observable < any > {
+    apiIntegrationForDist(jwt, body): Observable < any > {
+
         return Observable.create(observer => {
-            var req_body_api ={"CustomerNumber": "","UserName":"","Password":"Password","Source":"Source","PO":"PO",
-            "OrderNumber" : "" ,"SalesMessage": "","ShipVia": "","ShipToName": "","ShipToAttn": "","ShipToAddr1": "",
-            "ShipToAddr2" : "" ,"ShipToCity": "","ShipToState": "","ShipToZip":123456 ,"ShipToPhone": "","AdultSignature": true,
-            "Signature":true
-        };
-            alert("reqbodyapi");
-            const url = constant.appcohesionURL.placeOrder_SS_URL;
-            this.http
-            .post(url, req_body_api, options)
-            .subscribe(data1 => {
-                this.loading = false;
-                alert("datassssssssssssssssssss" + JSON.stringify(data1));
-                //alert(JSON.stringify(data));
-                this.results = data1 ? data1.json() : '';
-
-                if (this.results) {
-                    if (this.results.status.code == constant.statusCode.success_code) {
-                        this.orderId = this.results.data[0].orderId;
-                        this.showclickorder = false;
-                        this.showPopup = !this.showPopup;
-                        console.log(JSON.stringify(this.results));
-                        observer.next(this.results);
-                        observer.complete();
-                    } else {
-                        //alert(this.results.status);
-                    }
-                     alert(this.results.status);
-                    console.log(this.results);
-                } else {
-                alert("Result is empty");
+                var req_body_api = {
+                    "CustomerNumber": "99994",
+                    "UserName": "99994",
+                    "Password": "99999",
+                    "Source": "99994",
+                    "PO": "99994",
+                    "CustomerOrderNumber": "0",
+                    "SalesMessage": "SEND",
+                    "ShipVIA": body.ShippingMethod ?   body.ShippingMethod : "",
+                    "ShipToName": body.ConsumerName ? body.ConsumerName : "",
+                    "ShipToAttn": body.ConsumerName ? body.ConsumerName : "",
+                    "ShipToAddr1": body.ShipToStreetLine1 ? body.ShipToStreetLine1 : "",
+                    "ShipToAddr2": "ShipToStreetLine2",
+                    "ShipToCity": body.ShipToCity ? body.ShipToCity : "",
+                    "ShipToState": body.ShipToState ? body.ShipToState : "",
+                    "ShipToZip": body.ShipToPostalCode ? body.ShipToPostalCode : "",
+                    "ShipToPhone": body.Phone ? body.Phone : "",
+                    "AdultSignature": false,
+                    "Signature": false,
+                    "Insurance": false,
+                    "Items": [{
+                        "SSItemNumber": body.SKUNumber ? body.SKUNumber : "",
+                        "Quantity": body.Quantity ? body.Quantity : "",
+                        "OrderPrice": body.ProductPrice ? body.ProductPrice : "",
+                        "CustomerItemNumber": body.SKUNumber ? body.SKUNumber : "",
+                        "CustomerItemDescription": ""
+                    }]
                 }
-            }, error => {
-                this.loading = false;
-                alert("Inside" + JSON.stringify(error))
-                observer.next(error);
-                observer.complete();
-                console.log(JSON.stringify(error));
+
+                let headers = new Headers({
+                    'Content-Type': 'application/json'
+
+                });
+                let options = new RequestOptions({
+                    headers: headers
+                });
+
+
+                const url = constant.appcohesionURL.placeOrder_SS_URL;
+                this.http
+                    .post(url, req_body_api, options)
+                    .subscribe(dataintegrationApi => {
+                        this.loading = false;
+                        this.resultsApiIntegration = dataintegrationApi ? dataintegrationApi.json() : '';
+                        if (this.resultsApiIntegration) {
+                            if (this.resultsApiIntegration && this.resultsApiIntegration.Success == true) {
+
+
+                                observer.next(this.resultsApiIntegration);
+                                observer.complete();
+                            } else {
+
+                                observer.next(this.resultsApiIntegration);
+                                observer.complete();
+                            }
+
+                        } else {
+                            observer.next("Failure from integration APIS");
+                            observer.complete();
+                        }
+                    }, error => {
+                        this.loading = false;
+                        observer.next(error);
+                        observer.complete();
+                    });
+
+
+            },
+            (err) => {
+                console.log('Error');
             });
-
-            observer.next(this.results);
-            observer.complete();
-        },
-         (err) => {
-            console.log('Error');
-        });
     }
-
     confirmOrderfromService(orderInfo, jwt): Observable < any > {
         this.loading = true;
 
@@ -384,6 +410,7 @@ export class DemoService {
             console.log("product info" + this.productInfo);
             let req_body = {
                 "Quantity": orderInfo.Quandity ? orderInfo.Quandity : "",
+                "SKUNumber": this.productInfo && this.productInfo.SKUNumber ? this.productInfo.SKUNumber : "",
                 "ShippingMethod": orderInfo.ShippingMethod ? orderInfo.ShippingMethod : "",
                 "ShipToStreetLine2": "ShipToStreetLine2",
                 "ecomdashID": "ecomdashID",
@@ -402,9 +429,7 @@ export class DemoService {
                 "Custom2": "Custom2",
                 "Custom1": "Custom1",
                 "ShipToState": orderInfo.ShipToState ? orderInfo.ShipToState : "",
-               
                 "Phone": orderInfo.Phone ? orderInfo.Phone : "",
-               
                 "distributor_name": this.productInfo && this.productInfo.distributor_name ? JSON.stringify(this.productInfo.distributor_name) : "",
                 "product_name": this.productInfo && this.productInfo.product_Name ? JSON.stringify(this.productInfo.product_Name) : "",
                 "manufacturer_partnumber": this.productInfo && this.productInfo.mpn ? this.productInfo.mpn : "",
@@ -412,48 +437,56 @@ export class DemoService {
                 "msrp": this.productInfo && this.productInfo.productPrice ? this.productInfo.productPrice : "",
                 "email": orderInfo.Email ? orderInfo.Email : "",
                 "delivery_instructions": orderInfo.delivery_instructions ? JSON.stringify(orderInfo.delivery_instructions) : "NULL",
-                "action": "processNewOrder",
-
+                "action": "processNewOrder"
             };
             var store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id : "";
             var retailer_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "" : "";
             var user_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : "";
-            
+
             req_body['storeId'] = store_id;
             req_body['BuyerID'] = retailer_id;
             req_body['SellerID'] = "3";
             req_body['retailer_id'] = retailer_id;
             req_body['user_id'] = user_id;
-            //let req_body = {  "ecomdashID": "ecomdashID",  "Quandity": orderInfo.Quandity?orderInfo.Quandity:"",  "ShippingMethod": orderInfo.ShippingMethod?orderInfo.ShippingMethod:"",  "ShipToStreetLine1": "",  "ShipToStreetLine2": "ShipToStreetLine2",  "ShipToCity": "ShipToCity",  "BuyerType": "Retailer",  "ConsumerName": "ConsumerName",  "ProductPrice": "123.45",  "CustomerPrice": "123.35",  "GSIN": this.productsearch_name,  "Custom1": "Custom1",  "Custom2": "Custom2",  "Custom3": "Custom3",  "Custom4": "Custom4",  "SKUNumber": "100386",  "ShipToPostalCode": "ShipToPostalCode",  "ShipToState": "ShipToState",  "BuyerID": "1",  "SellerID": "1",  "Phone": "3474845476",  "FFL": "FFLLicense",  "SellerType": "Distributor"}
-            // const url = 'https://api.appcohesion.io/placeOrder';
-            // const url = 'https://jp7oyuf6ch.execute-api.us-east-1.amazonaws.com/prod/';
             const url = constant.appcohesionURL.placeOrder_URL;
             this.http
                 .post(url, req_body, options)
                 .subscribe(data => {
                     this.loading = false;
-                    //alert(JSON.stringify(data));
                     this.results = data ? data.json() : '';
 
                     if (this.results) {
                         if (this.results.status.code == constant.statusCode.success_code) {
                             this.orderId = this.results.data[0].orderId;
                             this.showclickorder = false;
-                            this.showPopup = !this.showPopup; 
-                            if(constant.distApiList.indexOf(this.productInfo.distributor_name) > -1   ){                        
-                            return this.apiIntegrationForDist(orderInfo, jwt,req_body,options).subscribe((responseFromdistApi) => {
-                                observer.next(this.results);
+                            this.showPopup = !this.showPopup;
+                            if (constant.distApiList.indexOf((this.productInfo.distributor_name).toLowerCase()) > -1) {
+                                return this.apiIntegrationForDist(jwt, req_body).subscribe((responseFromdistApi) => {
+                                    if (responseFromdistApi && responseFromdistApi.Success == true) {
+                                        observer.next({
+                                            "status": "success"
+                                        });
+                                        observer.complete();
+                                    } else {
+                                        observer.next({
+                                            "status": "failure"
+                                        });
+                                        observer.complete();
+                                    }
+                                }, (err) => {
+                                    console.log(err);
+                                    observer.next({
+                                        "status": err
+                                    });
+                                    observer.complete();
+                                });
+                            } else {
+                                observer.next({
+                                    "status": "NA",
+                                    "results": this.results
+                                });
                                 observer.complete();
-                              }, (err) => {
-                                console.log(err);
-                                observer.next(err);
-                                observer.complete();
-                              });    
-                            } 
-                            else{
-                                observer.next(this.results);
-                                observer.complete(); 
-                            }                                                
+                            }
                         } else {
                             //alert(this.results.status);
                         }
@@ -555,8 +588,8 @@ export class DemoService {
                 "first_name": userInfo.firstName,
                 "last_name": userInfo.lastName,
                 "role_id": "2",
-				"store_id": store_id,
-				"entity_id":entity_id
+                "store_id": store_id,
+                "entity_id": entity_id
             }
         };
         // const url = 'https://7v5j1r1r92.execute-api.us-east-1.amazonaws.com/prod/cognitoSignin';
@@ -568,13 +601,13 @@ export class DemoService {
                 this.results = data.json();
                 this.createUserMessage = "";
                 this.createUserStatus = ""
-                if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {             
+                if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {
                     this.createUserMessage = "Congratulations!! You have successfully added user. Email has been sent to his email id!";
                     this.createUserStatus = "SUCCESS"
-                   } else {
+                } else {
                     this.createUserMessage = this.results.status.message.message + " ! ";
                     this.createUserStatus = "SORRY";
-                   }
+                }
             }, error => {
                 this.loading = false;
                 console.log("error" + JSON.stringify(error));
@@ -582,12 +615,12 @@ export class DemoService {
     }
 
     // Method for setting retailer id for retailer markup
-    setRetailerIdforCategory(retailerId){
+    setRetailerIdforCategory(retailerId) {
         this.retailerId = retailerId;
     }
 
     // Method for Listing Retailer Category
-    
+
 
 
     //Listing users in cognito Pool
@@ -621,11 +654,11 @@ export class DemoService {
         });
     }
 
-    listRetailer(){
+    listRetailer() {
         this.loading = true;
-        this.retailerId =  this.retailerId ?  this.retailerId : "";
-          //Taking Session Value for passing token
-          return this.getSessionToken().subscribe((response) => {
+        this.retailerId = this.retailerId ? this.retailerId : "";
+        //Taking Session Value for passing token
+        return this.getSessionToken().subscribe((response) => {
             if (response.getIdToken().getJwtToken()) {
                 this.jwt = response.getIdToken().getJwtToken();
             }
@@ -636,29 +669,29 @@ export class DemoService {
                 headers: headers
             });
             let req_body = {
-                "retailer_id" : this.retailerId
+                "retailer_id": this.retailerId
             };
             const url = constant.appcohesionURL.retailercategorylist_URL;
             this.http
-            .post(url, req_body, options)
-            .subscribe(data => {
-                this.loading = false;
-                console.log("retailer data : " + data)
-                this.result = data.json();
-                if (this.result && this.result.status) {
-                   if(this.result.status.code == constant.statusCode.success_code){
-                       this.retailerCategory = this.result.markups;
-                       console.log("retailer category : " + JSON.stringify(this.retailerCategory));
-                   } else if (this.results.status.code == constant.statusCode.empty_code) {
-                       this.retailerCategory = [];
-                   }
-                }
-            }, error => {
-                this.loading = false;
-                console.log("error" + JSON.stringify(error));
-            });
+                .post(url, req_body, options)
+                .subscribe(data => {
+                    this.loading = false;
+                    console.log("retailer data : " + data)
+                    this.result = data.json();
+                    if (this.result && this.result.status) {
+                        if (this.result.status.code == constant.statusCode.success_code) {
+                            this.retailerCategory = this.result.markups;
+                            console.log("retailer category : " + JSON.stringify(this.retailerCategory));
+                        } else if (this.results.status.code == constant.statusCode.empty_code) {
+                            this.retailerCategory = [];
+                        }
+                    }
+                }, error => {
+                    this.loading = false;
+                    console.log("error" + JSON.stringify(error));
+                });
 
-          },(err) => {
+        }, (err) => {
             console.log(err);
         });
     }

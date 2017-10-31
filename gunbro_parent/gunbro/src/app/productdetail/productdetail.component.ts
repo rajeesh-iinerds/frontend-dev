@@ -87,12 +87,17 @@ results: any;
 			"Phone": this.phone ? this.phone : "",
 			"Email": this.email ? this.email : "",
 			"delivery_instructions": this.delivery ? this.delivery : ""
+			
 		};
 		//this.demoService.confirmOrderfromService(this.orderInfo, jwt);
 
     return this.demoService.confirmOrderfromService(this.orderInfo, jwt).subscribe((resp) => {
-      this.demoService.loading = false;
-      alert(JSON.stringify(resp.data[0]));
+			
+			this.demoService.loading = false;
+			if(resp && resp.results) {
+				     
+							
+      
       if(resp && resp.data[0] && resp.data[0].orderId) {
         resp.data[0].distributor_name = (resp.data[0].distributor_name)? (resp.data[0].distributor_name).toLowerCase():"";
         
@@ -111,54 +116,18 @@ results: any;
       }, (err) => {
         console.log(err);
 			});
+
+		}
+		else{
+			if(resp && resp.status){
+          var statusApiIntegration = resp.status == "success" ? "Success from SSAPI" : "Failure in SSAPI";
+			    alert(statusApiIntegration);
+				}
+		}
 			
     }, (err) => {
       console.log(err);
-    });
-
-
-		/*let headers = new Headers({'Content-Type': 'application/json', 'x-api-key': 'TxGFDgDFec7M6E94pgbLJ5duzkvWYEYJ2XQSMER0' });
-	    let options = new RequestOptions({ headers: headers });
-	    let req_body = {
-			"Quandity": this.selectedQuantity,
-			"ShippingMethod": this.selectedShipping,
-			"ShipToStreetLine2": "ShipToStreetLine2",
-			"ecomdashID": "ecomdashID",
-			"BuyerType": "Retailer",
-			"ShipToStreetLine1": this.address,
-			"ShipToCity": this.city,
-			"ConsumerName": this.firstName,
-			"ProductPrice": this.amount,
-			"FFL": this.ffl,
-			"CustomerPrice": "123.35",
-			"SellerType": "Distributor",
-			"GSIN": this.demoService.productInfo && this.demoService.productInfo.gsin ? this.demoService.productInfo.gsin : '',
-			"Custom4": "Custom4",
-			"SKUNumber": this.demoService.productInfo && this.demoService.productInfo.skuNumber ? this.demoService.productInfo.skuNumber : '',
-			"ShipToPostalCode": this.zipcode,
-			"Custom3": "Custom3",
-			"Custom2": "Custom2",
-			"Custom1": "Custom1",
-			"ShipToState": this.state,
-			"BuyerID": "1",
-			"Phone": this.phone,
-			"SellerID": "1",
-			"action": "processNewOrder"
-		}
-
-	    const url = 'https://api.appcohesion.io/placeOrder';
-	    this.http
-	        .post(url, req_body)
-	        .subscribe(data => {
-
-	            this.results = data.json();
-	            alert(this.results);
-	            console.log(this.results);
-	        }, error => {
-	            alert("Enterd err");
-	            console.log(JSON.stringify(error));
-	    });*/
-
+		});
 	}
 
 	submitForm(form: any): void{

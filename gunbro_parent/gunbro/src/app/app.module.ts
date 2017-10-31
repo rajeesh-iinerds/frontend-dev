@@ -24,7 +24,7 @@ import { RetailerMarkupComponent } from './retailer-markup/retailer-markup.compo
 import { RetailerSingleComponent } from './retailer-single/retailer-single.component';
 import { DistributorCategoryComponent } from './distributor-category/distributor-category.component';
 import { StoreLocationComponent } from './store-location/store-location.component';
-
+import { SearchWidgetComponent } from './search-widget/search-widget.component';
 
 
 const appRoutes: Routes = [
@@ -82,7 +82,8 @@ const appRoutes: Routes = [
     RetailerMarkupComponent,
     RetailerSingleComponent,
     DistributorCategoryComponent,
-    StoreLocationComponent
+    StoreLocationComponent,
+    SearchWidgetComponent
 
   ],
   imports: [
