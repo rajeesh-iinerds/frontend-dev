@@ -5,12 +5,10 @@ export const user = {
 	"superadminUser" : "superadmin"
 
 };
-
 export const userPoolData = {
 	"UserPoolId" : 'us-east-1_Q3sA5af5A',
 	"ClientId" : '7iaf7o5ja7su88mjb8du0pqigv'
 };
-
 export const appcohesionURL = {
 	"productSearch_URL": "https://api.appcohesion.io/searchProduct",
 	"placeOrder_URL": "https://api.appcohesion.io/placeOrder",
@@ -25,10 +23,9 @@ export const appcohesionURL = {
 	"getDistributorMarkup_URL" : "https://api.appcohesion.io/getMarkup",
 	"addDistributorMarkup_URL" : "https://api.appcohesion.io/setMarkup",
 	"retailerApply_URL": "https://i0ko9akgah.execute-api.us-east-1.amazonaws.com/prod",
-	"placeOrder_SS_URL" : "http://ssplaceorder.cloudhub.io/"
-
+	"placeOrder_SS_URL" : "http://ssplaceorder.cloudhub.io/",
+	"createStore_URL": "https://api.appcohesion.io/createStore"
 };
-
 export const distApiList = ["ss"];
 export const statusCode = {
 	"success_code": "200",
@@ -38,4 +35,10 @@ export const statusCode = {
 export const distributor_markup_messages = {
 	"success_title": "SUCCESS",
 	"success_description": "Markup has been added successfully!"
+};
+export const store_messages = {
+	"success_description": "Store has been created successfully!"
+};
+export const error_message = {
+	"error_title": "ERROR"
 }
