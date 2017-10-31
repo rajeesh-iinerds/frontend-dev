@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+
 import * as constant from '../shared/config';
+import { DemoService } from '../demo-component/demo.service';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -9,23 +11,19 @@ import * as constant from '../shared/config';
 })
 export class DashboardHomeComponent implements OnInit {
   userGroup : any;
+  userName: string;
+  userDetails: any;
 
-  constructor(private router: Router) { 
+  constructor(private router: Router, public demoService: DemoService) { 
   this.userGroup = '';
   }
 
   ngOnInit() {
     this.userGroup = localStorage.getItem('userGroup') && localStorage.getItem('userGroup') != 'null' ? localStorage.getItem('userGroup') : '';
+    this.userName = this.demoService.getCognitoUser().getUsername();
+    this.userDetails = {};
+    this.userDetails.first_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).first_name : "";
+    this.userDetails.last_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).last_name : "";
+
   }
-
-  // Method for viewing Retailer page 
-  // viewRetailer(){
-  //  if(this.userGroup == constant.user.superadminUser){
-  //   this.router.navigate(['/dashboard/RetailerMarkup']);
-  //  }
-  //  else{
-  //    this.router.navigate(['/dashboard']);
-  //  }
-  // }
-
 }

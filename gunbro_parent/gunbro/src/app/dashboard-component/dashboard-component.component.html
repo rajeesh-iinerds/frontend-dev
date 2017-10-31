@@ -11,9 +11,11 @@
         <ul>
           <!--<li><a href="dashboard.html" class="ac-dash-item-1"><i>Dashboard</i></a></li>-->
           <li><a routerLink="../dashboard"   class="ac-dash-item-1"><i>Dashboard</i></a></li>
-          <li><a routerLink="markup" class="ac-dash-item-2"><i class="flip">Distributor Management</i><i class="flop" style="display:none;">Distributor</i></a></li>
-          <li *ngIf="userGroup == configSuperAdminUserGroup"><a routerLink="RetailerMarkup" class="ac-dash-item-2"><i class="flip">Retailer Management</i><i class="flop" style="display:none;">Retailer Management</i></a></li>
+          <li *ngIf="userGroup == configSuperAdminUserGroup ? hideRetailer : true"><a routerLink="markup" class="ac-dash-item-2"><i class="flip">Distributor Management</i><i class="flop" style="display:none;">Distributor</i></a></li>
+          <li *ngIf="userGroup == configSuperAdminUserGroup ? showRetailer : false"><a routerLink="RetailerMarkup" class="ac-dash-item-2"><i class="flip">Retailer Management</i><i class="flop" style="display:none;">Retailer Management</i></a></li>
           <li><a routerLink="store-location" class="ac-dash-item-8 "><i class="flip">Store Outlets</i><i class="flop" style="display:none;">Store</i></a></li>
+    <!-- <li><a  routerLink="markup" routerLinkActive="active"  class="ac-dash-item-2"><i class="flip">Distributor Management</i><i class="flop" style="display:none;">Distributor</i></a></li> -->
+          <!--<li><a href="employee-management.html" class="ac-dash-item-3 active"><i class="flip">Employee Management</i><i class="flop" style="display:none;">Employee</i></a></li> -->
           <li *ngIf="userGroup == configUserGroup"><a  routerLink="employee" routerLinkActive="active" class="ac-dash-item-3"><i class="flip">Employee Management</i><i class="flop" style="display:none;">Employee</i></a></li>
           <li><a routerLink="order" routerLinkActive="active" class="ac-dash-item-4"><i class="flip">Orders</i><i class="flop" style="display:none;">order</i></a></li>
           <li><a href="javascript:void(0);" class="ac-dash-item-5"><i>Customers</i></a></li>
@@ -76,7 +78,7 @@
             <img src="assets/demo-avatar.png" alt="FIRST NAME HERE">
             <i class="glyphicon glyphicon-menu-down"></i>
           </span>
-          <h3>Elizabeth Grace</h3>
+          <h3 *ngIf="userDetails">{{userDetails.first_name }} {{userDetails.last_name}}</h3>
           <span class="ac-user-drop-wrap" style="display: none;">
             <ul class="ac-user-dropdown">
             <!--  <li><a href="javascript:void(0);">My Profile</a></li> -->

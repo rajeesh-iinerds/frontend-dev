@@ -58,6 +58,7 @@ export class DemoService {
     createUserMessage : any;
     createUserStatus : any;
     public demoService: DemoService;
+    userCred: any;
 
     constructor(private http: Http, private router: Router) {
         console.log(constant.appcohesionURL);
@@ -177,7 +178,11 @@ export class DemoService {
                     } else {
                         localStorage.setItem('userGroup', '');
                     }
-
+                    this.userCred = {};
+                    this.userCred.first_name = group.name ? group.name : '';
+                    this.userCred.last_name = group.middle_name ? group.middle_name : '';
+                    console.log('***********', this.userCred);
+                    localStorage.setItem("userData", JSON.stringify(this.userCred));
 
                     result => result.json();
                     observer.next(result);
@@ -209,6 +214,7 @@ export class DemoService {
             localStorage.removeItem('tokenExpiryTime');
             localStorage.removeItem('userGroup');
             localStorage.removeItem('User_Information');
+            localStorage.removeItem('userData');
             this.router.navigate(['']);
 
         }

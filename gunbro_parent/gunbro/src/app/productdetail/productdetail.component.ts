@@ -105,8 +105,7 @@ results: any;
       }
       var body_csv = {
         "response" : resp && resp.data[0] ? resp.data[0] :''
-			}
-			
+			}	
        this.demoService.csvfileUpload(body_csv).subscribe((csvresponse) => {
         console.log("CSV upload completed" + csvresponse );
       }, (err) => {

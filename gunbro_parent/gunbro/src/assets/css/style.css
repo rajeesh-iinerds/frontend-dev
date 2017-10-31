@@ -2324,6 +2324,8 @@ margin-top: 30px;
 .ac-markup-form-btn:hover {
   background-color: #163666;
 }
+
+
 .ac-close-markup {
   bottom: 10px;
   color: #ffa500 !important;
@@ -2355,11 +2357,18 @@ button.markup-apply {
     border: 1px solid #4040d8;
     background-color: #4040d8;
 }
+button.markup-apply[disabled] {
+  cursor: not-allowed;
+}
+
 button.markup-apply-all {
     float: right;
     width: calc(50% - 10px);
     background-color: rgba(255, 255, 255, 0);
     border: 1px solid;
+}
+button.markup-apply-all[disabled] {
+  cursor: not-allowed;
 }
 .ac-markup-applybtn {
     margin-top: 10px;
