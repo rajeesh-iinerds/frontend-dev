@@ -77,7 +77,7 @@
             <img src="assets/demo-avatar.png" alt="FIRST NAME HERE">
             <i class="glyphicon glyphicon-menu-down"></i>
           </span>
-          <h3>{{userName}}</h3>
+          <h3 *ngIf="userDetails">{{userDetails.first_name }} {{userDetails.last_name}}</h3>
           <span class="ac-user-drop-wrap" style="display: none;">
             <ul class="ac-user-dropdown">
             <!--  <li><a href="javascript:void(0);">My Profile</a></li> -->

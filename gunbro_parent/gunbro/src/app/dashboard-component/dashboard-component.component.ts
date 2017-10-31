@@ -53,6 +53,7 @@ export class DashboardComponentComponent implements OnInit {
   configSuperAdminUserGroup: any;
   showRetailer: any;
   hideRetailer: any;
+  userDetails: any;
   
   constructor(private route: ActivatedRoute,private router: Router, public demoService: DemoService,private http:Http) {
     this.hideMFGSearch = true;
@@ -70,6 +71,9 @@ export class DashboardComponentComponent implements OnInit {
     this.configSuperAdminUserGroup =  constant.user.superadminUser && constant.user.superadminUser != 'null' ? constant.user.superadminUser : '';
     this.showRetailer = true;
     this.hideRetailer = constant.user.superadminUser ? false : true;
+    this.userDetails = {};
+    this.userDetails.first_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).first_name : "";
+    this.userDetails.last_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).last_name : "";
   }
 
     clickedSearch(){
