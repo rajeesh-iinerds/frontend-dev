@@ -53,7 +53,7 @@ export class StoreLocationComponent implements OnInit {
 	                let headers = new Headers({ 'Authorization': jwt });
 	                let options = new RequestOptions({ headers: headers });
 	                let req_body = {
-	                    "retailerId": "1"
+	                    "entityId": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : ""
 	                };
 	                const url = constant.appcohesionURL.retailerStore_URL && constant.appcohesionURL.retailerStore_URL != 'null' ? constant.appcohesionURL.retailerStore_URL : '';
 	                this.http.post(url, req_body, options).subscribe(data => {
@@ -62,11 +62,13 @@ export class StoreLocationComponent implements OnInit {
 	                  if(this.results && this.results.status){
 	                   if(this.results.status.code == 200){
 	                     for(var i = 0; i < this.results.data.length; i++){
+	                     	this.storeLocations = {};
 	                        this.storeLocations.StoreAddress = this.results.data[i].StoreAddress && this.results.data[i].StoreAddress !=null ? this.results.data[i].StoreAddress : '';
 	                        this.storeLocations.StoreName = this.results.data[i].StoreName && this.results.data[i].StoreName ? this.results.data[i].StoreName : '';
 	                        this.storeLocations.StoreLocation = this.results.data[i].StoreLocation && this.results.data[i].StoreLocation ? this.results.data[i].StoreLocation : '';
 	                        this.storeLocations.StoreContact = this.results.data[i].StoreContact ? this.results.data[i].StoreContact : '';
 	                        this.storeLocations.StoreFFLId = this.results.data[i].StoreFFLId ? this.results.data[i].StoreFFLId : '';
+	                        this.storeLocations.StoreId = this.results.data[i].StoreId ? this.results.data[i].StoreId : '';
 
 	                        this.storeLocations.RetailerName = this.results.data[i].RetailerName ? this.results.data[i].RetailerName : '';
             				this.storeLocations.RetailerFax = this.results.data[i].RetailerFax ? this.results.data[i].RetailerFax : '';
@@ -74,6 +76,7 @@ export class StoreLocationComponent implements OnInit {
 
 	                        this.retailerStoreDetails.push(this.storeLocations);
 	                      }
+	                      console.log('***********', this.retailerStoreDetails);
 	                    }
 	                    else if(this.results.status.code == constant.statusCode.empty_code){
 	                      this.retailerStoreDetails = [];
@@ -145,6 +148,10 @@ export class StoreLocationComponent implements OnInit {
 	                this.demoService.loading = false;
 	                this.results = data ? data.json() : '';
 	                if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {
+	                	this.storeDetails().subscribe((response) => {
+						},
+							(err) => console.error(err)
+						);
                     	//show success popup
                     	this.createStorePopup = true;
                     	this.successTitle = constant.distributor_markup_messages.success_title;

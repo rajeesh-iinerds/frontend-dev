@@ -15,7 +15,7 @@
           
           <li *ngIf="userGroup == configSuperAdminUserGroup ? showRetailer : false"><a routerLink="RetailerMarkup" class="ac-dash-item-2"><i class="flip">Retailer Management</i><i class="flop" style="display:none;">Retailer Management</i></a></li>
           
-          <li *ngIf="userGroup == configSuperAdminUserGroup"><a routerLink="store-location" class="ac-dash-item-8 "><i class="flip">Store Outlets</i><i class="flop" style="display:none;">Store</i></a></li>
+          <li *ngIf="userGroup == configUserGroup"><a routerLink="store-location" class="ac-dash-item-8 "><i class="flip">Store Outlets</i><i class="flop" style="display:none;">Store</i></a></li>
           
           <li *ngIf="userGroup == configUserGroup"><a  routerLink="employee" routerLinkActive="active" class="ac-dash-item-3"><i class="flip">Employee Management</i><i class="flop" style="display:none;">Employee</i></a></li>
           
