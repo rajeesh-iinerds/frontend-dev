@@ -28,6 +28,9 @@ export class StoreLocationComponent implements OnInit {
       "fax": '',
       "email": ''
     };
+    createStorePopup: boolean = false;
+	successTitle : string;
+	successDescription: string;
 
   constructor(public demoService: DemoService , private http: Http) {
   }
@@ -109,6 +112,7 @@ export class StoreLocationComponent implements OnInit {
   	createStore() {
   		this.showCreateStore = true;
   	}
+
   	createStoreClick() {
   		console.log(this.userInfo);
   		var entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
@@ -131,27 +135,32 @@ export class StoreLocationComponent implements OnInit {
 					"state": this.userInfo.state,
 					"address": this.userInfo.address,
 					"phone": this.userInfo.phone,
-					"fax:" : this.userInfo.fax
+					"fax" : this.userInfo.fax,
+					"email" : this.userInfo.email
 		        };
-		        // const url = constant.appcohesionURL.placeOrder_URL;
-		        /*this.http
+		        const url = constant.appcohesionURL.createStore_URL;
+		        this.http
 	            .post(url, req_body, options)
 	            .subscribe(data => {
 	                this.demoService.loading = false;
-	                this.results = data.json();
-	                this.createUserMessage = "";
-	                this.createUserStatus = ""
-	                if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {             
-	                    this.createUserMessage = "Congratulations!! You have successfully added user. Email has been sent to his email id!";
-	                    this.createUserStatus = "SUCCESS"
-	                   } else {
-	                    this.createUserMessage = this.results.status.message.message + " ! ";
-	                    this.createUserStatus = "SORRY";
-	                   }
+	                this.results = data ? data.json() : '';
+	                if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {
+                    	//show success popup
+                    	this.createStorePopup = true;
+                    	this.successTitle = constant.distributor_markup_messages.success_title;
+                    	this.successDescription = constant.store_messages.success_description;
+	                } else if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.error_code) {
+	                    //show error popup
+                    	this.createStorePopup = true;
+                    	this.successTitle = constant.error_message.error_title;
+                    	this.successDescription = this.results.status.userMessage;
+	                } else {
+
+	                }
 	            }, error => {
 	                this.demoService.loading = false;
 	                console.log("error" + JSON.stringify(error));
-	            });*/
+	            });
 
 		      }
 		    }, (err) => {

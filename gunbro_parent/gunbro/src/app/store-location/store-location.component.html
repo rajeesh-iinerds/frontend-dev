@@ -23,7 +23,7 @@
                     <div class="storelocation-clickable">
                        <h4>{{store.StoreLocation}}</h4>
                        <div class="storeImg">
-                         <img src="../demo-assets/gun4.png">
+                         <!-- <img src="../demo-assets/gun4.png"> -->
                        </div>
                        <div class="store-distributors-listing">
                          <div class="store-distributor-img"></div>
@@ -65,12 +65,12 @@
       <form class="ac-create-employee-body" #employeeForm="ngForm">
         <div class="form-group">
           <label for="name">STORE NAME</label>
-          <input type="text" class="form-control" placeholder="Enter store name" id="name" name="name" [(ngModel)]="userInfo.firstName" pattern="[a-zA-Z ]*" required #name="ngModel">
-          <div *ngIf= "name.errors && (name.dirty || name.touched)" class="ac-required-field">
+          <input type="text" class="form-control" placeholder="Enter store name" id="name" name="name" [(ngModel)]="userInfo.firstName" required #name="ngModel">
+          <!-- <div *ngIf= "name.errors && (name.dirty || name.touched)" class="ac-required-field">
             <div [hidden]="!name.errors.pattern">
               Invalid characters not allowed!
             </div>
-      		</div>
+      		</div> -->
         </div>
         <div class="form-group">
           <label for="ffl">FFL NO.</label>
@@ -98,7 +98,12 @@
         </div> -->
         <div class="form-group">
           <label for="phone">PHONE</label>
-          <input type="text" class="form-control" placeholder="Enter phone" id="phone" name="phone" [(ngModel)]="userInfo.phone" required #phone="ngModel">
+          <input type="text" class="form-control" placeholder="Enter phone" id="phone" name="phone" [(ngModel)]="userInfo.phone" required pattern="[0-9]*" #phone="ngModel">
+          <div *ngIf= "phone.errors && (phone.dirty || phone.touched)" class="ac-required-field">
+            <div [hidden]="!phone.errors.pattern">
+              Only numbers allowed!
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="fax">FAX</label>
@@ -126,7 +131,7 @@
       <form class="ac-create-employee-body">
         <h4 *ngIf="showViewStore == true">{{selectedStore.StoreLocation}}</h4>
         <div class="storeImg" style="margin-bottom: 15px;">
-          <img src="../demo-assets/gun4.png">
+          <!-- <img src="../demo-assets/gun4.png"> -->
         </div>
         <div class="storeDetails" *ngIf="showViewStore == true">
           <h6>FFL#</h6>
@@ -170,4 +175,18 @@
     </div>
     <!-- STORE VIEW DETAILS : END -->
 </div>
+</div>
+
+<div class="row fadebg" [class.show]="createStorePopup"></div>
+<div class="confirmPopup" [class.show]="createStorePopup">
+  <div class="successImgIcon"></div>
+  <div class="sucessMsgText text-center">
+    <h4>{{successTitle}}</h4>
+    <P>{{successDescription}}</P>
+  </div>
+  <div class=" col-md-6 gotoDashboardBtn text-right">
+    <!-- <span routerLink="/dashboard">OK</span> -->
+    <span (click) ="createStorePopup = !createStorePopup" style = " margin-right: -25px;">OK</span>
+  </div>
+  
 </div>
