@@ -63,6 +63,12 @@ export class StoreLocationComponent implements OnInit {
 	                        this.storeLocations.StoreName = this.results.data[i].StoreName && this.results.data[i].StoreName ? this.results.data[i].StoreName : '';
 	                        this.storeLocations.StoreLocation = this.results.data[i].StoreLocation && this.results.data[i].StoreLocation ? this.results.data[i].StoreLocation : '';
 	                        this.storeLocations.StoreContact = this.results.data[i].StoreContact ? this.results.data[i].StoreContact : '';
+	                        this.storeLocations.StoreFFLId = this.results.data[i].StoreFFLId ? this.results.data[i].StoreFFLId : '';
+
+	                        this.storeLocations.RetailerName = this.results.data[i].RetailerName ? this.results.data[i].RetailerName : '';
+            				this.storeLocations.RetailerFax = this.results.data[i].RetailerFax ? this.results.data[i].RetailerFax : '';
+            				this.storeLocations.RetailerEmail = this.results.data[i].RetailerEmail ? this.results.data[i].RetailerEmail : '';
+
 	                        this.retailerStoreDetails.push(this.storeLocations);
 	                      }
 	                    }
@@ -80,19 +86,19 @@ export class StoreLocationComponent implements OnInit {
 	    })
   	}
 
-  	viewStore(name) {
+  	viewStore(id) {
   		this.showViewStore = true;
   		this.selectedStore = {};
   		for(var i = 0; i < this.retailerStoreDetails.length; i++){
-        if(this.retailerStoreDetails[i].StoreName == name){
+        if(this.retailerStoreDetails[i].StoreId == id){
             this.selectedStore.StoreName = this.retailerStoreDetails[i].StoreName ? this.retailerStoreDetails[i].StoreName:'';
             this.selectedStore.StoreContact = this.retailerStoreDetails[i].StoreContact ? this.retailerStoreDetails[i].StoreContact : '';
             this.selectedStore.StoreAddress = this.retailerStoreDetails[i].StoreAddress ? this.retailerStoreDetails[i].StoreAddress : '';
             this.selectedStore.StoreLocation = this.retailerStoreDetails[i].StoreLocation ? this.retailerStoreDetails[i].StoreLocation : '';
-            //FFL
-            //Contact Person
-            //Fax
-            //Email
+            this.selectedStore.StoreFFLId = this.retailerStoreDetails[i].StoreFFLId ? this.retailerStoreDetails[i].StoreFFLId : '';
+            this.selectedStore.RetailerName = this.retailerStoreDetails[i].RetailerName ? this.retailerStoreDetails[i].RetailerName : '';
+            this.selectedStore.RetailerFax = this.retailerStoreDetails[i].RetailerFax ? this.retailerStoreDetails[i].RetailerFax : '';
+            this.selectedStore.RetailerEmail = this.retailerStoreDetails[i].RetailerEmail ? this.retailerStoreDetails[i].RetailerEmail : '';
         }
      }
   	}
@@ -117,8 +123,6 @@ export class StoreLocationComponent implements OnInit {
 		        let options = new RequestOptions({
 		            headers: headers
 		        });
-		        // var entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
-
 		        let req_body = {
 					"entity_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "",
 					"store_name": this.userInfo.firstName,
