@@ -60,6 +60,8 @@ export class DemoService {
     public demoService: DemoService;
     userCred: any;
     resultsApiIntegration: any;
+    trackingResults:any;
+
     constructor(private http: Http, private router: Router) {
         console.log(constant.appcohesionURL);
         this.showclickorder = false;
@@ -358,8 +360,6 @@ export class DemoService {
                 let options = new RequestOptions({
                     headers: headers
                 });
-
-
                 const url = constant.appcohesionURL.placeOrder_SS_URL;
                 this.http
                     .post(url, req_body_api, options)
@@ -368,16 +368,12 @@ export class DemoService {
                         this.resultsApiIntegration = dataintegrationApi ? dataintegrationApi.json() : '';
                         if (this.resultsApiIntegration) {
                             if (this.resultsApiIntegration && this.resultsApiIntegration.Success == true) {
-
-
                                 observer.next(this.resultsApiIntegration);
                                 observer.complete();
                             } else {
-
                                 observer.next(this.resultsApiIntegration);
                                 observer.complete();
                             }
-
                         } else {
                             observer.next("Failure from integration APIS");
                             observer.complete();
@@ -463,8 +459,14 @@ export class DemoService {
                             if (constant.distApiList.indexOf((this.productInfo.distributor_name).toLowerCase()) > -1) {
                                 return this.apiIntegrationForDist(jwt, req_body).subscribe((responseFromdistApi) => {
                                     if (responseFromdistApi && responseFromdistApi.Success == true) {
+                                        // response format to match with normal PlaceOrser API so that DynamoDb insertion is possible
+                                        var temp = [];
+                                        var obj = {"orderId": this.orderId};
+                                        temp.push(obj);
                                         observer.next({
-                                            "status": "success"
+                                            "status": "success",
+                                            "SS_OrderNumber": responseFromdistApi.OrderNumber,
+                                            "data": temp
                                         });
                                         observer.complete();
                                     } else {
@@ -507,8 +509,7 @@ export class DemoService {
     }
 
 
-    updateRecordinDB(
-        information_fetchdb, fieldName): Observable < any > {
+    updateRecordinDB(information_fetchdb): Observable < any > {
         return Observable.create(observer => {
             let headers = new Headers({
                 'Content-Type': 'application/json'
@@ -517,7 +518,8 @@ export class DemoService {
                 headers: headers
             });
             let req_body = {
-                "order_id": information_fetchdb.toString()
+                "order_id": information_fetchdb.id.toString(),
+                "SS_OrderNumber" : information_fetchdb.SS_OrderNumber ? information_fetchdb.SS_OrderNumber : ''
             };
             const url = 'https://bh7906mpaf.execute-api.us-east-1.amazonaws.com/prod/orderstatus';
             this.http
@@ -567,6 +569,66 @@ export class DemoService {
             console.log("error", err)
         })
     }
+
+    /*trackingSSOrder(ssOrderNumber): Observable < any > {
+        return Observable.create(observer => {
+            let headers = new Headers({
+                'Content-Type': 'application/json'
+            });
+            let options = new RequestOptions({
+                headers: headers
+            });
+            let req_body = {
+                "CustomerNumber": "31821", 
+                "UserName": "31821", 
+                "Password": "17602", 
+                "Source": "31821", 
+                "OrderNumber": "5331014" //ssOrderNumber
+            };
+            const url = "http://ssapitrackorder.cloudhub.io/";
+            this.http
+                .post(url, req_body, options)
+                .subscribe(data => {
+                    this.trackingResults = data.json();
+                    console.log('travkkkkkkkkk',this.trackingResults);
+                    observer.next(this.trackingResults);
+                    observer.complete();
+                }, error => {
+                    console.log(error.json());
+                });
+        }, err => {
+            console.log("error", err)
+        })
+    }*/
+
+    /*updateTrackingDB(requestBody, orderId): Observable < any > {
+        return Observable.create(observer => {
+            let headers = new Headers({
+                'Content-Type': 'application/json'
+            });
+            let options = new RequestOptions({
+                headers: headers
+            });
+            let requestBody["OrderId"] = orderId;
+            let req_body = {
+                "SSData": requestBody
+            };
+            const url = 'https://bh7906mpaf.execute-api.us-east-1.amazonaws.com/prod/orderstatus';
+            this.http
+                .post(url, req_body, options)
+                .subscribe(data => {
+                    this.resultsdb = data.json();
+                    //alert(JSON.stringify(this.resultsdb));
+                    observer.next(this.resultsdb);
+                    observer.complete();
+                }, error => {
+                    console.log(error.json());
+                });
+        }, err => {
+            console.log("error", err)
+        })
+    }*/
+
     createUser(jwt, userInfo) {
         this.loading = true;
         let headers = new Headers({

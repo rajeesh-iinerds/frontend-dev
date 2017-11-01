@@ -41,4 +41,10 @@ export const store_messages = {
 };
 export const error_message = {
 	"error_title": "ERROR"
-}
+};
+export const SS_prod_order_param = {
+	"CustomerNumber": "31821", //"99994",
+    "UserName": "31821", //"99994",
+    "Password": "17602", //"99999",
+    "Source": "31821" //"99994",
+};

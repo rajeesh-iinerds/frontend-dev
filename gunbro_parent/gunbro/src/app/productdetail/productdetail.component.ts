@@ -93,38 +93,86 @@ results: any;
 
     return this.demoService.confirmOrderfromService(this.orderInfo, jwt).subscribe((resp) => {
 			
-			this.demoService.loading = false;
-			if(resp && resp.results) {
-				     
-							
-      
-      if(resp && resp.data[0] && resp.data[0].orderId) {
-        resp.data[0].distributor_name = (resp.data[0].distributor_name)? (resp.data[0].distributor_name).toLowerCase():"";
-        
-        var orderId = resp.data[0].orderId
-         this.demoService.updateRecordinDB(orderId,"order_id").subscribe((csvresponse) => {
-          console.log("updated db" + csvresponse);
-        }, (err) => {
-          console.log(err);
-        });
-      }
-      var body_csv = {
-        "response" : resp && resp.data[0] ? resp.data[0] :''
+		this.demoService.loading = false;
+		/*if(resp && resp.results) {
+	      	if(resp && resp.data[0] && resp.data[0].orderId) {
+		      	resp.data[0].distributor_name = (resp.data[0].distributor_name)? (resp.data[0].distributor_name).toLowerCase():"";
+		        
+		        var orderId = resp.data[0].orderId
+		        this.demoService.updateRecordinDB(orderId,"order_id").subscribe((csvresponse) => {
+		          console.log("updated db" + csvresponse);
+		        }, (err) => {
+		          console.log(err);
+		        });
+		    }
+	      	var body_csv = {
+	        	"response" : resp && resp.data[0] ? resp.data[0] :''
 			}	
-       this.demoService.csvfileUpload(body_csv).subscribe((csvresponse) => {
-        console.log("CSV upload completed" + csvresponse );
-      }, (err) => {
-        console.log(err);
+	       	this.demoService.csvfileUpload(body_csv).subscribe((csvresponse) => {
+		    	console.log("CSV upload completed" + csvresponse );
+		    }, (err) => {
+		        console.log(err);
 			});
-
 		}
-		else{
-			if(resp && resp.status){
-          var statusApiIntegration = resp.status == "success" ? "Success from SSAPI" : "Failure in SSAPI";
+		else {
+			if(resp && resp.status) {
+          		var statusApiIntegration = resp.status == "success" ? "Success from SSAPI" : "Failure in SSAPI";
 			    alert(statusApiIntegration);
+			}
+		}*/
+
+		if(resp) { // If response from API
+			if(resp.data && resp.data[0] && resp.data[0].orderId) { // If response has OrderId
+				var orderId = resp.data[0].orderId;
+				// Insert into DynamodB with OrderId for SS & others
+				var params = {
+					"id": orderId;
+				};
+				if(resp.status == "success" && resp.SS_OrderNumber) {
+					// params["SS_OrderNumber"] = resp.SS_OrderNumber;
+					params["SS_OrderNumber"] = "5331014";
 				}
+				this.demoService.updateRecordinDB(params).subscribe((csvresponse) => {
+		          console.log("updated db" + csvresponse);
+		        }, (err) => {
+		          console.log(err);
+		        });
+			}
+			if(resp.results) { // Insert CSV file into S3 for other distributors
+				var body_csv = {
+		        	"response" : resp && resp.data[0] ? resp.data[0] :''
+				}	
+		       	this.demoService.csvfileUpload(body_csv).subscribe((csvresponse) => {
+			    	console.log("CSV upload completed" + csvresponse );
+			    }, (err) => {
+			        console.log(err);
+				});
+			}
+			else { // Response from SS API alone
+				if(resp && resp.status) {
+	          		var statusApiIntegration = resp.status == "success" ? "Success from SSAPI" : "Failure in SSAPI";
+				    alert(statusApiIntegration);
+				    // Tracking API for SS alone
+				    /*if(resp.status == "success" && resp.SS_OrderNumber) {
+				    	this.demoService.trackingSSOrder(resp.SS_OrderNumber).subscribe((response) => {
+				    		console.log('******', response);
+				    		if(response && response.Success == true) {
+				    			// Update DynamodB with response
+				    			this.demoService.updateTrackingDB(response, orderId).subscribe((dbResponse) => {
+						        	console.log("updated trackinggg :: " + dbResponse);
+						        }, (err) => {
+						          	console.log(err);
+						        });
+				    		}
+				    	}, (err) => {
+					    		console.log(err);
+							});
+						// }
+				    }*/
+				}
+			}
 		}
-			
+
     }, (err) => {
       console.log(err);
 		});
