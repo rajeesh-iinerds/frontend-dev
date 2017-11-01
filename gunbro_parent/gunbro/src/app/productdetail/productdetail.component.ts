@@ -126,12 +126,13 @@ results: any;
 				var orderId = resp.data[0].orderId;
 				// Insert into DynamodB with OrderId for SS & others
 				var params = {
-					"id": orderId;
+					"id": orderId
 				};
 				if(resp.status == "success" && resp.SS_OrderNumber) {
 					// params["SS_OrderNumber"] = resp.SS_OrderNumber;
 					params["SS_OrderNumber"] = "5331014";
 				}
+				console.log('first db parammmm', params);
 				this.demoService.updateRecordinDB(params).subscribe((csvresponse) => {
 		          console.log("updated db" + csvresponse);
 		        }, (err) => {
