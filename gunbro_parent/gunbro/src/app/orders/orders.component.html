@@ -65,7 +65,7 @@
 <!-- Quick Access Bar End -->
 
 
-<div class="ac-create-employee-drawer order-list-drawer text-left"  style="right:-400px;opacity:0;">
+<div class="ac-create-employee-drawer order-list-drawer text-left"  style="right:-600px;opacity:0;">
   <span class="placeMyOrderClose" (click)="closeOrderList()"></span>
   <span class="ac-order-drawer-head">
       <h4>Order Details</h4>
@@ -160,8 +160,8 @@
         </span>
           <span style="width: 33%;">
               <p>Status</p>
-              <!-- <h5 *ngIf="showOrderDetails == true">{{selectedOrder.order_status}}</h5> -->
-              <h5 *ngIf="showOrderDetails == true && selectedOrder.service"> Processed with {{selectedOrder.service}}</h5>
+               <h5 *ngIf="showOrderDetails == true">{{selectedOrder.order_status}}</h5> 
+              <!-- <h5 *ngIf="showOrderDetails == true && selectedOrder.service"> Processed with {{selectedOrder.service}}</h5> -->
           </span>
       </div>
   </div>
