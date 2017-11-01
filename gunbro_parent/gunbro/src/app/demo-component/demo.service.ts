@@ -390,10 +390,49 @@ export class DemoService {
                 console.log('Error');
             });
     }
+
+    getSSQuantity(): Observable < any > {
+        return Observable.create(observer => {
+
+        },
+        (err) => {
+            console.log('Error');
+        });
+    }
     confirmOrderfromService(orderInfo, jwt): Observable < any > {
         this.loading = true;
 
         return Observable.create(observer => {
+
+            if (constant.distApiList.indexOf((this.productInfo.distributor_name).toLowerCase()) > -1) {
+                return this.getSSQuantity().subscribe((quantityList) => {
+                    /*if (responseFromdistApi && responseFromdistApi.Success == true) {
+                        // response format to match with normal PlaceOrser API so that DynamoDb insertion is possible
+                        var temp = [];
+                        var obj = {"orderId": this.orderId};
+                        temp.push(obj);
+                        observer.next({
+                            "status": "success",
+                            "SS_OrderNumber": responseFromdistApi.OrderNumber,
+                            "data": temp
+                        });
+                        observer.complete();
+                    } else {
+                        observer.next({
+                            "status": "failure"
+                        });
+                        observer.complete();
+                    }*/
+                }, (err) => {
+                    console.log(err);
+                    observer.next({
+                        "status": err
+                    });
+                    observer.complete();
+                });
+            }
+
+
             let headers = new Headers({
                 'Content-Type': 'application/json',
                 'Authorization': jwt
