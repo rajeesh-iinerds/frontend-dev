@@ -25,6 +25,7 @@ import { RetailerSingleComponent } from './retailer-single/retailer-single.compo
 import { DistributorCategoryComponent } from './distributor-category/distributor-category.component';
 import { StoreLocationComponent } from './store-location/store-location.component';
 import { SearchWidgetComponent } from './search-widget/search-widget.component';
+import { SearchWidgetPipe } from './search-widget/search-widget.pipe';
 
 
 const appRoutes: Routes = [
@@ -83,8 +84,8 @@ const appRoutes: Routes = [
     RetailerSingleComponent,
     DistributorCategoryComponent,
     StoreLocationComponent,
-    SearchWidgetComponent
-
+    SearchWidgetComponent,
+    SearchWidgetPipe
   ],
   imports: [
     BrowserModule,

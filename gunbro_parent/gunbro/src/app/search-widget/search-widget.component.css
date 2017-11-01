@@ -1,0 +1,62 @@
+.auto-complete-container {
+    display: none;
+    position: absolute;
+    padding: 0;
+    width: 80%;
+    margin: 0;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 2px 0 rgba(0, 28, 36, .5);
+    max-height: 250px;
+    overflow: auto;
+    background: #fff;
+  }
+  .searchBtnColor{
+    background: #3b4e6e;
+    color: #fff;
+  }
+  .auto-complete-container>ul {
+    width: auto;
+    padding: 0;
+    margin: 0;
+  }
+  .auto-complete-container>ul>li {
+    display: block;
+    padding: 5px;
+    margin: 0;
+    text-decoration: none;
+    width: 100%;
+    border-bottom: 1px solid #efefef;
+  }
+  .auto-complete-container>ul>li:hover {
+    background: #ccc;
+    cursor: pointer;
+  }
+  .labelCard {
+    height: 34px;
+    min-width: 50px;
+    background: #5d6cc0;
+    position: absolute;
+    display: block;
+    z-index: 5;
+  }
+
+  .labelCard span {
+    padding-left: 10px;
+    cursor: pointer;
+  }
+
+  .labelCard>span {
+    color: #fff;
+    font-size: 10px;
+    padding: 10px;
+    line-height: 34px;
+    border-left: 1px solid #000;
+  }
+
+  .displayBlock {
+    display: block;
+  }
+
+  .displayNone {
+    display: none;
+  }
