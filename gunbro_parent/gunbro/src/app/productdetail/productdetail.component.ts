@@ -151,25 +151,14 @@ results: any;
 			}
 			else { // Response from SS API alone
 				if(resp && resp.status) {
-	          		var statusApiIntegration = resp.status == "success" ? "Success from SSAPI" : "Failure in SSAPI";
+					var statusApiIntegration = "";
+					if(resp.message) {
+						statusApiIntegration = resp.message;
+					}
+					else {
+						statusApiIntegration = resp.status == "success" ? "Success from SSAPI" : "Failure in SSAPI";
+					}
 				    alert(statusApiIntegration);
-				    // Tracking API for SS alone
-				    /*if(resp.status == "success" && resp.SS_OrderNumber) {
-				    	this.demoService.trackingSSOrder(resp.SS_OrderNumber).subscribe((response) => {
-				    		console.log('******', response);
-				    		if(response && response.Success == true) {
-				    			// Update DynamodB with response
-				    			this.demoService.updateTrackingDB(response, orderId).subscribe((dbResponse) => {
-						        	console.log("updated trackinggg :: " + dbResponse);
-						        }, (err) => {
-						          	console.log(err);
-						        });
-				    		}
-				    	}, (err) => {
-					    		console.log(err);
-							});
-						// }
-				    }*/
 				}
 			}
 		}

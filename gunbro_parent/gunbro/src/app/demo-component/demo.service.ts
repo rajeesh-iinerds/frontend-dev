@@ -393,7 +393,42 @@ export class DemoService {
 
     getSSQuantity(): Observable < any > {
         return Observable.create(observer => {
-
+            let headers = new Headers({
+                'Content-Type': 'application/json'
+            });
+            let options = new RequestOptions({
+                headers: headers
+            });
+            let req_body = {
+                "CustomerNumber": "31821", 
+                "UserName": "31821", 
+                "Password": "17602", 
+                "Source": "31821", 
+                "ItemNumber": this.productInfo && this.productInfo.SKUNumber ? this.productInfo.SKUNumber : "" //"160"
+            };
+            const url = "http://ssapigetquantity.cloudhub.io/";
+            this.http
+                .post(url, req_body, options)
+                .subscribe(data => {
+                    this.resultsdb = data.json();
+                    console.log('quantiyyyyyyyyyyy:: ', this.resultsdb);
+                    if (this.resultsdb) {
+                        if (this.resultsdb && this.resultsdb.Success == true) {
+                            observer.next(this.resultsdb);
+                            observer.complete();
+                        } else {
+                            observer.next(this.resultsdb);
+                            observer.complete();
+                        }
+                    } else {
+                        observer.next("Failure from fetching Quantity API");
+                        observer.complete();
+                    }
+                    observer.next(this.resultsdb);
+                    observer.complete();
+                }, error => {
+                    console.log(error.json());
+                });
         },
         (err) => {
             console.log('Error');
@@ -401,38 +436,7 @@ export class DemoService {
     }
     confirmOrderfromService(orderInfo, jwt): Observable < any > {
         this.loading = true;
-
         return Observable.create(observer => {
-
-            if (constant.distApiList.indexOf((this.productInfo.distributor_name).toLowerCase()) > -1) {
-                return this.getSSQuantity().subscribe((quantityList) => {
-                    /*if (responseFromdistApi && responseFromdistApi.Success == true) {
-                        // response format to match with normal PlaceOrser API so that DynamoDb insertion is possible
-                        var temp = [];
-                        var obj = {"orderId": this.orderId};
-                        temp.push(obj);
-                        observer.next({
-                            "status": "success",
-                            "SS_OrderNumber": responseFromdistApi.OrderNumber,
-                            "data": temp
-                        });
-                        observer.complete();
-                    } else {
-                        observer.next({
-                            "status": "failure"
-                        });
-                        observer.complete();
-                    }*/
-                }, (err) => {
-                    console.log(err);
-                    observer.next({
-                        "status": err
-                    });
-                    observer.complete();
-                });
-            }
-
-
             let headers = new Headers({
                 'Content-Type': 'application/json',
                 'Authorization': jwt
@@ -440,8 +444,6 @@ export class DemoService {
             let options = new RequestOptions({
                 headers: headers
             });
-
-            //alert("product info"+ JSON.stringify(this.productInfo));
             console.log("product info" + this.productInfo);
             let req_body = {
                 "Quantity": orderInfo.Quandity ? orderInfo.Quandity : "",
@@ -496,7 +498,64 @@ export class DemoService {
                             this.showclickorder = false;
                             this.showPopup = !this.showPopup;
                             if (constant.distApiList.indexOf((this.productInfo.distributor_name).toLowerCase()) > -1) {
-                                return this.apiIntegrationForDist(jwt, req_body).subscribe((responseFromdistApi) => {
+                                // SS Quantity API
+                                return this.getSSQuantity().subscribe((quantityList) => {
+                                    if (quantityList && quantityList.Success == true) {
+                                        if(quantityList.Quantity && quantityList.Quantity != "0") {
+                                            // SS Place Order
+                                            return this.apiIntegrationForDist(jwt, req_body).subscribe((responseFromdistApi) => {
+                                                if (responseFromdistApi && responseFromdistApi.Success == true) {
+                                                    // response format to match with normal PlaceOrser API so that DynamoDb insertion is possible
+                                                    var temp = [];
+                                                    var obj = {"orderId": this.orderId};
+                                                    temp.push(obj);
+                                                    observer.next({
+                                                        "status": "success",
+                                                        "SS_OrderNumber": responseFromdistApi.OrderNumber,
+                                                        "data": temp
+                                                    });
+                                                    observer.complete();
+                                                } else {
+                                                    observer.next({
+                                                        "status": "failure"
+                                                    });
+                                                    observer.complete();
+                                                }
+                                            }, (err) => {
+                                                console.log(err);
+                                                observer.next({
+                                                    "status": err
+                                                });
+                                                observer.complete();
+                                            });
+                                        }
+                                        else {
+                                            // Quantity 0
+                                            observer.next({
+                                                "status": "failure",
+                                                "message": "Quantity not available!"
+                                            });
+                                            observer.complete();
+                                        }
+                                    } else {
+                                        // Quantiy API returns false
+                                        observer.next({
+                                            "status": "failure",
+                                            "message": "Failure in SS Quantity API!"
+                                        });
+                                        observer.complete();
+                                    }
+                                }, (err) => {
+                                    console.log(err);
+                                    observer.next({
+                                        "status": err
+                                    });
+                                    observer.complete();
+                                });
+
+
+
+                                /*return this.apiIntegrationForDist(jwt, req_body).subscribe((responseFromdistApi) => {
                                     if (responseFromdistApi && responseFromdistApi.Success == true) {
                                         // response format to match with normal PlaceOrser API so that DynamoDb insertion is possible
                                         var temp = [];
@@ -520,7 +579,7 @@ export class DemoService {
                                         "status": err
                                     });
                                     observer.complete();
-                                });
+                                });*/
                             } else {
                                 observer.next({
                                     "status": "NA",
