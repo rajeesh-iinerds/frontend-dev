@@ -54,7 +54,7 @@ results: any;
 	    	if (constant.distApiList.indexOf((this.demoService.productInfo.distributor_name).toLowerCase()) > -1) {
 			    this.checkSSQuantity().subscribe((response) => {
 			    	console.log("quantityyyy : " + response.Quantity);
-			    	this.ssProductQuantity = response.Quantity ? response.Quantity : 0;
+			    	this.ssProductQuantity = response.Quantity ? response.Quantity : '0';
 			    },
 			    	(err) => console.error(err)
 			    );
