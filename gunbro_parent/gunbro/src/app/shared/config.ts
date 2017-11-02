@@ -24,7 +24,8 @@ export const appcohesionURL = {
 	"addDistributorMarkup_URL" : "https://api.appcohesion.io/setMarkup",
 	"retailerApply_URL": "https://i0ko9akgah.execute-api.us-east-1.amazonaws.com/prod",
 	"placeOrder_SS_URL" : "http://ssplaceorder.cloudhub.io/",
-	"createStore_URL": "https://api.appcohesion.io/createStore"
+	"createStore_URL": "https://api.appcohesion.io/createStore",
+	"productQuantity_SS_URL" : "http://ssapigetquantity.cloudhub.io/"
 };
 export const distApiList = ["ss"];
 export const statusCode = {
@@ -41,4 +42,10 @@ export const store_messages = {
 };
 export const error_message = {
 	"error_title": "ERROR"
-}
+};
+export const SS_prod_param = {
+	"CustomerNumber": "31821", //"99994",
+    "UserName": "31821", //"99994",
+    "Password": "17602", //"99999",
+    "Source": "31821" //"99994",
+};

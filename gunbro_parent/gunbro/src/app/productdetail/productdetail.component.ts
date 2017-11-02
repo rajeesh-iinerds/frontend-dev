@@ -1,9 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ProductSearchComponent } from '../product-search/product-search.component';
-import { DemoService } from '../demo-component/demo.service';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+
+import { ProductSearchComponent } from '../product-search/product-search.component';
+import { DemoService } from '../demo-component/demo.service';
+import * as constant from '../shared/config';
+
 @Component({
   selector: 'app-productdetail',
   templateUrl: './productdetail.component.html',
@@ -36,6 +39,7 @@ results: any;
 	orderInfo : any;
 	delivery: string;
 	model: Object = {};
+	ssProductQuantity: string;
 
   	constructor(public searchComponent: ProductSearchComponent, public demoService: DemoService, private http:Http) {
 		this.selectedQuantity = 1;
@@ -45,8 +49,18 @@ results: any;
 	}
 
 	ngOnInit() {
-    this.demoService.showPopup = false;
-  }
+	    this.demoService.showPopup = false;
+	    if(this.demoService.productInfo && this.demoService.productInfo.distributor_name) {
+	    	if (constant.distApiList.indexOf((this.demoService.productInfo.distributor_name).toLowerCase()) > -1) {
+			    this.checkSSQuantity().subscribe((response) => {
+			    	console.log("quantityyyy : " + response.Quantity);
+			    	this.ssProductQuantity = response.Quantity ? response.Quantity : 0;
+			    },
+			    	(err) => console.error(err)
+			    );
+			}
+	    }
+	}
 
  	placeOrder() {
  		this.demoService.showclickorder = true;
@@ -89,46 +103,93 @@ results: any;
 			"delivery_instructions": this.delivery ? this.delivery : ""
 			
 		};
-		//this.demoService.confirmOrderfromService(this.orderInfo, jwt);
-
     return this.demoService.confirmOrderfromService(this.orderInfo, jwt).subscribe((resp) => {
-			
-			this.demoService.loading = false;
-			if(resp && resp.results) {
-				     
-							
-      
-      if(resp && resp.data[0] && resp.data[0].orderId) {
-        resp.data[0].distributor_name = (resp.data[0].distributor_name)? (resp.data[0].distributor_name).toLowerCase():"";
-        
-        var orderId = resp.data[0].orderId
-         this.demoService.updateRecordinDB(orderId,"order_id").subscribe((csvresponse) => {
-          console.log("updated db" + csvresponse);
-        }, (err) => {
-          console.log(err);
-        });
-      }
-      var body_csv = {
-        "response" : resp && resp.data[0] ? resp.data[0] :''
+		this.demoService.loading = false;
+		/*if(resp && resp.results) {
+	      	if(resp && resp.data[0] && resp.data[0].orderId) {
+		      	resp.data[0].distributor_name = (resp.data[0].distributor_name)? (resp.data[0].distributor_name).toLowerCase():"";
+		        
+		        var orderId = resp.data[0].orderId
+		        this.demoService.updateRecordinDB(orderId,"order_id").subscribe((csvresponse) => {
+		          console.log("updated db" + csvresponse);
+		        }, (err) => {
+		          console.log(err);
+		        });
+		    }
+	      	var body_csv = {
+	        	"response" : resp && resp.data[0] ? resp.data[0] :''
 			}	
-       this.demoService.csvfileUpload(body_csv).subscribe((csvresponse) => {
-        console.log("CSV upload completed" + csvresponse );
-      }, (err) => {
-        console.log(err);
+	       	this.demoService.csvfileUpload(body_csv).subscribe((csvresponse) => {
+		    	console.log("CSV upload completed" + csvresponse );
+		    }, (err) => {
+		        console.log(err);
 			});
-
 		}
-		else{
-			if(resp && resp.status){
-          var statusApiIntegration = resp.status == "success" ? "Success from SSAPI" : "Failure in SSAPI";
+		else {
+			if(resp && resp.status) {
+          		var statusApiIntegration = resp.status == "success" ? "Success from SSAPI" : "Failure in SSAPI";
 			    alert(statusApiIntegration);
+			}
+		}*/
+
+		if(resp) { // If response from API
+			if(resp.data && resp.data[0] && resp.data[0].orderId) { // If response has OrderId
+				var orderId = resp.data[0].orderId;
+				// Insert into DynamodB with OrderId for SS & others
+				var params = {
+					"id": orderId
+				};
+				if(resp.status == "success" && resp.SS_OrderNumber) {
+					// params["SS_OrderNumber"] = resp.SS_OrderNumber;
+					params["SS_OrderNumber"] = "5331014";
 				}
+				console.log('first db parammmm', params);
+				this.demoService.updateRecordinDB(params).subscribe((csvresponse) => {
+		          console.log("updated db" + csvresponse);
+		        }, (err) => {
+		          console.log(err);
+		        });
+			}
+			if(resp.results) { // Insert CSV file into S3 for other distributors
+				var body_csv = {
+		        	"response" : resp && resp.data[0] ? resp.data[0] :''
+				}	
+		       	this.demoService.csvfileUpload(body_csv).subscribe((csvresponse) => {
+			    	console.log("CSV upload completed" + csvresponse );
+			    }, (err) => {
+			        console.log(err);
+				});
+			}
+			else { // Response from SS API alone
+				if(resp && resp.status) {
+					var statusApiIntegration = "";
+					if(resp.message) {
+						statusApiIntegration = resp.message;
+					}
+					else {
+						statusApiIntegration = resp.status == "success" ? "Success from SSAPI" : "Failure in SSAPI";
+					}
+				    alert(statusApiIntegration);
+				}
+			}
 		}
-			
     }, (err) => {
       console.log(err);
 		});
 	}
+
+	checkSSQuantity(): Observable < any >{
+	    return Observable.create(observer => {
+	      return this.demoService.getSSQuantity().subscribe((response) => {
+	            this.demoService.loading = false;
+	            console.log(response);
+	            observer.next(response);
+	            observer.complete();
+	          });
+	    }, err => {
+	      console.log("error on order", err)
+	    })
+	  }
 
 	submitForm(form: any): void{
 	    console.log('Form Data: ');
