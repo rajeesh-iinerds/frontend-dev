@@ -392,6 +392,7 @@ export class DemoService {
     }
 
     getSSQuantity(): Observable < any > {
+        this.loading = true;
         return Observable.create(observer => {
             let headers = new Headers({
                 'Content-Type': 'application/json'
@@ -410,6 +411,7 @@ export class DemoService {
             this.http
                 .post(url, req_body, options)
                 .subscribe(data => {
+                    this.loading = false;
                     this.resultsdb = data.json();
                     console.log('quantiyyyyyyyyyyy:: ', this.resultsdb);
                     if (this.resultsdb) {
@@ -427,6 +429,7 @@ export class DemoService {
                     observer.next(this.resultsdb);
                     observer.complete();
                 }, error => {
+                    this.loading = false;
                     console.log(error.json());
                 });
         },
@@ -499,7 +502,7 @@ export class DemoService {
                             this.showPopup = !this.showPopup;
                             if (constant.distApiList.indexOf((this.productInfo.distributor_name).toLowerCase()) > -1) {
                                 // SS Quantity API
-                                return this.getSSQuantity().subscribe((quantityList) => {
+                                /*return this.getSSQuantity().subscribe((quantityList) => {
                                     if (quantityList && quantityList.Success == true) {
                                         if(quantityList.Quantity && quantityList.Quantity != "0") {
                                             // SS Place Order
@@ -552,10 +555,10 @@ export class DemoService {
                                     });
                                     observer.complete();
                                 });
+*/
 
 
-
-                                /*return this.apiIntegrationForDist(jwt, req_body).subscribe((responseFromdistApi) => {
+                                return this.apiIntegrationForDist(jwt, req_body).subscribe((responseFromdistApi) => {
                                     if (responseFromdistApi && responseFromdistApi.Success == true) {
                                         // response format to match with normal PlaceOrser API so that DynamoDb insertion is possible
                                         var temp = [];
@@ -579,7 +582,7 @@ export class DemoService {
                                         "status": err
                                     });
                                     observer.complete();
-                                });*/
+                                });
                             } else {
                                 observer.next({
                                     "status": "NA",

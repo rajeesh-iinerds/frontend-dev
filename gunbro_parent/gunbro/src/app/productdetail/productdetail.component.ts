@@ -1,9 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ProductSearchComponent } from '../product-search/product-search.component';
-import { DemoService } from '../demo-component/demo.service';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+
+import { ProductSearchComponent } from '../product-search/product-search.component';
+import { DemoService } from '../demo-component/demo.service';
+import * as constant from '../shared/config';
+
 @Component({
   selector: 'app-productdetail',
   templateUrl: './productdetail.component.html',
@@ -36,6 +39,7 @@ results: any;
 	orderInfo : any;
 	delivery: string;
 	model: Object = {};
+	ssProductQuantity: string;
 
   	constructor(public searchComponent: ProductSearchComponent, public demoService: DemoService, private http:Http) {
 		this.selectedQuantity = 1;
@@ -45,8 +49,18 @@ results: any;
 	}
 
 	ngOnInit() {
-    this.demoService.showPopup = false;
-  }
+	    this.demoService.showPopup = false;
+	    if(this.demoService.productInfo && this.demoService.productInfo.distributor_name) {
+	    	if (constant.distApiList.indexOf((this.demoService.productInfo.distributor_name).toLowerCase()) > -1) {
+			    this.checkSSQuantity().subscribe((response) => {
+			    	console.log("quantityyyy : " + response.Quantity);
+			    	this.ssProductQuantity = response.Quantity ? response.Quantity : 0;
+			    },
+			    	(err) => console.error(err)
+			    );
+			}
+	    }
+	}
 
  	placeOrder() {
  		this.demoService.showclickorder = true;
@@ -89,10 +103,7 @@ results: any;
 			"delivery_instructions": this.delivery ? this.delivery : ""
 			
 		};
-		//this.demoService.confirmOrderfromService(this.orderInfo, jwt);
-
     return this.demoService.confirmOrderfromService(this.orderInfo, jwt).subscribe((resp) => {
-			
 		this.demoService.loading = false;
 		/*if(resp && resp.results) {
 	      	if(resp && resp.data[0] && resp.data[0].orderId) {
@@ -162,11 +173,23 @@ results: any;
 				}
 			}
 		}
-
     }, (err) => {
       console.log(err);
 		});
 	}
+
+	checkSSQuantity(): Observable < any >{
+	    return Observable.create(observer => {
+	      return this.demoService.getSSQuantity().subscribe((response) => {
+	            this.demoService.loading = false;
+	            console.log(response);
+	            observer.next(response);
+	            observer.complete();
+	          });
+	    }, err => {
+	      console.log("error on order", err)
+	    })
+	  }
 
 	submitForm(form: any): void{
 	    console.log('Form Data: ');
