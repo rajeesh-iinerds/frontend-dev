@@ -105,7 +105,7 @@ export class SearchWidgetComponent implements OnInit {
   }
   switchDataList() {
     if (this.level == 0) {
-      this.mySource = [{ level: 0, itemId: 1, itemName: "GSIN" }, { level: 0, itemId: 2, itemName: "Manufacturer Part" }];
+      this.mySource = [{ level: 0, itemId: 1, itemName: "GSIN" }, { level: 0, itemId: 2, itemName: "Manufacturer Part Number" }];
       
     } else if (this.level == 1) {
       this.mySource = [];
