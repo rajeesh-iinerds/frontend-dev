@@ -38,7 +38,9 @@ export class SearchWidgetComponent implements OnInit {
           this.demoService.productSearchfromService(this.searchType, this.searchKey, jwt, this.manufacturerId);
           this.inputData='';
           this.isAutoComplete=false;
-          
+          this.level = 0;
+          this.searchHistoryMap=[];
+          this.switchDataList();
       }
   }, (err) => {
     console.log(err);
