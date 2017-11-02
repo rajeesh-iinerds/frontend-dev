@@ -324,11 +324,11 @@ export class DemoService {
 
         return Observable.create(observer => {
                 var req_body_api = {
-                    "CustomerNumber": "99994",
-                    "UserName": "99994",
-                    "Password": "99999",
-                    "Source": "99994",
-                    "PO": "99994",
+                    // "CustomerNumber": "99994",
+                    // "UserName": "99994",
+                    // "Password": "99999",
+                    // "Source": "99994",
+                    // "PO": "99994",
                     "CustomerOrderNumber": "0",
                     "SalesMessage": "SEND",
                     "ShipVIA": body.ShippingMethod ?   body.ShippingMethod : "",
