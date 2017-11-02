@@ -407,7 +407,7 @@ export class DemoService {
                 "Source": "31821", 
                 "ItemNumber": this.productInfo && this.productInfo.SKUNumber ? this.productInfo.SKUNumber : "" //"160"
             };
-            const url = "http://ssapigetquantity.cloudhub.io/";
+            const url = constant.appcohesionURL.productQuantity_SS_URL;
             this.http
                 .post(url, req_body, options)
                 .subscribe(data => {
@@ -671,65 +671,6 @@ export class DemoService {
         })
     }
 
-    /*trackingSSOrder(ssOrderNumber): Observable < any > {
-        return Observable.create(observer => {
-            let headers = new Headers({
-                'Content-Type': 'application/json'
-            });
-            let options = new RequestOptions({
-                headers: headers
-            });
-            let req_body = {
-                "CustomerNumber": "31821", 
-                "UserName": "31821", 
-                "Password": "17602", 
-                "Source": "31821", 
-                "OrderNumber": "5331014" //ssOrderNumber
-            };
-            const url = "http://ssapitrackorder.cloudhub.io/";
-            this.http
-                .post(url, req_body, options)
-                .subscribe(data => {
-                    this.trackingResults = data.json();
-                    console.log('travkkkkkkkkk',this.trackingResults);
-                    observer.next(this.trackingResults);
-                    observer.complete();
-                }, error => {
-                    console.log(error.json());
-                });
-        }, err => {
-            console.log("error", err)
-        })
-    }*/
-
-    /*updateTrackingDB(requestBody, orderId): Observable < any > {
-        return Observable.create(observer => {
-            let headers = new Headers({
-                'Content-Type': 'application/json'
-            });
-            let options = new RequestOptions({
-                headers: headers
-            });
-            let requestBody["OrderId"] = orderId;
-            let req_body = {
-                "SSData": requestBody
-            };
-            const url = 'https://bh7906mpaf.execute-api.us-east-1.amazonaws.com/prod/orderstatus';
-            this.http
-                .post(url, req_body, options)
-                .subscribe(data => {
-                    this.resultsdb = data.json();
-                    //alert(JSON.stringify(this.resultsdb));
-                    observer.next(this.resultsdb);
-                    observer.complete();
-                }, error => {
-                    console.log(error.json());
-                });
-        }, err => {
-            console.log("error", err)
-        })
-    }*/
-
     createUser(jwt, userInfo) {
         this.loading = true;
         let headers = new Headers({
@@ -755,7 +696,6 @@ export class DemoService {
                 "entity_id": entity_id
             }
         };
-        // const url = 'https://7v5j1r1r92.execute-api.us-east-1.amazonaws.com/prod/cognitoSignin';
         const url = constant.appcohesionURL.createUser_URL;
         this.http
             .post(url, req_body, options)
@@ -796,7 +736,6 @@ export class DemoService {
                     headers: headers
                 });
                 var req_body = '';
-                // const url = 'https://dtnqjf4q15.execute-api.us-east-1.amazonaws.com/prod';
                 const url = constant.appcohesionURL.listUsers_URL;
                 this.http
                     .post(url, req_body, options)
@@ -817,7 +756,6 @@ export class DemoService {
     listRetailer() {
         this.loading = true;
         this.retailerId = this.retailerId ? this.retailerId : "";
-        // Taking Session Value for passing token
         return this.getSessionToken().subscribe((response) => {
             if (response.getIdToken().getJwtToken()) {
                 this.jwt = response.getIdToken().getJwtToken();
