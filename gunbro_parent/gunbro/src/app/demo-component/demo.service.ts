@@ -673,12 +673,10 @@ export class DemoService {
                 .post(url, req_body, options)
                 .subscribe(data => {
                     this.loading = false;
-                    console.log("retailer data : " + data)
                     this.result = data.json();
                     if (this.result && this.result.status) {
                         if (this.result.status.code == constant.statusCode.success_code) {
                             this.retailerCategory = this.result.markups;
-                            console.log("retailer category : " + JSON.stringify(this.retailerCategory));
                         } else if (this.results.status.code == constant.statusCode.empty_code) {
                             this.retailerCategory = [];
                         }

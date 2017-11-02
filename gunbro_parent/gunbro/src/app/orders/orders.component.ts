@@ -44,6 +44,7 @@ export class OrdersComponent implements OnInit {
                   };
                   const url = constant.appcohesionURL.orderList_URL && constant.appcohesionURL.orderList_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
                   this.http.post(url, req_body, options).subscribe(data => {
+                      console.log("check empty data : " + data);
                     this.demoService.loading = false;
                       this.results = data.json();
                       console.log("order list details : " + JSON.stringify(this.results));
