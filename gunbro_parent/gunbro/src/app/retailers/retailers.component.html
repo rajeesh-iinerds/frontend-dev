@@ -29,7 +29,7 @@
         </div>
 
         <div class="profile-sub-heads">
-          <h6>STORE LOCATIONS<img src="images/edit.svg"></h6>
+          <h6>STORE LOCATIONS<img src="assets/images/edit.svg"></h6>
         </div>
         <!-- <div class="row">
           <div class="col-xs-12 col-sm-12 col-lg-12 ac-employee-listing">
@@ -47,7 +47,7 @@
             <div class="col-sm-4 store-location-img"></div>
             <div class="col-sm-8 store-location-details">
               <h5>{{item.StoreLocation ? item.StoreLocation : ''}}</h5>
-              <span>{{item.StoreName ? item.StoreName : ''}}{{item.StoreAddress ? item.StoreAddress : ''}}<br>{{item.StoreContact ? item.StoreContact : ''}}</span>
+              <span>{{item.StoreName ? item.StoreName : ''}},{{item.StoreAddress ? item.StoreAddress : ''}}<br>Ph:{{item.StoreContact ? item.StoreContact : ''}}</span>
             </div>
           </div> 
         </div>
@@ -83,8 +83,8 @@
         </div>
         <div class="contact-info-wrapper contact-call">{{storeLocations.StoreContact}}
         </div>
-      <!--  <div class="contact-info-wrapper contact-fax">702-567-1158
-        </div> -->
+       <div class="contact-info-wrapper contact-fax">{{storeLocations.fax}}
+        </div> 
         <div class="retailer-address-wrapper">
           <h4>Primary Address</h4>
           <span>{{storeLocations.StoreAddress}}</span>

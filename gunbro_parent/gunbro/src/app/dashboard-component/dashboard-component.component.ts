@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx'; 
 import 'rxjs/add/operator/map';
+
 import { DemoService } from '../demo-component/demo.service';
 import * as constant from '../shared/config';
 
@@ -50,6 +51,9 @@ export class DashboardComponentComponent implements OnInit {
   manufacturerId: any;
   configUserGroup: any;
   configSuperAdminUserGroup: any;
+  showRetailer: any;
+  hideRetailer: any;
+  userDetails: any;
   
   constructor(private route: ActivatedRoute,private router: Router, public demoService: DemoService,private http:Http) {
     this.hideMFGSearch = true;
@@ -57,6 +61,7 @@ export class DashboardComponentComponent implements OnInit {
     this.disableSearch = true;
     this.searchKey = '';
     this.userGroup = '';
+
   }
   
   ngOnInit() {
@@ -64,6 +69,11 @@ export class DashboardComponentComponent implements OnInit {
     this.userGroup = localStorage.getItem('userGroup') && localStorage.getItem('userGroup') != 'null' ? localStorage.getItem('userGroup') : '';
     this.configUserGroup = constant.user.userGroup && constant.user.userGroup != 'null' ? constant.user.userGroup : '';
     this.configSuperAdminUserGroup =  constant.user.superadminUser && constant.user.superadminUser != 'null' ? constant.user.superadminUser : '';
+    this.showRetailer = true;
+    this.hideRetailer = constant.user.superadminUser ? false : true;
+    this.userDetails = {};
+    this.userDetails.first_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).first_name : "";
+    this.userDetails.last_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).last_name : "";
   }
 
     clickedSearch(){

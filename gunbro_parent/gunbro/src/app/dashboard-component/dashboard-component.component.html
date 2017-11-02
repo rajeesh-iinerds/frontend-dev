@@ -9,18 +9,21 @@
     <div class="ac-main-nav-body">
       <div class="ac-main-nav-gen-items">
         <ul>
-          <!--<li><a href="dashboard.html" class="ac-dash-item-1"><i>Dashboard</i></a></li>-->
           <li><a routerLink="../dashboard"   class="ac-dash-item-1"><i>Dashboard</i></a></li>
-          <li><a routerLink="markup" class="ac-dash-item-2"><i class="flip">Distributor Management</i><i class="flop" style="display:none;">Distributor</i></a></li>
-          <li *ngIf="userGroup == configSuperAdminUserGroup"><a routerLink="RetailerMarkup" class="ac-dash-item-2"><i class="flip">Retailer Management</i><i class="flop" style="display:none;">Retailer Management</i></a></li>
-    <!-- <li><a  routerLink="markup" routerLinkActive="active"  class="ac-dash-item-2"><i class="flip">Distributor Management</i><i class="flop" style="display:none;">Distributor</i></a></li> -->
-          <!--<li><a href="employee-management.html" class="ac-dash-item-3 active"><i class="flip">Employee Management</i><i class="flop" style="display:none;">Employee</i></a></li> -->
+
+          <li *ngIf="userGroup == configSuperAdminUserGroup ? hideRetailer : true"><a routerLink="markup" class="ac-dash-item-2"><i class="flip">Distributor Management</i><i class="flop" style="display:none;">Distributor</i></a></li>
+          
+          <li *ngIf="userGroup == configSuperAdminUserGroup ? showRetailer : false"><a routerLink="RetailerMarkup" class="ac-dash-item-2"><i class="flip">Retailer Management</i><i class="flop" style="display:none;">Retailer Management</i></a></li>
+          
+          <li *ngIf="userGroup == configUserGroup"><a routerLink="store-location" class="ac-dash-item-8 "><i class="flip">Store Outlets</i><i class="flop" style="display:none;">Store</i></a></li>
+          
           <li *ngIf="userGroup == configUserGroup"><a  routerLink="employee" routerLinkActive="active" class="ac-dash-item-3"><i class="flip">Employee Management</i><i class="flop" style="display:none;">Employee</i></a></li>
+          
           <li><a routerLink="order" routerLinkActive="active" class="ac-dash-item-4"><i class="flip">Orders</i><i class="flop" style="display:none;">order</i></a></li>
+          
           <li><a href="javascript:void(0);" class="ac-dash-item-5"><i>Customers</i></a></li>
           <li><a href="javascript:void(0);" class="ac-dash-item-6"><i>Reports</i></a></li>
           <li><a  routerLink="retailer" routerLinkActive="active" class="ac-dash-item-3"><i class="flip">Settings</i><i class="flop" style="display:none;">Settings</i></a></li>
-         <!-- <li *ngIf="userGroup == configUserGroup"><a routerLink="retailer" routerLinkActive="active" class="ac-dash-item-7"><i class="flip">Settings</i><i class="flop" style="display:none;">Settings</i></a></li> -->
         </ul>
       </div>
     </div>
@@ -31,36 +34,8 @@
   <div class="ac-main-content-wrap">
     <!-- Global Header Start -->
     <div [ngClass]="showSearchIconRead ? 'ac-global-header ac-search-on' : 'ac-global-header'" align="left">
-      <div class="col-xs-8 col-sm-8 col-lg-7 ac-search-wrap">
-        <div class="ac-search-inset">
-            <!-- <span class="ac-search-shrinked" style="opacity: 0;">
-              <i class="glyphicon glyphicon-search" ></i>
-              <input type="search" placeholder="Search for firmarms, distributors, manufacturers, equipments, status etc..." name="search"  [(ngModel)]="productsearch_name" (keyup.enter)="getToken()">
-            </span> -->
-            <!--<a href="javascript:void(0);" class="ac-search-trigger"><i class="glyphicon glyphicon-search"></i></a> -->
-        </div>
-
-        <span class="">
-          <select class="dropdownSearch" name ="searchType" [(ngModel)]="searchType" (ngModelChange)="onSearchChange($event)">
-            <!-- <option>Search Type</option>
-            <option>GSIN</option>
-            <option>Manufacturer Part Number</option> -->
-            <option *ngFor="let value of values" [ngValue]="value.key">{{value.name}}</option>
-          </select>
-        </span>
-        <!-- <label class="ac-required-field">{{errorMessage}}</label> -->
-        <input type="text" class="serchInput" placeholder="Enter GSIN#" [hidden]="hideGSINSearch" [(ngModel)]="searchGSIN" name="searchgsin">
-
-        <span class="" [hidden]="hideMFGSearch">
-          <select class="dropdownSearch" [(ngModel)]="selectManufacturer" name="selectManufacturer">
-            <!-- <option value="0">Select Manufacturer</option>
-            <option value ="1">ABA - AMERICAN BUILT ARMS COMPANY</option> -->
-             <option *ngFor="let value of manufacturers" [ngValue]="value.key">{{value.name}}</option>
-          </select>
-        </span>
-
-        <input type="text" class="serchInput" placeholder="Enter part #" [hidden]="hideMFGSearch" [(ngModel)]="searchMFG" name="searchmfg" [disabled]="!selectManufacturer">
-        <button class="searchAvailabilityBtn" (click)="getToken()" [disabled]="!searchGSIN && !searchMFG">SEARCH AVAILABILITY</button>
+      <div class="col-xs-8 col-sm-8 col-lg-7 ac-search-wrap" style="top: 10px;">
+       <app-search-widget></app-search-widget>
       </div>
 
 
@@ -77,7 +52,7 @@
             <img src="assets/demo-avatar.png" alt="FIRST NAME HERE">
             <i class="glyphicon glyphicon-menu-down"></i>
           </span>
-          <h3>Elizabeth Grace</h3>
+          <h3 *ngIf="userDetails">{{userDetails.first_name }} {{userDetails.last_name}}</h3>
           <span class="ac-user-drop-wrap" style="display: none;">
             <ul class="ac-user-dropdown">
             <!--  <li><a href="javascript:void(0);">My Profile</a></li> -->

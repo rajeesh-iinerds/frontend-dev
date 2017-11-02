@@ -1,0 +1,192 @@
+      
+      <div [ngClass]="showViewStore ? 'ac-locationDetails-on' : ''">
+      <div [ngClass]="showCreateStore ? 'ac-create-employee-on' : ''">
+      <!-- Generic wrap start -->
+      <div class="ac-generic-wrap">
+        <div class="container-fluid">
+          <div class="row"><!-- Page Title -->
+            <div class="col-xs-12 col-sm-9 col-lg-9">
+              <h3 class="ac-page-title">Store Locations</h3>
+            </div>
+            <div class="col-xs-12 col-sm-3 col-lg-3 text-right xs-text-left">
+              <a class="ac-button-outlined ac-create-employee" (click) = "createStore()"><i>+</i>CREATE NEW</a>
+            </div>
+          </div>
+          <div class="row"><!-- Employee Listing -->
+            <div class="col-xs-12 col-sm-12 col-lg-12 ac-distributor-listing">
+                <!-- Distributor Product Cards Start -->
+              <div class="ac-distributor-cards">
+
+                  <!-- Single Card Start -->
+                  <div *ngIf="retailerStoreDetails && retailerStoreDetails.length >0">
+                  <div class="ac-distributor-card" *ngFor="let store of retailerStoreDetails">
+                    <div class="storelocation-clickable">
+                       <h4>{{store.StoreLocation}}</h4>
+                       <div class="storeImg">
+                         <!-- <img src="../demo-assets/gun4.png"> -->
+                       </div>
+                       <div class="store-distributors-listing">
+                         <div class="store-distributor-img"></div>
+                         <div class="store-distributor-img"></div>
+                         <div class="store-distributor-img"></div>
+                         <div class="store-distributor-img"></div>
+                         <div class="store-distributor-img distributor-count">5+</div>
+                       </div>
+                        <div class="storeDetails">
+                          <h6>FFL#</h6>
+                          <span>{{store.StoreFFLId}}</span>
+                        </div>
+                        <div class="storeDetails">
+                          <h6>Store Address</h6>
+                          <span>{{store.StoreAddress}}</span>
+                        </div>
+                        <!-- Details button -->
+                        <span class="ac-dist-add-markup" style="display:none;">
+                          <a class="ac-storelocation-details" (click) = "viewStore(store.StoreId)">View Details</a>
+                          <a class="ac-storelocation-editdetails">Edit Details</a>
+                        </span>
+                    </div>
+                    </div>
+                  </div>
+                  <!-- Single Card End -->
+              </div>
+              <!-- Distributor Product Cards Start -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+      <!-- Generic wrap end -->
+
+    <!-- CREATE NEW STORE : START -->
+    <div class="ac-create-employee-drawer ac-create-store-drawer" style="right:-400px;opacity:0;">
+      <span class="placeMyOrderClose" (click) = "showCreateStore = !showCreateStore"></span>
+      <form class="ac-create-employee-body" #employeeForm="ngForm">
+        <div class="form-group">
+          <label for="name">STORE NAME</label>
+          <input type="text" class="form-control" placeholder="Enter store name" id="name" name="name" [(ngModel)]="userInfo.firstName" required #name="ngModel">
+          <!-- <div *ngIf= "name.errors && (name.dirty || name.touched)" class="ac-required-field">
+            <div [hidden]="!name.errors.pattern">
+              Invalid characters not allowed!
+            </div>
+      		</div> -->
+        </div>
+        <div class="form-group">
+          <label for="ffl">FFL NO.</label>
+          <input type="text" class="form-control" placeholder="Enter FFL#" id="ffl" name="ffl" [(ngModel)]="userInfo.ffl" required #ffl="ngModel">
+        </div>
+        <!-- <div class="form-group">
+          <label for="usr_lastname">UPLOAD FFL</label>
+          <div class="ffl-upload-field">upload FFL Here</div>
+        </div> -->
+        <div class="form-group" style="width: 48%;">
+          <label for="city">CITY</label>
+          <input type="text" class="form-control" placeholder="Enter city" id="city" name="city" [(ngModel)]="userInfo.city" required #city="ngModel">
+        </div>
+        <div class="form-group pull-right" style="width: 48%;">
+          <label for="state">STATE</label>
+          <input type="text" class="form-control" placeholder="Enter state" id="state" name="state" [(ngModel)]="userInfo.state" required #state="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="address">STORE ADDRESS</label>
+          <input type="text" class="form-control" placeholder="Enter address" id="address" name="address" [(ngModel)]="userInfo.address" required #address="ngModel">
+        </div>
+        <!-- <div class="form-group">
+          <label for="usr_lastname">UPLOAD STORE PHOTO</label>
+          <div class="ffl-upload-field">upload Photo Here</div>
+        </div> -->
+        <div class="form-group">
+          <label for="phone">PHONE</label>
+          <input type="text" class="form-control" placeholder="Enter phone" id="phone" name="phone" [(ngModel)]="userInfo.phone" required pattern="[0-9]*" #phone="ngModel">
+          <div *ngIf= "phone.errors && (phone.dirty || phone.touched)" class="ac-required-field">
+            <div [hidden]="!phone.errors.pattern">
+              Only numbers allowed!
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="fax">FAX</label>
+          <input type="text" class="form-control" placeholder="Enter fax" id="fax" name="fax" [(ngModel)]="userInfo.fax" required #fax="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="usr_email">EMAIL ID</label>
+	      <input type="email" class="form-control" placeholder="Enter email Id" id="usr_email" [(ngModel)]="userInfo.email" name="usr_email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #usr_email="ngModel">
+	    	<div *ngIf= "usr_email.errors && (usr_email.dirty || usr_email.touched)" class="ac-required-field">
+		        <div [hidden]="!usr_email.errors.pattern">
+		          Invalid email format!
+	        	</div>
+      		</div>
+        </div>
+        <span class="ac-create-employee-foot">
+          <button type="submit" class="btn btn-default" (click) = "createStoreClick()" [disabled]="!employeeForm.form.valid">CREATE STORE</button>
+        </span>
+      </form>
+    </div>
+    <!-- CREATE NEW STORE : END -->
+
+    <!-- STORE VIEW DETAILS  : START -->
+    <div class="ac-location-details-drawer" style="right:-400px;opacity:0;">
+      <span class="placeMyOrderClose" (click) = "showViewStore = !showViewStore"></span>
+      <form class="ac-create-employee-body">
+        <h4 *ngIf="showViewStore == true">{{selectedStore.StoreLocation}}</h4>
+        <div class="storeImg" style="margin-bottom: 15px;">
+          <!-- <img src="../demo-assets/gun4.png"> -->
+        </div>
+        <div class="storeDetails" *ngIf="showViewStore == true">
+          <h6>FFL#</h6>
+          <span>{{selectedStore.StoreFFLId}}</span>
+        </div>
+        <div class="storeDetails" *ngIf="showViewStore == true">
+          <h6>Contact Person</h6>
+          <span>{{selectedStore.RetailerName}}</span>
+        </div>
+        <div class="storeDetails" style="width: 50%;" *ngIf="showViewStore == true">
+          <h6>Phone</h6>
+          <span>{{selectedStore.StoreContact}}</span>
+        </div>
+        <div class="storeDetails" style="width: 50%;" *ngIf="showViewStore == true">
+          <h6>Fax</h6>
+          <span>{{selectedStore.RetailerFax}}</span>
+        </div>
+        <div class="storeDetails" *ngIf="showViewStore == true">
+          <h6>Email</h6>
+          <span>{{selectedStore.RetailerEmail}}</span>
+        </div>
+        <div class="storeDetails" *ngIf="showViewStore == true">
+          <h6>Store Address</h6>
+          <span>{{selectedStore.StoreAddress}}</span>
+        </div>
+        <div class="storeDetails storeDetails-distibutors">
+          <h6>Sales Associates On-board</h6>
+          <div class="store-distributors-listing">
+             <div class="store-distributor-img"></div>
+             <div class="store-distributor-img"></div>
+             <div class="store-distributor-img"></div>
+             <div class="store-distributor-img"></div>
+             <div class="store-distributor-img distributor-count">5+</div>
+          </div>
+        </div>
+        <span class="ac-view-details-foot">
+          <button type="submit" class="btn btn-default">Update</button>
+          <button type="submit" class="btn btn-default pull-right" style="background-color: #fafafa;border: 1px solid black;color: #2a304d;">Inactive</button>
+        </span>
+      </form>
+    </div>
+    <!-- STORE VIEW DETAILS : END -->
+</div>
+</div>
+
+<div class="row fadebg" [class.show]="createStorePopup"></div>
+<div class="confirmPopup" [class.show]="createStorePopup">
+  <div class="successImgIcon"></div>
+  <div class="sucessMsgText text-center">
+    <h4>{{successTitle}}</h4>
+    <P>{{successDescription}}</P>
+  </div>
+  <div class=" col-md-6 gotoDashboardBtn text-right">
+    <!-- <span routerLink="/dashboard">OK</span> -->
+    <span (click) ="createStorePopup = !createStorePopup" style = " margin-right: -25px;">OK</span>
+  </div>
+  
+</div>

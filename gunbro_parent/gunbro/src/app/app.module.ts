@@ -20,13 +20,12 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { OrdersComponent } from './orders/orders.component';
 import { RetailersComponent } from './retailers/retailers.component';
 import { DistributorMarkupComponent } from './distributor-markup/distributor-markup.component';
-
-
 import { RetailerMarkupComponent } from './retailer-markup/retailer-markup.component';
 import { RetailerSingleComponent } from './retailer-single/retailer-single.component';
-
 import { DistributorCategoryComponent } from './distributor-category/distributor-category.component';
-
+import { StoreLocationComponent } from './store-location/store-location.component';
+import { SearchWidgetComponent } from './search-widget/search-widget.component';
+import { SearchWidgetPipe } from './search-widget/search-widget.pipe';
 
 
 const appRoutes: Routes = [
@@ -44,7 +43,8 @@ const appRoutes: Routes = [
       { path: 'RetailerMarkup', component: RetailerMarkupComponent},
       { path: 'RetailerSingle', component: RetailerSingleComponent},
       { path: 'markup', component:  DistributorMarkupComponent},
-      { path: 'dist-category', component:  DistributorCategoryComponent}
+      { path: 'dist-category', component:  DistributorCategoryComponent},
+      { path: 'store-location', component:  StoreLocationComponent}
     ]
   },
   {
@@ -82,8 +82,10 @@ const appRoutes: Routes = [
     DistributorMarkupComponent,
     RetailerMarkupComponent,
     RetailerSingleComponent,
-    DistributorCategoryComponent
-
+    DistributorCategoryComponent,
+    StoreLocationComponent,
+    SearchWidgetComponent,
+    SearchWidgetPipe
   ],
   imports: [
     BrowserModule,

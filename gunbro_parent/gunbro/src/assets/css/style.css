@@ -303,6 +303,7 @@ background-image: linear-gradient(135deg, #198ed2 0%,#24b4c7 65%,#21bfab 100%);
 .ac-dash-item-5{background-image: url("../images/dash-icon-5.png");}
 .ac-dash-item-6{background-image: url("../images/dash-icon-6.png");}
 .ac-dash-item-7{background-image: url("../images/dash-icon-7.png");}
+.ac-dash-item-8{background-image: url("../images/dash-icon-8.png");}
 
 .ac-main-nav-body li a:hover, .ac-main-nav-body li .active {
   background-color: #132b50;
@@ -1460,6 +1461,15 @@ object-position: center center;opacity: 0.85;
 .ac-order-stat-actions .ac-button-search {
   margin-left: 0;
 }
+.ac-stock-availability h4{
+  font-size: 15px;
+  color: #706e6e;
+}
+.ac-stock-availability span{
+  font-size: 14px;
+  color: #5c6bc0;
+  font-weight: 600;
+}
 
 
 /*confirm Order*/
@@ -1939,7 +1949,7 @@ width: 75px;
 border-radius: 50%;
 }
 .store-location-img {
-background-image: url(../demo-assets/user1.png);
+background-image: url(../demo-assets/retailer1.png);
 background-size: 26px;
 height: 55px;
 width: 55px;
@@ -2323,6 +2333,8 @@ margin-top: 30px;
 .ac-markup-form-btn:hover {
   background-color: #163666;
 }
+
+
 .ac-close-markup {
   bottom: 10px;
   color: #ffa500 !important;
@@ -2354,11 +2366,18 @@ button.markup-apply {
     border: 1px solid #4040d8;
     background-color: #4040d8;
 }
+button.markup-apply[disabled] {
+  cursor: not-allowed;
+}
+
 button.markup-apply-all {
     float: right;
     width: calc(50% - 10px);
     background-color: rgba(255, 255, 255, 0);
     border: 1px solid;
+}
+button.markup-apply-all[disabled] {
+  cursor: not-allowed;
 }
 .ac-markup-applybtn {
     margin-top: 10px;
@@ -2386,6 +2405,152 @@ button.markup-apply-all {
   color: white;
 }
 
+/*store location starts*/
+.ac-distributor-card h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #5c6bc0;
+    text-align: left;
+}
+.storeImg {
+    height: 125px;
+    background-color: #c8cef2;
+}
+.storeDetails h6 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+.storeDetails span {
+    font-size: 12px;
+}
+.storeDetails {
+    float: left;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 10px;
+}
+.storeDistributor-listing {
+    margin-bottom: 25px;
+    width: auto;
+    padding: 0;
+    margin: 10px 0px;
+}
+.store-distributors-listing {
+    float: left;
+    width: 100%;
+}
+.store-distributor-img {
+    background-image: url(../demo-assets/user1.png);
+    height: 45px;
+    width: 45px;
+    background-repeat: no-repeat;
+    background-size: 45px;
+    border-radius: 50px;
+    background-position: center center;
+    margin: 10px 3px;
+    float: left;
+}
+.distributor-count{
+    background: none;
+    background-color: #e4e7f8;
+    line-height: 44px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+}
+.storelocation-clickable:hover .ac-dist-add-markup,.ac-show-markup{
+  display: block !important;
+}
+.storelocation-clickable{
+  float: left;
+  width: 100%;
+  position: relative;
+}
+.ac-storelocation-details {
+    float: left;
+    width: 48% !important;
+}
+.ac-storelocation-editdetails {
+    float: right;
+    left: 52% !important;
+    width: 48% !important;
+}
+.ac-location-details-drawer {
+    background-color: #ffffff;
+    -webkit-box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    height: calc(100% - 70px);
+    opacity: 1;
+    overflow-y: auto;
+    position: fixed;
+    right: -400px;
+    opacity: 0;
+    top: 70px;
+    width: 320px;
+    z-index: 9999;
+}
+.ffl-upload-field {
+    border: 1px solid #c8cef2;
+    float: left;
+    width: 100%;
+    text-align: center;
+    padding: 6px;
+    background-color: #c8cef2;
+    background-image: url(../images/upload.png);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 20px;
+    background-origin: content-box;
+}
+.ac-locationDetails-on .ac-location-details-drawer {
+  opacity: 1 !important;
+  right: 80px !important;
+}
+.ac-location-details-drawer{
+  -webkit-transition: all 0.2s ease-in-out 0s;
+  -moz-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
+}
+.ac-create-employee-body h4{
+    font-size: 15px;
+    font-weight: 600;
+    color: #5c6bc0;
+    text-align: left;
+}
+.storeDetails-distibutors {
+    border-bottom: 1px solid silver;
+    border-top: 1px solid silver;
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
+.ac-location-details-drawer::-webkit-scrollbar {
+    width: 3px;
+}
+.ac-location-details-drawer::-webkit-scrollbar-track {
+    background-color: #DEDEDE;
+}
+.ac-location-details-drawer::-webkit-scrollbar-thumb {
+    background-color: #c2c2c2;
+}
+.ac-view-details-foot {
+    float: left;
+    margin-top: 5px;
+    width: 100%;
+}
+.ac-view-details-foot button {
+    background-color: #4053ab;
+    border: 1px solid #4053ab;
+    color: #ffffff;
+    float: left;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 25px;
+    padding: 5px;
+    width: 48%;
+}
+/*store locations end*/
 
 
 /* Responsive CSS */

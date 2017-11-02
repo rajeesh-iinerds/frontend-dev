@@ -4,10 +4,10 @@
     <div class="container-fluid">
       <div class="row"><!-- Page Title -->
         <div class="col-xs-12 col-sm-9 col-lg-9">
-          <h3 class="ac-page-title ac-page-title-logo"><img src="demo-assets/dealer1.png">Jims firearms LLC.</h3>
+          <h3 class="ac-page-title ac-page-title-logo"><img src="assets/demo-assets/dealer1.png"></h3>
         </div>
         <div class="col-xs-12 col-sm-3 col-lg-3 text-right xs-text-left">
-          <a class="ac-back-to-listing" (click) = "backtoRetailer()">Back to Retailer</a>
+          <a routerLink="/dashboard/RetailerMarkup" class="ac-back-to-listing">Back to Retailer</a>
         </div>
       </div>
       <div class="row"><!-- Employee Listing -->
@@ -47,7 +47,7 @@
                  </div>
                  <!-- Markup Form -->
                  <div class="ac-dist-add-markup-form retailer-markup-apply" style="display:none;">
-                   <div class="ac-markup-close" (click)= "cancelApplyMarkup(retailer)"></div>
+                   <div class="ac-markup-close" (click)= "cancelMarkup(retailer)"></div>
                    <span class="ac-markup-form" style="bottom: 50px;">
                       <label>Enter your markup (%)</label>
                       <input type="text" name="markupValue" [(ngModel)]="markup" placeholder="Markup (%)" pattern="^([0-9]{1,2}){1}(\.[0-9]{1,2})?$" #model="ngModel">
@@ -58,8 +58,8 @@
                       </div>
                       <div class="clearfix"></div>
                       <div class="ac-markup-applybtn">
-                        <button class="ac-markup-form-btn markup-apply" (click) = "applyMarkupEvent(markup,retailer,'single')">Apply</button>
-                        <button class="ac-markup-form-btn markup-apply-all" (click) = "applyMarkupEvent(markup,retailer,'all')">Apply to All</button>
+                        <button class="ac-markup-form-btn markup-apply" [disabled]="retailer.categoryId == categoryId ? hideApplyEvent : false" (click) = "applyMarkupEvent(markup,retailer,'single','apply',retailer.categoryId)">Apply</button>
+                        <button class="ac-markup-form-btn markup-apply-all" [disabled]="retailer.categoryId == categoryId ? hideApplyEvent : false" (click) = "applyMarkupEvent(markup,retailer,'all','applyAll', retailer.categoryId)">Apply to All</button>
                       </div>
                       <div class="clearfix"></div>
                       <div class="ac-markup-percentage">
@@ -70,7 +70,7 @@
                  </div>
 
                  <div class="ac-dist-add-markup-form retailer-markup-view" style="display:none;">
-                   <div class="ac-markup-close" (click)= "cancelViewMarkup(retailer)"></div>
+                   <div class="ac-markup-close" (click)= "cancelMarkup(retailer)"></div>
                    <span class="ac-markup-form" style="bottom: 50px;">
                       <label>Current markup (%)</label>
                       <input type="text" name="markupValue" [(ngModel)]="markupUpdate" placeholder="Markup (%)" pattern="^([0-9]{1,2}){1}(\.[0-9]{1,2})?$" #model="ngModel">
@@ -81,8 +81,8 @@
                       </div>
                       <div class="clearfix"></div>
                       <div class="ac-markup-applybtn">
-                        <button class="ac-markup-form-btn markup-apply" (click) = "applyMarkupEvent(markupUpdate,retailer,'single')">Update</button>
-                        <button class="ac-markup-form-btn markup-apply-all" (click) = "applyMarkupEvent(markupUpdate,retailer,'all')">Update to All</button>
+                        <button class="ac-markup-form-btn markup-apply" (click) = "applyMarkupEvent(markupUpdate,retailer,'single','Update',retailer.categoryId)">Update</button>
+                        <button class="ac-markup-form-btn markup-apply-all" (click) = "applyMarkupEvent(markupUpdate,retailer,'all','UpdateAll',retailer.categoryId)">Update to All</button>
                       </div>
                       <div class="clearfix"></div>
                       <div class="ac-markup-percentage">

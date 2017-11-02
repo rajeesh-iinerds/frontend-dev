@@ -1,0 +1,21 @@
+<div class="searchHolder">
+  <div class="labelCard" [ngClass]="searchHistoryMap.length>0 ? 'displayBlock':'displayNone'">
+    <span *ngFor="let item of searchHistoryMap;let i = index">
+      {{item.itemName}}
+      <span class="glyphicon glyphicon-remove" (click)="closeLabelCard(i)"></span>
+    </span>
+  </div>
+  <div class="input-group">
+    <input [ngStyle]="{'text-indent':getIntentLength()}" [(ngModel)]="inputData" placeholder="Search for firmarms, distributors, manufacturers, equipments, status etc..."  (click)="isAutoComplete=true;"  class="form-control">
+    <div class="input-group-btn">
+      <button (click)="fetchResults(inputData)" class="btn searchBtnColor" type="submit">
+        <i class="glyphicon glyphicon-search"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<div (mouseleave)="blurComponent()" class="auto-complete-container" [ngClass]="mySource.length>0 && isAutoComplete? 'displayBlock':'displayNone'">
+  <ul>
+    <li *ngFor="let mySourceMap of mySource|searchWidget:inputData" (click)="selectComponent(mySourceMap)">{{mySourceMap.itemName}}</li>
+  </ul>
+</div>

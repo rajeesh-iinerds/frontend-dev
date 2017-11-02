@@ -12,47 +12,6 @@
     <!-- Search Results -->
       <div class="col-xs-12 col-sm-12 col-lg-12 ac-search-results">
           
-
-
-
-        <!-- Filter Start -->
-        <!-- <div class="ac-search-filters">
-          <div class="ac-filter-control">
-            <select>
-              <option>Fastest Shipping</option>
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
-            </select>
-          </div>
-          <div class="ac-filter-control">
-            <select>
-              <option>Lowest Shipping Cost</option>
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
-            </select>
-          </div>
-          <div class="ac-filter-control">
-            <select>
-              <option>Least Cost of Item</option>
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
-            </select>
-          </div>
-          <div class="ac-filter-control">
-            <select>
-              <option>Least Distance</option>
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
-            </select>
-          </div>
-        </div> -->
-        <!-- Filter End -->
-
-
         <!-- Result Cards Start -->        
 
           <div class="ac-result-cards" *ngFor="let z of demoService.resultForloop">      
@@ -64,12 +23,13 @@
                 <span class="ac-in-stock-count">{{z.inStock}}</span>
               </div>
               <div class="ac-result-card-body">
-                <img src="assets/demo-assets/gun1.png" />
+              <!-- [src]='orm.img' -->
+                <img src={{z.smallImage}} style="filter: none;" />
               </div>
             </div>
             <div class="ac-result-card-foot">
               <span class="ac-prod-cost">MSRP<strong><em>$</em>{{z.productPrice}}</strong></span>
-              <img src="assets/demo-assets/dealer1.png" />
+              <!-- <img src="assets/demo-assets/dealer1.png" /> -->
               <button class="ac-result-quick-order" style="display: none;">VIEW DETAILS</button>
             </div>
           </div>
