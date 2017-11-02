@@ -782,11 +782,7 @@ export class DemoService {
         this.retailerId = retailerId;
     }
 
-    // Method for Listing Retailer Category
-
-
-
-    //Listing users in cognito Pool
+   // Listing users in cognito Pool
     listUsers() {
         this.loading = true;
         //Taking Session Value for passing token
@@ -817,10 +813,11 @@ export class DemoService {
         });
     }
 
+// Method for listing retailer category 
     listRetailer() {
         this.loading = true;
         this.retailerId = this.retailerId ? this.retailerId : "";
-        //Taking Session Value for passing token
+        // Taking Session Value for passing token
         return this.getSessionToken().subscribe((response) => {
             if (response.getIdToken().getJwtToken()) {
                 this.jwt = response.getIdToken().getJwtToken();
@@ -858,18 +855,4 @@ export class DemoService {
             console.log(err);
         });
     }
-
-    //Method for displaying apply markup
-    // applyMarkupform(categoryId){
-    //     console.log("inside applymarkup ")
-    //   for(var i = 0; i <  this.retailerCategory.length; i++ ){
-    //     console.log("inside applymarkup retailerCategory " + JSON.stringify(this.retailerCategory[i]));
-    //       if(categoryId == this.retailerCategory[i].categoryId){
-
-    //         this.applyMarkup = true;
-    //         console.log(" this.applyMarkup boolean  " + JSON.stringify(this.applyMarkup));
-    //       }
-    //   }
-    // }
-
 }

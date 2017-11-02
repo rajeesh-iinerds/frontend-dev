@@ -54,6 +54,9 @@ export class OrdersComponent implements OnInit {
                           this.orderDetails = [];
                           }
                       }
+                      if(this.results == null || this.results == ""){
+                        console.log("order list empty");
+                      }
                       observer.next(this.orderDetails);
                       observer.complete();
                   });
@@ -64,11 +67,13 @@ export class OrdersComponent implements OnInit {
       })
    }
 
+// Method for viewing order details by clicking view button
    viewOrderDetails(orderID: any){
      this.showOrderDetails = true;
      this.selectedOrder = {};
     for(var i = 0; i < this.orderDetails.length; i++){
         if(this.orderDetails[i].OrderID == orderID){
+            console.log("order view details : " + JSON.stringify(this.orderDetails[i]));
             this.selectedOrder.OrderID = this.orderDetails[i].OrderID ? this.orderDetails[i].OrderID:'';
             this.selectedOrder.CustomerPrice = this.orderDetails[i].CustomerPrice ? this.orderDetails[i].CustomerPrice : '';
             this.selectedOrder.manufacturer_partnumber = this.orderDetails[i].manufacturer_partnumber && this.orderDetails[i].manufacturer_partnumber !='null'? this.orderDetails[i].manufacturer_partnumber : '';
@@ -79,7 +84,7 @@ export class OrdersComponent implements OnInit {
             this.selectedOrder.address = this.orderDetails[i].ShipToCity + ',' + this.orderDetails[i].ShipToState + ',' + this.orderDetails[i].ShipToPostalCode;
             this.selectedOrder.Quantity = this.orderDetails[i].Quandity ? this.orderDetails[i].Quandity : 0;
             this.selectedOrder.OrderPlacedDate = this.orderDetails[i].OrderPlacedDate ? this.orderDetails[i].OrderPlacedDate : '';
-            this.selectedOrder.tracking = this.orderDetails[i].tracking ? this.orderDetails[i].tracking : '';
+            this.selectedOrder.tracking = this.orderDetails[i].TrackingNumber ? this.orderDetails[i].TrackingNumber : '';
             this.selectedOrder.service = this.orderDetails[i].service ? this.orderDetails[i].service : '';
             this.selectedOrder.arrival = this.orderDetails[i].arrival ? this.orderDetails[i].arrival : '';
             this.selectedOrder.ProductName = this.orderDetails[i].ProductName && this.orderDetails[i].ProductName !='null' ? this.orderDetails[i].ProductName : '';
@@ -92,7 +97,11 @@ export class OrdersComponent implements OnInit {
      }
    }
 
+// Closing Order list
    closeOrderList(){
     this.showOrderDetails = false;
    }
+
+
+
 }

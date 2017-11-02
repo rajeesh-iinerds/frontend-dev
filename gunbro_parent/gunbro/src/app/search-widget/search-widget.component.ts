@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DemoService } from '../demo-component/demo.service'; 
-
+import { SearchWidgetPipe } from './search-widget.pipe';
 @Component({
   selector: 'app-search-widget',
   templateUrl: './search-widget.component.html',
@@ -56,7 +56,7 @@ export class SearchWidgetComponent implements OnInit {
     }
   }
   selectComponent(mySourceMap) {
-   
+  
     if (this.searchHistoryMap.length) {
       //console.info(mySourceMap);
       //console.info(this.searchHistoryMap);
@@ -78,12 +78,10 @@ export class SearchWidgetComponent implements OnInit {
     //console.info(mySourceMap);
 
     //console.info(this.searchHistoryMap);
-    
+    this.inputData='';
   }
   blurComponent(){
-    setTimeout(()=>{
     this.isAutoComplete=false;
-  },200);
   }
   checkLevel(indexOfItem) {
     if (indexOfItem >= 0) {
