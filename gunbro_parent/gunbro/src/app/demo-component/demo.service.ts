@@ -232,6 +232,7 @@ export class DemoService {
 
     setProductDetails(data) {
         this.productInfo = data;
+        console.log("product details : " + this.productInfo);
     }
 
     getSessionToken(): Observable < any > {

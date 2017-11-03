@@ -94,6 +94,7 @@ export class OrdersComponent implements OnInit {
             //this.selectedOrder.part = this.orderDetails[i].part ? this.orderDetails[i].part : '';
             this.selectedOrder.email = this.orderDetails[i].Email && this.orderDetails[i].Email !='null' ? this.orderDetails[i].Email : '';
             this.selectedOrder.SS_order = this.orderDetails[i].SS_OrderNumber ? this.orderDetails[i].SS_OrderNumber : '';
+            this.selectedOrder.SmallImage = this.orderDetails[i].SmallImage && this.orderDetails[i].SmallImage !='null' ? this.orderDetails[i].SmallImage : '';
         }
      }
    }
@@ -102,7 +103,4 @@ export class OrdersComponent implements OnInit {
    closeOrderList(){
     this.showOrderDetails = false;
    }
-
-
-
 }
