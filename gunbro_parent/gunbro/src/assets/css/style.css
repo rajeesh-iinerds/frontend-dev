@@ -328,6 +328,8 @@ background-image: linear-gradient(135deg, #198ed2 0%,#24b4c7 65%,#21bfab 100%);
 .ac-main-nav-on .ac-main-nav-body li i.flip{display: none;}
 .ac-main-nav-on .ac-main-nav-body li i.flop{display: block !important;}
 .ac-global-header {
+  padding-top: 5px;
+  padding-bottom: 5px;
   background-color: #ffffff;
   border-bottom: 1px solid #dedede;
   left: 0;
@@ -1044,7 +1046,7 @@ border-radius: 0 0 3px 3px;
 .ac-create-employee-foot button:hover, .ac-create-employee-foot a:hover {background-color: #2d3c90;color: #ffffff;}
 .ac-create-employee-on .ac-create-employee-drawer {
   opacity: 1 !important;
-  right: 80px !important;
+  right: 0px !important;
 }
 .ac-create-employee-on .ac-actions-overlay {
   display: block !important;
@@ -2726,7 +2728,9 @@ button.markup-apply-all[disabled] {
 .ac-quick-access-wrap{display: none;}
 .ac-main-content-wrap, .ac-main-nav-on .ac-global-header{padding-right: 0;}
 .ac-create-employee-drawer{top:0;height: 100%;}
-.ac-create-employee-on .ac-create-employee-drawer{right: 0 !important;}
+.ac-create-employee-on .ac-create-employee-drawer{
+  right: 0 !important;
+}
 }
 @media only screen and (max-width:800px){
 .ac-search-wrap {
