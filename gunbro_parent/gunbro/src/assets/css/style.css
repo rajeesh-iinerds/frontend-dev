@@ -227,7 +227,7 @@ background-image: linear-gradient(135deg, #198ed2 0%,#24b4c7 65%,#21bfab 100%);
 }
 .ac-main-content-wrap {
   padding-left: 245px;
-  padding-right: 80px;
+ /* padding-right: 80px;*/
   margin-bottom: 60px;
 }
 .ac-main-nav-head {
@@ -332,7 +332,7 @@ background-image: linear-gradient(135deg, #198ed2 0%,#24b4c7 65%,#21bfab 100%);
   border-bottom: 1px solid #dedede;
   left: 0;
   padding-left: 245px;
-  padding-right: 80px;
+ /* padding-right: 80px;*/
   position: fixed;
   top: 0;
   width: 100%;
@@ -564,7 +564,7 @@ background-image: linear-gradient(135deg, #198ed2 0%,#24b4c7 65%,#21bfab 100%);
   width: 200px;
 }
 .ac-quick-access-on .ac-main-content-wrap,.ac-quick-access-on .ac-global-header{
-padding-right: 200px;
+padding-right: 200px; 
 }
 .ac-quick-access-on .ac-quick-access-buttons i {
   display: block !important;

@@ -10,7 +10,7 @@ import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 export class DemoComponentComponent implements OnInit {
     errorMessage: string;
     jwt : string;
-    constructor(private demoService: DemoService , private route: ActivatedRoute,private router: Router) {
+    constructor(public demoService: DemoService , private route: ActivatedRoute,private router: Router) {
     }
     
     ngOnInit() {
