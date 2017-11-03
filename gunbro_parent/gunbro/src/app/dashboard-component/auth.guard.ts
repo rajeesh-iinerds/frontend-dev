@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
 
    	checkLogin(): boolean {
 	   	// if (this.demoService.getLoggedInState()) {
-	   	if(localStorage.getItem('isLoggedIn') == 'true'){
+	   	if(localStorage.getItem('isLoggedIn') && localStorage.getItem('isLoggedIn') == 'true'){
 	   		this.router.navigate(['/dashboard']);
 	   		return false;
 	   	}

@@ -220,6 +220,7 @@ export class DemoService {
             localStorage.removeItem('userGroup');
             localStorage.removeItem('User_Information');
             localStorage.removeItem('userData');
+            localStorage.removeItem('isLoggedIn');
             this.router.navigate(['']);
 
         }
