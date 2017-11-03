@@ -26,11 +26,11 @@ export class SearchWidgetComponent implements OnInit {
     if (this.searchHistoryMap[0].itemId == 2) {
       this.searchType="mpn";
       this.searchKey=inputData;
-      this.manufacturerId=this.searchHistoryMap[1].manufacturerId;
+      //this.manufacturerId=this.searchHistoryMap[1].manufacturerId;
     } else if (this.searchHistoryMap[0].itemId == 1) {
       this.searchType="gsin";
       this.searchKey=inputData;
-      this.manufacturerId='';
+     // this.manufacturerId='';
     }
     return this.demoService.getSessionToken().subscribe((response) => {
       if(response.getIdToken().getJwtToken()) {
@@ -110,18 +110,19 @@ export class SearchWidgetComponent implements OnInit {
     } else if (this.level == 1) {
       this.mySource = [];
     } else if (this.level == 2) {
-      this.mySource = [
-        { level: 2, itemId: 3, itemName: "Sig Sauer", manufacturerId: 3 }, 
-        { level: 2, itemId: 4, itemName: "Ruger", manufacturerId: 8 },
-        { level: 2, itemId: 5, itemName: "Browning", manufacturerId: 7 }, 
-        { level: 2, itemId: 6, itemName: "Colt", manufacturerId: 150 }, 
-        { level: 2, itemId: 7, itemName: "Springfield", manufacturerId: 58 },
-        { level: 2, itemId: 8, itemName: "Blackhawk", manufacturerId: 21 }, 
-        { level: 2, itemId: 9, itemName: "Remington", manufacturerId: 40 },
-        { level: 2, itemId: 10, itemName: "Glock", manufacturerId: 61 },
-        { level: 2, itemId: 11, itemName: "Mossberg", manufacturerId: 157 }, 
-        { level: 2, itemId: 12, itemName: "Savage Arms", manufacturerId: 128 } 
-    ];
+      this.mySource = [];
+    //   this.mySource = [
+    //     { level: 2, itemId: 3, itemName: "Sig Sauer", manufacturerId: 3 }, 
+    //     { level: 2, itemId: 4, itemName: "Ruger", manufacturerId: 8 },
+    //     { level: 2, itemId: 5, itemName: "Browning", manufacturerId: 7 }, 
+    //     { level: 2, itemId: 6, itemName: "Colt", manufacturerId: 150 }, 
+    //     { level: 2, itemId: 7, itemName: "Springfield", manufacturerId: 58 },
+    //     { level: 2, itemId: 8, itemName: "Blackhawk", manufacturerId: 21 }, 
+    //     { level: 2, itemId: 9, itemName: "Remington", manufacturerId: 40 },
+    //     { level: 2, itemId: 10, itemName: "Glock", manufacturerId: 61 },
+    //     { level: 2, itemId: 11, itemName: "Mossberg", manufacturerId: 157 }, 
+    //     { level: 2, itemId: 12, itemName: "Savage Arms", manufacturerId: 128 } 
+    // ];
     } else if (this.level == 3) {
       this.mySource = [];
     }
@@ -132,7 +133,7 @@ export class SearchWidgetComponent implements OnInit {
       for (var i = 0; i < this.searchHistoryMap.length; i++) {
         count = count + this.searchHistoryMap[i].itemName.replace(/[^A-Z]/gi, "").length;
       }
-      return count * 10 + 20 + 'px';
+      return count*5 + 50 + 'px';
     } else {
       return 0;
     }
