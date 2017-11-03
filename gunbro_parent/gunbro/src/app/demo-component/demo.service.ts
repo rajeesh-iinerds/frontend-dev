@@ -400,10 +400,10 @@ export class DemoService {
                 headers: headers
             });
             let req_body = {
-                "CustomerNumber": "31821", 
-                "UserName": "31821", 
-                "Password": "17602", 
-                "Source": "31821", 
+                // "CustomerNumber": "31821", 
+                // "UserName": "31821", 
+                // "Password": "17602", 
+                // "Source": "31821", 
                 "ItemNumber": this.productInfo && this.productInfo.SKUNumber ? this.productInfo.SKUNumber : "" //"160"
             };
             const url = constant.appcohesionURL.productQuantity_SS_URL;
