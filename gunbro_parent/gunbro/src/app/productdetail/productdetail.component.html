@@ -14,7 +14,7 @@
 
                 <!-- <h2 class="ac-prod-title">{{demoService.productInfo && demoService.productInfo.manufacturerName ? demoService.productInfo.manufacturerName : ''}} {{demoService.productInfo && demoService.productInfo.model ? demoService.productInfo.model : ''}}</h2> -->
                 <h2>{{demoService.productInfo && demoService.productInfo.product_Name ? demoService.productInfo.product_Name : ''}}</h2>
-                <span class="ac-prod-cost">MSRP<strong><em>$</em>{{demoService.productInfo && demoService.productInfo.productPrice ? demoService.productInfo.productPrice : ''}}</strong></span>
+                <span class="ac-prod-cost" *ngIf="demoService.productInfo && demoService.productInfo.msrp && demoService.productInfo.msrp!=0">MSRP<strong><em>$</em>{{demoService.productInfo && demoService.productInfo.msrp  ? demoService.productInfo.msrp : ''}}</strong></span>
                 <span class="ac-prod-feat">Manufacturer Part Number<br><strong>{{demoService.productInfo && demoService.productInfo.mpn ? demoService.productInfo.mpn : ''}}</strong></span>
                 <div class="ac-prod-logo-row">
                   <span class="ac-prod-feat">Manufacturer<br><strong>{{demoService.productInfo && demoService.productInfo.manufacturerName ? demoService.productInfo.manufacturerName : ''}}</strong></span>

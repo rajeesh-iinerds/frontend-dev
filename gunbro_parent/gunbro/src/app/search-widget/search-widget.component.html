@@ -6,7 +6,7 @@
     </span>
   </div>
   <div class="input-group">
-    <input [ngStyle]="{'text-indent':getIntentLength()}" [(ngModel)]="inputData" placeholder="Search for firmarms, distributors, manufacturers, equipments, status etc..."  (click)="isAutoComplete=true;"  class="form-control">
+    <input [ngStyle]="{'text-indent':getIntentLength()}" [(ngModel)]="inputData" placeholder="Search for firmarms, distributors, manufacturers, equipments, status etc..." (keyup)="isAutoComplete=true;"  (click)="isAutoComplete=true;"  class="form-control">
     <div class="input-group-btn">
       <button (click)="fetchResults(inputData)" class="btn searchBtnColor" type="submit">
         <i class="glyphicon glyphicon-search"></i>
@@ -14,6 +14,7 @@
     </div>
   </div>
 </div>
+<span [hidden]="isFieldValid" class="notification">{{notificationMessage}}</span>
 <div (mouseleave)="blurComponent()" class="auto-complete-container" [ngClass]="mySource.length>0 && isAutoComplete? 'displayBlock':'displayNone'">
   <ul>
     <li *ngFor="let mySourceMap of mySource|searchWidget:inputData" (click)="selectComponent(mySourceMap)">{{mySourceMap.itemName}}</li>

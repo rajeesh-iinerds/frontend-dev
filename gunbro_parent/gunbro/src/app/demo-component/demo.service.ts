@@ -88,6 +88,7 @@ export class DemoService {
     }
 
     userDetails(name, password, jwt): Observable < any > {
+        this.loading = true;
         return Observable.create(observer => {
             var self = this;
             var reqBodys = {
@@ -128,6 +129,7 @@ export class DemoService {
     };
 
     userLogin(name, password): Observable < any > {
+        this.loading = true;
         return Observable.create(observer => {
             var self = this;
             var poolData = constant.userPoolData;
@@ -146,6 +148,7 @@ export class DemoService {
 
             userCognito.authenticateUser(authDetails, {
                 onSuccess: function(result) {
+                    this.loading = false;
                     console.log("result conginitive token : ", result);
                     this.jwt = result.getIdToken().getJwtToken();
                     localStorage.setItem('isLoggedIn', 'true');
@@ -190,6 +193,7 @@ export class DemoService {
                     observer.complete();
                 },
                 onFailure: function(err) {
+                    this.loading = false;
                     console.log(err);
                     observer.next(err);
                     observer.complete();
@@ -216,6 +220,7 @@ export class DemoService {
             localStorage.removeItem('userGroup');
             localStorage.removeItem('User_Information');
             localStorage.removeItem('userData');
+            localStorage.removeItem('isLoggedIn');
             this.router.navigate(['']);
 
         }
@@ -227,6 +232,7 @@ export class DemoService {
 
     setProductDetails(data) {
         this.productInfo = data;
+        console.log("product details : " + this.productInfo);
     }
 
     getSessionToken(): Observable < any > {
@@ -400,10 +406,10 @@ export class DemoService {
                 headers: headers
             });
             let req_body = {
-                "CustomerNumber": "31821", 
-                "UserName": "31821", 
-                "Password": "17602", 
-                "Source": "31821", 
+                // "CustomerNumber": "31821", 
+                // "UserName": "31821", 
+                // "Password": "17602", 
+                // "Source": "31821", 
                 "ItemNumber": this.productInfo && this.productInfo.SKUNumber ? this.productInfo.SKUNumber : "" //"160"
             };
             const url = constant.appcohesionURL.productQuantity_SS_URL;
