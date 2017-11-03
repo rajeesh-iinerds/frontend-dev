@@ -20,7 +20,8 @@ export class DemoComponentComponent implements OnInit {
      	console.log(this.errorMessage);
         if(name && password) {
             this.errorMessage = "";
-            return this.demoService.userLogin(name, password).subscribe((response) => { 
+            return this.demoService.userLogin(name, password).subscribe((response) => {
+              this.demoService.loading = false;
                 console.log("LOGIN Success", response);
                 if(response.statusCode == 400) {
                   this.errorMessage = response.message;
@@ -29,11 +30,8 @@ export class DemoComponentComponent implements OnInit {
                   console.log("inside success : " + JSON.stringify(response));
                   this.jwt = response.getIdToken().getJwtToken();
                   return this.demoService.userDetails(name, password,this.jwt).subscribe((responseDetails) => {                   
-                       // alert(responseDetails)
                        this.router.navigate(['/dashboard']);
-
                 }, (err) => {
-                  this.demoService.loading = false;
                    console.log("error in login Details Page ",err);
                });                
                 }
