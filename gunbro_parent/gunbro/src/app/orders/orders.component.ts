@@ -38,28 +38,32 @@ export class OrdersComponent implements OnInit {
                   var store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id:"";
                   var retailer_id = localStorage.getItem("User_Information")?JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId:"":"";
                   let req_body = {
-                      "BuyerID": "1",
+                      
                       "store_id": store_id,
                       "retailer_id" : retailer_id 
                   };
                   const url = constant.appcohesionURL.orderList_URL && constant.appcohesionURL.orderList_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
                   this.http.post(url, req_body, options).subscribe(data => {
-                      console.log("check empty data : " + data);
+                    console.log("check empty data : " + data);
                     this.demoService.loading = false;
-                      this.results = data.json();
-                      console.log("order list details : " + JSON.stringify(this.results));
-                      if(this.results && this.results.statusCode){
-                          if (this.results.statusCode == 200) {
-                          this.orderDetails = this.results.data;
+                      this.results = data ? data.json() :"";                    
+                      console.log("order list details : " + JSON.stringify(this.results));                     
+                       if(this.results && this.results.statusCode){                       
+                          if (this.results.statusCode == 200 && Object.keys(this.results.data).length) {                           
+                          this.orderDetails = this.results.data ? this.results.data : "";
                           } else if (this.results.statusCode == constant.statusCode.empty_code) {
-                          this.orderDetails = [];
-                          }
+                          this.orderDetails = [];                   
+                           }
+                           else{
+                            this.orderDetails = [];                            
+                           }
+                          observer.next(this.orderDetails);
+                          observer.complete();
                       }
-                      if(this.results == null || this.results == ""){
-                        console.log("order list empty");
-                      }
-                      observer.next(this.orderDetails);
-                      observer.complete();
+                    else{
+                        observer.next(this.orderDetails);
+                        observer.complete();
+                    }                       
                   });
               }
           });
