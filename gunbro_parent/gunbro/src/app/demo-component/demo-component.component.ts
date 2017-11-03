@@ -47,8 +47,9 @@ export class DemoComponentComponent implements OnInit {
           this.errorMessage = "Please enter password.";
         }
     }
+
     resetPassword () {
-       console.log("reset");
-		this.router.navigate(['/forgot']);
+      console.log("reset");
+		  this.router.navigate(['/forgot']);
     }
 }

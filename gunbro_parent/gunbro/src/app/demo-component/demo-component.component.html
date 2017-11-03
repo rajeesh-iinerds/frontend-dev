@@ -15,7 +15,7 @@
               </span>
               <span class="ac-login-row ac-login-password">
                 <label>Password</label>
-                <input type="password" name="ac_password" placeholder="Enter your password" autocomplete="off" #password />
+                <input type="password" name="ac_password" placeholder="Enter your password" autocomplete="off" #password (keyup.enter)= "login(name.value,password.value)"/>
                 <a href="javascript:void(0);" class="ac-password-text"></a>
               </span>
               <label class="ac-required-field">{{errorMessage}}</label>
