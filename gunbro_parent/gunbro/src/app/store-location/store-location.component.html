@@ -107,7 +107,7 @@
         </div>
         <div class="form-group">
           <label for="fax">FAX</label>
-          <input type="text" class="form-control" placeholder="Enter fax" id="fax" name="fax" [(ngModel)]="userInfo.fax" required #fax="ngModel">
+          <input type="text" class="form-control" placeholder="Enter fax" id="fax" name="fax" [(ngModel)]="userInfo.fax" #fax="ngModel">
         </div>
         <div class="form-group">
           <label for="usr_email">EMAIL ID</label>
@@ -119,7 +119,7 @@
       		</div>
         </div>
         <span class="ac-create-employee-foot">
-          <button type="submit" class="btn btn-default" (click) = "createStoreClick()" [disabled]="!employeeForm.form.valid">CREATE STORE</button>
+          <button type="submit" class="btn btn-default custom-button" (click) = "createStoreClick()" [disabled]="!employeeForm.form.valid">CREATE STORE</button>
         </span>
       </form>
     </div>

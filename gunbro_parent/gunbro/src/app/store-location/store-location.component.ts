@@ -138,7 +138,7 @@ export class StoreLocationComponent implements OnInit {
 					"state": this.userInfo.state,
 					"address": this.userInfo.address,
 					"phone": this.userInfo.phone,
-					"fax" : this.userInfo.fax,
+					"fax" : this.userInfo.fax ?  this.userInfo.fax : 'NULL',
 					"email" : this.userInfo.email
 		        };
 		        const url = constant.appcohesionURL.createStore_URL;
