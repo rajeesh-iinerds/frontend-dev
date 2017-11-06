@@ -26,6 +26,7 @@ export class SearchWidgetComponent implements OnInit {
   fetchResults(inputData) {
     // {gsin: "77777", store_id: "1", retailer_id: "1"}
     // {mpn: "cscsc", manufacturerID: "7", store_id: "1", retailer_id: "1"}
+    if(inputData){
     if (this.searchHistoryMap.length) {
       if (this.searchHistoryMap[0].itemId == 2) {
         if(inputData!=''){
@@ -53,9 +54,16 @@ export class SearchWidgetComponent implements OnInit {
         }
       }
     } else {
-      this.isFieldValid=false;
-      this.notificationMessage="Please Select Any Category";
+      this.isFieldValid=true;
+      //this.notificationMessage="Please Select Any Category";
+      this.searchType = "wildcard";
+      this.searchKey = inputData;
+      this.getProducrResults();
     }
+  }else{
+    this.isFieldValid=false;
+    this.notificationMessage="Please type any Keyword to search";
+  }
   }
   getProducrResults() {
     return this.demoService.getSessionToken().subscribe((response) => {
@@ -108,6 +116,11 @@ export class SearchWidgetComponent implements OnInit {
 
     //console.info(this.searchHistoryMap);
     this.inputData = '';
+  }
+  searchQueryOnKeyUp(){
+    this.isAutoComplete=true;
+    this.isFieldValid==true;
+    
   }
   blurComponent() {
     this.isAutoComplete = false;
