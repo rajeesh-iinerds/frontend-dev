@@ -2508,7 +2508,7 @@ button.markup-apply-all[disabled] {
 }
 .ac-locationDetails-on .ac-location-details-drawer {
   opacity: 1 !important;
-  right: 80px !important;
+  right: 0px !important;
 }
 .ac-location-details-drawer{
   -webkit-transition: all 0.2s ease-in-out 0s;
