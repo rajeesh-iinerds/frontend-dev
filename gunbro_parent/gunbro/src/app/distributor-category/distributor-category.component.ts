@@ -24,6 +24,7 @@ export class DistributorCategoryComponent implements OnInit {
 	successTitle : string;
 	successDescription: string;
 	markupList: any;
+	setMarkupValue: any;
 
   	constructor(private route: ActivatedRoute, private router: Router, public demoService: DemoService, private http: Http) {
   	}
@@ -77,9 +78,15 @@ export class DistributorCategoryComponent implements OnInit {
   	}
 
   	addMarkup(category) {
-  		this.temp = category;
-  		// this.markupValue = category.markup && category.markup > 0 ? category.markup : '';
-  		this.markupValue = category.markup;
+  		// if (this.setMarkupValue) {
+  		// 	this.temp = category;
+  		// 	this.markupValue = this.setMarkupValue;
+  		// }
+  		// else {
+	  		this.temp = category;
+	  		// this.markupValue = category.markup && category.markup > 0 ? category.markup : '';
+	  		this.markupValue = category.markup;
+	  	// }
   	}
 
   	cancelMarkup(category) {
@@ -90,6 +97,7 @@ export class DistributorCategoryComponent implements OnInit {
 
   	updateMarkup(value) {
   		let currentCategory = this.temp;
+  		this.setMarkupValue = value;
   		this.demoService.loading = true;
   		if(this.jwt) {
   			let headers = new Headers({'Authorization': this.jwt });
@@ -116,6 +124,11 @@ export class DistributorCategoryComponent implements OnInit {
 	                    	this.updateMarkupPopup = true;
 	                    	this.successTitle = constant.distributor_markup_messages.success_title;
 	                    	this.successDescription = constant.distributor_markup_messages.success_description;
+	                    	// this.temp = value;
+	                    	this.demoService.getSessionToken().subscribe((response) => {
+					  	 		this.getDistributorCategoryList(response, this.distributor_id);
+					  		});
+
 	                    } else {
 	                    	alert(this.res.message + " ! ");
 	                    }
