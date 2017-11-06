@@ -18,8 +18,8 @@
 			<div *ngIf="category && category.markups.length >0" >
                 <div *ngFor="let markup of markupList; let i = index">                
                   <div class="ac-distributor-card" [ngClass]="{ 'ac-show-markup': temp && temp.categoryId == markup.categoryId }">
-                     <!-- <div class="ac-distributor-head">
-                        <span class="ac-distributor-head-right">
+                     <div class="ac-distributor-head">
+                        <!-- <span class="ac-distributor-head-right">
                           <span class="ac-more-menu"> 
                             <i class="ac-more-dots"></i>
                             <ul style="display: none;">
@@ -28,8 +28,8 @@
                               <li><a href="#">Option Three</a></li>
                             </ul>
                           </span>
-                        </span>
-                     </div> -->
+                        </span> -->
+                     </div>
                      <div class="ac-distributor-clickable" id="{{markup.categoryId}}">
                          <div class="ac-distributor-body">
                             <img src="assets/images/gun-long.png" alt="Long Gun" class="ac-product-logo">
