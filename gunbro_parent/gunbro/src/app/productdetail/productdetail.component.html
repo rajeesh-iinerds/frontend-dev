@@ -74,13 +74,12 @@
 
             <!-- Image Viewer -->
             <div class="col-xs-12 col-sm-12 col-lg-6 ac-prod-right">
-                <div class="ac-image-viewer">
-                  <span class="ac-iv-pane" *ngIf="demoService.productInfo && demoService.productInfo.largeImage"><img src="{{demoService.productInfo.largeImage}}" style="filter: none;"></span>
+                <div class="ac-image-viewer" *ngIf="demoService.productInfo">
+                <img [src]="demoService.productInfo.largeImage ? demoService.productInfo.largeImage : demoService.productInfo.smallImage ? demoService.productInfo.smallImage : ''">
+                  <!-- <span class="ac-iv-pane" *ngIf="demoService.productInfo && demoService.productInfo.largeImage"><img src="{{demoService.productInfo.largeImage}}" style="filter: none;"></span>
                   <ul>
                     <li class="active" *ngIf="demoService.productInfo && demoService.productInfo.smallImage"><img src="{{demoService.productInfo.smallImage}}" style="filter: none;"></li>
-                    <!-- <li><img src="assets/demo-assets/gun2.png"></li>
-                    <li><img src="assets/demo-assets/gun5.png"></li> -->
-                  </ul>
+                  </ul> -->
                 </div>
             </div>
           </div>

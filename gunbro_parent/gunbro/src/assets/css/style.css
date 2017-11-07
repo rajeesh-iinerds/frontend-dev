@@ -1343,6 +1343,11 @@ object-position: center center;opacity: 0.85;
   vertical-align: top;
   width: 100%;
 }
+.ac-image-viewer img {
+  width: 100%;
+  padding: 56px;
+  filter: none !important;
+}
 .ac-iv-pane {
   background-color: #ebedf0;
   float: left;
@@ -2657,7 +2662,7 @@ button.markup-apply-all[disabled] {
   width: 20%;
 }
 .ac-user-controls {
-  width: 80%;
+  width: 30%;
 }
 .ac-create-employee.ac-button-outlined {
   font-size: 12px;
@@ -2739,6 +2744,7 @@ button.markup-apply-all[disabled] {
 }
 .ac-user-controls {
   width: calc(100% - 70px);
+  width: 30%;
 }
 .ac-user-actions h3 {
   display: none;
