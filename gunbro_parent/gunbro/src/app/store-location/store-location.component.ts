@@ -96,6 +96,7 @@ export class StoreLocationComponent implements OnInit {
   	}
 
   	viewStore(id) {
+  		event.stopPropagation();
   		this.showViewStore = true;
   		this.selectedStore = {};
   		for(var i = 0; i < this.retailerStoreDetails.length; i++){
@@ -118,7 +119,8 @@ export class StoreLocationComponent implements OnInit {
   	// closeView() {
   	// 	this.showAddStore = !this.showAddStore;
   	// }
-  	createStore() {
+  	createStore(event) {
+  		event.stopPropagation();
   		this.showCreateStore = true;
   	}
 
@@ -179,5 +181,14 @@ export class StoreLocationComponent implements OnInit {
 		    }, (err) => {
 		    console.log(err);
 		});
+  	}
+
+  	popupclose() {
+  		if(this.showViewStore == true)
+  			this.showViewStore = false;
+  		else if(this.showCreateStore == true) {
+  			this.showCreateStore = false;
+  		}
+
   	}
 }

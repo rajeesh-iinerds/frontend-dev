@@ -43,5 +43,9 @@ export class EmployeeComponent implements OnInit {
   createEmployee (jwt) {
     this.demoService.createUser(jwt, this.userInfo);
   }
+  showCreateEmployee(event) {
+    event.stopPropagation();
+    this.demoService.showNav = !this.demoService.showNav;
+  }
 
 }
