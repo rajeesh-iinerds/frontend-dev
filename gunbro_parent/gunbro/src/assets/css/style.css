@@ -2417,6 +2417,7 @@ button.markup-apply-all[disabled] {
 .storeImg {
     height: 125px;
     background-color: #c8cef2;
+    background-image: url(../demo-assets/retailer1.png);
 }
 .storeDetails h6 {
     font-size: 14px;
