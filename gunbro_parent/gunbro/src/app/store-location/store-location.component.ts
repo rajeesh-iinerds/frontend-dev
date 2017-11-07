@@ -73,7 +73,7 @@ export class StoreLocationComponent implements OnInit {
 	                        this.storeLocations.RetailerName = this.results.data[i].RetailerName ? this.results.data[i].RetailerName : '';
             				this.storeLocations.RetailerFax = this.results.data[i].RetailerFax ? this.results.data[i].RetailerFax : '';
             				this.storeLocations.RetailerEmail = this.results.data[i].RetailerEmail ? this.results.data[i].RetailerEmail : '';
-            				this.storeLocations.StoreFax = this.results.data[i].StoreFax ? this.results.data[i].StoreFax : '';
+            				this.storeLocations.StoreFax = this.results.data[i].StoreFax && this.results.data[i].StoreFax !='null' ? this.results.data[i].StoreFax : '';
             				this.storeLocations.StoreEmail = this.results.data[i].StoreEmail ? this.results.data[i].StoreEmail : '';
             				this.storeLocations.FFLNumber = this.results.data[i].FFLNumber ? this.results.data[i].FFLNumber : '';
 
