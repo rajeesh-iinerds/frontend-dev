@@ -2,8 +2,8 @@
 
 export const user = {
 	"userGroup": "admin",
-	"superadminUser" : "superadmin"
-
+	"superadminUser" : "superadmin",
+	"retaileradminUser": "retaileradmin"
 };
 export const userPoolData = {
 	"UserPoolId" : 'us-east-1_Q3sA5af5A',
