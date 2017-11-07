@@ -73,6 +73,9 @@ export class StoreLocationComponent implements OnInit {
 	                        this.storeLocations.RetailerName = this.results.data[i].RetailerName ? this.results.data[i].RetailerName : '';
             				this.storeLocations.RetailerFax = this.results.data[i].RetailerFax ? this.results.data[i].RetailerFax : '';
             				this.storeLocations.RetailerEmail = this.results.data[i].RetailerEmail ? this.results.data[i].RetailerEmail : '';
+            				this.storeLocations.StoreFax = this.results.data[i].StoreFax && this.results.data[i].StoreFax !='null' ? this.results.data[i].StoreFax : '';
+            				this.storeLocations.StoreEmail = this.results.data[i].StoreEmail ? this.results.data[i].StoreEmail : '';
+            				this.storeLocations.FFLNumber = this.results.data[i].FFLNumber ? this.results.data[i].FFLNumber : '';
 
 	                        this.retailerStoreDetails.push(this.storeLocations);
 	                      }
@@ -105,6 +108,9 @@ export class StoreLocationComponent implements OnInit {
             this.selectedStore.RetailerName = this.retailerStoreDetails[i].RetailerName ? this.retailerStoreDetails[i].RetailerName : '';
             this.selectedStore.RetailerFax = this.retailerStoreDetails[i].RetailerFax ? this.retailerStoreDetails[i].RetailerFax : '';
             this.selectedStore.RetailerEmail = this.retailerStoreDetails[i].RetailerEmail ? this.retailerStoreDetails[i].RetailerEmail : '';
+            this.selectedStore.StoreFax = this.retailerStoreDetails[i].StoreFax ? this.retailerStoreDetails[i].StoreFax : '';
+            this.selectedStore.StoreEmail = this.retailerStoreDetails[i].StoreEmail ? this.retailerStoreDetails[i].StoreEmail : '';
+            this.selectedStore.FFLNumber = this.retailerStoreDetails[i].FFLNumber ? this.retailerStoreDetails[i].FFLNumber : '';
         }
      }
   	}
@@ -138,7 +144,7 @@ export class StoreLocationComponent implements OnInit {
 					"state": this.userInfo.state,
 					"address": this.userInfo.address,
 					"phone": this.userInfo.phone,
-					"fax" : this.userInfo.fax,
+					"fax" : this.userInfo.fax ?  this.userInfo.fax : 'NULL',
 					"email" : this.userInfo.email
 		        };
 		        const url = constant.appcohesionURL.createStore_URL;

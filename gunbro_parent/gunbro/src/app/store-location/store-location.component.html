@@ -21,20 +21,20 @@
                   <div *ngIf="retailerStoreDetails && retailerStoreDetails.length >0">
                   <div class="ac-distributor-card" *ngFor="let store of retailerStoreDetails">
                     <div class="storelocation-clickable">
-                       <h4>{{store.StoreLocation}}</h4>
+                       <h4>{{store.StoreName}}</h4>
                        <div class="storeImg">
                          <!-- <img src="../demo-assets/gun4.png"> -->
                        </div>
-                       <div class="store-distributors-listing">
+                       <!-- <div class="store-distributors-listing">
                          <div class="store-distributor-img"></div>
                          <div class="store-distributor-img"></div>
                          <div class="store-distributor-img"></div>
                          <div class="store-distributor-img"></div>
                          <div class="store-distributor-img distributor-count">5+</div>
-                       </div>
+                       </div> -->
                         <div class="storeDetails">
                           <h6>FFL#</h6>
-                          <span>{{store.StoreFFLId}}</span>
+                          <span>{{store.FFLNumber}}</span>
                         </div>
                         <div class="storeDetails">
                           <h6>Store Address</h6>
@@ -43,7 +43,7 @@
                         <!-- Details button -->
                         <span class="ac-dist-add-markup" style="display:none;">
                           <a class="ac-storelocation-details" (click) = "viewStore(store.StoreId)">View Details</a>
-                          <a class="ac-storelocation-editdetails">Edit Details</a>
+                          <!-- <a class="ac-storelocation-editdetails">Edit Details</a> -->
                         </span>
                     </div>
                     </div>
@@ -107,7 +107,7 @@
         </div>
         <div class="form-group">
           <label for="fax">FAX</label>
-          <input type="text" class="form-control" placeholder="Enter fax" id="fax" name="fax" [(ngModel)]="userInfo.fax" required #fax="ngModel">
+          <input type="text" class="form-control" placeholder="Enter fax" id="fax" name="fax" [(ngModel)]="userInfo.fax" #fax="ngModel">
         </div>
         <div class="form-group">
           <label for="usr_email">EMAIL ID</label>
@@ -119,7 +119,7 @@
       		</div>
         </div>
         <span class="ac-create-employee-foot">
-          <button type="submit" class="btn btn-default" (click) = "createStoreClick()" [disabled]="!employeeForm.form.valid">CREATE STORE</button>
+          <button type="submit" class="btn btn-default custom-button" (click) = "createStoreClick()" [disabled]="!employeeForm.form.valid">CREATE STORE</button>
         </span>
       </form>
     </div>
@@ -135,7 +135,7 @@
         </div>
         <div class="storeDetails" *ngIf="showViewStore == true">
           <h6>FFL#</h6>
-          <span>{{selectedStore.StoreFFLId}}</span>
+          <span>{{selectedStore.FFLNumber}}</span>
         </div>
         <div class="storeDetails" *ngIf="showViewStore == true">
           <h6>Contact Person</h6>
@@ -147,17 +147,17 @@
         </div>
         <div class="storeDetails" style="width: 50%;" *ngIf="showViewStore == true">
           <h6>Fax</h6>
-          <span>{{selectedStore.RetailerFax}}</span>
+          <span>{{selectedStore.StoreFax}}</span>
         </div>
         <div class="storeDetails" *ngIf="showViewStore == true">
           <h6>Email</h6>
-          <span>{{selectedStore.RetailerEmail}}</span>
+          <span>{{selectedStore.StoreEmail}}</span>
         </div>
         <div class="storeDetails" *ngIf="showViewStore == true">
           <h6>Store Address</h6>
           <span>{{selectedStore.StoreAddress}}</span>
         </div>
-        <div class="storeDetails storeDetails-distibutors">
+        <!-- <div class="storeDetails storeDetails-distibutors">
           <h6>Sales Associates On-board</h6>
           <div class="store-distributors-listing">
              <div class="store-distributor-img"></div>
@@ -166,10 +166,13 @@
              <div class="store-distributor-img"></div>
              <div class="store-distributor-img distributor-count">5+</div>
           </div>
-        </div>
-        <span class="ac-view-details-foot">
+        </div> -->
+        <!-- <span class="ac-view-details-foot">
           <button type="submit" class="btn btn-default">Update</button>
           <button type="submit" class="btn btn-default pull-right" style="background-color: #fafafa;border: 1px solid black;color: #2a304d;">Inactive</button>
+        </span> -->
+        <span class="ac-view-details-foot">
+          <button type="submit" class="btn btn-default" (click) = "showViewStore = !showViewStore">Close</button>
         </span>
       </form>
     </div>

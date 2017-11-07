@@ -15,8 +15,8 @@
                   <!-- Single Card Start -->
                   <div *ngIf="results_markup && results_markup.distributors.length >0">
                   <div class="ac-distributor-card" *ngFor="let z of distList">
-                     <div class="ac-distributor-head">
-                        <!-- <span class="ac-distributor-head-left">1 Sep 2017</span> -->
+                     <!-- <div class="ac-distributor-head">
+                        <span class="ac-distributor-head-left">1 Sep 2017</span>
                         <span class="ac-distributor-head-right">
                           <span class="ac-more-menu"> 
                             <i class="ac-more-dots"></i>
@@ -27,7 +27,7 @@
                             </ul>
                           </span>
                         </span>
-                     </div>
+                     </div> -->
                      <div class="ac-distributor-clickable" id="{{z.distributorId}}" (click)="getDistCategory(z.distributorId)">
                          <div class="ac-distributor-body">
                             <img src="assets/demo-assets/dealer1_lg.png" alt="United Firmarms" class="ac-distrb-logo">

@@ -11,19 +11,19 @@
         <ul>
           <li><a routerLink="../dashboard"   class="ac-dash-item-1"><i>Dashboard</i></a></li>
 
-          <li *ngIf="userGroup == configSuperAdminUserGroup ? hideRetailer : true"><a routerLink="markup" class="ac-dash-item-2"><i class="flip">Distributor Management</i><i class="flop" style="display:none;">Distributor</i></a></li>
+          <li *ngIf="(userGroup == configSuperAdminUserGroup ? hideRetailer : true) && (userGroup == configUserGroup)"><a routerLink="markup" class="ac-dash-item-2"><i class="flip">Distributor Management</i><i class="flop" style="display:none;">Distributor</i></a></li>
           
           <li *ngIf="userGroup == configSuperAdminUserGroup ? showRetailer : false"><a routerLink="RetailerMarkup" class="ac-dash-item-2"><i class="flip">Retailer Management</i><i class="flop" style="display:none;">Retailer Management</i></a></li>
           
-          <li *ngIf="userGroup == configUserGroup"><a routerLink="store-location" class="ac-dash-item-8 "><i class="flip">Store Outlets</i><i class="flop" style="display:none;">Store</i></a></li>
+          <li *ngIf="userGroup == configUserGroup || userGroup == configSuperAdminUserGroup"><a routerLink="store-location" class="ac-dash-item-8 "><i class="flip">Store Outlets</i><i class="flop" style="display:none;">Store</i></a></li>
           
-          <li *ngIf="userGroup == configUserGroup"><a  routerLink="employee" routerLinkActive="active" class="ac-dash-item-3"><i class="flip">Employee Management</i><i class="flop" style="display:none;">Employee</i></a></li>
+          <li *ngIf="userGroup == configUserGroup || userGroup == configSuperAdminUserGroup"><a  routerLink="employee" routerLinkActive="active" class="ac-dash-item-3"><i class="flip">Employee Management</i><i class="flop" style="display:none;">Employee</i></a></li>
           
           <li><a routerLink="order" routerLinkActive="active" class="ac-dash-item-4"><i class="flip">Orders</i><i class="flop" style="display:none;">order</i></a></li>
           
-          <li><a href="javascript:void(0);" class="ac-dash-item-5"><i>Customers</i></a></li>
-          <li><a href="javascript:void(0);" class="ac-dash-item-6"><i>Reports</i></a></li>
-          <li><a  routerLink="retailer" routerLinkActive="active" class="ac-dash-item-3"><i class="flip">Settings</i><i class="flop" style="display:none;">Settings</i></a></li>
+          <!--  <li><a href="javascript:void(0);" class="ac-dash-item-5"><i>Customers</i></a></li>
+          <li><a href="javascript:void(0);" class="ac-dash-item-6"><i>Reports</i></a></li> 
+          <li><a  routerLink="retailer" routerLinkActive="active" class="ac-dash-item-3"><i class="flip">Settings</i><i class="flop" style="display:none;">Settings</i></a></li> -->
         </ul>
       </div>
     </div>
@@ -40,24 +40,20 @@
 
 
       <div class="col-xs-4 col-sm-4 col-lg-5 ac-user-controls">
-        <!-- <span class="ac-place-order-btn">
-          <a href="javascript:void(0);" class="ac-place-order">Place an Order</a>
-        </span> -->
-        <span class="ac-notification-links">
+        <!-- <span class="ac-notification-links">
           <a href="javascript:void(0);"><i class="glyphicon glyphicon-envelope"></i><i class="ac-notification">20</i></a>
           <a href="javascript:void(0);"><i class="glyphicon glyphicon-bell"></i><i class="ac-notification">3</i></a>
-        </span>
+        </span> -->
         <span class="ac-user-actions">
           <span class="ac-user-img">
-            <img src="assets/demo-avatar.png" alt="FIRST NAME HERE">
+            <img src="assets/default-avatar.png" alt="FIRST NAME HERE">
             <i class="glyphicon glyphicon-menu-down"></i>
           </span>
           <h3 *ngIf="userDetails">{{userDetails.first_name }} {{userDetails.last_name}}</h3>
           <span class="ac-user-drop-wrap" style="display: none;">
             <ul class="ac-user-dropdown">
-            <!--  <li><a href="javascript:void(0);">My Profile</a></li> -->
               <li *ngIf="userGroup == configUserGroup"><a routerLink="retailer">My Profile</a></li>
-              <li><a href="javascript:void(0);">Menu Item</a></li>
+             <!--  <li><a>Menu Item</a></li> -->
               <li><a (click)="logout()">Log Out</a></li>
             </ul>
           </span>
