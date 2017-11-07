@@ -1,9 +1,7 @@
 
 <div [ngClass]="showOrderDetails ? 'ac-create-employee-on' : ''">
 
-<div>
-
-  <div class="container-fluid">
+ <div class="container-fluid" (click)="showOrderDetails = false;">
     <div class="row"><!-- Page Title -->
       <div class="text-left col-xs-6 col-sm-9 col-lg-9">
         <h3 class="ac-page-title">Orders</h3>
@@ -42,7 +40,7 @@
                       <td>{{order.OrderPlacedDate ? (order.OrderPlacedDate | date: 'dd/MM/yyyy') : ''}}</td>
                       <td>{{order.CustomerPrice ? (order.CustomerPrice | currency:'USD':true) : ''}}</td>
                       <td class="ac-stat-ordered">{{order.order_status ? order.order_status : ''}}</td>
-                      <td><a class="ac-button-outlined" (click)="viewOrderDetails(order.OrderID)">VIEW</a></td>
+                      <td><a class="ac-button-outlined" (click)="viewOrderDetails(order.OrderID,$event)">VIEW</a></td>
                   </tr>
               </tbody>
           </table>
@@ -50,7 +48,7 @@
       </div>
     </div>
   </div>
-</div>
+
 
  <!-- Quick Access Bar Start -->
  <!-- <div class="ac-quick-access-wrap">
@@ -67,7 +65,7 @@
 <!-- Quick Access Bar End -->
 
 
-<div class="ac-create-employee-drawer order-list-drawer text-left"  style="right:-600px;opacity:0;">
+<div class="ac-create-employee-drawer order-list-drawer text-left"  style="right:-600px;opacity:0;" >
   <span class="placeMyOrderClose" (click)="closeOrderList()"></span>
   <span class="ac-order-drawer-head">
       <h4>Order Details</h4>

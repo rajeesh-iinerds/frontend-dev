@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/do';
 import { JwtHelper } from 'angular2-jwt/angular2-jwt';
 import { DemoService } from '../demo-component/demo.service';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+import {Directive, OnDestroy, Output, EventEmitter} from '@angular/core';
 import * as constant from '../shared/config';
 
 @Component({
@@ -12,20 +16,28 @@ import * as constant from '../shared/config';
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css']
 })
+
 export class OrdersComponent implements OnInit {
   orderDetails: any;
   results: any;
   selectedOrder : any;
   showOrderDetails : boolean = false;
+ 
+
   
-  constructor(public demoService: DemoService, private http: Http, private router: Router) {}
+
+  constructor(public demoService: DemoService, private http: Http, private router: Router) {
+ 
+  }
 
   ngOnInit() {
-      this.listOrders().subscribe((response) => {
+   this.listOrders().subscribe((response) => {
           },
           (err) => console.error(err)
       );
   }
+
+  
 
   // Method for listing Order list
   listOrders(): Observable < any > {
@@ -72,8 +84,10 @@ export class OrdersComponent implements OnInit {
       })
    }
 
+  
 // Method for viewing order details by clicking view button
-   viewOrderDetails(orderID: any){
+   viewOrderDetails(orderID: any,event){
+     event.stopPropagation()
      this.showOrderDetails = true;
      this.selectedOrder = {};
     for(var i = 0; i < this.orderDetails.length; i++){
@@ -107,4 +121,5 @@ export class OrdersComponent implements OnInit {
    closeOrderList(){
     this.showOrderDetails = false;
    }
+
 }
