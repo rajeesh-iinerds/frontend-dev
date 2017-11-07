@@ -1,4 +1,4 @@
-<div class="">
+<div class="ac-generic-wrap">
   <div class="container-fluid">
     <div class="row"><!-- Page Title -->
       <div class="col-xs-12 col-sm-9 col-lg-9">
@@ -14,8 +14,8 @@
           
         <!-- Result Cards Start -->        
 
-          <div class="ac-result-cards" *ngFor="let z of demoService.resultForloop">      
-          <div class="ac-result-card"  (click) = "productDetail(z)">
+          <div class="ac-result-cards" >      
+          <div class="ac-result-card"  *ngFor="let z of demoService.resultForloop" (click) = "productDetail(z)">
             <div class="ac-result-clickable">
               <div class="ac-result-card-head">
                 <h3>{{z.manufacturerName}}</h3>
