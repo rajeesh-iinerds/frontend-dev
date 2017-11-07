@@ -6,7 +6,7 @@
     </span>
   </div>
   <div class="input-group">
-    <input [ngStyle]="{'text-indent':getIntentLength()}" [(ngModel)]="inputData" placeholder="Search for firmarms, distributors, manufacturers, equipments, status etc..." (keyup)="isAutoComplete=true;"  (click)="isAutoComplete=true;"  class="form-control">
+    <input [ngStyle]="{'text-indent':getIntentLength()}" [(ngModel)]="inputData" placeholder="Search for firmarms, distributors, manufacturers, equipments, status etc..." (keyup)="isAutoComplete=true;" (keyup.enter)="fetchResults(inputData)"  (click)="isAutoComplete=true;"  class="form-control">
     <div class="input-group-btn">
       <button (click)="fetchResults(inputData)" class="btn searchBtnColor" type="submit">
         <i class="glyphicon glyphicon-search"></i>
