@@ -2739,6 +2739,7 @@ button.markup-apply-all[disabled] {
 }
 .ac-user-controls {
   width: calc(100% - 70px);
+  width: 30%;
 }
 .ac-user-actions h3 {
   display: none;
