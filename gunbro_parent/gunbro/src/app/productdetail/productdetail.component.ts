@@ -169,7 +169,7 @@ results: any;
 					else {
 						statusApiIntegration = resp.status == "success" ? "Success from SSAPI" : "Failure in SSAPI";
 					}
-				    alert(statusApiIntegration);
+				    //alert(statusApiIntegration);
 				}
 			}
 		}
