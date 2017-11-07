@@ -344,7 +344,7 @@ background-image: linear-gradient(135deg, #198ed2 0%,#24b4c7 65%,#21bfab 100%);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
 }
 .ac-generic-wrap {
-  margin-top: 70px;
+  margin-top: 30px;
   float: left;
   width: 100%;
 }
