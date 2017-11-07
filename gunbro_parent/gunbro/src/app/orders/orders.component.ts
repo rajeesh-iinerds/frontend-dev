@@ -55,24 +55,7 @@ export class OrdersComponent implements OnInit {
                       "store_id": (this.userGroup == this.configAdminUser) ?  store_id : "" ,
                       "retailer_id" : (this.userGroup == this.configAdminUser || this.userGroup == this.retailerAdminUser) ?  retailer_id : ""   
                   };
-                  // super admin user
-                  /*if(this.userGroup == this.configSuperAdminUser){
-                    let req_body = '';
-                  }
-                  // admin user
-                  else if(this.userGroup ==  this.configAdminUser){
-                    let req_body = {
-                        "store_id": store_id,
-                        "retailer_id" : retailer_id 
-                    }; 
-                  }
-                  // retailer admin user
-                  else if(this.userGroup == this.retailerAdminUser){
-                    let req_body = {
-                        "retailer_id" : retailer_id 
-                    }; 
-                  }*/
-                  const url = constant.appcohesionURL.orderList_URL && constant.appcohesionURL.orderList_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
+                 const url = constant.appcohesionURL.orderList_URL && constant.appcohesionURL.orderList_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
                   this.http.post(url, req_body, options).subscribe(data => {
                     console.log("check empty data : " + data);
                     this.demoService.loading = false;
