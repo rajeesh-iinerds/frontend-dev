@@ -1343,6 +1343,11 @@ object-position: center center;opacity: 0.85;
   vertical-align: top;
   width: 100%;
 }
+.ac-image-viewer img {
+  width: 100%;
+  padding: 56px;
+  filter: none !important;
+}
 .ac-iv-pane {
   background-color: #ebedf0;
   float: left;
