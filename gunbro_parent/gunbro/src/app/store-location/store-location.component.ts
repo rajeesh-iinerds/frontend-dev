@@ -31,16 +31,17 @@ export class StoreLocationComponent implements OnInit {
     createStorePopup: boolean = false;
 	successTitle : string;
 	successDescription: string;
+	isEditClicked: boolean = false;
 
-  constructor(public demoService: DemoService , private http: Http) {
-  }
+	constructor(public demoService: DemoService , private http: Http) {
+	}
 
-  ngOnInit() {
-  	this.storeDetails().subscribe((response) => {
-	},
+	ngOnInit() {
+		this.storeDetails().subscribe((response) => {
+		},
 		(err) => console.error(err)
-	);
-  }
+		);
+	}
 
   // Method for listing Store details
    	storeDetails(): Observable < any > {
@@ -116,11 +117,19 @@ export class StoreLocationComponent implements OnInit {
      }
   	}
 
-  	// closeView() {
-  	// 	this.showAddStore = !this.showAddStore;
-  	// }
   	createStore(event) {
   		event.stopPropagation();
+  		this.isEditClicked = false;
+  		this.userInfo = {
+	    	"firstName": '',
+	      	"ffl": '',
+	      	"city": '',
+	      	"state": '',
+	      	"address": '',
+	      	"phone": '',
+	      	"fax": '',
+	      	"email": ''
+	    };
   		this.showCreateStore = true;
   	}
 
@@ -186,9 +195,35 @@ export class StoreLocationComponent implements OnInit {
   	popupclose() {
   		if(this.showViewStore == true)
   			this.showViewStore = false;
-  		else if(this.showCreateStore == true) {
+  		else if(this.showCreateStore == true)
   			this.showCreateStore = false;
-  		}
+  	}
 
+	editStore(id,event) {
+  		event.stopPropagation();
+  		this.isEditClicked = true;
+  		this.userInfo = {
+	      "firstName": '',
+	      "ffl": '',
+	      "city": '',
+	      "state": '',
+	      "address": '',
+	      "phone": '',
+	      "fax": '',
+	      "email": ''
+	    };
+  		for(var i = 0; i < this.results.data.length; i++) {
+			if (this.results.data[i].StoreId == id) {
+				this.userInfo.firstName = this.results.data[i].StoreName && this.results.data[i].StoreName ? this.results.data[i].StoreName : '';
+				this.userInfo.ffl = this.retailerStoreDetails[i].FFLNumber ? this.retailerStoreDetails[i].FFLNumber : '';
+				this.userInfo.city = this.results.data[i].StoreLocation && this.results.data[i].StoreLocation ? this.results.data[i].StoreLocation : '';
+				// "state": this.userInfo.state,
+				this.userInfo.address = this.results.data[i].StoreAddress && this.results.data[i].StoreAddress !=null ? this.results.data[i].StoreAddress : '';
+				this.userInfo.phone = this.results.data[i].StoreContact ? this.results.data[i].StoreContact : '';
+				this.userInfo.fax = this.results.data[i].StoreFax && this.results.data[i].StoreFax !='null' ? this.results.data[i].StoreFax : '';
+				this.userInfo.email = this.results.data[i].StoreEmail ? this.results.data[i].StoreEmail : '';
+			}
+        }
+        this.showCreateStore = true;				
   	}
 }
