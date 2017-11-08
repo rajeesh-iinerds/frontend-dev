@@ -103,9 +103,29 @@
         </div>
       </div>
     </div>
-        <span class="ac-create-employee-foot">
-          <button type="submit" class="btn btn-default custom-button" [disabled]="!employeeForm.form.valid" (click) = "getToken()">CREATE EMPLOYEE</button>
+    <div class="form-group" style="margin-bottom: 0px;">
+          <label>USER TYPE</label>
+      </div>
+      <div class="radioContainer">
+        <span>
+          <input type="radio" id="option1" name="selector">
+          <label for="option1">Retailer Admin</label>
+          <div class="check"></div>
         </span>
+        <span>
+          <input type="radio" id="option2" name="selector">
+          <label for="option2">Store Admin</label>
+          <div class="check"></div>
+        </span>
+        <span>
+          <input type="radio" id="option3" name="selector">
+          <label for="option3">Store User</label>
+          <div class="check"></div>
+        </span>
+      </div>
+      <span class="ac-create-employee-foot">
+        <button type="submit" class="btn btn-default custom-button" [disabled]="!employeeForm.form.valid" (click) = "getToken()">CREATE EMPLOYEE</button>
+      </span>
   </form>
 
 </div>
