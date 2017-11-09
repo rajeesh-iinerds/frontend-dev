@@ -1838,7 +1838,7 @@ select.shippingInfoDropDetails{
 /*order list drawer starts*/
 .order-list-drawer {
   width: 550px;
-  padding: 5px 20px;
+  padding: 15px 20px;
 }
 span.ac-order-drawer-head {
   float: left;
@@ -1901,7 +1901,7 @@ span.order-inprogress-Btn {
   background-color: #ebedf0;
 }
 .productInfo-img-viewer img{
-  max-width: 135px;
+  max-width: 100%;
   padding: 10px;
 }
 .productinfo-field h3 {
@@ -2617,6 +2617,11 @@ button.markup-apply-all[disabled] {
 
 
 /* Responsive CSS */
+@media only screen and (min-width: 1600px){
+  .ac-user-controls {
+    float: right;
+  }
+}
 @media only screen and (max-width:1600px){
   .ac-single-stat-inset span {
     height: 200px;
