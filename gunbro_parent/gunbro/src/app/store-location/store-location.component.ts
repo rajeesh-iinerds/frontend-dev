@@ -32,6 +32,7 @@ export class StoreLocationComponent implements OnInit {
 	successTitle : string;
 	successDescription: string;
 	isEditClicked: boolean = false;
+	currentStore: any;
 
 	constructor(public demoService: DemoService , private http: Http) {
 	}
@@ -158,6 +159,11 @@ export class StoreLocationComponent implements OnInit {
 					"fax" : this.userInfo.fax ?  this.userInfo.fax : 'NULL',
 					"email" : this.userInfo.email
 		        };
+		        if(this.isEditClicked == true) {
+		        	req_body['storeID'] = this.currentStore.StoreId;
+		        	req_body['fflID'] = this.currentStore.StoreFFLId;
+		        }
+		        console.log(req_body);
 		        const url = constant.appcohesionURL.createStore_URL;
 		        this.http
 	            .post(url, req_body, options)
@@ -172,7 +178,8 @@ export class StoreLocationComponent implements OnInit {
                     	//show success popup
                     	this.createStorePopup = true;
                     	this.successTitle = constant.distributor_markup_messages.success_title;
-                    	this.successDescription = constant.store_messages.success_description;
+                    	// this.successDescription = constant.store_messages.success_description;
+                    	this.successDescription = this.results.status.userMessage;
 	                } else if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.error_code) {
 	                    //show error popup
                     	this.createStorePopup = true;
@@ -214,14 +221,15 @@ export class StoreLocationComponent implements OnInit {
 	    };
   		for(var i = 0; i < this.results.data.length; i++) {
 			if (this.results.data[i].StoreId == id) {
+				this.currentStore = this.results.data[i];
 				this.userInfo.firstName = this.results.data[i].StoreName && this.results.data[i].StoreName ? this.results.data[i].StoreName : '';
 				this.userInfo.ffl = this.retailerStoreDetails[i].FFLNumber ? this.retailerStoreDetails[i].FFLNumber : '';
 				this.userInfo.city = this.results.data[i].StoreLocation && this.results.data[i].StoreLocation ? this.results.data[i].StoreLocation : '';
-				// "state": this.userInfo.state,
 				this.userInfo.address = this.results.data[i].StoreAddress && this.results.data[i].StoreAddress !=null ? this.results.data[i].StoreAddress : '';
 				this.userInfo.phone = this.results.data[i].StoreContact ? this.results.data[i].StoreContact : '';
 				this.userInfo.fax = this.results.data[i].StoreFax && this.results.data[i].StoreFax !='null' ? this.results.data[i].StoreFax : '';
 				this.userInfo.email = this.results.data[i].StoreEmail ? this.results.data[i].StoreEmail : '';
+				this.userInfo.state = this.results.data[i].StoreState ? this.results.data[i].StoreState : '';
 			}
         }
         this.showCreateStore = true;				
