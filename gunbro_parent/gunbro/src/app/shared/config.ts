@@ -25,7 +25,8 @@ export const appcohesionURL = {
 	"retailerApply_URL": "https://i0ko9akgah.execute-api.us-east-1.amazonaws.com/prod",
 	"placeOrder_SS_URL" : "http://ssplaceorder.cloudhub.io/",
 	"createStore_URL": "https://api.appcohesion.io/createStore",
-	"productQuantity_SS_URL" : "http://ssapigetquantity.cloudhub.io/"
+	"productQuantity_SS_URL" : "http://ssapigetquantity.cloudhub.io/",
+	"getStoreDetails_URL": "http://api.appcohesion.io/getStoreDetails"
 };
 export const distApiList = ["ss"];
 export const statusCode = {
