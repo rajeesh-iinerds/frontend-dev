@@ -1545,6 +1545,7 @@ input[type=radio]:checked ~ label{
 }
 
 
+
 /*confirm Order*/
 span.placeMyOrderClose {
   background-image: url(../images/icon-cross.png);
@@ -1652,6 +1653,101 @@ select.shippingInfoDropDetails{
   width: 34%;
   font-size: 10px;
   font-weight: 600;
+}
+.ac-ffl-checking{
+  float: left;
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+.ffl-selectioncheck{
+  position: relative;
+  top: 0px;
+  right: 0px;
+  display: inline-block;
+  width: 23px;
+  height: 23px;
+  vertical-align: middle;
+  cursor: pointer;
+  margin: 0px !important;
+}
+.selectioncheck{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: inline-block;
+  width: 23px;
+  height: 23px;
+  vertical-align: middle;
+  /* background: url(images/checkbox-sprite.gif) left top no-repeat; */
+  cursor: pointer;
+  margin: 0px !important;
+}
+.selectioncheck:checked:before {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  height: .9rem;
+  border-color: #5363b9;
+  border-top-style: none;
+  border-right-style: none;
+  background: none;
+}
+.selectioncheck:before {
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  content: "";
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  width: 2.3rem;
+  height: 2.3rem;
+  border: 2px solid #5363b9;
+  background-color: #5363b9;
+}
+.selectioncheck:after {
+  content: "";
+  position: absolute;
+  top: -0.125rem;
+  left: 0;
+  width: 2.3rem;
+  height: 2.3rem;
+  background: #FFF;
+  cursor: pointer;
+}
+
+
+input[type='checkbox']#checkbox-g:checked + label {
+  background-image: url(../images/uncheck.png);
+  /*background: transparent url(http://katheermizal.info/works/working-with-checkbox/assets/images/tick-icon-white.png) no-repeat;*/
+  background-size: 25px 25px;
+}
+input[type='checkbox']#checkbox-g + label {
+  border: 1px solid #fff;
+  background: transparent url(http://katheermizal.info/works/working-with-checkbox/assets/images/tick-icon-transparent.png) no-repeat;
+  background-position: center;
+  background-size: 25px 25px;
+  transition: 0.4s ease background;
+  -moz-transition: 0.4s ease background;
+  -webkit-transition: 0.4s ease background;
+}
+input[type='checkbox'] + label {
+  width: 25px;
+  height: 25px;
+  display: block;
+  position: absolute;
+  right: 10px;
+  top: 35px;
+  margin: auto;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  text-indent: -999px;
+  overflow: hidden;
+  border: 1px solid #fff;
+  cursor: pointer;
 }
 /*confirm Order end*/
 

@@ -143,6 +143,7 @@ export class DashboardComponentComponent implements OnInit {
       console.log($event);
       this.disableSearch = false;
     }
+
     // Method for showing Retailer profile 
     retailerProfile(event){
       this.demoService.showRetailerProfile = true;
@@ -161,10 +162,9 @@ export class DashboardComponentComponent implements OnInit {
             const url = constant.appcohesionURL.retailerProfile_URL;
             this.http.post(url, req_body, options).subscribe(data => {
              this.demoService.loading = false;
-              this.result = data ? data.json() : {};
+             this.result = data ? data.json() : {};
              if (this.result && this.result.status) {
-
-                if (this.result.status.code == constant.statusCode.success_code) {
+              if (this.result.status.code == constant.statusCode.success_code) {
                    for(var item in this.result.userinfo){
                       this.retailerProfileDetails.FirstName = this.result.userinfo[item].FirstName ? this.result.userinfo[item].FirstName : "";
                       this.retailerProfileDetails.LastName = this.result.userinfo[item].LastName ? this.result.userinfo[item].LastName : "";
@@ -191,7 +191,7 @@ export class DashboardComponentComponent implements OnInit {
       this.editRetailerDetails.push(this.retailerProfileDetails);
     }
 
-     // Method for updating retailer profile
+    // Method for updating retailer profile
      updateRetailerProfile(retailer){
       return this.demoService.getSessionToken().subscribe((response) => {
         if(response.getIdToken().getJwtToken()) {
@@ -207,19 +207,15 @@ export class DashboardComponentComponent implements OnInit {
                           "lastname": retailer.LastName ? retailer.LastName : "",
                           "userphone": retailer.UserPhone ?  retailer.UserPhone : ""
                          };
-           console.log("request body : " + JSON.stringify(req_body));
           const url = constant.appcohesionURL.updateRetailerProfile_URL ? constant.appcohesionURL.updateRetailerProfile_URL : "";
           this.http.post(url, req_body, options).subscribe(data => {
             this.demoService.loading = false;
             this.result = data ? data.json() : {};
-            console.log("result ******* " + JSON.stringify(this.result))
-            if (this.result && this.result.status) {
+             if (this.result && this.result.status) {
               if (this.result.status.code == constant.statusCode.success_code) {
-                console.log("success data" + this.result.status.code);
                 this.updateRetailerProfilePopup = true;
                 this.successTitle = constant.retailerProfile_messages.success_title;
                 this.successDescription = constant.retailerProfile_messages.success_description;
-               
                 this.retailerProfile(event);
                 this.demoService.showEditRetailerView = this.updateRetailerProfilePopup ? false : true; 
               }

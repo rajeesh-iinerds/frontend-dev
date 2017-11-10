@@ -493,7 +493,8 @@ export class DemoService {
             var retailer_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "" : "";
             var user_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : "";
 
-            req_body['storeId'] = store_id;
+            // req_body['storeId'] = store_id;
+            req_body['storeId'] = orderInfo.StoreId ? orderInfo.StoreId : "";
             req_body['BuyerID'] = retailer_id;
             req_body['SellerID'] = "3";
             req_body['retailer_id'] = retailer_id;

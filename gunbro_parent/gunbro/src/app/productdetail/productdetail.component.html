@@ -116,15 +116,79 @@
 
         <!-- CREATE NEW EMPLOYEE : START -->
     <div class="ac-create-employee-drawer text-left" style="right:-400px;opacity:0;">
-    <div (click) = "placeMyOrderClose()">
-      <span class="placeMyOrderClose"></span>
-      </div>
+    <!-- <div (click) = "placeMyOrderClose()"> -->
+      <span class="addRetailerCloseDrawer profile-drawer-close" (click)="demoService.showRetailerProfile = false"></span>
+      <!-- </div> -->
+      <span class="shippingInfoWrapper">
+        <a href="" class="shippingInfoWrapperIcon"></a>
+        <h4>Billing and Delivery</h4>
+      </span>
+      <div class="clearfix"></div>
+      <div class="shippingInfoWrapperAccordian">
+        <!-- <div class="shippingInfoSubHead">Choose a shipping method</div> -->
+        <div class="shippingInfoSubHead">Enter shipping address</div>
+        <form class="ac-create-employee-body">
+          <!-- <div class="form-group">
+            <label for="usr_firstname">RETAILER NAME</label>
+            <span class="form-control">name</span>
+          </div> -->
+          <div class="form-group">
+            <label for="sales_associate">SALES ASSOCIATE</label>
+            <span class="form-control">{{userDetails.first_name}} {{userDetails.last_name}}</span>
+          </div>
+          <div class="form-group">
+            <label for="usr-store">STORE</label>
+            <select class="form-control" name="selectedStore" [(ngModel)]="selectedStore" >
+               <option *ngFor="let value of retailerStoreDetails" [ngValue]="value.StoreId" >{{value.StoreName}}</option>
+            </select>
+           
+            <!-- <select [(ngModel)]="selectedShipping">
+              <option *ngFor="let value of values" [ngValue]="value.key">{{value.name}}</option>
+            </select> -->
+          </div>
+          
+          <!-- <div class="form-group">
+            <label for="usr_address">ADDRESS</label>
+            <span class="form-control">Address</span>
+          </div> -->
+          <!-- <div class="shippingInfoDrop">
+            <label for="usr_confirm_password">ZIP CODE</label>
+            <span class="form-control" style="width: 89px;font-weight: 100;">zip code</span>
+          </div> -->
+          <!-- <div class="shippingInfoDrop">
+            <label for="usr_confirm_password">CITY</label>
+            <span class="form-control" style="width: 89px;font-weight: 100;">city</span>
+          </div> -->
+          <!-- <div class="form-group pull-right" style="width:32%;">
+            <label for="usr_confirm_password">STATE</label>
+            <span class="form-control">state</span>
+          </div> -->
+          <!-- <div class="ac-ffl-checking">
+            <input type="checkbox" class="selectioncheck" name="group1" id="group1" checked="checked" style="position: relative;">
+            <span>FFL Required</span>
+          </div> -->
+          <!-- <div class="form-group">
+            <label for="usr-store">DELIVERY ADDRESS</label>
+            <select class="form-control">
+              <option>Same as billing</option>
+              <option>lorem</option>
+              <option>lorem</option>
+              <option>lorem</option>
+            </select>
+          </div> -->
+          <span class="ac-create-employee-foot">
+            <button type="submit" class="btn btn-default">CONTINUE TO CUSTOMER INFO</button>
+          </span>
+        </form>
+        </div>
+
+      <div class="custumer-info-form">
       <span class="shippingInfoWrapper">
         <a href="" class="customerInfoIcon shippingInfoWrapperIcon"></a>
         <h4>Customer Info</h4>
       </span>
       <div class="clearfix"></div>
-      <form class="ac-create-employee-body" #shippingForm="ngForm" >
+      <form class="ac-create-employee-body" #shippingForm="ngForm">
         <div class="form-group" style="width:48%;">
           <label for="name">FIRST NAME</label>
           <input type="text" class="form-control" name = "name" placeholder="Enter your first name" id="name" [(ngModel)]="firstName" maxlength="30" pattern="[a-zA-Z][a-zA-Z ]+" required #name="ngModel">
@@ -221,9 +285,10 @@
 
         <span class="ac-create-employee-foot">
           <button type="submit" class="btn btn-default custom-button" [disabled]="!shippingForm.form.valid" (click) = "getToken(shippingForm)">CONFIRM ORDER</button>
-         
         </span>
+
       </form>
+      </div>
     </div>
     <!-- CREATE NEW EMPLOYEE : END -->
 
