@@ -26,7 +26,9 @@ export const appcohesionURL = {
 	"placeOrder_SS_URL" : "http://ssplaceorder.cloudhub.io/",
 	"createStore_URL": "https://api.appcohesion.io/createStore",
 	"productQuantity_SS_URL" : "http://ssapigetquantity.cloudhub.io/",
-	"getStoreDetails_URL": "http://api.appcohesion.io/getStoreDetails"
+	"getStoreDetails_URL": "http://api.appcohesion.io/getStoreDetails",
+	"retailerProfile_URL" : "https://api.appcohesion.io/userInfo",
+	"updateRetailerProfile_URL" : "https://api.appcohesion.io/updateUserInfo"
 };
 export const distApiList = ["ss"];
 export const statusCode = {
@@ -37,6 +39,10 @@ export const statusCode = {
 export const distributor_markup_messages = {
 	"success_title": "SUCCESS",
 	"success_description": "Markup has been added successfully!"
+};
+export const retailerProfile_messages = {
+	"success_title": "SUCCESS",
+	"success_description": "Retailer profile updated successfully!"
 };
 export const store_messages = {
 	"success_description": "Store has been created successfully!"

@@ -1,5 +1,5 @@
 
-<div [ngClass]="{'ac-create-employee-on': demoService.showclickorder  || demoService.showNav? true : false, 'ac-main-nav-on' :demoService.subMenuToggle ? true : false}" >
+<div [ngClass]="{'ac-create-employee-on': demoService.showclickorder  || demoService.showNav? true : false, 'ac-main-nav-on' :demoService.subMenuToggle ? true : false, 'ac-edit-profile-drawer-on' : demoService.showEditRetailerView ? true : false, 'ac-profile-drawer-on' : demoService.showRetailerProfile ? true : false}" >
   <!-- Left Side Nav Start -->
   <div class="ac-main-nav-wrap">
     <div class="ac-main-nav-head">
@@ -52,7 +52,7 @@
           <h3 *ngIf="userDetails">{{userDetails.first_name }} {{userDetails.last_name}}</h3>
           <span class="ac-user-drop-wrap" style="display: none;">
             <ul class="ac-user-dropdown">
-              <li *ngIf="userGroup == configUserGroup"><a routerLink="retailer">My Profile</a></li>
+                <li><a (click) = "retailerProfile($event)">My Profile</a></li>
              <!--  <li><a>Menu Item</a></li> -->
               <li><a (click)="logout()">Log Out</a></li>
             </ul>
@@ -74,22 +74,144 @@
   </div>
     <!-- Generic wrap end -->
   </div>
-  <!-- Main Section End -->
-
-  <!-- Quick Access Bar Start -->
-  <!-- <div class="ac-quick-access-wrap">
-    <a href="javascript:void(0);" class="ac-quick-access-togglr"><i class="glyphicon glyphicon-th-large flip"></i><i class="glyphicon glyphicon-th-list flop" style="display:none;"></i></a>
-    <ul class="ac-quick-access-buttons">
-      <li><a href="javascript:void(0);" class="ac-qacc-item1"><i style="display: none;">Menu Name1</i></a></li>
-      <li><a href="javascript:void(0);" class="ac-qacc-item2"><i style="display: none;">Menu Name2</i></a></li>
-      <li><a href="javascript:void(0);" class="ac-qacc-item3"><i style="display: none;">Menu Name3</i></a></li>
-      <li><a href="javascript:void(0);" class="ac-qacc-item4"><i style="display: none;">Menu Name4</i></a></li>
-      <li><a href="javascript:void(0);" class="ac-qacc-item5"><i style="display: none;">Menu Name5</i></a></li>
-      <li><a href="javascript:void(0);" class="ac-qacc-item6"><i style="display: none;">Menu Name6</i></a></li>
-    </ul>
-  </div> -->
-  
-  <!-- Quick Access Bar End -->
 
 
+    <!-- profile drawer : START -->
+    <div class="ac-profile-drawer" style="right:-400px;opacity:0;">
+        <span class="addRetailerCloseDrawer profile-drawer-close" (click)="demoService.showRetailerProfile = false"></span>
+        <div class="profile-header">
+          <h4>PROFILE</h4>
+        </div>
+        <div class="ac-quick-profile-info">
+          <div class="ac-quick-profile-img">
+            <img src="assets/demo-assets/retailer1.png">
+           
+            <h4 *ngIf="demoService.showRetailerProfile == true">{{retailerProfileDetails.Name}}</h4>
+            <!-- <span>San Francisco,United States</span> -->
+          </div>
+          <div class="col-xs-12 col-sm-12 col-lg-12 socialmedia-listing">
+            <ul class="socialmedia-unsorted">
+             <!-- <li>
+                <a href="#">
+                  <span><img src="assets/images/facebook-logo.svg"/></span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span><img src="assets/images/twitter-logo-silhouette.svg"/></span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span><img src="assets/images/linkedin-logo.svg"/></span>
+                </a>
+              </li> -->
+            </ul>
+          </div>
+          <div class="clearfix"></div>
+          <div class="ac-contacts">
+            <div class="contact-info-wrapper" *ngIf="demoService.showRetailerProfile == true">{{retailerProfileDetails.UserEmail}}
+            </div>
+            <div class="contact-info-wrapper contact-call" *ngIf="demoService.showRetailerProfile == true">{{retailerProfileDetails.UserPhone}}
+            </div>
+           <!-- <div class="contact-info-wrapper contact-fax">702-567-1158
+            </div> -->
+          </div>
+        <!--  <div class="retailer-address-wrapper">
+            <h4>Primary Address</h4>
+            <span>Pier 33 - Alcatras Island San Francisco,CA,USA</span>
+          </div> -->
+         <!-- <div class="retailer-address-wrapper">
+            <h4>Open Hours</h4>
+            <span>Mon-Sat 9:00am-7:00pm | Sunday 11:00am-5:00pm</span>
+          </div> -->
+          <span class="ac-create-employee-foot ac-edit-profile">
+            <button type="submit" class="btn btn-default" (click)="editRetailerProfile()">EDIT PROFILE</button>
+          </span>
+        </div>
+      </div>
+      <!-- profile drawer : END -->
+
+   <!-- edit profile drawer starts -->
+   <form class="ac-create-employee-body" #employeeForm="ngForm">
+      <div class="ac-edit-profile-drawer" style="right:-400px;opacity:0;">
+          <span class="addRetailerCloseDrawer profile-drawer-close" (click)="demoService.showEditRetailerView = false"></span>
+          <div class="clearfix"></div>
+          <div class="profile-header">
+            <h4 style="text-align:center">EDIT PROFILE</h4>
+          </div>
+          
+          <div class="ac-quick-profile-info" *ngFor="let retailer of editRetailerDetails">
+            <div class="ac-quick-profile-img">
+              <img src="assets/demo-assets/retailer1.png">
+              <div class="clearfix"></div>
+            
+          
+             <input type="text" class="editableName pull-left" id="fname"  name="fname"  [(ngModel)]="retailer.FirstName" pattern="[a-zA-Z ]*" #fname="ngModel" required style="width:48%;text-align:right;">
+             <div *ngIf= "fname.errors  && (fname.dirty || fname.touched)" class="ac-required-field">
+                <div [hidden]="!fname.errors.pattern">
+                  Numbers not allowed!
+                </div>
+              </div>
+              
+             <input type="text" class="editableName pull-right" id="usr_lastname" [(ngModel)]="retailer.LastName"  name="usr_lastname"  pattern="[a-zA-Z][a-zA-Z ]+" required minlength="1" maxlength="10" #usr_lastname="ngModel" style="width:48%;text-align:left;"> 
+             <!-- <input type="text" class="form-control" placeholder="Enter your last name" id="usr_lastname" [(ngModel)]="lastName" name="usr_lastname" pattern="[a-zA-Z][a-zA-Z ]+" required minlength="1" maxlength="10" #usr_lastname="ngModel"> -->
+             <!-- <span>San Francisco,United States</span> -->
+             <div *ngIf= "usr_lastname.errors && (usr_lastname.dirty || usr_lastname.touched)" class="ac-required-field">
+              
+                <div [hidden]="!usr_lastname.errors.maxlength">
+                  Last name cannot be more than 10 characters long.
+                </div>
+                <div [hidden]="!usr_lastname.errors.pattern">
+                  Numbers not allowed!
+                </div>
+              </div>
+            </div>
+            
+            <div class="clearfix"></div>
+            <div class="ac-contacts">
+             
+               <!-- <input class="editableContacts" type="text" name="" *ngIf="demoService.showEditRetailerView == true" value="{{editRetailerProfileDetails.UserEmail}}"> -->
+                <div class="contact-info-wrapper" *ngIf="demoService.showEditRetailerView == true">{{retailer.UserEmail}}</div>
+              
+              <div class="contact-info-wrapper contact-call" >
+
+               <input class="editableContacts" type="number" id="phone_number" [(ngModel)]= "retailer.UserPhone" name="phone_number" required pattern="[0-9]*" minlength="1" maxlength="10" #phone_number="ngModel"> 
+               <div *ngIf= "phone_number.errors && (phone_number.dirty || phone_number.touched)" class="ac-required-field">
+                  <div [hidden]="!phone_number.errors.minlength">
+                    Phone # must be 10 characters long.
+                  </div>
+                  <div [hidden]="!phone_number.errors.maxlength">
+                    Phone # cannot be more than 10 characters long.
+                  </div>
+                  <div [hidden]="!phone_number.errors.pattern">
+                    Only numbers allowed!
+                  </div>
+                </div>
+              </div>
+          
+            </div>
+            <span class="ac-create-employee-foot ac-edit-profile">
+              <button type="submit" class="btn btn-default"  [disabled]="!employeeForm.form.valid ? true : false" (click)="updateRetailerProfile(retailer)">UPDATE PROFILE</button>
+            </span>
+          </div>
+          
+        </div>
+      </form>
+        <!-- edit profile drawer ends -->
+ </div>
+
+ <div class="row fadebg" [class.show]="updateRetailerProfilePopup"></div>
+ <div class="confirmPopup" [class.show]="updateRetailerProfilePopup">
+   <div class="successImgIcon"></div>
+   <div class="sucessMsgText text-center">
+     <h4>{{successTitle}}</h4>
+     <P>{{successDescription}}</P>
+   </div>
+   <div class=" col-md-6 gotoDashboardBtn text-right">
+     <!-- <span routerLink="/dashboard">OK</span> -->
+     <span (click) ="updateRetailerProfilePopup = !updateRetailerProfilePopup" style = " margin-right: -25px;">OK</span>
+   </div>
+   
+ </div>
 

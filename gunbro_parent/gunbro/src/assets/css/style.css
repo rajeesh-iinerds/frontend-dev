@@ -19,6 +19,12 @@
   -moz-transition: all 0.2s ease-in-out 0s;
   transition: all 0.2s ease-in-out 0s;
 }
+.ac-quick-access-togglr,.ac-quick-access-wrap, .ac-main-content-wrap, .ac-global-header, .ac-main-nav-wrap,.ac-main-nav-head,.ac-employees-unsorted img, .ac-employees-unsorted span::before,.ac-button-outlined,.ac-create-employee-drawer,.ac-close-employee-drawer,.ac-profile-drawer,.ac-edit-profile-drawer,.ac-result-card,.ac-result-card-body img,.ac-order-status tr{
+  -webkit-transition: all 0.2s ease-in-out 0s;
+  -moz-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
+}
+
  /* Login */
 .ac-login-wrap,.ac-logo-bg {
   background-position: center center;
@@ -1838,7 +1844,7 @@ select.shippingInfoDropDetails{
 /*order list drawer starts*/
 .order-list-drawer {
   width: 550px;
-  padding: 15px 20px;
+  padding: 5px 20px;
 }
 span.ac-order-drawer-head {
   float: left;
@@ -1901,7 +1907,7 @@ span.order-inprogress-Btn {
   background-color: #ebedf0;
 }
 .productInfo-img-viewer img{
-  max-width: 100%;
+  max-width: 135px;
   padding: 10px;
 }
 .productinfo-field h3 {
@@ -2058,6 +2064,8 @@ h4 {
 .ac-quick-profile-info{
   padding-top: 30px;
   border-left: 1px solid #dedede;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .ac-quick-profile-img
 span {
@@ -2124,9 +2132,113 @@ ul.socialmedia-unsorted img{
 }
 .ac-edit-profile{
   margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.ac-contacts {
+  margin-top: 25px;
+}
+.ac-profile-drawer {
+background-color: #ffffff;
+-webkit-box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+-moz-box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+height: calc(100% - 70px);
+opacity: 1;
+overflow-y: auto;
+position: fixed;
+right: -400px;
+opacity: 0;
+top: 70px;
+width: 320px;
+z-index: 9999;
+}
+.ac-profile-drawer-on .ac-profile-drawer {
+opacity: 1 !important;
+right: 0px !important;
+}
+.ac-profile-drawer::-webkit-scrollbar {
+  width: 3px;
+}
+.ac-profile-drawer::-webkit-scrollbar-track {
+  background-color: #DEDEDE;
+}
+.ac-profile-drawer::-webkit-scrollbar-thumb {
+  background-color: #c2c2c2;
+}
+.profile-header h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #5c6bc0;
+  text-align: center;
+  margin-top: 25px;
+}
+span.addRetailerCloseDrawer {
+  background-image: url(../images/icon-cross.png);
+  float: right;
+  background-repeat: no-repeat;
+  background-size: 12px;
+  background-position: center center;
+  cursor: pointer;
+  padding: 15px;
 }
 /*profile page ends*/
-
+/*edit profile start*/
+input.editableName{
+  width: 100%;
+  text-align: center;
+  border: none;
+}
+input.editableAddress {
+    width: 100%;
+    border: none;
+    text-align: center;
+    font-size: 11px;
+}
+input.editableContacts {
+    width: 100%;
+    border: none;
+}
+textarea.editableOtherInfo {
+    width: 100%;
+}
+img.uploadphoto{
+  border-radius: 0px;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 178px;
+  right: 112px;
+}
+.ac-edit-profile-drawer {
+  background-color: #ffffff;
+  -webkit-box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  height: calc(100% - 70px);
+  opacity: 1;
+  overflow-y: auto;
+  position: fixed;
+  right: -400px;
+  opacity: 0;
+  top: 70px;
+  width: 320px;
+  z-index: 9999;
+}
+.ac-edit-profile-drawer-on .ac-edit-profile-drawer {
+  opacity: 1 !important;
+  right: 0px !important;
+}
+.ac-edit-profile-drawer::-webkit-scrollbar {
+    width: 3px;
+}
+.ac-edit-profile-drawer::-webkit-scrollbar-track {
+    background-color: #DEDEDE;
+}
+.ac-edit-profile-drawer::-webkit-scrollbar-thumb {
+    background-color: #c2c2c2;
+}
+/*edit profile end*/
 /* Distributor Page */
 .ac-distributor-cards {
   margin-top: 20px;
@@ -2783,20 +2895,27 @@ button.markup-apply-all[disabled] {
 .ac-main-nav-toggle{display: none;}
 }
 @media only screen and (max-width:900px){
-.ac-single-stat-box {
-  width: 100%;
-}
-.ac-single-stat-inset span {
-  height: auto;
-  padding: 15px 0;
-}
-.ac-global-header{padding-right: 0;}
-.ac-quick-access-wrap{display: none;}
-.ac-main-content-wrap, .ac-main-nav-on .ac-global-header{padding-right: 0;}
-.ac-create-employee-drawer{top:0;height: 100%;}
-.ac-create-employee-on .ac-create-employee-drawer{
-  right: 0 !important;
-}
+  .ac-single-stat-box {
+    width: 100%;
+  }
+  .ac-single-stat-inset span {
+    height: auto;
+    padding: 15px 0;
+  }
+  .ac-global-header{padding-right: 0;}
+  .ac-quick-access-wrap{display: none;}
+  .ac-main-content-wrap, .ac-main-nav-on .ac-global-header{padding-right: 0;}
+  .ac-create-employee-drawer{top:0;height: 100%;}
+  .ac-profile-drawer{top:0;height: 100%;}
+  .ac-edit-profile-drawer{top:0;height: 100%;}
+  .ac-location-details-drawer{top:0;height: 100%;}
+  .ac-add-retailer-drawer{top:0;height: 100%;}
+  .ac-create-employee-on .ac-create-employee-drawer{right: 0 !important;}
+  .ac-profile-drawer-on .ac-profile-drawer{right: 0 !important;}
+  .ac-edit-profile-drawer-on .ac-edit-profile-drawer{right: 0 !important;}
+  .ac-locationDetails-on .ac-location-details-drawer{right: 0 !important;}
+  .ac-add-retailer-on .ac-add-retailer-drawer{right: 0 !important;}
+  
 }
 @media only screen and (max-width:800px){
 .ac-search-wrap {
