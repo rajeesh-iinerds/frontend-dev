@@ -51,6 +51,7 @@ export class DashboardComponentComponent implements OnInit {
   manufacturerId: any;
   configUserGroup: any;
   configSuperAdminUserGroup: any;
+  configRetailerAdminUserGroup: any;
   showRetailer: any;
   hideRetailer: any;
   userDetails: any;
@@ -69,6 +70,7 @@ export class DashboardComponentComponent implements OnInit {
     this.userGroup = localStorage.getItem('userGroup') && localStorage.getItem('userGroup') != 'null' ? localStorage.getItem('userGroup') : '';
     this.configUserGroup = constant.user.userGroup && constant.user.userGroup != 'null' ? constant.user.userGroup : '';
     this.configSuperAdminUserGroup =  constant.user.superadminUser && constant.user.superadminUser != 'null' ? constant.user.superadminUser : '';
+    this.configRetailerAdminUserGroup =  constant.user.retaileradminUser && constant.user.retaileradminUser != 'null' ? constant.user.retaileradminUser : '';
     this.showRetailer = true;
     this.hideRetailer = constant.user.superadminUser ? false : true;
     this.userDetails = {};
