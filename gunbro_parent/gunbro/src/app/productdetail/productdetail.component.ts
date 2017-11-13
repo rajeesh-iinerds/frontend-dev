@@ -15,13 +15,14 @@ import * as constant from '../shared/config';
 export class ProductdetailComponent implements OnInit {
 @Input() resultssearch;
 results: any;
+// selectedShipping: any;
 //showclickorder: any;
 	values = [
 		{"name":'Ground (3-5 days)', key:'1'},
 		{"name":'Priority (2 days) Priority', key:'2'},
 		{"name":'Next Day Air', key:'3'}
 	];
-  	selectedShipping = this.values[0].key;
+	selectedShipping = this.values[0].key;
 
 	selectedQuantity: any;
 	// selectedShipping: any;
@@ -89,7 +90,7 @@ results: any;
 	}
 
 	getToken (bookForm) {
-		// console.log("store id :" + storeid);
+		
         return this.demoService.getSessionToken().subscribe((response) => {
             if(response.getIdToken().getJwtToken()) {
                 const jwt = response.getIdToken().getJwtToken();
@@ -116,54 +117,56 @@ results: any;
 			"delivery_instructions": this.delivery ? this.delivery : "",
 			"StoreId": this.selectedStore ? this.selectedStore : ""
 	};
-    // return this.demoService.confirmOrderfromService(this.orderInfo, jwt).subscribe((resp) => {
-		// this.demoService.loading = false;
+console.log("store id in conform order : " + this.orderInfo.StoreId + "selcted shipping : " + this.orderInfo.StoreId)
+
+    return this.demoService.confirmOrderfromService(this.orderInfo, jwt).subscribe((resp) => {
+		this.demoService.loading = false;
 	
 
-		// if(resp) { // If response from API
-		// 	if(resp.data && resp.data[0] && resp.data[0].orderId) { // If response has OrderId
-		// 		var orderId = resp.data[0].orderId;
-		// 		// Insert into DynamodB with OrderId for SS & others
-		// 		var params = {
-		// 			"id": orderId
-		// 		};
-		// 		if(resp.status == "success" && resp.SS_OrderNumber) {
-		// 			params["SS_OrderNumber"] = resp.SS_OrderNumber;
-		// 			// params["SS_OrderNumber"] = "5331014";
-		// 		}
-		// 		console.log('first db parammmm', params);
-		// 		this.demoService.updateRecordinDB(params).subscribe((csvresponse) => {
-		//           console.log("updated db" + csvresponse);
-		//         }, (err) => {
-		//           console.log(err);
-		//         });
-		// 	}
-		// 	if(resp.results) { // Insert CSV file into S3 for other distributors
-		// 		var body_csv = {
-		//         	"response" : resp && resp.data[0] ? resp.data[0] :''
-		// 		}	
-		//        	this.demoService.csvfileUpload(body_csv).subscribe((csvresponse) => {
-		// 	    	console.log("CSV upload completed" + csvresponse );
-		// 	    }, (err) => {
-		// 	        console.log(err);
-		// 		});
-		// 	}
-		// 	else { // Response from SS API alone
-		// 		if(resp && resp.status) {
-		// 			var statusApiIntegration = "";
-		// 			if(resp.message) {
-		// 				statusApiIntegration = resp.message;
-		// 			}
-		// 			else {
-		// 				statusApiIntegration = resp.status == "success" ? "Success from SSAPI" : "Failure in SSAPI";
-		// 			}
-		// 		    //alert(statusApiIntegration);
-		// 		}
-		// 	}
-		// }
-    // }, (err) => {
-    //   console.log(err);
-		// });
+		if(resp) { // If response from API
+			if(resp.data && resp.data[0] && resp.data[0].orderId) { // If response has OrderId
+				var orderId = resp.data[0].orderId;
+				// Insert into DynamodB with OrderId for SS & others
+				var params = {
+					"id": orderId
+				};
+				if(resp.status == "success" && resp.SS_OrderNumber) {
+					params["SS_OrderNumber"] = resp.SS_OrderNumber;
+					// params["SS_OrderNumber"] = "5331014";
+				}
+				console.log('first db parammmm', params);
+				this.demoService.updateRecordinDB(params).subscribe((csvresponse) => {
+		          console.log("updated db" + csvresponse);
+		        }, (err) => {
+		          console.log(err);
+		        });
+			}
+			if(resp.results) { // Insert CSV file into S3 for other distributors
+				var body_csv = {
+		        	"response" : resp && resp.data[0] ? resp.data[0] :''
+				}	
+		       	this.demoService.csvfileUpload(body_csv).subscribe((csvresponse) => {
+			    	console.log("CSV upload completed" + csvresponse );
+			    }, (err) => {
+			        console.log(err);
+				});
+			}
+			else { // Response from SS API alone
+				if(resp && resp.status) {
+					var statusApiIntegration = "";
+					if(resp.message) {
+						statusApiIntegration = resp.message;
+					}
+					else {
+						statusApiIntegration = resp.status == "success" ? "Success from SSAPI" : "Failure in SSAPI";
+					}
+				    //alert(statusApiIntegration);
+				}
+			}
+		}
+    }, (err) => {
+      console.log(err);
+		});
 	}
 
 	checkSSQuantity(): Observable < any >{
@@ -206,16 +209,10 @@ results: any;
 	                     for(var i = 0; i < this.results.data.length; i++){
 	                     	this.storeLocations = {};
 												 this.storeLocations.StoreName = this.results.data[i].StoreName && this.results.data[i].StoreName ? this.results.data[i].StoreName : '';
-	                      
-	                        this.storeLocations.StoreId = this.results.data[i].StoreId ? this.results.data[i].StoreId : '';
-
-	                        this.storeLocations.RetailerName = this.results.data[i].RetailerName ? this.results.data[i].RetailerName : '';
-            			
-
-													this.retailerStoreDetails.push(this.storeLocations);
-													
-	                      }
-	                      console.log('***********', this.retailerStoreDetails);
+												 this.storeLocations.StoreId = this.results.data[i].StoreId ? this.results.data[i].StoreId : '';
+												// this.storeLocations.RetailerName = this.results.data[i].RetailerName ? this.results.data[i].RetailerName : '';
+            						 this.retailerStoreDetails.push(this.storeLocations);
+												}
 	                    }
 	                    else if(this.results.status.code == constant.statusCode.empty_code){
 	                      this.retailerStoreDetails = [];

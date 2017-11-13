@@ -28,7 +28,8 @@
                     <option [value]="2"> Priority (2 days) Priority </option>
                     <option [value]="3"> Next Day Air</option>
                   </select> -->
-                  <select [(ngModel)]="selectedShipping">
+                  <select name="selectedShipping" [(ngModel)]="selectedShipping">
+                    
                     <option *ngFor="let value of values" [ngValue]="value.key">{{value.name}}</option>
                   </select>
                 </span>
@@ -116,9 +117,9 @@
 
         <!-- CREATE NEW EMPLOYEE : START -->
     <div class="ac-create-employee-drawer text-left" style="right:-400px;opacity:0;">
-    <!-- <div (click) = "placeMyOrderClose()"> -->
-      <span class="addRetailerCloseDrawer profile-drawer-close" (click)="demoService.showRetailerProfile = false"></span>
-      <!-- </div> -->
+        <div (click) = "placeMyOrderClose()">
+            <span class="placeMyOrderClose"></span>
+            </div>
       <span class="shippingInfoWrapper">
         <a href="" class="shippingInfoWrapperIcon"></a>
         <h4>Billing and Delivery</h4>
@@ -138,7 +139,8 @@
           </div>
           <div class="form-group">
             <label for="usr-store">STORE</label>
-            <select class="form-control" name="selectedStore" [(ngModel)]="selectedStore" >
+            <select class="form-control" name="selectedStore" [(ngModel)]="selectedStore">
+               
                <option *ngFor="let value of retailerStoreDetails" [ngValue]="value.StoreId" >{{value.StoreName}}</option>
             </select>
            

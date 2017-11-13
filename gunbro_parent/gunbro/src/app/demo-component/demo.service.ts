@@ -62,7 +62,7 @@ export class DemoService {
     resultsApiIntegration: any;
     showRetailerProfile: boolean = false;
     showEditRetailerView: boolean = false;
-
+   
     constructor(private http: Http, private router: Router) {
         console.log(constant.appcohesionURL);
         this.showclickorder = false;
@@ -70,6 +70,7 @@ export class DemoService {
         this.subMenuToggle = false;
         this.showRetailerProfile = false;
         this.showEditRetailerView = false;
+       
         this.showPopup = false;
         this.router = router;
         if (localStorage.getItem('tokenExpiryTime')) {
@@ -495,6 +496,7 @@ export class DemoService {
 
             // req_body['storeId'] = store_id;
             req_body['storeId'] = orderInfo.StoreId ? orderInfo.StoreId : "";
+            console.log("store id for sending request : " + req_body['storeId']);
             req_body['BuyerID'] = retailer_id;
             req_body['SellerID'] = "3";
             req_body['retailer_id'] = retailer_id;
