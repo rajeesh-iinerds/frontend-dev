@@ -234,7 +234,7 @@ export class StoreLocationComponent implements OnInit {
 				this.userInfo.fax = this.results.data[i].StoreFax && this.results.data[i].StoreFax !='null' ? this.results.data[i].StoreFax : '';
 				this.userInfo.email = this.results.data[i].StoreEmail ? this.results.data[i].StoreEmail : '';
 				this.userInfo.state = this.results.data[i].StoreState ? this.results.data[i].StoreState : '';
-				this.userInfo.zip = this.results.data[i].StoreZip ? this.results.data[i].StoreZip : '';
+				this.userInfo.zip = this.results.data[i].zip ? this.results.data[i].zip : '';
 			}
         }
         this.showCreateStore = true;				
