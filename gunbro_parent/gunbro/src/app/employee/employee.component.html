@@ -6,10 +6,9 @@
           <h3 class="ac-page-title">Employee Management</h3>
         </div>
         <div class="col-xs-12 col-sm-3 col-lg-3 text-right xs-text-left">
-          <button  class="ac-button-outlined " (click)="showCreateEmployee($event)"><i style="display: inline-block;font-size: 22px;    font-style: normal; padding-right: 5px;vertical-align: top;">+</i>CREATE NEW</button>
+          <button *ngIf="role_id!=3"  class="ac-button-outlined " (click)="showOrHideCreateEmployee($event)"><i style="display: inline-block;font-size: 22px;    font-style: normal; padding-right: 5px;vertical-align: top;">+</i>CREATE NEW</button>
         </div>
       </div>
-
       <div class="row" *ngIf= "demoService.usersList && demoService.usersList.data">
       <div ><!-- Employee Listing -->
         <div class="col-xs-12 col-sm-12 col-lg-12 ac-employee-listing" >
@@ -34,81 +33,149 @@
 <!-- Main Section End -->
 
 <!-- CREATE NEW EMPLOYEE : START -->
-
 <div class="ac-create-employee-drawer" style="right:-400px;opacity:0;">
-      <span class="ac-create-employee-head">
-        <a class="ac-close-employee-drawer" (click) = "this.demoService.showNav = !this.demoService.showNav"></a>
-        <h4>Add Employee</h4>
-      </span>
-  <form class="ac-create-employee-body" #employeeForm="ngForm">
-    <div class="form-group">
-      <label for="name">FIRST NAME</label>
-      <input type="text" class="form-control" placeholder="Enter your first name" id="name" name="name" [(ngModel)]="userInfo.firstName" pattern="[a-zA-Z ]*" required #name="ngModel">
-      <div *ngIf= "name.errors && (name.dirty || name.touched)" class="ac-required-field">
-            <!-- <div [hidden]="!name.errors.minlength">
-              First name must be at least 5 characters long.
-            </div>
-            <div [hidden]="!name.errors.maxlength">
-              First name cannot be more than 30 characters long.
-            </div> -->
-            <div [hidden]="!name.errors.pattern">
-              Invalid characters not allowed!
-            </div>
+    <span  class="ac-create-employee-head">
+      <a href="javascript:void(0);" class="ac-close-employee-drawer" (click)="showOrHideCreateEmployee($event)"></a>
+      <h4>Add Employee</h4>
+    </span>
+    <div *ngIf="role_id==4" class="form-group" style="margin-bottom: 0px;color: #595959;float: left;font-size: 9px;width: 100%;font-weight: 600;padding: 0 20px;">
+        <label>USER TYPE</label>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="usr_lastname">LAST NAME</label>
-      <input type="text" class="form-control" placeholder="Enter your last name" id="usr_lastname" [(ngModel)]="userInfo.lastName" name="usr_lastname" pattern="[a-zA-Z ]*" #usr_lastname="ngModel">
-      <div *ngIf= "usr_lastname.errors && (usr_lastname.dirty || usr_lastname.touched)" class="ac-required-field">
-            <!-- <div [hidden]="!usr_lastname.errors.minlength">
-              Last name must be at least 1 character long.
-            </div>
-            <div [hidden]="!usr_lastname.errors.maxlength">
-              Last name cannot be more than 10 characters long.
-            </div> -->
-            <div [hidden]="!usr_lastname.errors.pattern">
-              Invalid characters not allowed!
-            </div>
-          </div>
-    </div>
-    <div class="form-group">
-      <label for="usr_email">EMAIL ID</label>
-      <input type="email" class="form-control" placeholder="Enter your email address" id="usr_email" [(ngModel)]="userInfo.email" name="usr_email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #usr_email="ngModel">
-      <div *ngIf= "usr_email.errors && (usr_email.dirty || usr_email.touched)" class="ac-required-field">
-        <div [hidden]="!usr_email.errors.pattern">
-          Invalid email format!
-        </div>
-      </div>
-    </div>
-
-
-    <div class="form-group">
-      <label for="usr_password">PASSWORD</label>
-      <input type="password" class="form-control" placeholder="Enter your password" id="usr_password" minlength="8" [(ngModel)]="userInfo.password" name="usr_password" required  pattern="^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9@]+)$" #usr_password="ngModel">
-      <div *ngIf= "usr_password.errors && (usr_password.dirty || usr_password.touched)" class="ac-required-field">
-        <div [hidden]="!usr_password.errors.minlength">
-          Password must be at least 8 characters long.
-        </div>
-        <div [hidden]="!usr_password.errors.pattern">
-          Password should have atleast 1 number and 1 alphabet!
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="usr_confirm_password">CONFIRM PASSWORD</label>
-      <input type="password" class="form-control" placeholder="Confirm your password" id="usr_confirm_password" required [(ngModel)]="userInfo.confirmPassword" name="usr_confirm_password" #usr_confirm_password="ngModel">
-      <div *ngIf="(usr_confirm_password.dirty || usr_confirm_password.touched) && (usr_password.value != usr_confirm_password.value)" class="help-block has-error" class="ac-required-field">
-        <div [hidden]="(usr_password.value == usr_confirm_password.value)">
-          Password Does Not Match!
-        </div>
-      </div>
-    </div>
-        <span class="ac-create-employee-foot">
-          <button type="submit" class="btn btn-default custom-button" [disabled]="!employeeForm.form.valid" (click) = "getToken()">CREATE EMPLOYEE</button>
+      <div class="radioContainer" *ngIf="role_id==4">
+        <span>
+          <input type="radio" id="option2" name="selector" checked="checked" ng-control="userPostMap.userRole" [value]="1"  [(ngModel)]="userPostMap.userRole">
+          <label class="store-admin-click" for="option2">Store Admin</label>
+          <div class="check"></div>
         </span>
-  </form>
+        <span>
+          <input type="radio" id="option3" name="selector" ng-control="userPostMap.userRole" [value]="2"  [(ngModel)]="userPostMap.userRole">
+          <label class="store-user-click" for="option3">Store User</label>
+          <div class="check"></div>
+        </span>
+      </div>
+    <form class="ac-create-employee-body store-admin-form" *ngIf="userPostMap.userRole==1&&role_id==4" (ngSubmit)="createUser(userPostMap,createStoreAdminForm);createStoreAdminForm.resetForm();" #createStoreAdminForm="ngForm">
+      <div class="form-group">
+        <label for="usr_firstname">FIRST NAME</label>
+        <input  type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="userPostMap.firstName" minlength="3" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
+        <div class="invalidField" *ngIf="firstName.invalid && firstName.dirty">
+            Please Enter characters with Minimum length 3
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="usr_lastname">LAST NAME</label>
+        <input  type="text" class="form-control" placeholder="Enter your last name" id="lastName" name="lastName" [(ngModel)]="userPostMap.lastName" minlength="3" pattern="[a-zA-Z ]*"  #lastName="ngModel" required>
+        <div class="invalidField" *ngIf="lastName.invalid && lastName.dirty">
+            Please Enter characters with Minimum length 3
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="usr_emailid">EMAIL ID</label>
+        <input  type="email" class="form-control" placeholder="Enter your email address" id="emailId" name="emailId" [(ngModel)]="userPostMap.email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  #emailId="ngModel" required>
+        <div class="invalidField" *ngIf="emailId.invalid && emailId.dirty">
+            Invalid Email
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="usr_emailid">PHONE NUMBER</label>
+        <input  type="number" class="form-control" placeholder="Enter your phone number" id="phoneNumber" name="phoneNumber" [(ngModel)]="userPostMap.phoneNumber"   #phoneNumber="ngModel" required>
+        <div class="invalidField" *ngIf="phoneNumber.invalid && phoneNumber.dirty">
+            Invalid Phone Number
+          </div>
+      </div>
+      <!-- <div class="form-group">
+        <label for="usr_emailid">RETAILER</label>
+        <select class="form-control">
+          <option>Retailer 1</option>
+          <option>Retailer 2</option>
+          <option>Retailer 3</option>
+          <option>Retailer 4</option>
+        </select>
+      </div> -->
+      <div class="form-group">
+        <label for="usr_emailid">STORE</label>
+        <select class="form-control"  [(ngModel)]="userPostMap.storeId" id="storeId" name="storeId" #storeId="ngModel" required>
+          <option *ngFor="let item of storeListOfMaps" [value]="item.StoreId" >{{item.StoreName}}</option>
+        </select>
+        <div class="invalidField" *ngIf="storeId.invalid && storeId.dirty">
+            Please select any store
+          </div>
+      </div>
+      <!-- <div class="form-group">
+        <label for="usr_password">PASSWORD</label>
+        <input  type="password" class="form-control" placeholder="Enter your password" id="userPassword1" name="userPassword1" [(ngModel)]="userPostMap.userPassword1" minlength="8" pattern='^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$'    #userPassword1="ngModel" required>
+        <div class="invalidField" *ngIf="userPassword1.invalid && userPassword1.dirty">
+            Minimum One Number , One Special Charecter 8 to 20 Characters.
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="usr_confirm_password">CONFIRM PASSWORD</label>
+        <input  type="password" class="form-control" placeholder="Confirm your password" id="userPassword2" name="userPassword2" [(ngModel)]="userPostMap.userPassword2" minlength="8" pattern='^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$' (keyup)="validatePasswordMatch(userPostMap,userPassword2)"   #userPassword2="ngModel" required>
+        <div class="invalidField" *ngIf="!isPasswordMismatch&&userPassword2.dirty&&userPassword2.invalid">
+            Password Mismatch 
+          </div>
+      </div> -->
+      <span class="ac-create-employee-foot">
+        <button type="submit" [disabled]="createStoreAdminForm.invalid" class="btn btn-default">CREATE EMPLOYEE</button>
+      </span>
+    </form>
 
-</div>
+    <form class="ac-create-employee-body store-user-form" *ngIf="userPostMap.userRole==2" (ngSubmit)="createUser(userPostMap,createStoreUserForm);createStoreUserForm.resetForm();" #createStoreUserForm="ngForm">
+        <div class="form-group">
+            <label for="usr_firstname">FIRST NAME</label>
+            <input  type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="userPostMap.firstName" minlength="3" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
+            <div class="invalidField" *ngIf="firstName.invalid && firstName.dirty">
+                Please Enter characters with Minimum length 3
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="usr_lastname">LAST NAME</label>
+            <input  type="text" class="form-control" placeholder="Enter your last name" id="lastName" name="lastName" [(ngModel)]="userPostMap.lastName" minlength="3" pattern="[a-zA-Z ]*"  #lastName="ngModel" required>
+            <div class="invalidField" *ngIf="lastName.invalid && lastName.dirty">
+                Please Enter characters with Minimum length 3
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="usr_emailid">EMAIL ID</label>
+            <input  type="email" class="form-control" placeholder="Enter your email address" id="emailId" name="emailId" [(ngModel)]="userPostMap.email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  #emailId="ngModel" required>
+            <div class="invalidField" *ngIf="emailId.invalid && emailId.dirty">
+                Invalid Email
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="usr_emailid">PHONE NUMBER</label>
+            <input  type="number" class="form-control" placeholder="Enter your phone number" id="phoneNumber" name="phoneNumber" [(ngModel)]="userPostMap.phoneNumber"   #phoneNumber="ngModel" required>
+            <div class="invalidField" *ngIf="phoneNumber.invalid && phoneNumber.dirty">
+                Invalid Phone Number
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="usr_emailid">STORE</label>
+              <select class="form-control"  [(ngModel)]="userPostMap.storeId" id="storeId" name="storeId" #storeId="ngModel" required>
+                <option *ngFor="let item of storeListOfMaps" [value]="item.StoreId" >{{item.StoreName}}</option>
+              </select>
+              <div class="invalidField" *ngIf="storeId.invalid && storeId.dirty">
+                  Please select any store
+                </div>
+            </div>
+      <!-- <div class="form-group">
+          <label for="usr_password">PASSWORD</label>
+          <input  type="password" class="form-control" placeholder="Enter your password" id="userPassword1" name="userPassword1" [(ngModel)]="userPostMap.userPassword1" minlength="8" pattern='^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$'    #userPassword1="ngModel" required>
+          <div class="invalidField" *ngIf="userPassword1.invalid && userPassword1.dirty">
+              Minimum One Number , One Special Charecter 8 to 20 Characters.
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="usr_confirm_password">CONFIRM PASSWORD</label>
+          <input  type="password" class="form-control" placeholder="Confirm your password" id="userPassword2" name="userPassword2" [(ngModel)]="userPostMap.userPassword2" minlength="8" pattern='^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$' (keyup)="validatePasswordMatch(userPostMap,userPassword2)"   #userPassword2="ngModel" required>
+          <div class="invalidField" *ngIf="!isPasswordMismatch&&userPassword2.dirty&&userPassword2.invalid">
+              Password Mismatch 
+            </div>
+        </div> -->
+      <span class="ac-create-employee-foot">
+        <button [disabled]="createStoreUserForm.invalid" type="submit" class="btn btn-default">CREATE EMPLOYEE</button>
+      </span>
+    </form>
+  </div>
 <!-- CREATE NEW EMPLOYEE : END -->
 
 

@@ -26,21 +26,24 @@ export class StoreLocationComponent implements OnInit {
       "address": '',
       "phone": '',
       "fax": '',
-      "email": ''
+      "email": '',
+      "zip": ''
     };
     createStorePopup: boolean = false;
 	successTitle : string;
 	successDescription: string;
+	isEditClicked: boolean = false;
+	currentStore: any;
 
-  constructor(public demoService: DemoService , private http: Http) {
-  }
+	constructor(public demoService: DemoService , private http: Http) {
+	}
 
-  ngOnInit() {
-  	this.storeDetails().subscribe((response) => {
-	},
+	ngOnInit() {
+		this.storeDetails().subscribe((response) => {
+		},
 		(err) => console.error(err)
-	);
-  }
+		);
+	}
 
   // Method for listing Store details
    	storeDetails(): Observable < any > {
@@ -116,11 +119,20 @@ export class StoreLocationComponent implements OnInit {
      }
   	}
 
-  	// closeView() {
-  	// 	this.showAddStore = !this.showAddStore;
-  	// }
   	createStore(event) {
   		event.stopPropagation();
+  		this.isEditClicked = false;
+  		this.userInfo = {
+	    	"firstName": '',
+	      	"ffl": '',
+	      	"city": '',
+	      	"state": '',
+	      	"address": '',
+	      	"phone": '',
+	      	"fax": '',
+	      	"email": '',
+	      	"zip": ''
+	    };
   		this.showCreateStore = true;
   	}
 
@@ -147,8 +159,14 @@ export class StoreLocationComponent implements OnInit {
 					"address": this.userInfo.address,
 					"phone": this.userInfo.phone,
 					"fax" : this.userInfo.fax ?  this.userInfo.fax : 'NULL',
-					"email" : this.userInfo.email
+					"email" : this.userInfo.email,
+					"zip" : this.userInfo.zip
 		        };
+		        if(this.isEditClicked == true) {
+		        	req_body['storeID'] = this.currentStore.StoreId;
+		        	req_body['fflID'] = this.currentStore.StoreFFLId;
+		        }
+		        console.log(req_body);
 		        const url = constant.appcohesionURL.createStore_URL;
 		        this.http
 	            .post(url, req_body, options)
@@ -163,7 +181,8 @@ export class StoreLocationComponent implements OnInit {
                     	//show success popup
                     	this.createStorePopup = true;
                     	this.successTitle = constant.distributor_markup_messages.success_title;
-                    	this.successDescription = constant.store_messages.success_description;
+                    	// this.successDescription = constant.store_messages.success_description;
+                    	this.successDescription = this.results.status.userMessage;
 	                } else if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.error_code) {
 	                    //show error popup
                     	this.createStorePopup = true;
@@ -186,9 +205,38 @@ export class StoreLocationComponent implements OnInit {
   	popupclose() {
   		if(this.showViewStore == true)
   			this.showViewStore = false;
-  		else if(this.showCreateStore == true) {
+  		else if(this.showCreateStore == true)
   			this.showCreateStore = false;
-  		}
+  	}
 
+	editStore(id,event) {
+  		event.stopPropagation();
+  		this.isEditClicked = true;
+  		this.userInfo = {
+	      "firstName": '',
+	      "ffl": '',
+	      "city": '',
+	      "state": '',
+	      "address": '',
+	      "phone": '',
+	      "fax": '',
+	      "email": '',
+	      "zip": ''
+	    };
+  		for(var i = 0; i < this.results.data.length; i++) {
+			if (this.results.data[i].StoreId == id) {
+				this.currentStore = this.results.data[i];
+				this.userInfo.firstName = this.results.data[i].StoreName && this.results.data[i].StoreName ? this.results.data[i].StoreName : '';
+				this.userInfo.ffl = this.retailerStoreDetails[i].FFLNumber ? this.retailerStoreDetails[i].FFLNumber : '';
+				this.userInfo.city = this.results.data[i].StoreLocation && this.results.data[i].StoreLocation ? this.results.data[i].StoreLocation : '';
+				this.userInfo.address = this.results.data[i].StoreAddress && this.results.data[i].StoreAddress !=null ? this.results.data[i].StoreAddress : '';
+				this.userInfo.phone = this.results.data[i].StoreContact ? this.results.data[i].StoreContact : '';
+				this.userInfo.fax = this.results.data[i].StoreFax && this.results.data[i].StoreFax !='null' ? this.results.data[i].StoreFax : '';
+				this.userInfo.email = this.results.data[i].StoreEmail ? this.results.data[i].StoreEmail : '';
+				this.userInfo.state = this.results.data[i].StoreState ? this.results.data[i].StoreState : '';
+				this.userInfo.zip = this.results.data[i].zip ? this.results.data[i].zip : '';
+			}
+        }
+        this.showCreateStore = true;				
   	}
 }

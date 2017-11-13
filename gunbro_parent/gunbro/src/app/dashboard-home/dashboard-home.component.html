@@ -1,7 +1,8 @@
-<div  class="container-fluid">
-    <div class="row"><!-- Page Title -->
+<div  class="container-fluid" >
+    <div class="row" (click)="demoService.showRetailerProfile = false;"><!-- Page Title -->
       <div class="col-xs-12 col-sm-9 col-lg-9">
-        <h3 class="ac-page-title" *ngIf="userDetails"> <em class="ac-user-greeting">Welcome, {{userDetails.first_name }}</em></h3>
+        <!-- <h3 class="ac-page-title" *ngIf="userDetails"> <em class="ac-user-greeting">Welcome, {{userDetails.first_name }}</em></h3> -->
+        <h3 class="ac-page-title" *ngIf="userDetails"> <em class="ac-user-greeting">Welcome</em></h3>
       </div>
       <div class="col-xs-12 col-sm-3 col-lg-3"><!-- Solve E=mc2 --></div>
     </div>
