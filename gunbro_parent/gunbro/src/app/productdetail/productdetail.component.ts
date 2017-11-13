@@ -15,13 +15,14 @@ import * as constant from '../shared/config';
 export class ProductdetailComponent implements OnInit {
 @Input() resultssearch;
 results: any;
+// selectedShipping: any;
 //showclickorder: any;
 	values = [
 		{"name":'Ground (3-5 days)', key:'1'},
 		{"name":'Priority (2 days) Priority', key:'2'},
 		{"name":'Next Day Air', key:'3'}
 	];
-  	selectedShipping = this.values[0].key;
+	selectedShipping = this.values[0].key;
 
 	selectedQuantity: any;
 	// selectedShipping: any;
@@ -89,7 +90,7 @@ results: any;
 	}
 
 	getToken (bookForm) {
-		// console.log("store id :" + storeid);
+		
         return this.demoService.getSessionToken().subscribe((response) => {
             if(response.getIdToken().getJwtToken()) {
                 const jwt = response.getIdToken().getJwtToken();
@@ -167,6 +168,7 @@ results: any;
 	    }, (err) => {
 	    	console.log(err);
 		});
+
 	}
 
 	checkSSQuantity(): Observable < any >{
@@ -209,16 +211,10 @@ results: any;
 	                     for(var i = 0; i < this.results.data.length; i++){
 	                     	this.storeLocations = {};
 												 this.storeLocations.StoreName = this.results.data[i].StoreName && this.results.data[i].StoreName ? this.results.data[i].StoreName : '';
-	                      
-	                        this.storeLocations.StoreId = this.results.data[i].StoreId ? this.results.data[i].StoreId : '';
-
-	                        this.storeLocations.RetailerName = this.results.data[i].RetailerName ? this.results.data[i].RetailerName : '';
-            			
-
-													this.retailerStoreDetails.push(this.storeLocations);
-													
-	                      }
-	                      console.log('***********', this.retailerStoreDetails);
+												 this.storeLocations.StoreId = this.results.data[i].StoreId ? this.results.data[i].StoreId : '';
+												// this.storeLocations.RetailerName = this.results.data[i].RetailerName ? this.results.data[i].RetailerName : '';
+            						 this.retailerStoreDetails.push(this.storeLocations);
+												}
 	                    }
 	                    else if(this.results.status.code == constant.statusCode.empty_code){
 	                      this.retailerStoreDetails = [];

@@ -5,6 +5,12 @@ export const user = {
 	"superadminUser" : "superadmin",
 	"retaileradminUser": "retaileradmin"
 };
+export const userRoles = {
+	"superAdminUser" : 3,
+	"retailerAdminUser":4,
+	"storeAdminUser": 1,
+	"storeUser": 2,
+};
 export const userPoolData = {
 	"UserPoolId" : 'us-east-1_Q3sA5af5A',
 	"ClientId" : '7iaf7o5ja7su88mjb8du0pqigv'

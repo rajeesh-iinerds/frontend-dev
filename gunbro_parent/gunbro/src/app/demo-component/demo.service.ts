@@ -62,7 +62,7 @@ export class DemoService {
     resultsApiIntegration: any;
     showRetailerProfile: boolean = false;
     showEditRetailerView: boolean = false;
-
+   
     constructor(private http: Http, private router: Router) {
         console.log(constant.appcohesionURL);
         this.showclickorder = false;
@@ -70,6 +70,7 @@ export class DemoService {
         this.subMenuToggle = false;
         this.showRetailerProfile = false;
         this.showEditRetailerView = false;
+       
         this.showPopup = false;
         this.router = router;
         if (localStorage.getItem('tokenExpiryTime')) {
@@ -495,6 +496,7 @@ export class DemoService {
 
             // req_body['storeId'] = store_id;
             req_body['storeId'] = orderInfo.StoreId ? orderInfo.StoreId : "";
+            console.log("store id for sending request : " + req_body['storeId']);
             req_body['BuyerID'] = retailer_id;
             req_body['SellerID'] = "3";
             req_body['retailer_id'] = retailer_id;
@@ -626,7 +628,7 @@ export class DemoService {
         })
     }
 
-    createUser(jwt, userInfo) {
+    createUser(jwt,userInfo,loggedInUser) {
         this.loading = true;
         let headers = new Headers({
             'Content-Type': 'application/json',
@@ -635,25 +637,19 @@ export class DemoService {
         let options = new RequestOptions({
             headers: headers
         });
-        var store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id : "";
-        var entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
-
-        let req_body = {
-            "role_id": "1",
-            "user": {
-                "user_name": userInfo.email,
-                "password": userInfo.password,
-                "email": userInfo.email,
-                "first_name": userInfo.firstName,
-                "last_name": userInfo.lastName,
-                "role_id": "2",
-                "store_id": store_id,
-                "entity_id": entity_id
-            }
-        };
+        if(loggedInUser==constant.userRoles.superAdminUser){
+            userInfo.user.store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id : "";
+        }
+        else if(loggedInUser==constant.userRoles.retailerAdminUser){
+            userInfo.user.store_id=userInfo.user.store_id;
+        }else if(loggedInUser==constant.userRoles.storeAdminUser){
+            userInfo.user.store_id=userInfo.user.store_id;
+        }
+        userInfo.user.entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
+        
         const url = constant.appcohesionURL.createUser_URL;
         this.http
-            .post(url, req_body, options)
+            .post(url,userInfo,options)
             .subscribe(data => {
                 this.loading = false;
                 this.results = data.json();
@@ -662,6 +658,8 @@ export class DemoService {
                 if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {
                     this.createUserMessage = "Congratulations!! You have successfully added user. Email has been sent to his email id!";
                     this.createUserStatus = "SUCCESS"
+                    console.info("success");
+                    this.showNav = !this.showNav;
                 } else {
                     this.createUserMessage = this.results.status.message.message + " ! ";
                     this.createUserStatus = "SORRY";
