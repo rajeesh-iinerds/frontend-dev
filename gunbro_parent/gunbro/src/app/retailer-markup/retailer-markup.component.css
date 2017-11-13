@@ -1,0 +1,9 @@
+.invalidField{
+    color: red;
+    font-size: 12px;
+}
+.ac-create-employee-on .ac-create-employee-drawer{
+
+  right: 0 !important;
+    top: 50 !important;
+}
