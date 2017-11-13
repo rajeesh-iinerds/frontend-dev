@@ -99,7 +99,6 @@ export class RetailerMarkupComponent implements OnInit {
                 "role_id": role_id,
                 "user": {
                     "user_name": retailerInfoMap.emailId,
-                    "password": retailerInfoMap.userPassword2,
                     "email": retailerInfoMap.emailId,
                     "first_name": retailerInfoMap.firstName,
                     "last_name": retailerInfoMap.lastName,
@@ -107,6 +106,8 @@ export class RetailerMarkupComponent implements OnInit {
                     "phone_number":retailerInfoMap.phoneNumber
                 }
             }
+            // "password": retailerInfoMap.userPassword2,
+
             this.demoService.loading=true;
             this.demoService.getSessionToken().subscribe((response) => {
                 if (response.getIdToken().getJwtToken()) {
@@ -129,5 +130,9 @@ export class RetailerMarkupComponent implements OnInit {
 
         }
     }
+    showOrHideCreateEmployee(event) {
+        event.stopPropagation();
+        this.demoService.showNav = !this.demoService.showNav;
+      }
 
 }

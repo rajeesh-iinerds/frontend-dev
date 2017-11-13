@@ -27,8 +27,8 @@ export class EmployeeComponent implements OnInit {
   ngOnInit() {
     this.demoService.listUsers();
     this.role_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].role_id : "";      
-    if(this.role_id==4){
-      this.userPostMap.userRole=1;
+    if(this.role_id==constant.userRoles.retailerAdminUser){
+      this.userPostMap.userRole=1; 
     }else{
       this.userPostMap.userRole=2;
     }
@@ -70,13 +70,14 @@ export class EmployeeComponent implements OnInit {
       this.isPasswordMismatch = false;
     }
   }
-  createStoreAdmin(userPostMap,createStoreAdminForm){
+  createUser(userPostMap,createStoreAdminForm){
+
+    
     let postMap= {
         role_id: this.role_id,
         user: {
             store_id:userPostMap.storeId,
             user_name: userPostMap.email,
-            password: userPostMap.userPassword2,
             email: userPostMap.email,
             first_name: userPostMap.firstName,
             last_name: userPostMap.lastName,
@@ -84,42 +85,43 @@ export class EmployeeComponent implements OnInit {
             phone_number:userPostMap.phoneNumber
         }
     }
-    console.info(postMap);
-    console.info(userPostMap.storeId);
-    this.demoService.getSessionToken().subscribe((response) => {
-      if (response.getIdToken().getJwtToken()) {
-          const jwt = response.getIdToken().getJwtToken();
-          //logged user role is third argument
-          this.demoService.createUser(jwt,postMap,constant.userRoles.retailerAdminUser); 
-          this.userPostMap={};
-      }
-    });
-  }
-  createStoreUser(userPostMap,createStoreAdminForm){
-    //clarify store id
-    let postMap= {
-        role_id: this.role_id,
-        user: {
-            store_id:userPostMap.storeId,
-            user_name: userPostMap.email,
-            password: userPostMap.userPassword2,
-            email: userPostMap.email,
-            first_name: userPostMap.firstName,
-            last_name: userPostMap.lastName,
-            role_id: userPostMap.userRole,
-            phone_number:userPostMap.phoneNumber
-        }
+    if(this.role_id==constant.userRoles.storeAdminUser){
+      postMap.user.store_id=2;
     }
-    console.info(postMap);
-    console.info(userPostMap.storeId);
+    //password: userPostMap.userPassword2,
     this.demoService.getSessionToken().subscribe((response) => {
       if (response.getIdToken().getJwtToken()) {
           const jwt = response.getIdToken().getJwtToken();
           //logged user role is third argument
           this.demoService.createUser(jwt,postMap,constant.userRoles.retailerAdminUser); 
           this.userPostMap={};
+          this.userPostMap.userRole=2; 
       }
     });
   }
+  // createStoreUser(userPostMap,createStoreAdminForm){
+  //   //clarify store id
+  //   let postMap= {
+  //       role_id: this.role_id,
+  //       user: {
+  //           store_id:userPostMap.storeId,
+  //           user_name: userPostMap.email,
+  //           email: userPostMap.email,
+  //           first_name: userPostMap.firstName,
+  //           last_name: userPostMap.lastName,
+  //           role_id: userPostMap.userRole,
+  //           phone_number:userPostMap.phoneNumber
+  //       }
+  //   }
+  //    //password: userPostMap.userPassword2,
+  //   this.demoService.getSessionToken().subscribe((response) => {
+  //     if (response.getIdToken().getJwtToken()) {
+  //         const jwt = response.getIdToken().getJwtToken();
+  //         //logged user role is third argument
+  //         this.demoService.createUser(jwt,postMap,constant.userRoles.retailerAdminUser); 
+  //         this.userPostMap={};
+  //     }
+  //   });
+  // }
   
 }
