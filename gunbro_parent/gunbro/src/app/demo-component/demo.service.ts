@@ -513,64 +513,7 @@ export class DemoService {
                             this.orderId = this.results.data[0].orderId;
                             this.showclickorder = false;
                             this.showPopup = !this.showPopup;
-                            if (constant.distApiList.indexOf((this.productInfo.distributor_name).toLowerCase()) > -1) {
-                                // SS Quantity API
-                                /*return this.getSSQuantity().subscribe((quantityList) => {
-                                    if (quantityList && quantityList.Success == true) {
-                                        if(quantityList.Quantity && quantityList.Quantity != "0") {
-                                            // SS Place Order
-                                            return this.apiIntegrationForDist(jwt, req_body).subscribe((responseFromdistApi) => {
-                                                if (responseFromdistApi && responseFromdistApi.Success == true) {
-                                                    // response format to match with normal PlaceOrser API so that DynamoDb insertion is possible
-                                                    var temp = [];
-                                                    var obj = {"orderId": this.orderId};
-                                                    temp.push(obj);
-                                                    observer.next({
-                                                        "status": "success",
-                                                        "SS_OrderNumber": responseFromdistApi.OrderNumber,
-                                                        "data": temp
-                                                    });
-                                                    observer.complete();
-                                                } else {
-                                                    observer.next({
-                                                        "status": "failure"
-                                                    });
-                                                    observer.complete();
-                                                }
-                                            }, (err) => {
-                                                console.log(err);
-                                                observer.next({
-                                                    "status": err
-                                                });
-                                                observer.complete();
-                                            });
-                                        }
-                                        else {
-                                            // Quantity 0
-                                            observer.next({
-                                                "status": "failure",
-                                                "message": "Quantity not available!"
-                                            });
-                                            observer.complete();
-                                        }
-                                    } else {
-                                        // Quantiy API returns false
-                                        observer.next({
-                                            "status": "failure",
-                                            "message": "Failure in SS Quantity API!"
-                                        });
-                                        observer.complete();
-                                    }
-                                }, (err) => {
-                                    console.log(err);
-                                    observer.next({
-                                        "status": err
-                                    });
-                                    observer.complete();
-                                });
-*/
-
-
+                            /*if (constant.distApiList.indexOf((this.productInfo.distributor_name).toLowerCase()) > -1) {
                                 return this.apiIntegrationForDist(jwt, req_body).subscribe((responseFromdistApi) => {
                                     if (responseFromdistApi && responseFromdistApi.Success == true) {
                                         // response format to match with normal PlaceOrser API so that DynamoDb insertion is possible
@@ -602,11 +545,12 @@ export class DemoService {
                                     "results": this.results
                                 });
                                 observer.complete();
-                            }
+                            }*/
+                            observer.next(this.results);
+                            observer.complete();
                         } else {
                             //alert(this.results.status);
                         }
-                        // alert(this.results.status);
                         console.log(this.results);
                     } else {
                         //alert("Result is empty");
