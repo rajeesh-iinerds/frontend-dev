@@ -114,6 +114,7 @@ export class OrdersComponent implements OnInit {
             this.selectedOrder.email = this.orderDetails[i].Email && this.orderDetails[i].Email !='null' ? this.orderDetails[i].Email : '';
             this.selectedOrder.SS_order = this.orderDetails[i].SS_OrderNumber ? this.orderDetails[i].SS_OrderNumber : '';
             this.selectedOrder.SmallImage = this.orderDetails[i].SmallImage && this.orderDetails[i].SmallImage !='null' ? this.orderDetails[i].SmallImage : '';
+            this.selectedOrder.FirstName = this.orderDetails[i].FirstName && this.orderDetails[i].FirstName !='null' ? this.orderDetails[i].FirstName : '';
         }
      }
    }
