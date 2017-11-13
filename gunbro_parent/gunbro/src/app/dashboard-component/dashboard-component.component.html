@@ -11,11 +11,11 @@
         <ul>
           <li><a routerLink="../dashboard"   class="ac-dash-item-1"><i>Dashboard</i></a></li>
 
-          <li *ngIf="(userGroup == configSuperAdminUserGroup ? hideRetailer : true) && (userGroup == configUserGroup || userGroup == configRetailerAdminUserGroup)"><a routerLink="markup" class="ac-dash-item-2"><i class="flip">Distributor Management</i><i class="flop" style="display:none;">Distributor</i></a></li>
+          <li *ngIf="((userGroup == configSuperAdminUserGroup || userGroup == configRetailerAdminUserGroup) ? hideRetailer : true) && (userGroup == configUserGroup )"><a routerLink="markup" class="ac-dash-item-2"><i class="flip">Distributor Management</i><i class="flop" style="display:none;">Distributor</i></a></li>
           
           <li *ngIf="userGroup == configSuperAdminUserGroup ? showRetailer : false"><a routerLink="RetailerMarkup" class="ac-dash-item-2"><i class="flip">Retailer Management</i><i class="flop" style="display:none;">Retailer Management</i></a></li>
           
-          <li *ngIf="userGroup == configUserGroup || userGroup == configRetailerAdminUserGroup"><a routerLink="store-location" class="ac-dash-item-8 "><i class="flip">Store Outlets</i><i class="flop" style="display:none;">Store</i></a></li>
+          <li *ngIf="userGroup == configRetailerAdminUserGroup"><a routerLink="store-location" class="ac-dash-item-8 "><i class="flip">Store Outlets</i><i class="flop" style="display:none;">Store</i></a></li>
           
           <li *ngIf="userGroup == configUserGroup || userGroup == configSuperAdminUserGroup || userGroup == configRetailerAdminUserGroup"><a  routerLink="employee" routerLinkActive="active" class="ac-dash-item-3"><i class="flip">Employee Management</i><i class="flop" style="display:none;">Employee</i></a></li>
           
