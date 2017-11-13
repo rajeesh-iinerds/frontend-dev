@@ -26,7 +26,8 @@ export class StoreLocationComponent implements OnInit {
       "address": '',
       "phone": '',
       "fax": '',
-      "email": ''
+      "email": '',
+      "zip": ''
     };
     createStorePopup: boolean = false;
 	successTitle : string;
@@ -129,7 +130,8 @@ export class StoreLocationComponent implements OnInit {
 	      	"address": '',
 	      	"phone": '',
 	      	"fax": '',
-	      	"email": ''
+	      	"email": '',
+	      	"zip": ''
 	    };
   		this.showCreateStore = true;
   	}
@@ -157,7 +159,8 @@ export class StoreLocationComponent implements OnInit {
 					"address": this.userInfo.address,
 					"phone": this.userInfo.phone,
 					"fax" : this.userInfo.fax ?  this.userInfo.fax : 'NULL',
-					"email" : this.userInfo.email
+					"email" : this.userInfo.email,
+					"zip" : this.userInfo.zip
 		        };
 		        if(this.isEditClicked == true) {
 		        	req_body['storeID'] = this.currentStore.StoreId;
@@ -217,7 +220,8 @@ export class StoreLocationComponent implements OnInit {
 	      "address": '',
 	      "phone": '',
 	      "fax": '',
-	      "email": ''
+	      "email": '',
+	      "zip": ''
 	    };
   		for(var i = 0; i < this.results.data.length; i++) {
 			if (this.results.data[i].StoreId == id) {
@@ -230,6 +234,7 @@ export class StoreLocationComponent implements OnInit {
 				this.userInfo.fax = this.results.data[i].StoreFax && this.results.data[i].StoreFax !='null' ? this.results.data[i].StoreFax : '';
 				this.userInfo.email = this.results.data[i].StoreEmail ? this.results.data[i].StoreEmail : '';
 				this.userInfo.state = this.results.data[i].StoreState ? this.results.data[i].StoreState : '';
+				this.userInfo.zip = this.results.data[i].StoreZip ? this.results.data[i].StoreZip : '';
 			}
         }
         this.showCreateStore = true;				
