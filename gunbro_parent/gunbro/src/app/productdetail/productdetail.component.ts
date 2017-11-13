@@ -115,55 +115,58 @@ results: any;
 			"Email": this.email ? this.email : "",
 			"delivery_instructions": this.delivery ? this.delivery : "",
 			"StoreId": this.selectedStore ? this.selectedStore : ""
-	};
-    // return this.demoService.confirmOrderfromService(this.orderInfo, jwt).subscribe((resp) => {
-		// this.demoService.loading = false;
-	
-
-		// if(resp) { // If response from API
-		// 	if(resp.data && resp.data[0] && resp.data[0].orderId) { // If response has OrderId
-		// 		var orderId = resp.data[0].orderId;
-		// 		// Insert into DynamodB with OrderId for SS & others
-		// 		var params = {
-		// 			"id": orderId
-		// 		};
-		// 		if(resp.status == "success" && resp.SS_OrderNumber) {
-		// 			params["SS_OrderNumber"] = resp.SS_OrderNumber;
-		// 			// params["SS_OrderNumber"] = "5331014";
-		// 		}
-		// 		console.log('first db parammmm', params);
-		// 		this.demoService.updateRecordinDB(params).subscribe((csvresponse) => {
-		//           console.log("updated db" + csvresponse);
-		//         }, (err) => {
-		//           console.log(err);
-		//         });
-		// 	}
-		// 	if(resp.results) { // Insert CSV file into S3 for other distributors
-		// 		var body_csv = {
-		//         	"response" : resp && resp.data[0] ? resp.data[0] :''
-		// 		}	
-		//        	this.demoService.csvfileUpload(body_csv).subscribe((csvresponse) => {
-		// 	    	console.log("CSV upload completed" + csvresponse );
-		// 	    }, (err) => {
-		// 	        console.log(err);
-		// 		});
-		// 	}
-		// 	else { // Response from SS API alone
-		// 		if(resp && resp.status) {
-		// 			var statusApiIntegration = "";
-		// 			if(resp.message) {
-		// 				statusApiIntegration = resp.message;
-		// 			}
-		// 			else {
-		// 				statusApiIntegration = resp.status == "success" ? "Success from SSAPI" : "Failure in SSAPI";
-		// 			}
-		// 		    //alert(statusApiIntegration);
-		// 		}
-		// 	}
-		// }
-    // }, (err) => {
-    //   console.log(err);
-		// });
+		};
+	    return this.demoService.confirmOrderfromService(this.orderInfo, jwt).subscribe((resp) => {
+			this.demoService.loading = false;
+			if(resp) { // If response from API
+				if(resp.data && resp.data[0] && resp.data[0].orderId) { // If response has OrderId
+					var orderId = resp.data[0].orderId;
+					// Insert into DynamodB with OrderId for SS & others
+					var params = {
+						"id": orderId
+					};
+					// if(resp.status == "success" && resp.SS_OrderNumber) {
+					// 	params["SS_OrderNumber"] = resp.SS_OrderNumber;
+					// 	// params["SS_OrderNumber"] = "5331014";
+					// }
+					if(resp.data[0].SS_OrderNumber) {
+						params["SS_OrderNumber"] = resp.data[0].SS_OrderNumber;
+					}
+					console.log('first db parammmm', params);
+					this.demoService.updateRecordinDB(params).subscribe((csvresponse) => {
+			          console.log("updated db" + csvresponse);
+			        }, (err) => {
+			          console.log(err);
+			        });
+				}
+				// if(resp.results) { // Insert CSV file into S3 for other distributors
+				if(!resp.data[0].SS_OrderNumber) {
+					var body_csv = {
+			        	"response" : resp && resp.data[0] ? resp.data[0] :''
+					}	
+			       	this.demoService.csvfileUpload(body_csv).subscribe((csvresponse) => {
+				    	console.log("CSV upload completed" + csvresponse );
+				    }, (err) => {
+				        console.log(err);
+					});
+				}
+				// }
+				/*else { // Response from SS API alone
+					if(resp && resp.status) {
+						var statusApiIntegration = "";
+						if(resp.message) {
+							statusApiIntegration = resp.message;
+						}
+						else {
+							statusApiIntegration = resp.status == "success" ? "Success from SSAPI" : "Failure in SSAPI";
+						}
+					    //alert(statusApiIntegration);
+					}
+				}*/
+			}
+	    }, (err) => {
+	    	console.log(err);
+		});
 	}
 
 	checkSSQuantity(): Observable < any >{
