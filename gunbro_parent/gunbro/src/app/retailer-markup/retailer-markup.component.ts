@@ -95,18 +95,23 @@ export class RetailerMarkupComponent implements OnInit {
         if (retailerForm.valid) {
             let userDetailsMap:any=localStorage.getItem("User_Information");
             var role_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].role_id : "";      
+            var entity_type=localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].entity_type : "";      
             let postMap= {
                 "role_id": role_id,
                 "user": {
-                    "user_name": retailerInfoMap.emailId,
-                    "password": retailerInfoMap.userPassword2,
-                    "email": retailerInfoMap.emailId,
-                    "first_name": retailerInfoMap.firstName,
-                    "last_name": retailerInfoMap.lastName,
-                    "role_id": constant.userRoles.retailerAdminUser,
-                    "phone_number":retailerInfoMap.phoneNumber
+                    entity_type:entity_type,
+                    user_name: retailerInfoMap.emailId,
+                    email: retailerInfoMap.emailId,
+                    first_name: retailerInfoMap.firstName,
+                    last_name: retailerInfoMap.lastName,
+                    role_id: constant.userRoles.retailerAdminUser,
+                    phone_number:retailerInfoMap.phoneNumber,
+                    retailer_name:retailerInfoMap.retailerName,
+                    retailer_address:retailerInfoMap.retailerAddress
                 }
             }
+            //                    "password": retailerInfoMap.userPassword2,
+
             this.demoService.loading=true;
             this.demoService.getSessionToken().subscribe((response) => {
                 if (response.getIdToken().getJwtToken()) {
@@ -129,5 +134,8 @@ export class RetailerMarkupComponent implements OnInit {
 
         }
     }
-
+    showOrHideCreateEmployee(event) {
+        event.stopPropagation();
+        this.demoService.showNav = !this.demoService.showNav;
+      }
 }

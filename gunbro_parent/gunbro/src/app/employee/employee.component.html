@@ -6,10 +6,9 @@
           <h3 class="ac-page-title">Employee Management</h3>
         </div>
         <div class="col-xs-12 col-sm-3 col-lg-3 text-right xs-text-left">
-          <button  class="ac-button-outlined " (click)="showOrHideCreateEmployee($event)"><i style="display: inline-block;font-size: 22px;    font-style: normal; padding-right: 5px;vertical-align: top;">+</i>CREATE NEW</button>
+          <button *ngIf="role_id!=3"  class="ac-button-outlined " (click)="showOrHideCreateEmployee($event)"><i style="display: inline-block;font-size: 22px;    font-style: normal; padding-right: 5px;vertical-align: top;">+</i>CREATE NEW</button>
         </div>
       </div>
-
       <div class="row" *ngIf= "demoService.usersList && demoService.usersList.data">
       <div ><!-- Employee Listing -->
         <div class="col-xs-12 col-sm-12 col-lg-12 ac-employee-listing" >
@@ -35,7 +34,7 @@
 
 <!-- CREATE NEW EMPLOYEE : START -->
 <div class="ac-create-employee-drawer" style="right:-400px;opacity:0;">
-    <span class="ac-create-employee-head">
+    <span  class="ac-create-employee-head">
       <a href="javascript:void(0);" class="ac-close-employee-drawer" (click)="showOrHideCreateEmployee($event)"></a>
       <h4>Add Employee</h4>
     </span>
@@ -54,7 +53,7 @@
           <div class="check"></div>
         </span>
       </div>
-    <form class="ac-create-employee-body store-admin-form" *ngIf="userPostMap.userRole==1&&role_id==4" (ngSubmit)="createStoreAdmin(userPostMap,createStoreAdminForm);createStoreAdminForm.resetForm();" #createStoreAdminForm="ngForm">
+    <form class="ac-create-employee-body store-admin-form" *ngIf="userPostMap.userRole==1&&role_id==4" (ngSubmit)="createUser(userPostMap,createStoreAdminForm);createStoreAdminForm.resetForm();" #createStoreAdminForm="ngForm">
       <div class="form-group">
         <label for="usr_firstname">FIRST NAME</label>
         <input  type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="userPostMap.firstName" minlength="3" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
@@ -101,7 +100,7 @@
             Please select any store
           </div>
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="usr_password">PASSWORD</label>
         <input  type="password" class="form-control" placeholder="Enter your password" id="userPassword1" name="userPassword1" [(ngModel)]="userPostMap.userPassword1" minlength="8" pattern='^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$'    #userPassword1="ngModel" required>
         <div class="invalidField" *ngIf="userPassword1.invalid && userPassword1.dirty">
@@ -114,13 +113,13 @@
         <div class="invalidField" *ngIf="!isPasswordMismatch&&userPassword2.dirty&&userPassword2.invalid">
             Password Mismatch 
           </div>
-      </div>
+      </div> -->
       <span class="ac-create-employee-foot">
         <button type="submit" [disabled]="createStoreAdminForm.invalid" class="btn btn-default">CREATE EMPLOYEE</button>
       </span>
     </form>
 
-    <form class="ac-create-employee-body store-user-form" *ngIf="userPostMap.userRole==2" (ngSubmit)="createStoreUser(userPostMap,createStoreUserForm);createStoreUserForm.resetForm();" #createStoreUserForm="ngForm">
+    <form class="ac-create-employee-body store-user-form" *ngIf="userPostMap.userRole==2" (ngSubmit)="createUser(userPostMap,createStoreUserForm);createStoreUserForm.resetForm();" #createStoreUserForm="ngForm">
         <div class="form-group">
             <label for="usr_firstname">FIRST NAME</label>
             <input  type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="userPostMap.firstName" minlength="3" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
@@ -158,7 +157,7 @@
                   Please select any store
                 </div>
             </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
           <label for="usr_password">PASSWORD</label>
           <input  type="password" class="form-control" placeholder="Enter your password" id="userPassword1" name="userPassword1" [(ngModel)]="userPostMap.userPassword1" minlength="8" pattern='^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$'    #userPassword1="ngModel" required>
           <div class="invalidField" *ngIf="userPassword1.invalid && userPassword1.dirty">
@@ -171,9 +170,9 @@
           <div class="invalidField" *ngIf="!isPasswordMismatch&&userPassword2.dirty&&userPassword2.invalid">
               Password Mismatch 
             </div>
-        </div>
+        </div> -->
       <span class="ac-create-employee-foot">
-        <button type="submit" class="btn btn-default">CREATE EMPLOYEE</button>
+        <button [disabled]="createStoreUserForm.invalid" type="submit" class="btn btn-default">CREATE EMPLOYEE</button>
       </span>
     </form>
   </div>
