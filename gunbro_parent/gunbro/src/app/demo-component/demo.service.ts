@@ -712,6 +712,7 @@ export class DemoService {
                 this.createUserMessage = "";
                 this.createUserStatus = ""
                 if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {
+                    this.createUserPopup = true;
                     this.createUserMessage = "Congratulations!! You have successfully added user. Email has been sent to his email id!";
                     this.createUserStatus = "SUCCESS"
                     console.info("success");
