@@ -84,7 +84,7 @@ export class DashboardComponentComponent implements OnInit {
     this.userDetails.first_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).first_name : "";
     this.userDetails.last_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).last_name : "";
     this.userId = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id: "";
-    this.loggedInUserRole=this.userGroup.toLocaleUpperCase();
+    this.loggedInUserRole=this.userGroup.toLocaleUpperCase() ? this.userGroup.toLocaleUpperCase():"USER";
     
   }
 
