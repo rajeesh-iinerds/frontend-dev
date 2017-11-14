@@ -6,7 +6,7 @@
         <h3 class="ac-page-title">Retailers</h3>
       </div>
       <div class="col-xs-12 col-sm-3 col-lg-3 text-right xs-text-left">
-        <a (click)="showOrHideCreateEmployee($event)" href="javascript:void(0);" class="ac-button-outlined ac-create-employee"><i>+</i>CREATE NEW</a>
+        <a (click)="showOrHideCreateEmployee($event);" href="javascript:void(0);" class="ac-button-outlined ac-create-employee"><i>+</i>CREATE NEW</a>
       </div>
       <div class="col-xs-12 col-sm-3 col-lg-3"><!-- Solve E=mc2 --></div>
     </div>
@@ -49,7 +49,7 @@
   <div class="ac-create-employee-drawer" (click)="$event.stopPropagation();" style="right:-400px;opacity:0;">
     <span class="ac-create-employee-head">
       <a (click)="showOrHideCreateEmployee($event)" href="javascript:void(0);" class="ac-close-employee-drawer"></a>
-      <h4>Add User</h4>
+      <h4>Create Retailer</h4>
     </span>
     <!-- <div class="form-group" style="margin-bottom: 0px;color: #595959;float: left;font-size: 9px;width: 100%;font-weight: 600;padding: 0 20px;">
         <label>USER TYPE</label>
