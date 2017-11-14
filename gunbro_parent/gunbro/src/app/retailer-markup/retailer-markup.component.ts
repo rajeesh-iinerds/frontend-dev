@@ -94,6 +94,7 @@ export class RetailerMarkupComponent implements OnInit {
             if (this.retailerDetails[i].retailerId == retailerId) {
                 this.demoService.setRetailerIdforCategory(retailerId);
                 this.router.navigate(['/dashboard/RetailerSingle']);
+                return;
             } else {
                 this.router.navigate(['/dashboard/RetailerMarkup']);
             }
