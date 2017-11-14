@@ -151,6 +151,7 @@ export class DashboardComponentComponent implements OnInit {
       this.demoService.showRetailerProfile = true;
       event.stopPropagation()
       this.retailerProfileDetails = {};
+      this.demoService.loading = true;
       return this.demoService.getSessionToken().subscribe((response) => {
         if(response.getIdToken().getJwtToken()) {
             const jwt = response.getIdToken().getJwtToken();
@@ -195,6 +196,7 @@ export class DashboardComponentComponent implements OnInit {
 
     // Method for updating retailer profile
      updateRetailerProfile(retailer){
+      this.demoService.loading = true;
       return this.demoService.getSessionToken().subscribe((response) => {
         if(response.getIdToken().getJwtToken()) {
           const jwt = response.getIdToken().getJwtToken();
