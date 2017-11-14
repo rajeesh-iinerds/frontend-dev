@@ -421,7 +421,7 @@
   cursor: pointer;
   float: right;
   margin: 10px 0 0 0;
-  padding-right: 20px;
+  padding-right: 60px;
   position: relative;
   text-align: left;
 }
@@ -2280,6 +2280,10 @@ span.addRetailerCloseDrawer {
 }
 /*profile page ends*/
 /*edit profile start*/
+.firstname-field,.lastname-field{
+  float: left;
+  width: 50%;
+}
 input.editableName{
   width: 100%;
   text-align: center;
@@ -2820,6 +2824,10 @@ button.markup-apply-all[disabled] {
     line-height: 25px;
     padding: 5px;
     width: 48%;
+}
+.noDetails{
+  padding: 16px;
+  color: #32d0ff;
 }
 /*store locations end*/
 

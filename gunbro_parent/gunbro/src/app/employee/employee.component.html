@@ -1,6 +1,6 @@
 <div class="">
   <div class="">
-    <div class="container-fluid" (click)="this.demoService.showNav=false">
+    <div class="container-fluid" (click)="this.demoService.showNav=false || demoService.showRetailerProfile = false;">
       <div class="row"><!-- Page Title -->
         <div class="col-xs-12 col-sm-9 col-lg-9 text-left">
           <h3 class="ac-page-title">Employee Management</h3>
@@ -36,7 +36,7 @@
 <div class="ac-create-employee-drawer" style="right:-400px;opacity:0;">
     <span  class="ac-create-employee-head">
       <a href="javascript:void(0);" class="ac-close-employee-drawer" (click)="showOrHideCreateEmployee($event)"></a>
-      <h4>Add Employee</h4>
+      <h4>Create User</h4>
     </span>
     <div *ngIf="role_id==4" class="form-group" style="margin-bottom: 0px;color: #595959;float: left;font-size: 9px;width: 100%;font-weight: 600;padding: 0 20px;">
         <label>USER TYPE</label>
@@ -77,7 +77,7 @@
       </div>
       <div class="form-group">
         <label for="usr_emailid">PHONE NUMBER</label>
-        <input  type="number" class="form-control" placeholder="Enter your phone number" id="phoneNumber" name="phoneNumber" [(ngModel)]="userPostMap.phoneNumber"   #phoneNumber="ngModel" required>
+        <input pattern="^(0|[1-9][0-9]*)$" type="text" class="form-control" placeholder="Enter your phone number" id="phoneNumber" name="phoneNumber" [(ngModel)]="userPostMap.phoneNumber"   #phoneNumber="ngModel" required>
         <div class="invalidField" *ngIf="phoneNumber.invalid && phoneNumber.dirty">
             Invalid Phone Number
           </div>
@@ -143,7 +143,7 @@
           </div>
           <div class="form-group">
             <label for="usr_emailid">PHONE NUMBER</label>
-            <input  type="number" class="form-control" placeholder="Enter your phone number" id="phoneNumber" name="phoneNumber" [(ngModel)]="userPostMap.phoneNumber"   #phoneNumber="ngModel" required>
+            <input pattern="^(0|[1-9][0-9]*)$" type="text" class="form-control" placeholder="Enter your phone number" id="phoneNumber" name="phoneNumber" [(ngModel)]="userPostMap.phoneNumber"   #phoneNumber="ngModel" required>
             <div class="invalidField" *ngIf="phoneNumber.invalid && phoneNumber.dirty">
                 Invalid Phone Number
               </div>

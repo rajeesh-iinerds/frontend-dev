@@ -33,7 +33,7 @@ export class DistributorMarkupComponent implements OnInit {
 		    let headers = new Headers({'Authorization': this.jwt });
 	        let options = new RequestOptions({ headers: headers });
 	        var  reqBody = {
-	        	"retailerId": "1",
+	        	"retailerId": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "",
 				"action": "getDistributorsList"
 	        };
 
