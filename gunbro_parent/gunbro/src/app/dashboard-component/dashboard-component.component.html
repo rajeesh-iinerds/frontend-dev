@@ -174,9 +174,8 @@
                <!-- <input class="editableContacts" type="text" name="" *ngIf="demoService.showEditRetailerView == true" value="{{editRetailerProfileDetails.UserEmail}}"> -->
                 <div class="contact-info-wrapper" *ngIf="demoService.showEditRetailerView == true">{{retailer.UserEmail}}</div>
               
-              <div class="contact-info-wrapper contact-call" >
-
-               <input class="editableContacts" type="number" id="phone_number" [(ngModel)]= "retailer.UserPhone" name="phone_number" required pattern="[0-9]*" minlength="1" maxlength="10" #phone_number="ngModel"> 
+                <div class="contact-info-wrapper contact-call" >
+              <input class="editableContacts" type="number" placeholder="Enter your phone number" id="phone_number" [(ngModel)]= "retailer.UserPhone" name="phone_number" required pattern="[0-9]*" minlength="1" maxlength="10" #phone_number="ngModel"> 
                <div *ngIf= "phone_number.errors && (phone_number.dirty || phone_number.touched)" class="ac-required-field">
                   <div [hidden]="!phone_number.errors.minlength">
                     Phone # must be 10 characters long.
