@@ -662,6 +662,7 @@ export class DemoService {
                     console.info("success");
                     this.showNav = !this.showNav;
                 } else {
+                    this.createUserPopup = true;
                     this.createUserMessage = this.results.status.message.message + " ! ";
                     this.createUserStatus = "SORRY";
                 }

@@ -50,6 +50,7 @@
             <i class="glyphicon glyphicon-menu-down"></i>
           </span>
           <h3 *ngIf="userDetails">{{userDetails.first_name }} {{userDetails.last_name}}</h3>
+          <span class="label userRolePlaceholder">{{loggedInUserRole}}</span>
           <span class="ac-user-drop-wrap" style="display: none;">
             <ul class="ac-user-dropdown">
                 <li><a (click) = "retailerProfile($event)">My Profile</a></li>
@@ -179,7 +180,7 @@
               
               <div class="contact-info-wrapper contact-call" >
 
-               <input class="editableContacts" type="number" id="phone_number" [(ngModel)]= "retailer.UserPhone" name="phone_number" required pattern="[0-9]*" minlength="1" maxlength="10" #phone_number="ngModel"> 
+               <input class="editableContacts" type="number" id="phone_number" placeholder="Enter your phone number" [(ngModel)]= "retailer.UserPhone" name="phone_number" required pattern="[0-9]*" minlength="1" maxlength="10" #phone_number="ngModel"> 
                <div *ngIf= "phone_number.errors && (phone_number.dirty || phone_number.touched)" class="ac-required-field">
                   <div [hidden]="!phone_number.errors.minlength">
                     Phone # must be 10 characters long.

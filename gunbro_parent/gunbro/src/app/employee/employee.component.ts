@@ -32,6 +32,7 @@ export class EmployeeComponent implements OnInit {
     } else {
       this.userPostMap.userRole = 2;
     }
+    
     this.demoService.getSessionToken().subscribe((response) => {
       if (response.getIdToken().getJwtToken()) {
         const jwt = response.getIdToken().getJwtToken();

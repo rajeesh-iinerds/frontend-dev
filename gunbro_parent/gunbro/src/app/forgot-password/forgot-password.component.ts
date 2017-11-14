@@ -8,6 +8,7 @@ import {
     Response,
     RequestOptions
 } from '@angular/http';
+import { Location }   from '@angular/common';
 import {
     DemoService
 } from '../demo-component/demo.service';
@@ -19,9 +20,10 @@ import {
 export class ForgotPasswordComponent implements OnInit {
     public ac_email_forgot: any;
     public results_forgot: any;
-    constructor(private http: Http, public demoService: DemoService) {}
+    constructor(private http: Http, public demoService: DemoService,location: Location) {}
     ngOnInit() {}
     sendMailForgot() {  
+	   
         this.demoService.loading = true;	
         let headers = new Headers({});
         let options = new RequestOptions({
@@ -32,6 +34,7 @@ export class ForgotPasswordComponent implements OnInit {
         var reqBody = {
             "userPoolId": "us-east-1_Q3sA5af5A",
             "userName": this.ac_email_forgot,
+			"domain": location.host,
             "triggerSource": "CustomMessage_AppcoForgotPwd",
             "callerContext": {
                 "ClientId": "7iaf7o5ja7su88mjb8du0pqigv"
