@@ -11,6 +11,7 @@
         </div>
       </div>
       <div class="row"><!-- Employee Listing -->
+      <div *ngIf="demoService.retailerCategory && !demoService.retailerCategory.length" class="noDetails"> No Details Found</div>
         <div class="col-xs-12 col-sm-12 col-lg-12 ac-distributor-listing">
             <!-- Distributor Product Cards Start -->
           <div class="ac-distributor-cards" *ngFor="let retailer of demoService.retailerCategory">
