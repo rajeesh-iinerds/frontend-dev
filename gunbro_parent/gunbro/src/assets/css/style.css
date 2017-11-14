@@ -2825,6 +2825,10 @@ button.markup-apply-all[disabled] {
     padding: 5px;
     width: 48%;
 }
+.noDetails{
+  padding: 16px;
+  color: #32d0ff;
+}
 /*store locations end*/
 
 

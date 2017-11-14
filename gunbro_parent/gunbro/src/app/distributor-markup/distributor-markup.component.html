@@ -8,6 +8,7 @@
           </div>
           <div class="row"><!-- Employee Listing -->
             <div class="col-xs-12 col-sm-12 col-lg-12 ac-distributor-listing">
+            <div *ngIf="results_markup && !results_markup.distributors.length" class="noDetails"> No Details Found</div>
               
               <!-- Distributor Cards Start -->
               <div class="ac-distributor-cards">
