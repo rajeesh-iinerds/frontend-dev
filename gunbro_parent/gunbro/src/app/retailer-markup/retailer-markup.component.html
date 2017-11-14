@@ -81,14 +81,14 @@
           Please Enter characters with Minimum length 3
         </div>
       </div>
-      <div class="form-group" *ngIf="role_id!=4">
+      <div class="form-group" *ngIf="role_id!='4'">
         <label for="firstName">RETAILER NAME</label>
         <input  type="text" class="form-control" placeholder="Enter retailer name" id="retailerName" name="retailerName" [(ngModel)]="retailerInfo.retailerName" minlength="3" pattern="[a-zA-Z ]*"  #retailerName="ngModel" required>
         <div class="invalidField" *ngIf="retailerName.invalid && retailerName.dirty">
           Please Enter characters with Minimum length 3
         </div>
       </div>
-      <div class="form-group" *ngIf="role_id!=4">
+      <div class="form-group" *ngIf="role_id!='4'">
         <label for="retailerAddress">RETAILER ADDRESS</label>
         <textarea  type="text" class="form-control" placeholder="Enter retailer address" id="retailerAddress" name="retailerAddress" [(ngModel)]="retailerInfo.retailerAddress" minlength="3" pattern="[a-zA-Z ]*"  #retailerAddress="ngModel" required></textarea>
         <div class="invalidField" *ngIf="retailerAddress.invalid && retailerAddress.dirty">

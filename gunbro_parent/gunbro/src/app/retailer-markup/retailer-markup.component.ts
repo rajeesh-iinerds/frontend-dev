@@ -33,10 +33,12 @@ export class RetailerMarkupComponent implements OnInit {
     retailerList: any;
     allretailerList: any;
     retailerInfo: any = {};
+    role_id:any;
     isPasswordMismatch: Boolean;
     constructor(private http: Http, private router: Router, public demoService: DemoService) { }
 
     ngOnInit() {
+        this.role_id=localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].role_id : "";      
         this.listRetailorDetails().subscribe((response) => {
             console.log("function call retailer detailes : " + JSON.stringify(response));
         },
