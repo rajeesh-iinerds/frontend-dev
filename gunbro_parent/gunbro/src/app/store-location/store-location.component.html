@@ -19,7 +19,7 @@
 
                   <!-- Single Card Start -->
                   <div *ngIf="retailerStoreDetails && retailerStoreDetails.length >0">
-                  <div class="ac-distributor-card" *ngFor="let store of retailerStoreDetails">
+                  <div class="ac-distributor-card" (click) = "viewStore(store.StoreId, $event)" *ngFor="let store of retailerStoreDetails">
                     <div class="storelocation-clickable">
                        <h4>{{store.StoreName}}</h4>
                        <div class="storeImg">
