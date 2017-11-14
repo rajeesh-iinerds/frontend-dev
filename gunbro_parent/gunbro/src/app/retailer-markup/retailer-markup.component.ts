@@ -20,7 +20,7 @@ import {
     DemoService
 } from '../demo-component/demo.service';
 import * as constant from '../shared/config';
-import {FormBuilder, Validators} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-retailer-markup',
@@ -33,17 +33,23 @@ export class RetailerMarkupComponent implements OnInit {
     retailerList: any;
     allretailerList: any;
     retailerInfo: any = {};
-    role_id:any;
+    role_id: any;
+    role_name:any;
     isPasswordMismatch: Boolean;
     constructor(private http: Http, private router: Router, public demoService: DemoService) { }
 
     ngOnInit() {
-        this.role_id=localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].role_id : "";      
+        
+
+
         this.listRetailorDetails().subscribe((response) => {
             console.log("function call retailer detailes : " + JSON.stringify(response));
         },
             (err) => console.error(err)
         );
+        this.role_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].role_id : "";
+        
+        console.info(this.role_name);
     }
 
 
@@ -94,39 +100,40 @@ export class RetailerMarkupComponent implements OnInit {
         }
     }
     createRetailer(retailerInfoMap, retailerForm) {
+        
         if (retailerForm.valid) {
-            let userDetailsMap:any=localStorage.getItem("User_Information");
-            var role_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].role_id : "";      
-            var entity_type=localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].entity_type : "";      
-            let postMap= {
+            let userDetailsMap: any = localStorage.getItem("User_Information");
+            var role_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].role_id : "";
+            var entity_type = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].entity_type : "";
+            let postMap = {
                 "role_id": role_id,
                 "user": {
-                    entity_type:entity_type,
+                    entity_type: entity_type,
                     user_name: retailerInfoMap.emailId,
                     email: retailerInfoMap.emailId,
                     first_name: retailerInfoMap.firstName,
                     last_name: retailerInfoMap.lastName,
                     role_id: constant.userRoles.retailerAdminUser,
-                    phone_number:retailerInfoMap.phoneNumber,
-                    retailer_name:retailerInfoMap.retailerName,
-                    retailer_address:retailerInfoMap.retailerAddress
+                    phone_number: retailerInfoMap.phoneNumber,
+                    retailer_name: retailerInfoMap.retailerName,
+                    retailer_address: retailerInfoMap.retailerAddress
                 }
             }
             //                    "password": retailerInfoMap.userPassword2,
 
-            this.demoService.loading=true;
+            this.demoService.loading = true;
             this.demoService.getSessionToken().subscribe((response) => {
                 if (response.getIdToken().getJwtToken()) {
                     const jwt = response.getIdToken().getJwtToken();
                     //logged user role is third argument
-                    this.demoService.createUser(jwt,postMap,constant.userRoles.superAdminUser);
+                    this.demoService.createUser(jwt, postMap, constant.userRoles.superAdminUser);
                 }
             });
-            
+
 
         }
     }
-    
+
     validatePasswordMatch(retailerInfoMap, userPasswordFormObject) {
 
         if (retailerInfoMap.userPassword1 === retailerInfoMap.userPassword2) {
@@ -139,5 +146,7 @@ export class RetailerMarkupComponent implements OnInit {
     showOrHideCreateEmployee(event) {
         event.stopPropagation();
         this.demoService.showNav = !this.demoService.showNav;
-      }
+    }
+        
+    
 }
