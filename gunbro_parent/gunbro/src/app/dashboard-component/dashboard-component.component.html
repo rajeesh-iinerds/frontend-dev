@@ -148,14 +148,16 @@
               <div class="clearfix"></div>
             
           
-             <input type="text" class="editableName pull-left" id="fname"  name="fname"  [(ngModel)]="retailer.FirstName" pattern="[a-zA-Z ]*" #fname="ngModel" required style="width:48%;text-align:right;">
+             <div class="firstname-field">
+               <input type="text" class="editableName pull-left" id="fname"  name="fname" placeholder="Enter first Name"  [(ngModel)]="retailer.FirstName" pattern="[a-zA-Z ]*" #fname="ngModel" required style="width:98%;border: 1px solid #dddddd;height: 30px;">
              <div *ngIf= "fname.errors  && (fname.dirty || fname.touched)" class="ac-required-field">
                 <div [hidden]="!fname.errors.pattern">
                   Numbers not allowed!
                 </div>
               </div>
-              
-             <input type="text" class="editableName pull-right" id="usr_lastname" [(ngModel)]="retailer.LastName"  name="usr_lastname"  pattern="[a-zA-Z][a-zA-Z ]+" required minlength="1" maxlength="10" #usr_lastname="ngModel" style="width:48%;text-align:left;"> 
+              </div>
+              <div class="lastname-field">
+             <input type="text" class="editableName pull-right" id="usr_lastname" placeholder="Enter Last Name" [(ngModel)]="retailer.LastName"  name="usr_lastname"  pattern="[a-zA-Z ]*" required maxlength="10" #usr_lastname="ngModel" style="width:98%;border: 1px solid #dddddd;height: 30px;">
              <!-- <input type="text" class="form-control" placeholder="Enter your last name" id="usr_lastname" [(ngModel)]="lastName" name="usr_lastname" pattern="[a-zA-Z][a-zA-Z ]+" required minlength="1" maxlength="10" #usr_lastname="ngModel"> -->
              <!-- <span>San Francisco,United States</span> -->
              <div *ngIf= "usr_lastname.errors && (usr_lastname.dirty || usr_lastname.touched)" class="ac-required-field">
@@ -167,6 +169,7 @@
                   Numbers not allowed!
                 </div>
               </div>
+             </div>
             </div>
             
             <div class="clearfix"></div>

@@ -2280,6 +2280,10 @@ span.addRetailerCloseDrawer {
 }
 /*profile page ends*/
 /*edit profile start*/
+.firstname-field,.lastname-field{
+  float: left;
+  width: 50%;
+}
 input.editableName{
   width: 100%;
   text-align: center;
