@@ -25,7 +25,7 @@ import * as constant from '../shared/config';
 })
 export class RetailerSingleComponent implements OnInit {
   updateMarkupPopup: boolean = false;
-  hideApplyEvent: boolean;
+ // hideApplyEvent: boolean;
   temp: {
       "categoryId": ''
   };
@@ -40,12 +40,20 @@ export class RetailerSingleComponent implements OnInit {
   markupUpdate: any;
   markup: any;
   retailerCategory: any;
+  MarkupApplied: any;
+  MarkupAppliedAll : any;
 
-  constructor(public demoService: DemoService, private router: Router, private http: Http) {}
+  constructor(public demoService: DemoService, private router: Router, private http: Http) {
+    this.demoService.showRetailerProfile = false;
+   
+  }
 
   ngOnInit() {
       //Service function for listing retailers
       this.demoService.listRetailer();
+     
+     this.MarkupApplied = true;
+     this.MarkupAppliedAll = true;
   }
 
   // Method for showing markup
@@ -57,6 +65,9 @@ export class RetailerSingleComponent implements OnInit {
   viewMarkupForm(category) {
       this.viewtemp = category;
       this.markupUpdate = category.markup;
+      console.log("markup update : " + this.markupUpdate);
+
+     // this.hideApplyEvent = this.markupUpdate !=null ? true : false;
       this.markup = '';
   }
 
@@ -74,7 +85,10 @@ export class RetailerSingleComponent implements OnInit {
   applyMarkupEvent(markup, retailer, flag, tempFlag, categoryId) {
       this.applyFlag = flag && flag == "single" ? "single" : "all";
       this.categoryId = categoryId ? categoryId : "";
-      this.hideApplyEvent = tempFlag == "applyAll" || tempFlag == "apply" ? true : false;
+     // this.hideApplyEvent = tempFlag == "applyAll" || tempFlag == "apply" || tempFlag == "Update" || tempFlag == "UpdateAll"? true : false;
+
+      //console.log("this.hide apply : " + this.hideApplyEvent);
+    
       this.demoService.loading = true;
 
       return this.demoService.getSessionToken().subscribe((response) => {

@@ -36,7 +36,9 @@ export class RetailerMarkupComponent implements OnInit {
     role_id: any;
     role_name:any;
     isPasswordMismatch: Boolean;
-    constructor(private http: Http, private router: Router, public demoService: DemoService) { }
+    constructor(private http: Http, private router: Router, public demoService: DemoService) { 
+        this.demoService.showRetailerProfile = false;
+    }
 
     ngOnInit() {
         

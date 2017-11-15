@@ -27,7 +27,8 @@ export class DistributorCategoryComponent implements OnInit {
 	setMarkupValue: any;
 
   	constructor(private route: ActivatedRoute, private router: Router, public demoService: DemoService, private http: Http) {
-  	}
+		this.demoService.showRetailerProfile = false;
+	}
 
 	ngOnInit() {
 	  	this.route.queryParams.subscribe((params: Params) => {
