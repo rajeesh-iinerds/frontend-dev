@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { ProductSearchComponent } from '../product-search/product-search.component';
 import { DemoService } from '../demo-component/demo.service';
 import * as constant from '../shared/config';
@@ -46,7 +46,7 @@ results: any;
 	selectedStore: any;
 	getStoreDetails : boolean = false;
 	userDetails: any;
-  	constructor(public searchComponent: ProductSearchComponent, public demoService: DemoService, private http:Http) {
+  	constructor(private route: ActivatedRoute,private router: Router,public searchComponent: ProductSearchComponent, public demoService: DemoService, private http:Http) {
 		this.selectedQuantity = 1;
 		this.ffl = "5-76-339-07-6M-02775";
 		this.amount = demoService.productInfo && demoService.productInfo.productPrice ? demoService.productInfo.productPrice : '';
@@ -55,6 +55,7 @@ results: any;
 
 	ngOnInit() {
 			this.demoService.showPopup = false;
+			this.demoService.productInfo = this.route.snapshot.queryParams?this.route.snapshot.queryParams:"";
 			this.userDetails = {};
 			this.userDetails.first_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).first_name : "";
 			this.userDetails.last_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).last_name : "";

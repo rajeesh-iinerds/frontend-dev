@@ -37,7 +37,7 @@
                     <span class="ac-prod-cost">Base Price<strong><em>$</em>{{demoService.productInfo && demoService.productInfo.retailerPrice ? demoService.productInfo.retailerPrice : 0}}</strong></span>
                     
                     <span class="ac-prod-cost">Retailer Markup<strong><em>$</em>{{demoService.productInfo && demoService.productInfo.retailerMarkup ? demoService.productInfo.retailerMarkup : 0}}%</strong></span>
-                    <span class="ac-prod-cost">Amount Payable<strong><em>$</em>{{ amount | number : '1.2-2'}}</strong></span>
+                    <span class="ac-prod-cost">Amount Payable<strong><em>$</em>{{demoService.productInfo && demoService.productInfo.productPrice ? demoService.productInfo.productPrice : 0 | number : '1.2-2'}}</strong></span>
                 </div>
                 <!-- <div class="ac-prod-buying-options" *ngIf="(demoService.productInfo && demoService.productInfo.inStock && demoService.productInfo.inStock > '0') || (ssProductQuantity && ssProductQuantity >'0')">
                     <input type="number" name="quantity" min="1" max="{{demoService.productInfo.inStock || ssProductQuantity}} " [(ngModel)]="selectedQuantity" (ngModelChange)="onQuantityChange($event)">
