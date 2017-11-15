@@ -26,6 +26,7 @@ export class EmployeeComponent implements OnInit {
   configSuperAdminUserGroup: string;
 
   constructor(public demoService: DemoService, private http: Http) {
+    this.demoService.showRetailerProfile = false;
   }
 
   ngOnInit() {
