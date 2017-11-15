@@ -27,6 +27,7 @@ export class EmployeeComponent implements OnInit {
 
   constructor(public demoService: DemoService, private http: Http) {
     this.demoService.showRetailerProfile = false;
+    this.demoService.showNav = false;
   }
 
   ngOnInit() {

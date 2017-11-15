@@ -55,6 +55,7 @@ results: any;
 
 	ngOnInit() {
 			this.demoService.showPopup = false;
+			this.demoService.showclickorder = false;
 			this.demoService.productInfo = this.route.snapshot.queryParams?this.route.snapshot.queryParams:"";
 			this.userDetails = {};
 			this.userDetails.first_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).first_name : "";

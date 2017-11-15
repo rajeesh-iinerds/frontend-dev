@@ -1,6 +1,6 @@
 <div class="">
   <div class="">
-    <div class="container-fluid" (click)="this.demoService.showNav=false || demoService.showRetailerProfile = false;">
+    <div class="container-fluid" (click)="this.demoService.showNav = false || demoService.showRetailerProfile = false;">
       <div class="row"><!-- Page Title -->
         <div class="col-xs-12 col-sm-9 col-lg-9 text-left">
           <h3 class="ac-page-title">Employee Management</h3>
@@ -52,6 +52,7 @@
 <!-- Main Section End -->
 
 <!-- CREATE NEW EMPLOYEE : START -->
+<div *ngIf="this.demoService.showNav == true">
 <div class="ac-create-employee-drawer" style="right:-400px;opacity:0;">
     <span  class="ac-create-employee-head">
       <a href="javascript:void(0);" class="ac-close-employee-drawer" (click)="showOrHideCreateEmployee($event)"></a>
@@ -205,10 +206,11 @@
       </span>
     </form>
   </div>
+  </div>
 <!-- CREATE NEW EMPLOYEE : END -->
 
 
-<div class="ac-actions-overlay" style="display:none;"></div>
+
 
 
 <div class="row fadebg" [class.show]="demoService.createUserPopup"></div>
@@ -225,4 +227,4 @@
   </div>
   
 </div>
-<div class="ac-actions-overlay" style="display:none;" (click)="this.demoService.showNav=false || demoService.showRetailerProfile = false;"></div>
+<!-- <div class="ac-actions-overlay" style="display:none;" (click)="this.demoService.showNav=false || demoService.showRetailerProfile = false;"></div> -->

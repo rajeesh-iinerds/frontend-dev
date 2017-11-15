@@ -40,6 +40,7 @@ export class StoreLocationComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.showCreateStore = false;
 		this.storeDetails().subscribe((response) => {
 		},
 		(err) => console.error(err)

@@ -89,7 +89,7 @@ export class OrdersComponent implements OnInit {
 // Method for viewing order details by clicking view button
    viewOrderDetails(orderID: any,event){
      event.stopPropagation()
-     this.showOrderDetails = true;
+     this.showOrderDetails = !this.showOrderDetails;
      this.selectedOrder = {};
     for(var i = 0; i < this.orderDetails.length; i++){
         if(this.orderDetails[i].OrderID == orderID){
@@ -121,7 +121,7 @@ export class OrdersComponent implements OnInit {
 
 // Closing Order list
    closeOrderList(){
-    this.showOrderDetails = false;
+    this.showOrderDetails = !this.showOrderDetails;
    }
 
 }

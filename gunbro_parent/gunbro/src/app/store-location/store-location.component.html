@@ -60,6 +60,7 @@
       <!-- Generic wrap end -->
 
     <!-- CREATE NEW STORE : START -->
+    <div *ngIf="showCreateStore == true">
     <div class="ac-create-employee-drawer ac-create-store-drawer" style="right:-400px;opacity:0;">
       <span class="placeMyOrderClose" (click) = "showCreateStore = !showCreateStore"></span>
       <form class="ac-create-employee-body" #employeeForm="ngForm">
@@ -129,9 +130,11 @@
         </span>
       </form>
     </div>
+    </div>
     <!-- CREATE NEW STORE : END -->
 
     <!-- STORE VIEW DETAILS  : START -->
+   
     <div class="ac-location-details-drawer" style="right:-400px;opacity:0;">
       <span class="placeMyOrderClose" (click) = "showViewStore = !showViewStore"></span>
       <form class="ac-create-employee-body">
@@ -182,6 +185,7 @@
         </span>
       </form>
     </div>
+   
     <!-- STORE VIEW DETAILS : END -->
 </div>
 </div>
@@ -199,4 +203,4 @@
   </div>
   
 </div>
-<div class="ac-actions-overlay" style="display:none;" (click)="popupclose() || demoService.showRetailerProfile = false;"></div>
+<!-- <div class="ac-actions-overlay" style="display:none;" (click)="popupclose() || demoService.showRetailerProfile = false;"></div> -->
