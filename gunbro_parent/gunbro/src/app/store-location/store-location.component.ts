@@ -36,6 +36,7 @@ export class StoreLocationComponent implements OnInit {
 	currentStore: any;
 
 	constructor(public demoService: DemoService , private http: Http) {
+		this.demoService.showRetailerProfile = false;
 	}
 
 	ngOnInit() {

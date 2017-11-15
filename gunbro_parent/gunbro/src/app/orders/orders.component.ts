@@ -27,7 +27,7 @@ export class OrdersComponent implements OnInit {
   configAdminUser: any;
   retailerAdminUser: any;
   constructor(public demoService: DemoService, private http: Http, private router: Router) {
- 
+    this.demoService.showRetailerProfile = false;
   }
 
   ngOnInit() {

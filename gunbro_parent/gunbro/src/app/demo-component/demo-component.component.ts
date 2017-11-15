@@ -11,6 +11,7 @@ export class DemoComponentComponent implements OnInit {
     errorMessage: string;
     jwt : string;
     constructor(public demoService: DemoService , private route: ActivatedRoute,private router: Router) {
+      this.demoService.showRetailerProfile = false;
     }
     
     ngOnInit() {

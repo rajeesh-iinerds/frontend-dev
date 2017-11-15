@@ -9,8 +9,8 @@
           <button *ngIf="role_id!=3"  class="ac-button-outlined " (click)="showOrHideCreateEmployee($event)"><i style="display: inline-block;font-size: 22px;    font-style: normal; padding-right: 5px;vertical-align: top;">+</i>CREATE USER</button>
         </div>
       </div>
-      <div class="row" *ngIf= "demoService.usersList && demoService.usersList.data">
-      <div ><!-- Employee Listing -->
+      <!-- <div class="row" *ngIf= "demoService.usersList && demoService.usersList.data">
+      <div >
         <div class="col-xs-12 col-sm-12 col-lg-12 ac-employee-listing" >
           <ul class="ac-employees-unsorted">
 
@@ -19,6 +19,25 @@
                 <span><img src="assets/demo-assets/user1.png" /></span>
                 <h4>{{user.Username}}</h4>
                 <h5>Store User</h5>
+              </a>
+            </li>            
+          </ul>
+        </div>
+        </div>
+
+      </div> -->
+      <div *ngIf="userList && !userList.users.length" class="noDetails"> No Details Found</div>
+      <div class="row" *ngIf= "userList && userList.users.length">
+      <div >
+        <div class="col-xs-12 col-sm-12 col-lg-12 ac-employee-listing" >
+          <ul class="ac-employees-unsorted">
+
+            <li *ngFor="let user of userList.users">
+              <a>
+                <span><img src="assets/default-avatar.png" /></span>
+                <h4>{{user.first_name?user.first_name:''}} {{user.last_name?user.last_name:''}}</h4>
+                <h5 *ngIf="userGroup == configSuperAdminUserGroup">{{user.retailer_name?user.retailer_name:''}}</h5>
+                <h5>{{user.role_type?user.role_type:''}}</h5>
               </a>
             </li>            
           </ul>
@@ -55,29 +74,33 @@
       </div>
     <form class="ac-create-employee-body store-admin-form" *ngIf="userPostMap.userRole==1&&role_id==4" (ngSubmit)="createUser(userPostMap,createStoreAdminForm);createStoreAdminForm.resetForm();" #createStoreAdminForm="ngForm">
       <div class="form-group">
-        <label for="usr_firstname">FIRST NAME</label>
+        <label for="usr_firstname" class="field-wrapper required-field">FIRST NAME</label>
         <input  type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="userPostMap.firstName" minlength="3" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
+        <div class="clearfix"></div>
         <div class="invalidField" *ngIf="firstName.invalid && firstName.dirty">
             Please Enter characters with Minimum length 3
           </div>
       </div>
       <div class="form-group">
-        <label for="usr_lastname">LAST NAME</label>
+        <label for="usr_lastname" class="field-wrapper required-field">LAST NAME</label>
         <input  type="text" class="form-control" placeholder="Enter your last name" id="lastName" name="lastName" [(ngModel)]="userPostMap.lastName" minlength="3" pattern="[a-zA-Z ]*"  #lastName="ngModel" required>
+        <div class="clearfix"></div>
         <div class="invalidField" *ngIf="lastName.invalid && lastName.dirty">
             Please Enter characters with Minimum length 3
           </div>
       </div>
       <div class="form-group">
-        <label for="usr_emailid">EMAIL ID</label>
+        <label for="usr_emailid" class="field-wrapper required-field">EMAIL ID</label>
         <input  type="email" class="form-control" placeholder="Enter your email address" id="emailId" name="emailId" [(ngModel)]="userPostMap.email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  #emailId="ngModel" required>
+        <div class="clearfix"></div>
         <div class="invalidField" *ngIf="emailId.invalid && emailId.dirty">
             Invalid Email
           </div>
       </div>
       <div class="form-group">
-        <label for="usr_emailid">PHONE NUMBER</label>
+        <label for="usr_emailid" class="field-wrapper required-field">PHONE NUMBER</label>
         <input pattern="^(0|[1-9][0-9]*)$" type="text" class="form-control" placeholder="Enter your phone number" id="phoneNumber" name="phoneNumber" [(ngModel)]="userPostMap.phoneNumber"   #phoneNumber="ngModel" required>
+        <div class="clearfix"></div>
         <div class="invalidField" *ngIf="phoneNumber.invalid && phoneNumber.dirty">
             Invalid Phone Number
           </div>
@@ -92,10 +115,11 @@
         </select>
       </div> -->
       <div class="form-group">
-        <label for="usr_emailid">STORE</label>
+        <label for="usr_emailid" class="field-wrapper required-field">STORE</label>
         <select class="form-control"  [(ngModel)]="userPostMap.storeId" id="storeId" name="storeId" #storeId="ngModel" required>
           <option *ngFor="let item of storeListOfMaps" [value]="item.StoreId" >{{item.StoreName}}</option>
         </select>
+        <div class="clearfix"></div>
         <div class="invalidField" *ngIf="storeId.invalid && storeId.dirty">
             Please select any store
           </div>
@@ -121,38 +145,43 @@
 
     <form class="ac-create-employee-body store-user-form" *ngIf="userPostMap.userRole==2" (ngSubmit)="createUser(userPostMap,createStoreUserForm);createStoreUserForm.resetForm();" #createStoreUserForm="ngForm">
         <div class="form-group">
-            <label for="usr_firstname">FIRST NAME</label>
+            <label for="usr_firstname" class="field-wrapper required-field">FIRST NAME</label>
             <input  type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="userPostMap.firstName" minlength="3" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
+            <div class="clearfix"></div>
             <div class="invalidField" *ngIf="firstName.invalid && firstName.dirty">
                 Please Enter characters with Minimum length 3
               </div>
           </div>
           <div class="form-group">
-            <label for="usr_lastname">LAST NAME</label>
+            <label for="usr_lastname" class="field-wrapper required-field">LAST NAME</label>
             <input  type="text" class="form-control" placeholder="Enter your last name" id="lastName" name="lastName" [(ngModel)]="userPostMap.lastName" minlength="3" pattern="[a-zA-Z ]*"  #lastName="ngModel" required>
+            <div class="clearfix"></div>
             <div class="invalidField" *ngIf="lastName.invalid && lastName.dirty">
                 Please Enter characters with Minimum length 3
               </div>
           </div>
           <div class="form-group">
-            <label for="usr_emailid">EMAIL ID</label>
+            <label for="usr_emailid" class="field-wrapper required-field">EMAIL ID</label>
             <input  type="email" class="form-control" placeholder="Enter your email address" id="emailId" name="emailId" [(ngModel)]="userPostMap.email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  #emailId="ngModel" required>
+            <div class="clearfix"></div>
             <div class="invalidField" *ngIf="emailId.invalid && emailId.dirty">
                 Invalid Email
               </div>
           </div>
           <div class="form-group">
-            <label for="usr_emailid">PHONE NUMBER</label>
+            <label for="usr_emailid" class="field-wrapper required-field">PHONE NUMBER</label>
             <input pattern="^(0|[1-9][0-9]*)$" type="text" class="form-control" placeholder="Enter your phone number" id="phoneNumber" name="phoneNumber" [(ngModel)]="userPostMap.phoneNumber"   #phoneNumber="ngModel" required>
+            <div class="clearfix"></div>
             <div class="invalidField" *ngIf="phoneNumber.invalid && phoneNumber.dirty">
                 Invalid Phone Number
               </div>
           </div>
           <div class="form-group">
-              <label for="usr_emailid">STORE</label>
+              <label for="usr_emailid" class="field-wrapper required-field">STORE</label>
               <select class="form-control"  [(ngModel)]="userPostMap.storeId" id="storeId" name="storeId" #storeId="ngModel" required>
                 <option *ngFor="let item of storeListOfMaps" [value]="item.StoreId" >{{item.StoreName}}</option>
               </select>
+              <div class="clearfix"></div>
               <div class="invalidField" *ngIf="storeId.invalid && storeId.dirty">
                   Please select any store
                 </div>
@@ -196,3 +225,4 @@
   </div>
   
 </div>
+<div class="ac-actions-overlay" style="display:none;" (click)="this.demoService.showNav=false || demoService.showRetailerProfile = false;"></div>

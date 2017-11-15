@@ -16,6 +16,7 @@ export class DashboardHomeComponent implements OnInit {
 
   constructor(private router: Router, public demoService: DemoService) { 
   this.userGroup = '';
+  this.demoService.showRetailerProfile = false;
   }
 
   ngOnInit() {

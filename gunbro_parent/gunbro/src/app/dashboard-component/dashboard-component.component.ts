@@ -69,6 +69,7 @@ export class DashboardComponentComponent implements OnInit {
     this.disableSearch = true;
     this.searchKey = '';
     this.userGroup = '';
+    this.demoService.showRetailerProfile = false;
 
   }
   
@@ -85,7 +86,8 @@ export class DashboardComponentComponent implements OnInit {
     this.userDetails.last_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).last_name : "";
     this.userId = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id: "";
     // this.loggedInUserRole=this.userGroup.toLocaleUpperCase() ? this.userGroup.toLocaleUpperCase():"USER";
-    this.loggedInUserRole = (this.userGroup.toLocaleUpperCase()=='SUPERADMIN') ? 'SUPER ADMIN' : (this.userGroup.toLocaleUpperCase()=='RETAILERADMIN') ? 'RETAILER ADMIN' : (this.userGroup.toLocaleUpperCase()=='ADMIN') ? 'STORE ADMIN' : 'USER';
+    // this.loggedInUserRole = (this.userGroup.toLocaleUpperCase()=='SUPERADMIN') ? 'SUPER ADMIN' : (this.userGroup.toLocaleUpperCase()=='RETAILERADMIN') ? 'RETAILER ADMIN' : (this.userGroup.toLocaleUpperCase()=='ADMIN') ? 'STORE ADMIN' : 'USER';
+    this.loggedInUserRole = (this.userGroup==constant.user.superadminUser) ? constant.userTypes.superadmin : (this.userGroup==constant.user.retaileradminUser) ? constant.userTypes.retaileradmin : (this.userGroup==constant.user.userGroup) ? constant.userTypes.admin : constant.userTypes.posuser;
   }
 
     clickedSearch(){

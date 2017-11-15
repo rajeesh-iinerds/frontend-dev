@@ -21,11 +21,19 @@ export class EmployeeComponent implements OnInit {
   results: any;
   storeListOfMaps: any;
   role_id: number;
+  userList: any;
+  userGroup: string;
+  configSuperAdminUserGroup: string;
+
   constructor(public demoService: DemoService, private http: Http) {
+    this.demoService.showRetailerProfile = false;
   }
 
   ngOnInit() {
-    this.demoService.listUsers();
+    // this.demoService.listUsers();
+    this.userGroup = localStorage.getItem('userGroup') && localStorage.getItem('userGroup') != 'null' ? localStorage.getItem('userGroup') : '';
+    this.configSuperAdminUserGroup =  constant.user.superadminUser && constant.user.superadminUser != 'null' ? constant.user.superadminUser : '';
+    this.getEmployeeList();
     this.role_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].role_id : "";
     if (this.role_id == 4) {
       this.userPostMap.userRole = 1;
@@ -90,6 +98,36 @@ export class EmployeeComponent implements OnInit {
         this.userPostMap = {};
         this.userPostMap.userRole = 2;
       }
+    });
+  }
+  getEmployeeList() {
+    let headers = new Headers({
+        'Content-Type': 'application/json'
+    });
+    let options = new RequestOptions({
+        headers: headers
+    });
+    let req_body = {
+        "user_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : ""
+    };
+    const url = constant.appcohesionURL.getEmployeeList_URL;
+    this.http
+    .post(url, req_body, options)
+    .subscribe(data => {
+        this.demoService.loading = false;
+        this.results = data ? data.json() : '';
+        console.log(this.results);
+        if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {
+            this.userList = this.results;
+        } else if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.error_code) {
+            //show error popup
+            alert(this.results.status.usermessage);
+        } else {
+
+        }
+    }, error => {
+        this.demoService.loading = false;
+        console.log("error" + JSON.stringify(error));
     });
   }
 }

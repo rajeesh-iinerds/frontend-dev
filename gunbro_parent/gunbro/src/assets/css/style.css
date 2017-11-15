@@ -1014,12 +1014,13 @@ border-radius: 0 0 3px 3px;
   position: fixed;
   width: 100%;
   z-index: 9990;
+  top:70px;
 }
 .ac-create-employee-body label {
   color: #595959;
   float: left;
   font-size: 9px;
-  width: 100%;
+  width: auto;
   font-weight: 600;
 }
 .ac-create-employee-body .form-control {
@@ -1413,6 +1414,9 @@ input[type=radio]:checked ~ label{
   width: 100%;
   padding: 56px;
   filter: none !important;
+  height: 400px;
+  object-fit: contain;
+  object-position: center center;
 }
 .ac-iv-pane {
   background-color: #ebedf0;
@@ -2253,6 +2257,9 @@ z-index: 9999;
 opacity: 1 !important;
 right: 0px !important;
 }
+.ac-profile-drawer-on .ac-actions-overlay{
+  display: block !important;
+}
 .ac-profile-drawer::-webkit-scrollbar {
   width: 3px;
 }
@@ -2831,6 +2838,14 @@ button.markup-apply-all[disabled] {
 }
 /*store locations end*/
 
+.field-wrapper input {
+  float: right;
+}
+.required-field::before { 
+  content: "*";
+  color: red;
+  float: right;
+}
 
 /* Responsive CSS */
 @media only screen and (min-width: 1600px){
