@@ -1,4 +1,4 @@
-      
+
       <div [ngClass]="showViewStore ? 'ac-locationDetails-on' : ''">
       <div [ngClass]="showCreateStore ? 'ac-create-employee-on' : ''">
       <!-- Generic wrap start -->
@@ -64,7 +64,7 @@
       <span class="placeMyOrderClose" (click) = "showCreateStore = !showCreateStore"></span>
       <form class="ac-create-employee-body" #employeeForm="ngForm">
         <div class="form-group">
-          <label for="name">STORE NAME</label>
+          <label for="name" class="field-wrapper required-field">STORE NAME</label>
           <input type="text" class="form-control" placeholder="Enter store name" id="name" name="name" [(ngModel)]="userInfo.firstName" required #name="ngModel">
           <!-- <div *ngIf= "name.errors && (name.dirty || name.touched)" class="ac-required-field">
             <div [hidden]="!name.errors.pattern">
@@ -73,7 +73,7 @@
       		</div> -->
         </div>
         <div class="form-group">
-          <label for="ffl">FFL NO.</label>
+          <label for="ffl" class="field-wrapper required-field">FFL NO.</label>
           <input type="text" class="form-control" placeholder="Enter FFL#" id="ffl" name="ffl" [(ngModel)]="userInfo.ffl" required #ffl="ngModel">
         </div>
         <!-- <div class="form-group">
@@ -82,19 +82,19 @@
         </div> -->
         
         <div class="form-group">
-          <label for="address">STORE ADDRESS</label>
+          <label for="address" class="field-wrapper required-field">STORE ADDRESS</label>
           <input type="text" class="form-control" placeholder="Enter address" id="address" name="address" [(ngModel)]="userInfo.address" required #address="ngModel">
         </div>
         <div class="form-group" style="width: 32%;margin-right: 5px;">
-          <label for="city">CITY</label>
+          <label for="city" class="field-wrapper required-field">CITY</label>
           <input type="text" class="form-control" placeholder="Enter city" id="city" name="city" [(ngModel)]="userInfo.city" required #city="ngModel">
         </div>
         <div class="form-group" style="width: 32%;">
-          <label for="state">STATE</label>
+          <label for="state" class="field-wrapper required-field">STATE</label>
           <input type="text" class="form-control" placeholder="Enter state" id="state" name="state" [(ngModel)]="userInfo.state" required #state="ngModel">
         </div>
         <div class="form-group pull-right" style="width: 32%;">
-            <label for="zip">ZIP CODE</label>
+            <label for="zip" class="field-wrapper required-field">ZIP CODE</label>
             <input type="text" class="form-control" placeholder="Enter zip" id="zip" name="zip" [(ngModel)]="userInfo.zip" required #zip="ngModel">
         </div>
         <!-- <div class="form-group">
@@ -102,7 +102,7 @@
           <div class="ffl-upload-field">upload Photo Here</div>
         </div> -->
         <div class="form-group">
-          <label for="phone">PHONE</label>
+          <label for="phone" class="field-wrapper required-field">PHONE</label>
           <input type="text" class="form-control" placeholder="Enter phone" id="phone" name="phone" [(ngModel)]="userInfo.phone" required pattern="[0-9]*" #phone="ngModel">
           <div *ngIf= "phone.errors && (phone.dirty || phone.touched)" class="ac-required-field">
             <div [hidden]="!phone.errors.pattern">
@@ -115,7 +115,7 @@
           <input type="text" class="form-control" placeholder="Enter fax" id="fax" name="fax" [(ngModel)]="userInfo.fax" #fax="ngModel">
         </div>
         <div class="form-group">
-          <label for="usr_email">EMAIL ID</label>
+          <label for="usr_email" class="field-wrapper required-field">EMAIL ID</label>
 	      <input type="email" class="form-control" placeholder="Enter email Id" id="usr_email" [(ngModel)]="userInfo.email" name="usr_email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #usr_email="ngModel">
 	    	<div *ngIf= "usr_email.errors && (usr_email.dirty || usr_email.touched)" class="ac-required-field">
 		        <div [hidden]="!usr_email.errors.pattern">

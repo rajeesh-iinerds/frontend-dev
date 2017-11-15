@@ -1019,7 +1019,7 @@ border-radius: 0 0 3px 3px;
   color: #595959;
   float: left;
   font-size: 9px;
-  width: 100%;
+  width: auto;
   font-weight: 600;
 }
 .ac-create-employee-body .form-control {
@@ -2831,6 +2831,14 @@ button.markup-apply-all[disabled] {
 }
 /*store locations end*/
 
+.field-wrapper input {
+  float: right;
+}
+.required-field::before { 
+  content: "*";
+  color: red;
+  float: right;
+}
 
 /* Responsive CSS */
 @media only screen and (min-width: 1600px){
