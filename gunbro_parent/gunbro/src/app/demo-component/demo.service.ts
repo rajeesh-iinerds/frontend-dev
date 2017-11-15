@@ -466,7 +466,7 @@ export class DemoService {
                 "ShipToStreetLine2": "ShipToStreetLine2",
                 "ecomdashID": "ecomdashID",
                 "BuyerType": "Retailer",
-                "ShipToStreetLine1": orderInfo.ShipToStreetLine1 ? orderInfo.ShipToStreetLine1 : "",
+                "ShipToStreetLine1": orderInfo.ShipToStreetLine1 ? JSON.stringify(orderInfo.ShipToStreetLine1) : "",
                 "ShipToCity": orderInfo.ShipToCity ? orderInfo.ShipToCity : "",
                 "ConsumerName": orderInfo.ConsumerName ? orderInfo.ConsumerName : "",
                 "ProductPrice": orderInfo.ProductPrice ? orderInfo.ProductPrice : "",
@@ -649,7 +649,7 @@ export class DemoService {
         
         const url = constant.appcohesionURL.createUser_URL;
         this.http
-            .post(url,userInfo,options)
+            .post(url,JSON.stringify(userInfo),options)
             .subscribe(data => {
                 this.loading = false;
                 this.results = data.json();
