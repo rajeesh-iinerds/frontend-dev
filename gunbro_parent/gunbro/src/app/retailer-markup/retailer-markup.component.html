@@ -78,6 +78,7 @@
       <div class="form-group">
         <label for="lastName" class="field-wrapper required-field">LAST NAME</label>
         <input  type="text" class="form-control" placeholder="Enter your last name" id="lastName" name="lastName" [(ngModel)]="retailerInfo.lastName" minlength="3" pattern="[a-zA-Z ]*"  #lastName="ngModel" required>
+        <div class="clearfix"></div>
         <div class="invalidField" *ngIf="lastName.invalid && lastName.dirty">
           Please Enter characters with Minimum length 3
         </div>
@@ -85,6 +86,7 @@
       <div class="form-group" *ngIf="role_id!='4'">
         <label for="firstName" class="field-wrapper required-field">RETAILER NAME</label>
         <input  type="text" class="form-control" placeholder="Enter retailer name" id="retailerName" name="retailerName" [(ngModel)]="retailerInfo.retailerName" minlength="3" pattern="[a-zA-Z ]*"  #retailerName="ngModel" required>
+        <div class="clearfix"></div>
         <div class="invalidField" *ngIf="retailerName.invalid && retailerName.dirty">
           Please Enter characters with Minimum length 3
         </div>
@@ -92,6 +94,7 @@
       <div class="form-group" *ngIf="role_id!='4'">
         <label for="retailerAddress" class="field-wrapper required-field">RETAILER ADDRESS</label>
         <textarea  type="text" class="form-control" placeholder="Enter retailer address" id="retailerAddress" name="retailerAddress" [(ngModel)]="retailerInfo.retailerAddress" minlength="3"  #retailerAddress="ngModel" required></textarea>
+        <div class="clearfix"></div>
         <div class="invalidField" *ngIf="retailerAddress.invalid && retailerAddress.dirty">
           Please Enter characters with Minimum length 3
         </div>
@@ -99,6 +102,7 @@
       <div class="form-group">
         <label for="emailId" class="field-wrapper required-field">EMAIL ID</label>
         <input  type="email" class="form-control" placeholder="Enter your email address" id="emailId" name="emailId" [(ngModel)]="retailerInfo.emailId" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  #emailId="ngModel" required>
+        <div class="clearfix"></div>
         <div class="invalidField" *ngIf="emailId.invalid && emailId.dirty">
           Invalid Email
         </div>
@@ -106,6 +110,7 @@
       <div class="form-group">
         <label for="phoneNumber" class="field-wrapper required-field">PHONE</label>
         <input pattern="^(0|[1-9][0-9]*)$"  type="text" class="form-control" placeholder="Enter your phone number" id="phoneNumber" name="phoneNumber" [(ngModel)]="retailerInfo.phoneNumber"   #phoneNumber="ngModel" required>
+        <div class="clearfix"></div>
         <div class="invalidField" *ngIf="phoneNumber.invalid && phoneNumber.dirty">
           Invalid Phone Number
         </div>
