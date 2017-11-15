@@ -17,7 +17,8 @@ export class ProductSearchComponent implements OnInit {
 	
 
   	constructor(public dashboardComponent: DashboardComponentComponent,private route: ActivatedRoute,private router: Router, public demoService: DemoService) { 
-  		this.resultssearch = this.details;
+			this.resultssearch = this.details;
+			this.demoService.showRetailerProfile = false;
   	}
   	
   	ngOnInit() {
