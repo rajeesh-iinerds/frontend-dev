@@ -122,7 +122,7 @@ export class EmployeeComponent implements OnInit {
             this.userList = this.results;
         } else if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.error_code) {
             //show error popup
-            alert(this.results.status.usermessage);
+            // alert(this.results.status.userMessage);
         } else {
 
         }

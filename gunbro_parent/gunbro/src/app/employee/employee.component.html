@@ -26,7 +26,7 @@
         </div>
 
       </div> -->
-      <div *ngIf="userList && !userList.users.length" class="noDetails"> No Details Found</div>
+      <div *ngIf="!userList" class="noDetails"> No Details Found</div>
       <div class="row" *ngIf= "userList && userList.users.length">
       <div >
         <div class="col-xs-12 col-sm-12 col-lg-12 ac-employee-listing" >
