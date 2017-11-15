@@ -40,6 +40,7 @@ export class StoreLocationComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		this.showCreateStore = false;
 		this.storeDetails().subscribe((response) => {
 		},
 		(err) => console.error(err)
@@ -157,7 +158,7 @@ export class StoreLocationComponent implements OnInit {
 					"ffl" : this.userInfo.ffl,
 					"city": this.userInfo.city,
 					"state": this.userInfo.state,
-					"address": this.userInfo.address,
+					"address": JSON.stringify(this.userInfo.address),
 					"phone": this.userInfo.phone,
 					"fax" : this.userInfo.fax ?  this.userInfo.fax : 'NULL',
 					"email" : this.userInfo.email,
@@ -167,10 +168,10 @@ export class StoreLocationComponent implements OnInit {
 		        	req_body['storeID'] = this.currentStore.StoreId;
 		        	req_body['fflID'] = this.currentStore.StoreFFLId;
 		        }
-		        console.log(req_body);
+		        console.log("testinggg ::: " , JSON.stringify(req_body));
 		        const url = constant.appcohesionURL.createStore_URL;
 		        this.http
-	            .post(url, req_body, options)
+	            .post(url, JSON.stringify(req_body), options)
 	            .subscribe(data => {
 	                this.demoService.loading = false;
 	                this.results = data ? data.json() : '';

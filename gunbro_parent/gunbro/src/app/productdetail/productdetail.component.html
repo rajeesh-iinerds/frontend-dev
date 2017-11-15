@@ -116,6 +116,7 @@
 
 
         <!-- CREATE NEW EMPLOYEE : START -->
+        <div *ngIf="demoService.showclickorder == true">
     <div class="ac-create-employee-drawer text-left" style="right:-400px;opacity:0;">
         <div (click) = "placeMyOrderClose()">
             <span class="placeMyOrderClose"></span>
@@ -301,6 +302,7 @@
 
       </form>
       </div>
+    </div>
     </div>
   
     <!-- CREATE NEW EMPLOYEE : END -->
