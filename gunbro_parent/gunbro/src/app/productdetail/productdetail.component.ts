@@ -75,7 +75,8 @@ results: any;
 			);
 	}
 
- 	placeOrder() {
+	placeOrder(event) {  	
+		event.stopPropagation()
  		this.demoService.showclickorder = true;
 		 console.log(this.selectedQuantity, this.selectedShipping);
 		//  this.getStoreDetails = true;
