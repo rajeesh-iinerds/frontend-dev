@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { ProductSearchComponent } from '../product-search/product-search.component';
 import { DemoService } from '../demo-component/demo.service';
 import * as constant from '../shared/config';

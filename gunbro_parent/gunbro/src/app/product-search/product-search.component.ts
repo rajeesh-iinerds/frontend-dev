@@ -21,7 +21,21 @@ export class ProductSearchComponent implements OnInit {
   	}
   	
   	ngOnInit() {
-  	}
+		let paramVal = this.route.snapshot.queryParams["wildcard"]? this.route.snapshot.queryParams["wildcard"]:this.route.snapshot.queryParams["gsin"]? this.route.snapshot.queryParams["gsin"]:this.route.snapshot.queryParams["mpn"]? this.route.snapshot.queryParams["mpn"]:"";
+		
+		
+		let paramKey = this.route.snapshot.queryParams["wildcard"]? "wildcard":this.route.snapshot.queryParams["gsin"]? "gsin":this.route.snapshot.queryParams["mpn"]?"mpn":"";
+		
+		if(paramVal)	
+			return this.demoService.getSessionToken().subscribe((response) => {
+			  if (response.getIdToken().getJwtToken()) {
+				const jwt = response.getIdToken().getJwtToken();
+				this.demoService.productSearchfromService("wildcard", paramVal, jwt, "");	
+			  }
+			}, (err) => {
+			  console.log(err);
+			});		  
+  	} 
   	
   	productDetail(detail) {
   		this.demoService.setProductDetails(detail);
