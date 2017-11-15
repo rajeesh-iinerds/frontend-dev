@@ -69,6 +69,7 @@ export class DashboardComponentComponent implements OnInit {
     this.disableSearch = true;
     this.searchKey = '';
     this.userGroup = '';
+    this.demoService.showRetailerProfile = false;
 
   }
   
