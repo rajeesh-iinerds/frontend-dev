@@ -11,6 +11,12 @@ export const userRoles = {
 	"storeAdminUser": 1,
 	"storeUser": 2,
 };
+export const userTypes = {
+	"superadmin" : "SUPER ADMIN",
+	"retaileradmin": "RETAILER ADMIN",
+	"admin": "STORE ADMIN",
+	"posuser": "USER"
+};
 
 export const userPoolData = {
 	"UserPoolId" : 'us-east-1_Q3sA5af5A',
@@ -35,7 +41,8 @@ export const appcohesionURL = {
 	"productQuantity_SS_URL" : "http://ssapigetquantity.cloudhub.io/",
 	"getStoreDetails_URL": "http://api.appcohesion.io/getStoreDetails",
 	"retailerProfile_URL" : "https://api.appcohesion.io/userInfo",
-	"updateRetailerProfile_URL" : "https://api.appcohesion.io/updateUserInfo"
+	"updateRetailerProfile_URL" : "https://api.appcohesion.io/updateUserInfo",
+	"getEmployeeList_URL": "https://api.appcohesion.io/usersList"
 };
 export const distApiList = ["ss"];
 export const statusCode = {

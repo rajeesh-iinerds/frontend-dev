@@ -80,6 +80,11 @@
           <label for="usr_lastname">UPLOAD FFL</label>
           <div class="ffl-upload-field">upload FFL Here</div>
         </div> -->
+        
+        <div class="form-group">
+          <label for="address">STORE ADDRESS</label>
+          <input type="text" class="form-control" placeholder="Enter address" id="address" name="address" [(ngModel)]="userInfo.address" required #address="ngModel">
+        </div>
         <div class="form-group" style="width: 32%;margin-right: 5px;">
           <label for="city">CITY</label>
           <input type="text" class="form-control" placeholder="Enter city" id="city" name="city" [(ngModel)]="userInfo.city" required #city="ngModel">
@@ -91,10 +96,6 @@
         <div class="form-group pull-right" style="width: 32%;">
             <label for="zip">ZIP CODE</label>
             <input type="text" class="form-control" placeholder="Enter zip" id="zip" name="zip" [(ngModel)]="userInfo.zip" required #zip="ngModel">
-        </div>
-        <div class="form-group">
-          <label for="address">STORE ADDRESS</label>
-          <input type="text" class="form-control" placeholder="Enter address" id="address" name="address" [(ngModel)]="userInfo.address" required #address="ngModel">
         </div>
         <!-- <div class="form-group">
           <label for="usr_lastname">UPLOAD STORE PHOTO</label>
