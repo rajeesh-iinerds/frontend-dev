@@ -18,6 +18,7 @@ export class DistributorMarkupComponent implements OnInit {
     distList: any;
 
 	constructor(private http: Http, public demoService: DemoService, private router: Router) {
+		this.demoService.showRetailerProfile = false;
 	}
 
 	ngOnInit() {
