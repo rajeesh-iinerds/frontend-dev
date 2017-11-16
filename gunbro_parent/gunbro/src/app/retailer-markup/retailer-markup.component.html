@@ -100,8 +100,8 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="emailId" class="field-wrapper required-field">EMAIL ID</label>
-        <input  type="email" class="form-control" placeholder="Enter your email address" id="emailId" name="emailId" [(ngModel)]="retailerInfo.emailId" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  #emailId="ngModel" required>
+        <label for="emailId">EMAIL ID</label>
+        <input  type="email" class="form-control" placeholder="Enter your email address" id="emailId" name="emailId" [(ngModel)]="retailerInfo.emailId" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  #emailId="ngModel">
         <div class="clearfix"></div>
         <div class="invalidField" *ngIf="emailId.invalid && emailId.dirty">
           Invalid Email

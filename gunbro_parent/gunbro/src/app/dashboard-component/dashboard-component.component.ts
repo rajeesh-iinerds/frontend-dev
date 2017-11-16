@@ -63,6 +63,7 @@ export class DashboardComponentComponent implements OnInit {
   successTitle: string;
   successDescription: string;
   loggedInUserRole:String;
+  showProfile: boolean = false;
   constructor(private route: ActivatedRoute,private router: Router, public demoService: DemoService,private http:Http) {
     this.hideMFGSearch = true;
     this.hideGSINSearch = true;
@@ -88,6 +89,12 @@ export class DashboardComponentComponent implements OnInit {
     // this.loggedInUserRole=this.userGroup.toLocaleUpperCase() ? this.userGroup.toLocaleUpperCase():"USER";
     // this.loggedInUserRole = (this.userGroup.toLocaleUpperCase()=='SUPERADMIN') ? 'SUPER ADMIN' : (this.userGroup.toLocaleUpperCase()=='RETAILERADMIN') ? 'RETAILER ADMIN' : (this.userGroup.toLocaleUpperCase()=='ADMIN') ? 'STORE ADMIN' : 'USER';
     this.loggedInUserRole = (this.userGroup==constant.user.superadminUser) ? constant.userTypes.superadmin : (this.userGroup==constant.user.retaileradminUser) ? constant.userTypes.retaileradmin : (this.userGroup==constant.user.userGroup) ? constant.userTypes.admin : constant.userTypes.posuser;
+    console.log("usergroup : " + this.userGroup);
+    console.log("this.configSuperAdminUserGroup : " + this.configSuperAdminUserGroup)
+    // if(this.userGroup == this.configSuperAdminUserGroup){
+     
+    //   this.showProfile = true;
+    // }
   }
 
     clickedSearch(){
@@ -150,6 +157,8 @@ export class DashboardComponentComponent implements OnInit {
 
     // Method for showing Retailer profile 
     retailerProfile(event){
+      console.log("usergroup : " + this.userGroup);
+      console.log("this.configSuperAdminUserGroup : " + this.configSuperAdminUserGroup)
       this.demoService.showRetailerProfile = true;
       event.stopPropagation()
       this.retailerProfileDetails = {};
