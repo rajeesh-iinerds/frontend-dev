@@ -190,9 +190,11 @@ export class DashboardComponentComponent implements OnInit {
     }
 
     // Method for showing retailer profile details in edit page
-    editRetailerProfile(){
+    editRetailerProfile(event){
+      event.stopPropagation()
       this.editRetailerDetails = [];
       this.demoService.showEditRetailerView = true;
+      this.demoService.showRetailerProfile = false;
       this.editRetailerDetails.push(this.retailerProfileDetails);
     }
 
