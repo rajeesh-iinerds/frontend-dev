@@ -225,7 +225,9 @@ export class DashboardComponentComponent implements OnInit {
                 this.successTitle = constant.retailerProfile_messages.success_title;
                 this.successDescription = constant.retailerProfile_messages.success_description;
                 this.retailerProfile(event);
-                this.demoService.showEditRetailerView = this.updateRetailerProfilePopup ? false : true; 
+                this.demoService.showEditRetailerView = !this.demoService.showEditRetailerView;
+                this.demoService.showRetailerProfile = !this.demoService.showRetailerProfile
+              //  this.demoService.showEditRetailerView = this.updateRetailerProfilePopup ? false : true; 
               }
               else if (this.result.statusCode == constant.statusCode.empty_code){
                 console.log("error");
