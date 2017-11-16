@@ -1,7 +1,7 @@
 
 import { environment } from '../../environments/environment';
 var apiUrl = environment.apiUrl;
-alert(apiUrl);
+
 export const user = {
 	"userGroup": "admin",
 	"superadminUser" : "superadmin",
@@ -43,7 +43,8 @@ export const appcohesionURL = {
 	"getStoreDetails_URL": apiUrl +"getStoreDetails",
 	"retailerProfile_URL" : apiUrl +"userInfo",
 	"updateRetailerProfile_URL" : apiUrl + "updateUserInfo",
-	"getEmployeeList_URL": apiUrl +"usersList"
+	"getEmployeeList_URL": apiUrl +"usersList",
+	"forgetPasssword_URL": apiUrl + "forgotPwd"
 };
 export const distApiList = ["ss"];
 export const statusCode = {

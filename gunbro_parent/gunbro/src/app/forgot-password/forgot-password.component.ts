@@ -50,7 +50,8 @@ export class ForgotPasswordComponent implements OnInit {
                 "emailSubject": "<custom email subject>"
             }
         }
-        const url = 'https://api.appcohesion.io/forgotPwd';
+        //const url = 'https://api.appcohesion.io/forgotPwd';
+        const url = constant.appcohesionURL.forgetPasssword_URL ? constant.appcohesionURL.forgetPasssword_URL : "";
         this.http
             .post(url, reqBody, options)
             .subscribe(data => {
@@ -60,14 +61,13 @@ export class ForgotPasswordComponent implements OnInit {
                 if (this.results_forgot && this.results_forgot.Status) {
 					if(this.results_forgot.err){
                         this.showforgetPasswordPopup = !this.showforgetPasswordPopup;
-                        //alert(this.results_forgot.err.message);
-                        this.forgetPasswordMsg = constant.forgetPasswordMsg.Msg_description;
+                        this.forgetPasswordMsg = constant.forgetPasswordMsg.Msg_description ? constant.forgetPasswordMsg.Msg_description : "";
                        // console.log("alert message in forget password : " + this.results_forgot.err.message)
 					}
 				
                    else if (this.results_forgot.statusCode == '2000') {
                       //  alert("Email Sent");
-                        this.forgetPasswordMsg = constant.forgetPasswordMsg.Email_description;
+                        this.forgetPasswordMsg = constant.forgetPasswordMsg.Email_description ? constant.forgetPasswordMsg.Email_description : "";
 
                     } else if (this.results_forgot.statusCode == '2003') {
 
