@@ -19,7 +19,6 @@ export const userTypes = {
 	"admin": "STORE ADMIN",
 	"posuser": "USER"
 };
-
 export const userPoolData = {
 	"UserPoolId" : 'us-east-1_Q3sA5af5A',
 	"ClientId" : '7iaf7o5ja7su88mjb8du0pqigv'
@@ -65,6 +64,10 @@ export const store_messages = {
 };
 export const error_message = {
 	"error_title": "ERROR"
+};
+export const forgetPasswordMsg = {
+	"Msg_description" : "Cannot reset password for the user as there is no registered/verified email or phone_number",
+	"Email_description" : "Email Sent"
 };
 export const SS_prod_param = {
 	"CustomerNumber": "31821", //"99994",
