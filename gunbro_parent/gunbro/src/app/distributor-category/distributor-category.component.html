@@ -1,5 +1,5 @@
    
-        <div class="container-fluid" (click)="demoService.showRetailerProfile = false;">
+        <div class="container-fluid" (click)="demoService.showRetailerProfile = false ||  demoService.showEditRetailerView = false;">
           <div class="row"><!-- Page Title -->
             <div class="col-xs-12 col-sm-9 col-lg-9" *ngIf="category && category.distributor_name">
               <h3 class="ac-page-title ac-page-title-logo"><img src="assets/demo-assets/dealer1.png">{{category.distributor_name}}</h3>
@@ -104,4 +104,4 @@
   </div>
   
 </div>
-<div class="ac-actions-overlay" style="display:none;" (click)="demoService.showRetailerProfile = false;"></div>
+<!-- <div class="ac-actions-overlay" style="display:none;" (click)="demoService.showRetailerProfile = false;"></div> -->
