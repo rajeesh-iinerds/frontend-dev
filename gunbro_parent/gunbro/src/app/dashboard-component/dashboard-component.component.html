@@ -53,7 +53,8 @@
           <span class="label userRolePlaceholder">{{loggedInUserRole}}</span>
           <span class="ac-user-drop-wrap" style="display: none;">
             <ul class="ac-user-dropdown">
-                <li><a (click) = "retailerProfile($event)">My Profile</a></li>
+              
+                <li *ngIf = "userGroup == configSuperAdminUserGroup ? demoService.showRetailerProfile : true"><a (click) = "retailerProfile($event)">My Profile</a></li>
              <!--  <li><a>Menu Item</a></li> -->
               <li><a (click)="logout()">Log Out</a></li>
             </ul>

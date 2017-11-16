@@ -98,10 +98,12 @@ export class OrdersComponent implements OnInit {
             this.selectedOrder.CustomerPrice = this.orderDetails[i].CustomerPrice ? this.orderDetails[i].CustomerPrice : '';
             this.selectedOrder.manufacturer_partnumber = this.orderDetails[i].manufacturer_partnumber && this.orderDetails[i].manufacturer_partnumber !='null'? this.orderDetails[i].manufacturer_partnumber : '';
             this.selectedOrder.Phone = this.orderDetails[i].Phone ? this.orderDetails[i].Phone : '';
-            this.selectedOrder.FFL =  this.orderDetails[i].FFL ? this.orderDetails[i].FFL : '';
+            this.selectedOrder.FFL =  this.orderDetails[i].storeffl ? this.orderDetails[i].storeffl : '';
             this.selectedOrder.order_status = this.orderDetails[i].order_status ? this.orderDetails[i].order_status : '';
             this.selectedOrder.ConsumerName = this.orderDetails[i].ConsumerName ? this.orderDetails[i].ConsumerName : '';
-            this.selectedOrder.address = this.orderDetails[i].ShipToCity + ',' + this.orderDetails[i].ShipToState + ',' + this.orderDetails[i].ShipToPostalCode;
+            this.selectedOrder.address = this.orderDetails[i].StoreAddress ? this.orderDetails[i].StoreAddress : "";
+            this.selectedOrder.ShipToCity = this.orderDetails[i].ShipToCity ? this.orderDetails[i].ShipToCity : "" 
+            this.selectedOrder.StoreZip = this.orderDetails[i].StoreZip ? this.orderDetails[i].StoreZip : "";
             this.selectedOrder.Quantity = this.orderDetails[i].Quandity ? this.orderDetails[i].Quandity : 0;
             this.selectedOrder.OrderPlacedDate = this.orderDetails[i].OrderPlacedDate ? this.orderDetails[i].OrderPlacedDate : '';
             this.selectedOrder.tracking = this.orderDetails[i].TrackingNumber ? this.orderDetails[i].TrackingNumber : '';
@@ -115,6 +117,7 @@ export class OrdersComponent implements OnInit {
             this.selectedOrder.SS_order = this.orderDetails[i].SS_OrderNumber ? this.orderDetails[i].SS_OrderNumber : '';
             this.selectedOrder.SmallImage = this.orderDetails[i].SmallImage && this.orderDetails[i].SmallImage !='null' ? this.orderDetails[i].SmallImage : '';
             this.selectedOrder.FirstName = this.orderDetails[i].FirstName && this.orderDetails[i].FirstName !='null' ? this.orderDetails[i].FirstName : '';
+            
         }
      }
    }

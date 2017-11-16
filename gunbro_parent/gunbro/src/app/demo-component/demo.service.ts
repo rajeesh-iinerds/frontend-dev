@@ -678,34 +678,34 @@ export class DemoService {
     }
 
    // Listing users in cognito Pool
-    listUsers() {
-        this.loading = true;
-        //Taking Session Value for passing token
-        return this.getSessionToken().subscribe((response) => {
-            if (response.getIdToken().getJwtToken()) {
-                this.jwt = response.getIdToken().getJwtToken();
-                let headers = new Headers({
-                    'Authorization': this.jwt
-                });
-                let options = new RequestOptions({
-                    headers: headers
-                });
-                var req_body = '';
-                const url = constant.appcohesionURL.listUsers_URL;
-                this.http
-                    .post(url, req_body, options)
-                    .subscribe(data => {
-                        this.loading = false;
-                        this.usersList = data.json();
-                    }, error => {
-                        this.loading = false;
-                        console.log("error" + JSON.stringify(error));
-                    });
-            }
-        }, (err) => {
-            console.log(err);
-        });
-    }
+    // listUsers() {
+    //     this.loading = true;
+    //     //Taking Session Value for passing token
+    //     return this.getSessionToken().subscribe((response) => {
+    //         if (response.getIdToken().getJwtToken()) {
+    //             this.jwt = response.getIdToken().getJwtToken();
+    //             let headers = new Headers({
+    //                 'Authorization': this.jwt
+    //             });
+    //             let options = new RequestOptions({
+    //                 headers: headers
+    //             });
+    //             var req_body = '';
+    //             const url = constant.appcohesionURL.listUsers_URL;
+    //             this.http
+    //                 .post(url, req_body, options)
+    //                 .subscribe(data => {
+    //                     this.loading = false;
+    //                     this.usersList = data.json();
+    //                 }, error => {
+    //                     this.loading = false;
+    //                     console.log("error" + JSON.stringify(error));
+    //                 });
+    //         }
+    //     }, (err) => {
+    //         console.log(err);
+    //     });
+    // }
 
 // Method for listing retailer category 
     listRetailer() {
