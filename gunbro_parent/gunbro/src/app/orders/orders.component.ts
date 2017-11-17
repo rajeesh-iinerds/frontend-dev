@@ -102,7 +102,7 @@ export class OrdersComponent implements OnInit {
             this.selectedOrder.order_status = this.orderDetails[i].order_status ? this.orderDetails[i].order_status : '';
             this.selectedOrder.ConsumerName = this.orderDetails[i].ConsumerName ? this.orderDetails[i].ConsumerName : '';
             this.selectedOrder.address = this.orderDetails[i].StoreAddress ? this.orderDetails[i].StoreAddress : "";
-            this.selectedOrder.ShipToCity = this.orderDetails[i].ShipToCity ? this.orderDetails[i].ShipToCity : "" 
+            this.selectedOrder.ShipToCity = this.orderDetails[i].StoreCity ? this.orderDetails[i].StoreCity : "" 
             this.selectedOrder.StoreZip = this.orderDetails[i].StoreZip ? this.orderDetails[i].StoreZip : "";
             this.selectedOrder.Quantity = this.orderDetails[i].Quandity ? this.orderDetails[i].Quandity : 0;
             this.selectedOrder.OrderPlacedDate = this.orderDetails[i].OrderPlacedDate ? this.orderDetails[i].OrderPlacedDate : '';
