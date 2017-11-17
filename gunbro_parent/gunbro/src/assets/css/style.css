@@ -2004,11 +2004,15 @@ span.order-inprogress-Btn {
 }
 .productInfo-img-viewer{
   width: 100%;
-  background-color: #ebedf0;
+  /*background-color: #ebedf0;*/
+  border: 1px solid #ebedf0;
 }
 .productInfo-img-viewer img{
-  max-width: 135px;
+  max-width: 100%;
+  width: 127px;
   padding: 10px;
+  height: 115px;
+  object-fit: contain;
 }
 .productinfo-field h3 {
   margin: 10px 0px 0px 0px;
