@@ -19,7 +19,7 @@
           
           <li *ngIf="userGroup == configUserGroup || userGroup == configSuperAdminUserGroup || userGroup == configRetailerAdminUserGroup"><a  routerLink="employee" routerLinkActive="active" class="ac-dash-item-3"><i class="flip">Employee Management</i><i class="flop" style="display:none;">Employee</i></a></li>
           
-          <li *ngIf="userGroup != configSuperAdminUserGroup"><a routerLink="order" routerLinkActive="active" class="ac-dash-item-4"><i class="flip">Orders</i><i class="flop" style="display:none;">order</i></a></li>
+          <li><a routerLink="order" routerLinkActive="active" class="ac-dash-item-4"><i class="flip">Orders</i><i class="flop" style="display:none;">order</i></a></li>
           
           <!--  <li><a href="javascript:void(0);" class="ac-dash-item-5"><i>Customers</i></a></li>
           <li><a href="javascript:void(0);" class="ac-dash-item-6"><i>Reports</i></a></li> 
