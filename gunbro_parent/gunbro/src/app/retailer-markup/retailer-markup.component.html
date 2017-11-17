@@ -12,10 +12,10 @@
     </div>
     <div class="row"><!-- Employee Listing -->
       <div class="col-xs-12 col-sm-12 col-lg-12 ac-distributor-listing">
-        <div *ngIf="retailerDetails && !retailerDetails.length" class="noDetails">No Details Found</div>
+        <div *ngIf="demoService.retailerDetails && !demoService.retailerDetails.length" class="noDetails">No Details Found</div>
         <!-- Distributor Cards Start -->
         <div class="ac-distributor-cards" >
-            <div *ngFor="let markup of retailerDetails; let i = index">    
+            <div *ngFor="let markup of demoService.retailerDetails; let i = index">    
             <!-- Single Card Start -->
             <div class="ac-distributor-card">
                <!-- <div class="ac-distributor-head">

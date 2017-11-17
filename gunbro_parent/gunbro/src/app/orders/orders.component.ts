@@ -26,8 +26,12 @@ export class OrdersComponent implements OnInit {
   configSuperAdminUser: any;
   configAdminUser: any;
   retailerAdminUser: any;
+  selectedRetailer:  any;
+  retailerIdPass: any ;
+
   constructor(public demoService: DemoService, private http: Http, private router: Router) {
     this.demoService.showRetailerProfile = false;
+    this.retailerIdPass = 'All';
   }
 
   ngOnInit() {
@@ -39,10 +43,21 @@ export class OrdersComponent implements OnInit {
           },
           (err) => console.error(err)
       );
+    this.demoService.listRetailorDetails();  
+  }
+
+  geRetailerId(event){
+    console.log("event details : " + event.target.value)
+    this.retailerIdPass = event.target.value;
+    this.listOrders().subscribe((response) => {
+    },
+    (err) => console.error(err)
+   );
   }
 
   // Method for listing Order list
   listOrders(): Observable < any > {
+      console.log("list orders  this.retailerIdPass : " + this.retailerIdPass);
       return Observable.create(observer => {
           return this.demoService.getSessionToken().subscribe((response) => {
               if (response.getIdToken().getJwtToken()) {
@@ -51,13 +66,23 @@ export class OrdersComponent implements OnInit {
                   let options = new RequestOptions({ headers: headers });
                   var store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id:"";
                   var retailer_id = localStorage.getItem("User_Information")?JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId:"":"";
+                  if(this.userGroup == this.configSuperAdminUser){
+                    let req_body = {
+                        "store_id": "",
+                        "retailer_id" : this.retailerIdPass == 'All' ? "" : this.retailerIdPass
+                    }; 
+                    console.log("request body list orders inside super admin user group : " + JSON.stringify(req_body));
+                  }
+                  
                   let req_body = {
                       "store_id": (this.userGroup == this.configAdminUser) ?  store_id : "" ,
                       "retailer_id" : (this.userGroup == this.configAdminUser || this.userGroup == this.retailerAdminUser) ?  retailer_id : ""   
                   };
+                
+                 
                  const url = constant.appcohesionURL.orderList_URL && constant.appcohesionURL.orderList_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
                   this.http.post(url, req_body, options).subscribe(data => {
-                    console.log("check empty data : " + data);
+                   // console.log("check empty data : " + data);
                     this.demoService.loading = false;
                       this.results = data ? data.json() :"";                    
                       console.log("order list details : " + JSON.stringify(this.results));                     

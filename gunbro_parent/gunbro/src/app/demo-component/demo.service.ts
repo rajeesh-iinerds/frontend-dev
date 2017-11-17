@@ -62,7 +62,8 @@ export class DemoService {
     resultsApiIntegration: any;
     showRetailerProfile: boolean = false;
     showEditRetailerView: boolean = false;
-   
+    retailerDetails: any;
+
     constructor(private http: Http, private router: Router) {
         console.log(constant.appcohesionURL);
         this.showclickorder = false;
@@ -672,6 +673,43 @@ export class DemoService {
             });
     }
 
+  // Method for listing retailer 
+   listRetailorDetails() {
+        this.loading = true;
+       return this.getSessionToken().subscribe((response) => {
+           if (response.getIdToken().getJwtToken()) {
+               this.jwt = response.getIdToken().getJwtToken();
+           }
+           let headers = new Headers({
+               'Authorization': this.jwt
+           });
+           let options = new RequestOptions({
+               headers: headers
+           });  
+           var req_body = '';
+           const url = constant.appcohesionURL.retailerList_URL;
+           this.http.post(url, req_body, options).subscribe(data => {
+               this.loading = false;
+               this.result = data.json();
+               if (this.result && this.result.status) {
+                   if (this.result.status.code == 200) {
+                       this.retailerDetails = this.result.retailers;
+                       console.log("retailer list array list : " + JSON.stringify(this.retailerDetails))
+                   } else if (this.result.statusCode == constant.statusCode.empty_code) {
+                       this.retailerDetails = [];
+                   }
+               }
+           }, error => {
+               this.loading = false;
+               console.log("error" + JSON.stringify(error));
+           });
+
+       }, (err) => {
+           console.log(err);
+       });
+
+   }
+
     // Method for setting retailer id for retailer markup
     setRetailerIdforCategory(retailerId) {
         this.retailerId = retailerId;
@@ -746,4 +784,8 @@ export class DemoService {
             console.log(err);
         });
     }
+
+  
+
+
 }
