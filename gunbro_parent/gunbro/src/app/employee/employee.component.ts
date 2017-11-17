@@ -78,11 +78,12 @@ export class EmployeeComponent implements OnInit {
   }
   createUser(userPostMap, createStoreAdminForm) {
     var entity_type = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].entity_type : "";
+    var store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id : "";
     let postMap = {
       role_id: this.role_id,
       user: {
         entity_type: entity_type,
-        store_id: userPostMap.storeId,
+        store_id: userPostMap.storeId ? userPostMap.storeId : store_id,
         user_name: userPostMap.email,
         email: userPostMap.email,
         first_name: userPostMap.firstName,
