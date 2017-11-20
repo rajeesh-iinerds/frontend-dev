@@ -26,6 +26,8 @@ import { DistributorCategoryComponent } from './distributor-category/distributor
 import { StoreLocationComponent } from './store-location/store-location.component';
 import { SearchWidgetComponent } from './search-widget/search-widget.component';
 import { SearchWidgetPipe } from './search-widget/search-widget.pipe';
+import { SearchProductService } from './product-search/search-product-service';
+import { CommonService } from './shared/common.service';
 
 
 const appRoutes: Routes = [
@@ -101,6 +103,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     DemoService,
+    SearchProductService,
+    CommonService,
     AuthGuard,
     ProductSearchComponent,
     DashboardComponentComponent
