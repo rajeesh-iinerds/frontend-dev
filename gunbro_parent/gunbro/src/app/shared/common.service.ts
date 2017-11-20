@@ -1,8 +1,74 @@
 import { Injectable } from '@angular/core';
-
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+import * as constant from '../shared/config';
+import { AuthenticationDetails, CognitoUser, CognitoUserAttribute, CognitoUserPool, CognitoUserSession } from 'amazon-cognito-identity-js';
 @Injectable()
 export class CommonService {
+  jwtToken: any;
+  constructor(private http: Http) {
 
-  constructor() { }
+  }
 
+  setJwtToken(jwt) {
+    this.jwtToken = jwt;
+  }
+
+  getJwtToken() {
+    if (this.jwtToken == null || this.jwtToken == '' || this.jwtToken == undefined) {
+      console.info("No JWT Found");
+      this.getSessionToken().subscribe((response) => {
+        if (response.getIdToken().getJwtToken()) {
+          this.jwtToken = response.getIdToken().getJwtToken();          
+        }
+      }, (err) => {
+        console.log(err);
+      });
+    } 
+    return this.jwtToken;
+  }
+  getSessionToken(): Observable<any> {
+    var self = this;
+    return Observable.create(observer => {
+      var cognitoUser = new CognitoUserPool(constant.userPoolData).getCurrentUser();
+      if (cognitoUser != null) {
+        cognitoUser.getSession(function (err, session) {
+          if (err) {
+            err => err.json();
+            console.log(err);
+            observer.next(err);
+            observer.complete();
+          }
+          if (session && session.isValid()) {
+            session => session.json();
+            observer.next(session);
+            observer.complete();
+          } else {
+            self.userLogout();
+          }
+        });
+      }
+    }, err => {
+      console.log("error on session", err)
+    })
+  }
+  userLogout = function () {
+    var userPool = new CognitoUserPool(constant.userPoolData);
+    this.userSession = userPool.getCurrentUser();
+    if (this.userSession) {
+      let userData = {
+        Username: this.userSession.username,
+        Pool: userPool
+      };
+      new CognitoUser(userData).signOut();
+      localStorage.setItem('isLoggedIn', 'false');
+      localStorage.removeItem('tokenExpiryTime');
+      localStorage.removeItem('userGroup');
+      localStorage.removeItem('User_Information');
+      localStorage.removeItem('userData');
+      localStorage.removeItem('isLoggedIn');
+      this.router.navigate(['']);
+    }
+  }
 }
