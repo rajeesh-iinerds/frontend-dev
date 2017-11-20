@@ -85,10 +85,6 @@ export class RetailerSingleComponent implements OnInit {
   applyMarkupEvent(markup, retailer, flag, tempFlag, categoryId) {
       this.applyFlag = flag && flag == "single" ? "single" : "all";
       this.categoryId = categoryId ? categoryId : "";
-     // this.hideApplyEvent = tempFlag == "applyAll" || tempFlag == "apply" || tempFlag == "Update" || tempFlag == "UpdateAll"? true : false;
-
-      //console.log("this.hide apply : " + this.hideApplyEvent);
-    
       this.demoService.loading = true;
 
       return this.demoService.getSessionToken().subscribe((response) => {

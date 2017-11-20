@@ -1,57 +1,60 @@
 <div  class="container-fluid" (click)="demoService.showRetailerProfile = false || demoService.showEditRetailerView = false;">
-    <div class="row"><!-- Page Title -->
-      <div class="col-xs-12 col-sm-9 col-lg-9">
+  <div class="row">
+     <!-- Page Title -->
+     <div class="col-xs-12 col-sm-9 col-lg-9">
         <!-- <h3 class="ac-page-title" *ngIf="userDetails"> <em class="ac-user-greeting">Welcome, {{userDetails.first_name }}</em></h3> -->
         <h3 class="ac-page-title" *ngIf="userDetails"> <em class="ac-user-greeting">Welcome</em></h3>
-      </div>
-      <div class="col-xs-12 col-sm-3 col-lg-3"><!-- Solve E=mc2 --></div>
-    </div>
-    <div class="row">
-      <div routerLink="../dashboard/order" class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
+     </div>
+     <div class="col-xs-12 col-sm-3 col-lg-3">
+        <!-- Solve E=mc2 -->
+     </div>
+  </div>
+  <div class="row">
+     <div *ngIf = "orderslistCount"  routerLink="../dashboard/order" class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
         <div class="ac-single-stat-inset">
-          <h3 class="ac-stat-icn-order">Orders</h3>
-                  <span>
-                    <strong>{{orderslistCount}}<sup>+</sup></strong>
-                  </span>
+           <h3 class="ac-stat-icn-order">Orders</h3>
+           <span>
+           <strong>{{orderslistCount}}<sup>+</sup></strong>
+           </span> 
         </div>
-      </div><!--
-      <div class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
+     </div>
+     <div *ngIf = "distlistCount" routerLink="../dashboard/markup" class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
         <div class="ac-single-stat-inset">
-          <h3 class="ac-stat-icn-invntry">Inventory</h3>
-                  <span>
-                    <strong>2500<sup>+</sup></strong>
-                  </span>
+           <h3 class="ac-stat-icn-invntry">Distributors</h3>
+           <span>
+           <strong>{{distlistCount}}<sup>+</sup></strong>
+           </span>
         </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
+     </div>
+     <!--
+        <div *ngIf = "distlistCount" class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
+          <div class="ac-sing le-stat-inset">
+            <h3 class="ac-stat-icn-distribtr">Distributors</h3>
+                    <span>
+                      <strong>{{distlistCount}}<sup>+</sup></strong>
+                    </span>
+          </div>
+        </div>-->
+     <div *ngIf = "emplistCount" routerLink="../dashboard/employee" class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
         <div class="ac-single-stat-inset">
-          <h3 class="ac-stat-icn-distribtr">Distributors</h3>
-                  <span>
-                    <strong>10<sup>+</sup></strong>
-                  </span>
+           <h3 class="ac-stat-icn-cstmrob">Customers Onboard</h3>
+           <span>
+           <strong>{{emplistCount}}<sup>+</sup></strong>
+           </span>
         </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
-        <div class="ac-single-stat-inset">
-          <h3 class="ac-stat-icn-cstmrob">Customers Onboard</h3>
-                  <span>
-                    <strong>1000<sup>+</sup></strong>
-                  </span>
-        </div>
-      </div>
-    </div> -->
-  
-    <!-- Tabs
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-lg-12">
-      <ul class="ac-order-info-tabs">
-        <li><a href="#" class="active">Latest Orders</a></li>
-        <li><a href="#">Order Status</a></li>
-        <li><a href="#">Shipping Pipeline</a></li>
-      </ul>
-      </div>
-    </div>
-   
-  
-  </div> -->
+     </div>
+  </div>
+  <!-- Tabs
+     <div class="row">
+       <div class="col-xs-12 col-sm-12 col-lg-12">
+       <ul class="ac-order-info-tabs">
+         <li><a href="#" class="active">Latest Orders</a></li>
+         <li><a href="#">Order Status</a></li>
+         <li><a href="#">Shipping Pipeline</a></li>
+       </ul>
+       </div>
+     </div>
+     
+     
+     </div> -->
   <!-- <div class="ac-actions-overlay" style="display:none;" (click)="demoService.showRetailerProfile = false;"></div> -->

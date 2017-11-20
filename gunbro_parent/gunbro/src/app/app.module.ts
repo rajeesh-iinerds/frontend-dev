@@ -108,7 +108,9 @@ const appRoutes: Routes = [
     AuthGuard,
     ProductSearchComponent,
     DashboardComponentComponent,
-    OrdersComponent
+    OrdersComponent,
+    DistributorMarkupComponent,
+    EmployeeComponent
   ],
   bootstrap: [AppComponent]
 })
