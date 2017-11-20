@@ -44,7 +44,8 @@ export const appcohesionURL = {
 	"retailerProfile_URL" : apiUrl +"userInfo",
 	"updateRetailerProfile_URL" : apiUrl + "updateUserInfo",
 	"getEmployeeList_URL": apiUrl +"usersList",
-	"forgetPasssword_URL": apiUrl + "forgotPwd"
+	"forgetPasssword_URL": apiUrl + "forgotPwd",
+	"deleteStore_URL": apiUrl + "deleteStore"
 };
 export const distApiList = ["ss"];
 export const statusCode = {
@@ -61,7 +62,8 @@ export const retailerProfile_messages = {
 	"success_description": "Retailer profile updated successfully!"
 };
 export const store_messages = {
-	"success_description": "Store has been created successfully!"
+	"success_description": "Store has been created successfully!",
+	"delete_confirm_description": "Do you really want to continue?"
 };
 export const error_message = {
 	"error_title": "ERROR"

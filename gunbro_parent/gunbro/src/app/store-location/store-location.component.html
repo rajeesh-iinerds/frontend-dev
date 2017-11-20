@@ -42,8 +42,8 @@
                         </div>
                         <!-- Details button -->
                         <span class="ac-dist-add-markup" style="display:none;">
-                          <a class="ac-storelocation-details" (click) = "viewStore(store.StoreId, $event)">View Details</a>
-                          <a class="ac-storelocation-editdetails" (click) = "editStore(store.StoreId, $event)">Edit Details</a>
+                          <a class="ac-storelocation-editdetails" (click) = "viewStore(store.StoreId, $event)">View Details</a>
+                          <!-- <a class="ac-storelocation-editdetails" (click) = "editStore(store.StoreId, $event)">Edit Details</a> -->
                         </span>
                     </div>
                     </div>
@@ -176,13 +176,15 @@
              <div class="store-distributor-img distributor-count">5+</div>
           </div>
         </div> -->
-        <!-- <span class="ac-view-details-foot">
-          <button type="submit" class="btn btn-default">Update</button>
-          <button type="submit" class="btn btn-default pull-right" style="background-color: #fafafa;border: 1px solid black;color: #2a304d;">Inactive</button>
-        </span> -->
+        <span class="ac-view-details-foot">
+          <button type="submit" class="btn btn-default" (click) = "editStore(selectedStore.StoreId, $event)">Update</button>
+          <!-- <a class="ac-storelocation-editdetails" (click) = "editStore(selectedStore.StoreId, $event)">Edit Details</a> -->
+          <button type="submit" class="btn btn-default pull-right" style="background-color: #fafafa;border: 1px solid black;color: #2a304d;" (click) = "deleteStore(selectedStore.StoreId, $event)">Delete</button>
+        </span>
         <!-- <span class="ac-view-details-foot">
           <button type="submit" class="btn btn-default" (click) = "showViewStore = !showViewStore">Close</button>
         </span> -->
+
       </form>
     </div>
    
@@ -198,9 +200,23 @@
     <P>{{successDescription}}</P>
   </div>
   <div class=" col-md-6 gotoDashboardBtn text-right">
-    <!-- <span routerLink="/dashboard">OK</span> -->
     <span (click) ="createStorePopup = !createStorePopup" style = " margin-right: -25px;">OK</span>
   </div>
   
 </div>
-<!-- <div class="ac-actions-overlay" style="display:none;" (click)="popupclose() || demoService.showRetailerProfile = false;"></div> -->
+
+<div class="row fadebg" [class.show]="deleteStorePopup"></div>
+<div class="confirmPopup" [class.show]="deleteStorePopup">
+  <div class="successImgIcon"></div>
+  <div class="sucessMsgText text-center">
+    <P>{{successDescription}}</P>
+  </div>
+  <!-- <div class=" col-md-6 gotoDashboardBtn text-right">
+    <span (click) ="deleteConfirm()" style = " margin-right: -25px;">YES</span>
+    <span (click) ="deleteStorePopup = !deleteStorePopup;" style = " margin-right: -25px;">NO</span>
+  </div> -->
+   <span class="ac-view-details-foot">
+      <button type="submit" class="btn btn-default" (click) = "deleteConfirm()">YES</button>
+      <button type="submit" class="btn btn-default pull-right" style="background-color: #fafafa;border: 1px solid black;color: #2a304d;" (click) ="deleteStorePopup = !deleteStorePopup;">NO</button>
+    </span>
+</div>
