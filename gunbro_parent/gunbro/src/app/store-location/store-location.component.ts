@@ -256,8 +256,9 @@ export class StoreLocationComponent implements OnInit {
             headers: headers
         });
         let req_body = {
-			"store_id": this.deleteStoreId
+			"StoreId": this.deleteStoreId
         };
+        // "https://zee1widhd1.execute-api.us-east-1.amazonaws.com/staging";
         const url = constant.appcohesionURL.deleteStore_URL;
         this.http
         .post(url, JSON.stringify(req_body), options)
@@ -291,6 +292,6 @@ export class StoreLocationComponent implements OnInit {
   		this.showViewStore = false;
   		this.deleteStoreId = id;
   		this.deleteStorePopup = true;
-        this.successDescription = "Do you really want to continue?";
+        this.successDescription = constant.store_messages.delete_confirm_description;
   	}
 }

@@ -62,7 +62,8 @@ export const retailerProfile_messages = {
 	"success_description": "Retailer profile updated successfully!"
 };
 export const store_messages = {
-	"success_description": "Store has been created successfully!"
+	"success_description": "Store has been created successfully!",
+	"delete_confirm_description": "Do you really want to continue?"
 };
 export const error_message = {
 	"error_title": "ERROR"
