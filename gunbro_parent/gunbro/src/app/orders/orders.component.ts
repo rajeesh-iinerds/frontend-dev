@@ -66,18 +66,18 @@ export class OrdersComponent implements OnInit {
                   let options = new RequestOptions({ headers: headers });
                   var store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id:"";
                   var retailer_id = localStorage.getItem("User_Information")?JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId:"":"";
-                  if(this.userGroup == this.configSuperAdminUser){
+                //  if(this.userGroup == this.configSuperAdminUser){
                     let req_body = {
-                        "store_id": "",
-                        "retailer_id" : this.retailerIdPass == 'All' ? "" : this.retailerIdPass
+                       // "store_id": "",
+                        "retailer_id" : (this.userGroup == this.configSuperAdminUser) ? (this.retailerIdPass == 'All' ? "" : this.retailerIdPass):retailer_id
                     }; 
                     console.log("request body list orders inside super admin user group : " + JSON.stringify(req_body));
-                  }
+                  //}
                   
-                  let req_body = {
+                 /* let req_body = {
                       "store_id": (this.userGroup == this.configAdminUser) ?  store_id : "" ,
                       "retailer_id" : (this.userGroup == this.configAdminUser || this.userGroup == this.retailerAdminUser) ?  retailer_id : ""   
-                  };
+                  }; */
                 
                  
                  const url = constant.appcohesionURL.orderList_URL && constant.appcohesionURL.orderList_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
