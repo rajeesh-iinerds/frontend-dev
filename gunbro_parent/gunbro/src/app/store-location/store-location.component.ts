@@ -256,7 +256,6 @@ export class StoreLocationComponent implements OnInit {
             headers: headers
         });
         let req_body = {
-			"entity_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "",
 			"store_id": this.deleteStoreId
         };
         const url = constant.appcohesionURL.deleteStore_URL;
