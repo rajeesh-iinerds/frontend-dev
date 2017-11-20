@@ -34,6 +34,8 @@ export class StoreLocationComponent implements OnInit {
 	successDescription: string;
 	isEditClicked: boolean = false;
 	currentStore: any;
+	deleteStoreId: any;
+	deleteStorePopup: boolean = false;
 
 	constructor(public demoService: DemoService , private http: Http) {
 		this.demoService.showRetailerProfile = false;
@@ -106,6 +108,7 @@ export class StoreLocationComponent implements OnInit {
   		this.selectedStore = {};
   		for(var i = 0; i < this.retailerStoreDetails.length; i++){
         if(this.retailerStoreDetails[i].StoreId == id){
+        	this.selectedStore.StoreId = this.retailerStoreDetails[i].StoreId ? this.retailerStoreDetails[i].StoreId:'';
             this.selectedStore.StoreName = this.retailerStoreDetails[i].StoreName ? this.retailerStoreDetails[i].StoreName:'';
             this.selectedStore.StoreContact = this.retailerStoreDetails[i].StoreContact ? this.retailerStoreDetails[i].StoreContact : '';
             this.selectedStore.StoreAddress = this.retailerStoreDetails[i].StoreAddress ? this.retailerStoreDetails[i].StoreAddress : '';
@@ -212,6 +215,7 @@ export class StoreLocationComponent implements OnInit {
   	}
 
 	editStore(id,event) {
+		this.showViewStore = false;
   		event.stopPropagation();
   		this.isEditClicked = true;
   		this.userInfo = {
@@ -240,5 +244,54 @@ export class StoreLocationComponent implements OnInit {
 			}
         }
         this.showCreateStore = true;				
+  	}
+
+  	deleteConfirm() {
+  		this.deleteStorePopup = !this.deleteStorePopup;
+  		this.demoService.loading = true;
+    	let headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+        let options = new RequestOptions({
+            headers: headers
+        });
+        let req_body = {
+			"entity_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "",
+			"store_id": this.deleteStoreId
+        };
+        const url = constant.appcohesionURL.deleteStore_URL;
+        this.http
+        .post(url, JSON.stringify(req_body), options)
+        .subscribe(data => {
+            this.demoService.loading = false;
+            this.results = data ? data.json() : '';
+            if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {
+            	this.storeDetails().subscribe((response) => {
+				},
+					(err) => console.error(err)
+				);
+            	//show delete confirm popup
+            	this.createStorePopup = true;
+    			this.successTitle = constant.distributor_markup_messages.success_title;
+    			this.successDescription = this.results.status.userMessage;
+            } else if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.error_code) {
+                //show error popup
+            	this.createStorePopup = true;
+            	this.successTitle = constant.error_message.error_title;
+            	this.successDescription = this.results.status.userMessage;
+            } else {
+
+            }
+        }, error => {
+            this.demoService.loading = false;
+            console.log("error" + JSON.stringify(error));
+        });
+  	}
+
+  	deleteStore(id) {
+  		this.showViewStore = false;
+  		this.deleteStoreId = id;
+  		this.deleteStorePopup = true;
+        this.successDescription = "Do you really want to continue?";
   	}
 }
