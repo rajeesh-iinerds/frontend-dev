@@ -107,7 +107,8 @@ const appRoutes: Routes = [
     CommonService,
     AuthGuard,
     ProductSearchComponent,
-    DashboardComponentComponent
+    DashboardComponentComponent,
+    OrdersComponent
   ],
   bootstrap: [AppComponent]
 })
