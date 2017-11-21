@@ -7,17 +7,22 @@ import { AuthenticationDetails, CognitoUser, CognitoUserAttribute, CognitoUserPo
 @Injectable()
 export class CommonService {
   jwtToken: any;
-  constructor(private http: Http) {
+  constructor(private http: Http) {}
 
-  }
-
+  /* 
+    STORE TOKEN IN SERVICE
+  */
   setJwtToken(jwt) {
     this.jwtToken = jwt;
   }
 
+
+  /* 
+    GET TOKEN FROM SERVICE IF AVAILABLE OR GET IT THROUGH API CALL
+  */
+  
   getJwtToken() {
     if (this.jwtToken == null || this.jwtToken == '' || this.jwtToken == undefined) {
-      console.info("No JWT Found");
       this.getSessionToken().subscribe((response) => {
         if (response.getIdToken().getJwtToken()) {
           this.jwtToken = response.getIdToken().getJwtToken();          
@@ -28,6 +33,13 @@ export class CommonService {
     } 
     return this.jwtToken;
   }
+
+
+  /**
+   * CLIENT CALL FOR GETTING JWT TOKEN
+   */
+
+
   getSessionToken(): Observable<any> {
     var self = this;
     return Observable.create(observer => {
@@ -53,6 +65,11 @@ export class CommonService {
       console.log("error on session", err)
     })
   }
+
+  /**
+   * INVALIDATING USER SESSION
+   */
+
   userLogout = function () {
     var userPool = new CognitoUserPool(constant.userPoolData);
     this.userSession = userPool.getCurrentUser();
