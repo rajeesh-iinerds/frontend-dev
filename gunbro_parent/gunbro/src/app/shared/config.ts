@@ -45,7 +45,8 @@ export const appcohesionURL = {
 	"updateRetailerProfile_URL" : apiUrl + "updateUserInfo",
 	"getEmployeeList_URL": apiUrl +"usersList",
 	"forgetPasssword_URL": apiUrl + "forgotPwd",
-	"deleteStore_URL": apiUrl + "deleteStore"
+	"deleteStore_URL": apiUrl + "deleteStore",
+	"addToCart_URL": apiUrl + "addToCart"
 };
 export const distApiList = ["ss"];
 export const statusCode = {
