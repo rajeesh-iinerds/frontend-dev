@@ -21,6 +21,7 @@ export class ShoppingCartComponent implements OnInit {
 	];
 	totalAmount: any;
 	list: any;
+	count: number = 0;
 
   	constructor() { }
 
@@ -30,19 +31,21 @@ export class ShoppingCartComponent implements OnInit {
   			this.totalAmount = this.totalAmount+Number(this.dummy[i].price);
   		}
   		this.list = this.dummy;
+  		this.count = this.dummy.length;
   	}
 
 	checkAll(size, ev) {
   		// this.sizes.forEach(x => x.state = ev.target.checked)
   		console.log('******', ev);
   		var isChecked = ev.target.checked;
-  		if (!isChecked) {
-  			// this.list.length = this.list.length-1;
+  		if (!isChecked) {  			
+  			this.count--;
   			this.totalAmount = this.totalAmount-Number(size.price);
   		}
-  		else 
-  			// this.dummy.length = this.dmmy.length+1;
-  		this.totalAmount = this.totalAmount+Number(size.price);
+  		else {
+  			this.count++;
+  			this.totalAmount = this.totalAmount+Number(size.price);
+  		}
 	}
 
 	isAllChecked() {
@@ -50,6 +53,8 @@ export class ShoppingCartComponent implements OnInit {
 	}
 
 	removeFromCart(obj) {
+		this.count--;
+  		this.totalAmount = this.totalAmount-Number(obj.price);
 		const index: number = this.dummy.indexOf(obj);
 	    if (index !== -1) {
 	        this.dummy.splice(index, 1);
