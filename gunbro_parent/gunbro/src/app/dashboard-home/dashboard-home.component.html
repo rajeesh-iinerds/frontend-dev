@@ -10,16 +10,28 @@
      </div>
   </div>
   <div class="row">
-     <div *ngIf = "orderslistCount"  routerLink="../dashboard/order" class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
-        <div class="ac-single-stat-inset">
+
+      
+
+       
+
+     <div *ngIf = "orderslistCount!=0"  routerLink="../dashboard/order" class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
+      <div class="ac-single-stat-inset">
+          <div  class = "loader" [hidden]="orderslistCount!=undefined">
+            </div>
            <h3 class="ac-stat-icn-order">Orders</h3>
            <span>
            <strong>{{orderslistCount}}<sup>+</sup></strong>
            </span> 
         </div>
      </div>
-     <div *ngIf = "distlistCount" routerLink="../dashboard/markup" class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
+
+
+     
+     <div  *ngIf = "emplistCount!=0" routerLink="../dashboard/markup" class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
         <div class="ac-single-stat-inset">
+            <div  class = "loader" [hidden]="distlistCount!=undefined">
+              </div>
            <h3 class="ac-stat-icn-invntry">Distributors</h3>
            <span>
            <strong>{{distlistCount}}<sup>+</sup></strong>
@@ -35,8 +47,10 @@
                     </span>
           </div>
         </div>-->
-     <div *ngIf = "emplistCount" routerLink="../dashboard/employee" class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
+     <div *ngIf = "emplistCount!=0" routerLink="../dashboard/employee" class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
         <div class="ac-single-stat-inset">
+            <div  class = "loader" [hidden]="emplistCount!=undefined">
+              </div>
            <h3 class="ac-stat-icn-cstmrob">Customers Onboard</h3>
            <span>
            <strong>{{emplistCount}}<sup>+</sup></strong>
