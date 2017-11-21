@@ -28,6 +28,7 @@ import { SearchWidgetComponent } from './search-widget/search-widget.component';
 import { SearchWidgetPipe } from './search-widget/search-widget.pipe';
 import { SearchProductService } from './product-search/search-product-service';
 import { CommonService } from './shared/common.service';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 
 const appRoutes: Routes = [
@@ -46,7 +47,8 @@ const appRoutes: Routes = [
       { path: 'RetailerSingle', component: RetailerSingleComponent},
       { path: 'markup', component:  DistributorMarkupComponent},
       { path: 'dist-category', component:  DistributorCategoryComponent},
-      { path: 'store-location', component:  StoreLocationComponent}
+      { path: 'store-location', component:  StoreLocationComponent},
+      { path: 'cart', component:  ShoppingCartComponent}
     ]
   },
   {
@@ -87,7 +89,8 @@ const appRoutes: Routes = [
     DistributorCategoryComponent,
     StoreLocationComponent,
     SearchWidgetComponent,
-    SearchWidgetPipe
+    SearchWidgetPipe,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
