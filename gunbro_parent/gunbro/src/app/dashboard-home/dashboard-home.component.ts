@@ -56,10 +56,7 @@ export class DashboardHomeComponent implements OnInit {
       this.userDetails.first_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).first_name : "";
       this.userDetails.last_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).last_name : "";
 
-      //Intialising the listcount variables to show the numbers
-      this.orderslistCount = 0;
-      this.distlistCount = 0;
-      this.emplistCount = 0;
+      
 
       //Function to fetch the order count from ordercomponent.
       this.ordersList.listOrders().subscribe((response) => {
