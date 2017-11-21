@@ -306,7 +306,7 @@ export class DemoService {
         var retailer_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "" : "";
         this.body['store_id'] = store_id;
         this.body['retailer_id'] = retailer_id;
-
+        console.log("store id : " + this.body['store_id']);
         var reqBody = this.body;
         const url = constant.appcohesionURL.productSearch_URL;
         this.http

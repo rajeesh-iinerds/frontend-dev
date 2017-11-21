@@ -9,7 +9,7 @@
       <div class="col-xs-6 col-sm-3 col-lg-3 text-right">
             <div *ngIf="userGroup == configSuperAdminUser" class="form-group">
                 <label class="field-wrapper required-field" for="usr_lastname">Retailer Name</label>
-                 <select class="form-control" name="selectedRetailer" [(ngModel)]="selectedRetailer" (change)="geRetailerId($event)" >
+                 <select class="form-control" name="selectedRetailer" [(ngModel)]="selectedRetailer" (change)="getRetailerId($event,selectedRetailer)" >
                         <option [ngValue]>All</option>
                         <option *ngFor="let value of demoService.retailerDetails" [value]="value.retailerId">{{value.retailerName}}</option>
                 </select>
@@ -39,8 +39,8 @@
               <tbody>
                   <tr *ngFor = "let order of orderDetails">
                       <td>{{order.OrderID ? order.OrderID : ''}}</td>
-                      <td>{{order.ProductName && order.ProductName != 'null' ? order.ProductName : ''}}</td>
-                      <td>{{order.ProductName && order.ProductName != 'null' ? order.ProductName : ''}}</td>
+                      <td>{{userDetails.first_name}}{{userDetails.last_name}}</td>
+                      <td>{{order.RetailerName && order.RetailerName != 'null' ? order.RetailerName : ''}}</td>
                       <td>{{order.DistributorName && order.DistributorName != 'null' ? order.DistributorName : ''}}</td>
                       <td>{{order.ConsumerName ? order.ConsumerName : ''}}</td>
                       <td>{{order.OrderPlacedDate ? (order.OrderPlacedDate | date: 'dd/MM/yyyy') : ''}}</td>
