@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
+
+import { DemoService } from '../demo-component/demo.service';
+import * as constant from '../shared/config';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -7,10 +12,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShoppingCartComponent implements OnInit {
 
-	sizes: any[] = [
+	/*sizes: any[] = [
 		{ 'size': '9999', 'diameter': '16000 km', 'id': 'id666' },
 	    { 'size': '3333', 'diameter': '32000 km', 'id': 'id555' }
-	];
+	];*/
 
 	dummy: any[] = [
 		{"name": "American Classic 1911 Amigo 45 ACP 3.5", "price": "129.00", "id": "101"},
@@ -22,8 +27,9 @@ export class ShoppingCartComponent implements OnInit {
 	totalAmount: any;
 	list: any;
 	count: number = 0;
+	results: any;
 
-  	constructor() { }
+  	constructor(public demoService: DemoService , private http: Http) { }
 
   	ngOnInit() {
   		this.totalAmount = 0;
@@ -32,7 +38,43 @@ export class ShoppingCartComponent implements OnInit {
   		}
   		this.list = this.dummy;
   		this.count = this.dummy.length;
+
+  		this.cartDetails().subscribe((response) => {
+		},
+		(err) => console.error(err)
+		);
   	}
+
+  	cartDetails(): Observable < any > {
+	    return Observable.create(observer => {
+	        return this.demoService.getSessionToken().subscribe((response) => {
+	            if (response.getIdToken().getJwtToken()) {
+	                const jwt = response.getIdToken().getJwtToken();
+	                let headers = new Headers({ 'Authorization': jwt });
+	                let options = new RequestOptions({ headers: headers });
+	                let req_body = {
+	                    "user_id": 41//localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : ""
+	                };
+	                const url = "https://staging-api.appcohesion.io/cartListing"
+	                this.http.post(url, req_body, options).subscribe(data => {
+	                  this.demoService.loading = false;
+	                  this.results = data.json();
+	                  if(this.results && this.results.status){
+	                   if(this.results.status.code == 200){
+	                    }
+	                    else if(this.results.status.code == constant.statusCode.empty_code){
+	                    }
+	                  }
+	                   observer.next();
+	                   observer.complete();
+	                });
+	            }
+	        });
+	    }, err => {
+	        console.log("error on order", err)
+	    })
+  	}
+
 
 	checkAll(size, ev) {
   		// this.sizes.forEach(x => x.state = ev.target.checked)
@@ -48,9 +90,9 @@ export class ShoppingCartComponent implements OnInit {
   		}
 	}
 
-	isAllChecked() {
+	/*isAllChecked() {
   		return this.sizes.every(_ => _.state);
-	}
+	}*/
 
 	removeFromCart(obj) {
 		this.count--;
