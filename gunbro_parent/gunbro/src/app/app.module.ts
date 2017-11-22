@@ -38,18 +38,18 @@ const appRoutes: Routes = [
     
     children: [
       { path: '',  component:  DashboardHomeComponent },
-      { path: 'employee', component:  EmployeeComponent},
-      { path: 'search', component:  ProductSearchComponent},
-      { path: 'productdetail', component:  ProductdetailComponent},
-      { path: 'order', component:  OrdersComponent},
-      { path: 'retailer', component: RetailersComponent},
-      { path: 'RetailerMarkup', component: RetailerMarkupComponent},
-      { path: 'RetailerSingle', component: RetailerSingleComponent},
-      { path: 'markup', component:  DistributorMarkupComponent},
-      { path: 'dist-category', component:  DistributorCategoryComponent},
-      { path: 'store-location', component:  StoreLocationComponent},
-      { path: 'cart', component:  ShoppingCartComponent}
-    ]
+      { path: 'employee', component:  EmployeeComponent,canActivate:[AuthGuard],data:['admin','superadmin','retaileradmin']},
+      { path: 'search', component:  ProductSearchComponent,canActivate:[AuthGuard],data:['admin','posuser','retaileradmin']},
+      { path: 'productdetail', component:  ProductdetailComponent,canActivate:[AuthGuard],data:['admin','posuser','retaileradmin']},
+      { path: 'order', component:  OrdersComponent,canActivate:[AuthGuard],data:['admin','superadmin','retaileradmin','posuser']},
+      { path: 'retailer', component: RetailersComponent,canActivate:[AuthGuard],data:['superadmin']},
+      { path: 'RetailerMarkup', component: RetailerMarkupComponent,canActivate:[AuthGuard],data:['superadmin']},
+      { path: 'RetailerSingle', component: RetailerSingleComponent,canActivate:[AuthGuard],data:['superadmin']},
+      { path: 'markup', component:  DistributorMarkupComponent,canActivate:[AuthGuard],data:['admin']},
+      { path: 'dist-category', component:  DistributorCategoryComponent,canActivate:[AuthGuard],data:['admin']},
+      { path: 'store-location', component:  StoreLocationComponent,canActivate:[AuthGuard],data:['retaileradmin']},
+      { path: 'cart', component:  ShoppingCartComponent,canActivate:[AuthGuard],data:['admin','retaileradmin','posuser']}
+   ]
   },
   {
     path: 'forgot',
