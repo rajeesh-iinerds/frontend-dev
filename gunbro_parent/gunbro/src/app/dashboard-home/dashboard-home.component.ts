@@ -59,15 +59,15 @@ export class DashboardHomeComponent implements OnInit {
       
 
       //Function to fetch the order count from ordercomponent.
-      this.ordersList.listOrders("").subscribe((response) => {
-              this.orderslistCount = response && response.length ? response.length : 0;
-          },
-          (err) => {
-              this.orderslistCount = 0;
-              console.error(err);
-          }
+    //   this.ordersList.listOrders("").subscribe((response) => {
+    //           this.orderslistCount = response && response.length ? response.length : 0;
+    //       },
+    //       (err) => {
+    //           this.orderslistCount = 0;
+    //           console.error(err);
+    //       }
 
-      );
+    //   );
       //Function to fetch the distributor count from dist-markup component.
       this.demoService.getSessionToken().subscribe((response) => {
           this.distList.getDistributorsList(response).subscribe((distListResponse) => {

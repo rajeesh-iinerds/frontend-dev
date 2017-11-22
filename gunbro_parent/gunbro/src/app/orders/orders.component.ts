@@ -43,7 +43,9 @@ export class OrdersComponent implements OnInit {
     this.retailerAdminUser = constant.user.retaileradminUser && constant.user.retaileradminUser != 'null' ? constant.user.retaileradminUser : '';
     this.route.queryParams.subscribe((params: Params) => {
         this.listOrders(params.retailer_id).subscribe((response) => {
-        },
+            this.selectedRetailer = params.retailer_id;
+           
+         },
         (err) => console.error(err)
       );
     });
@@ -55,6 +57,7 @@ export class OrdersComponent implements OnInit {
   }
 
   getRetailerId(event,selectedRetailer){
+      console.log("event : " + event.target.value);
     this.listOrders(selectedRetailer).subscribe((response) => {
         this.route.queryParams.subscribe((params: Params) => {
             this.retailer_id = selectedRetailer;
@@ -68,6 +71,7 @@ export class OrdersComponent implements OnInit {
   listOrders(retailerId): Observable < any > {
     
       console.log("retailer id : " + retailerId);
+      console.log("retailer name***** : " + this.selectedRetailer);
       return Observable.create(observer => {
           return this.demoService.getSessionToken().subscribe((response) => {
               if (response.getIdToken().getJwtToken()) {
@@ -81,8 +85,6 @@ export class OrdersComponent implements OnInit {
                   var reqBody= {
                         retailer_id: this.retailer_id 
                     }
-                 
-
                   const url = constant.appcohesionURL.orderList_URL && constant.appcohesionURL.orderList_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
                   this.http.post(url, reqBody, options).subscribe(data => {
                   
@@ -92,7 +94,8 @@ export class OrdersComponent implements OnInit {
                        if(this.results && this.results.statusCode){    
                         if (this.results.statusCode == 200 ) {                           
                           this.orderDetails = Object.keys(this.results.data).length ? this.results.data : "";
-                         
+                         console.log("order details : " + this.orderDetails)
+                         console.log("object keys " + Object.keys(this.results.data).length)
                           } else if (this.results.statusCode == constant.statusCode.empty_code) {
                           this.orderDetails = [];                   
                           }

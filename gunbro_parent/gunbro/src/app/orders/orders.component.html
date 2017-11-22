@@ -18,7 +18,8 @@
       </div>
     </div>
     <div class="row"><!-- Order Listing -->
-        <div *ngIf="orderDetails && !orderDetails.length" class="noDetails"> No Details Found</div>
+        <div *ngIf="orderDetails == 0 || !orderDetails" class="noDetails"> No Details Found</div>
+        
       <div class="col-xs-12 col-sm-12 col-lg-12 ac-order-status" *ngIf="orderDetails && orderDetails.length">
           <!-- Table Start -->
           <table class="table">
