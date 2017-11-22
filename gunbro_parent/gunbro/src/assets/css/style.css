@@ -1807,7 +1807,23 @@ span.hover-card-subtotal {
   width: 100%;
   z-index: 1;
 }
-
+.input-count{
+  padding: 2px;
+  text-align: center;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+.input-control-btn{
+  padding: 0px 5px;
+  border-radius: 0px;
+  margin: 0px !important;
+}
+.input-control-btn span{
+  font-size: 15px;
+  font-family: roboto;
+  font-weight: 600;
+}
 /*shopping cart end*/
 
 /*confirm Order*/
@@ -1936,8 +1952,8 @@ select.shippingInfoDropDetails{
 }
 .selectioncheck{
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 45px;
+  /*right: 0px;*/
   display: inline-block;
   width: 23px;
   height: 23px;
@@ -1947,39 +1963,39 @@ select.shippingInfoDropDetails{
   margin: 0px !important;
 }
 .selectioncheck:checked:before {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  height: .9rem;
-  border-color: #5363b9;
-  border-top-style: none;
-  border-right-style: none;
-  background: none;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    height: .9rem;
+    border-color: #5363b9;
+    border-top-style: none;
+    border-right-style: none;
+    background: none;
 }
 .selectioncheck:before {
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-  content: "";
-  position: absolute;
-  left: 0;
-  z-index: 1;
-  width: 2.3rem;
-  height: 2.3rem;
-  border: 2px solid #5363b9;
-  background-color: #5363b9;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    content: "";
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    width: 2.3rem;
+    height: 2.3rem;
+    border: 2px solid #5363b9;
+    /*background-color: #5363b9;*/
 }
 .selectioncheck:after {
-  content: "";
-  position: absolute;
-  top: -0.125rem;
-  left: 0;
-  width: 2.3rem;
-  height: 2.3rem;
-  background: #FFF;
-  cursor: pointer;
+    content: "";
+    position: absolute;
+    top: -0.125rem;
+    left: 0;
+    width: 2.3rem;
+    height: 2.3rem;
+    background: #FFF;
+    cursor: pointer;
 }
 
 

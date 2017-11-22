@@ -122,7 +122,7 @@ export class EmployeeComponent implements OnInit {
     .subscribe(data => {
         this.demoService.loading = false;
         this.results = data ? data.json() : '';
-        console.log(this.results.users.length);
+        // console.log(this.results.users.length);
         if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {
             this.userList = this.results;  
             observer.next(this.userList);  

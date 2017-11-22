@@ -21,7 +21,7 @@
               <span class="hover-card-subtotal pull-right">${{cartItem.finalPrice}}</span>
               
             </div>
-            <button [hidden]="!this.cartBucket.length" class="view-cart-button">View Cart</button>
+            <button routerLink="/dashboard/cart" [hidden]="!this.cartBucket.length" class="view-cart-button">View Cart</button>
           </div>
         </div>
         <div class="filter">
