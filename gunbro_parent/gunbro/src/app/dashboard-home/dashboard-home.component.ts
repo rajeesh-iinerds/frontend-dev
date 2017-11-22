@@ -59,7 +59,7 @@ export class DashboardHomeComponent implements OnInit {
       
 
       //Function to fetch the order count from ordercomponent.
-      this.ordersList.listOrders("").subscribe((response) => {
+      this.ordersList.listOrders('','').subscribe((response) => {
               this.orderslistCount = response && response.length ? response.length : 0;
           },
           (err) => {
