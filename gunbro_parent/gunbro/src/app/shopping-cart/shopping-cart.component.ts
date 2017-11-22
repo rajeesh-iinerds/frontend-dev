@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { Location } from '@angular/common';
 
 import { DemoService } from '../demo-component/demo.service';
 import * as constant from '../shared/config';
+import { CommonService } from '../shared/common.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -11,11 +13,6 @@ import * as constant from '../shared/config';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-
-	/*sizes: any[] = [
-		{ 'size': '9999', 'diameter': '16000 km', 'id': 'id666' },
-	    { 'size': '3333', 'diameter': '32000 km', 'id': 'id555' }
-	];*/
 
 	dummy: any[] = [
 		{"name": "American Classic 1911 Amigo 45 ACP 3.5", "price": "129.00", "id": "101"},
@@ -37,16 +34,10 @@ export class ShoppingCartComponent implements OnInit {
       "selectedQuantity": 0
     };
 
-  	constructor(public demoService: DemoService , private http: Http) { }
+  	constructor(public demoService: DemoService , private http: Http, public commonService: CommonService, private location: Location) { }
 
   	ngOnInit() {
   		this.totalAmount = 0;
-  		// for(var i = 0; i < this.dummy.length; i++) {
-  		// 	this.totalAmount = this.totalAmount+Number(this.dummy[i].price);
-  		// }
-  		// this.list = this.dummy;
-  		// this.count = this.dummy.length;
-
   		this.cartDetails().subscribe((response) => {
 		},
 		(err) => console.error(err)
@@ -63,38 +54,38 @@ export class ShoppingCartComponent implements OnInit {
 	                let req_body = {
 	                    "user_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : ""
 	                };
-	                const url = "https://staging-api.appcohesion.io/cartListing";
+	                const url = constant.appcohesionURL.getCartList_URL;//"https://staging-api.appcohesion.io/cartListing";
 	                this.http.post(url, req_body, options).subscribe(data => {
-	                this.demoService.loading = false;
-	                this.results = data.json();
-	                if(this.results && this.results.status){
-	                	if(this.results.status.code == constant.statusCode.success_code && this.results.cartList){
-	                		this.cartList = this.results.cartList;
-	                		this.count = this.cartList.length;
-	                		for(var i = 0; i < this.cartList.length; i++) {
-	                			this.cartObject = {
-							    	"subtotal": 0,
-							      	"ffl": '',
-							      	"selectedQuantity": 0
-							    };
-					  			this.totalAmount = this.totalAmount+Number(this.cartList[i].msrp);
-					  			this.cartObject['subtotal'] = Number(this.cartList[i].msrp);
-					  			console.log('+++++++++++++', this.cartObject);
-					  			this.cartList[i]['cartObject'] = this.cartObject;
+	                	this.demoService.loading = false;
+	                	this.results = data.json();
+	                	if(this.results && this.results.status){
+	                		if(this.results.status.code == constant.statusCode.success_code && this.results.cartList){
+		                		this.cartList = this.results.cartList;
+		                		this.count = this.cartList.length;
+		                		for(var i = 0; i < this.cartList.length; i++) {
+		                			this.cartObject = {
+								    	"subtotal": 0,
+								      	"ffl": '',
+								      	"selectedQuantity": 0
+								    };
+						  			this.totalAmount = this.totalAmount+(Number(this.cartList[i].Quantity) * Number(this.cartList[i].msrp));
+						  			this.cartObject['subtotal'] = Number(this.cartList[i].Quantity) * Number(this.cartList[i].msrp);
+						  			console.log('+++++++++++++', this.cartObject);
+						  			this.cartList[i]['cartObject'] = this.cartObject;
 
-					  			// this.cartList[i]['cartObject'].subtotal = Number(this.cartList[i].msrp);
-					  			// this.subtotal = Number(this.cartList[i].msrp);
-					  			this.quantityCount = this.quantityCount + Number(this.cartList[i].Quantity);
-					  			this.cartObject['selectedQuantity'] = Number(this.cartList[i].Quantity);
-					  			this.cartList[i]['cartObject'] = this.cartObject;
-					  		}
-					  		console.log('****************', this.cartList);
-	                    }
-	                    else if(this.results.status.code == constant.statusCode.empty_code){
-	                    }
-	                }
-	                   observer.next();
-	                   observer.complete();
+						  			// this.cartList[i]['cartObject'].subtotal = Number(this.cartList[i].msrp);
+						  			// this.subtotal = Number(this.cartList[i].msrp);
+						  			this.quantityCount = this.quantityCount + Number(this.cartList[i].Quantity);
+						  			this.cartObject['selectedQuantity'] = Number(this.cartList[i].Quantity);
+						  			this.cartList[i]['cartObject'] = this.cartObject;
+						  		}
+						  		console.log('****************', this.cartList);
+		                    }
+		                    else if(this.results.status.code == constant.statusCode.empty_code){
+		                    }
+		                }
+	                   	observer.next();
+	                   	observer.complete();
 	                });
 	            }
 	        });
@@ -128,12 +119,42 @@ export class ShoppingCartComponent implements OnInit {
 	}*/
 
 	removeFromCart(obj) {
-		this.count--;
-  		this.totalAmount = this.totalAmount-Number(obj.price);
-		const index: number = this.dummy.indexOf(obj);
+		// TODO confirm popup for remove cart
+		this.commonService.getJwtToken().subscribe((response)=>{
+			const jwt = response;
+            let headers = new Headers({ 'Authorization': jwt });
+            let options = new RequestOptions({ headers: headers });
+            let req_body = {
+                "CartItemId": obj.CartItemID
+            };
+            const url = constant.appcohesionURL.deleteCart_URL; //"https://staging-api.appcohesion.io/deleteItem";
+            this.http.post(url, req_body, options).subscribe(data => {
+            	this.demoService.loading = false;
+            	this.results = data.json();
+            	if(this.results && this.results.status){
+            		if(this.results.status.code == constant.statusCode.success_code){
+            			this.count--;
+            			this.totalAmount = this.totalAmount-(Number(obj.msrp) * Number(obj.cartObject.selectedQuantity));
+            			this.quantityCount = this.quantityCount - Number(obj.cartObject.selectedQuantity);
+            			const index: number = this.cartList.indexOf(obj);
+					    if (index !== -1) {
+					        this.cartList.splice(index, 1);
+					    }
+                    }
+                    else if(this.results.status.code == constant.statusCode.empty_code){
+
+                    }
+                }               	
+            });
+
+		});
+
+		// this.count--;
+  		// this.totalAmount = this.totalAmount-Number(obj.price);
+		/*const index: number = this.dummy.indexOf(obj);
 	    if (index !== -1) {
 	        this.dummy.splice(index, 1);
-	    }        
+	    }*/
 	}
 
 	incrementQuantity(item) {
@@ -147,7 +168,7 @@ export class ShoppingCartComponent implements OnInit {
 		}
 	}
 	decrementQuantity(item) {
-		if(item.Quantity > '0') {
+		if(item.Quantity > '1') {
 			item.Quantity = Number(item.Quantity) -1;
 			// this.subtotal = Number(this.subtotal) - Number(item.msrp);
 			item.cartObject.subtotal = Number(item.cartObject.subtotal) - Number(item.msrp);
@@ -155,6 +176,8 @@ export class ShoppingCartComponent implements OnInit {
 			this.totalAmount = this.totalAmount - Number(item.msrp);
 		}
 	}
-
+	backClicked() {
+    	this.location.back();
+    }
 
 }
