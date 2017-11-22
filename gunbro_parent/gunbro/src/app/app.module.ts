@@ -30,6 +30,8 @@ import { SearchProductService } from './product-search/search-product-service';
 import { CommonService } from './shared/common.service';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import {MessagePopupComponent} from "./shared/component/message-popup/message-popup.component";
+import { OrderPlacementComponent } from './shopping-cart/order-placement/order-placement.component';
+import { ShoppingCartService } from './shopping-cart/shopping-cart.service';
 
 const appRoutes: Routes = [
   {
@@ -48,7 +50,8 @@ const appRoutes: Routes = [
       { path: 'markup', component:  DistributorMarkupComponent},
       { path: 'dist-category', component:  DistributorCategoryComponent},
       { path: 'store-location', component:  StoreLocationComponent},
-      { path: 'cart', component:  ShoppingCartComponent}
+      { path: 'cart', component:  ShoppingCartComponent},
+      { path: 'place-order', component:  OrderPlacementComponent}
     ]
   },
   {
@@ -91,7 +94,8 @@ const appRoutes: Routes = [
     SearchWidgetComponent,
     SearchWidgetPipe,
     ShoppingCartComponent,
-    MessagePopupComponent
+    MessagePopupComponent,
+    OrderPlacementComponent
   ],
   imports: [
     BrowserModule,
@@ -115,7 +119,8 @@ const appRoutes: Routes = [
     OrdersComponent,
     DistributorMarkupComponent,
     EmployeeComponent,
-    MessagePopupComponent
+    MessagePopupComponent,
+    ShoppingCartService
   ],
   bootstrap: [AppComponent]
 })
