@@ -53,7 +53,7 @@ export class ShoppingCartComponent implements OnInit {
 	                let headers = new Headers({ 'Authorization': jwt });
 	                let options = new RequestOptions({ headers: headers });
 	                let req_body = {
-	                    "user_id": 41//localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : ""
+	                    "user_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : ""
 	                };
 	                const url = "https://staging-api.appcohesion.io/cartListing"
 	                this.http.post(url, req_body, options).subscribe(data => {
