@@ -1,5 +1,4 @@
   
-
       <!-- Generic wrap start -->
       <div class="ac-generic-wrap">
         <div class="container-fluid">
@@ -7,67 +6,10 @@
             <div class="col-xs-12 col-sm-9 col-lg-9">
               <h3 class="ac-page-title">Shopping Cart<em class="ac-search-count" *ngIf="cartList && cartList.length">{{cartList.length}} Item(s) in the cart</em></h3>
             </div>
-            <!-- <div class="col-xs-12 col-sm-3 col-lg-3">
-              <div class="shoppingCart">
-                <img src="images/shopping-cart.svg">
-                <span class="item-count-notify">6</span>
-                <div class="cart-hover-field">
-                  <div class="cart-hover-field-card">
-                    <div class="cart-item-image">
-                      <img src="demo-assets/gun3.png">
-                    </div>
-                    <h5>Ruger 22/45 Target</h5>
-                    <div class="clearfix"></div>
-                    <span class="hover-card-subtotal pull-left">SUB TOTAL</span>
-                    <span class="hover-card-subtotal pull-right">$399.00</span>
-                    <button class="view-cart-button">View Cart</button>
-                  </div>
-                  <div class="cart-hover-field-card">
-                    <div class="cart-item-image">
-                      <img src="demo-assets/gun3.png">
-                    </div>
-                    <h5>Ruger 22/45 Target</h5>
-                    <div class="clearfix"></div>
-                    <span class="hover-card-subtotal pull-left">SUB TOTAL</span>
-                    <span class="hover-card-subtotal pull-right">$399.00</span>
-                    <button class="view-cart-button">View Cart</button>
-                  </div>
-                  <div class="cart-hover-field-card">
-                    <div class="cart-item-image">
-                      <img src="demo-assets/gun3.png">
-                    </div>
-                    <h5>Ruger 22/45 Target</h5>
-                    <div class="clearfix"></div>
-                    <span class="hover-card-subtotal pull-left">SUB TOTAL</span>
-                    <span class="hover-card-subtotal pull-right">$399.00</span>
-                    <button class="view-cart-button">View Cart</button>
-                  </div>
-                  <div class="cart-hover-field-card">
-                    <div class="cart-item-image">
-                      <img src="demo-assets/gun3.png">
-                    </div>
-                    <h5>Ruger 22/45 Target</h5>
-                    <div class="clearfix"></div>
-                    <span class="hover-card-subtotal pull-left">SUB TOTAL</span>
-                    <span class="hover-card-subtotal pull-right">$399.00</span>
-                    <button class="view-cart-button">View Cart</button>
-                  </div>
-                </div>
-              </div>
-              <div class="filter">
-                <img src="images/filter.svg">
-              </div>
-            </div> -->
           </div>
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-lg-9 ac-shopping-cart-box">
-            	<!-- <div *ngFor="let size of sizes ; let i = index"> 
-                <div class="text-right">{{i + 1}}</div>
-                <div class="text-right">{{size.size}}</div>
-                <div>{{size.diameter}}</div>
-                <div class="text-center">
-                    <input type="checkbox" name="sizecb[]" value="{{size.id}}" checked (change)="checkAll($event)"/>
-                </div> -->
+            	
                 <!-- <div class="cart-card" *ngFor="let size of dummy ; let i = index">
 	                <div class="cart-input-box">
 	                  <input type="checkbox" class="selectioncheck" name="sizecb[]" value="{{size.id}}" checked (change)="checkAll(size, $event)" [(ngModel)]="size.id">
@@ -128,114 +70,9 @@
 	                </div>
 	                <div class="cart-item-removeButton" (click) = "removeFromCart(size)"></div>
               </div>
-              <!-- <div class="cart-card">
-                <div class="cart-input-box">
-                  <input type="checkbox" name="test" class="selectioncheck" [checked]="isAllChecked()" (change)="checkAll($event)">
-                </div>
-                <div class="cart-image-box">
-                  <img src="assets/demo-assets/gun1.png">
-                </div>
-                <div class="cart-item-name">
-                  <h5>American Classic 1911 Amigo 45 ACP 3.5" 7+1Rds</h5>
-                </div>
-                <div class="cart-item-msrp">
-                  <span>MSRP</span>
-                  <h6>$129.00</h6>
-                </div>
-                <div class="cart-item-quantity">Quantity</div>
-                <div class="cart-item-subtotal">
-                  <span>Sub Total</span>
-                  <h6>$768</h6>
-                </div>
-                <div class="cart-item-removeButton"></div>
-              </div>
-              <div class="cart-card">
-                <div class="cart-input-box">
-                  <input type="checkbox" name="" class="selectioncheck">
-                </div>
-                <div class="cart-image-box">
-                  <img src="assets/demo-assets/gun1.png">
-                </div>
-                <div class="cart-item-name">
-                  <h5>American Classic 1911 Amigo 45 ACP 3.5" 7+1Rds</h5>
-                </div>
-                <div class="cart-item-msrp">
-                  <span>MSRP</span>
-                  <h6>$129.00</h6>
-                </div>
-                <div class="cart-item-quantity">Quantity</div>
-                <div class="cart-item-subtotal">
-                  <span>Sub Total</span>
-                  <h6>$768</h6>
-                </div>
-                <div class="cart-item-removeButton"></div>
-              </div>
-              <div class="cart-card">
-                <div class="cart-input-box">
-                  <input type="checkbox" name="" class="selectioncheck">
-                </div>
-                <div class="cart-image-box">
-                  <img src="assets/demo-assets/gun1.png">
-                </div>
-                <div class="cart-item-name">
-                  <h5>American Classic 1911 Amigo 45 ACP 3.5" 7+1Rds</h5>
-                </div>
-                <div class="cart-item-msrp">
-                  <span>MSRP</span>
-                  <h6>$129.00</h6>
-                </div>
-                <div class="cart-item-quantity">Quantity</div>
-                <div class="cart-item-subtotal">
-                  <span>Sub Total</span>
-                  <h6>$768</h6>
-                </div>
-                <div class="cart-item-removeButton"></div>
-              </div>
-              <div class="cart-card">
-                <div class="cart-input-box">
-                  <input type="checkbox" name="" class="selectioncheck">
-                </div>
-                <div class="cart-image-box">
-                  <img src="assets/demo-assets/gun1.png">
-                </div>
-                <div class="cart-item-name">
-                  <h5>American Classic 1911 Amigo 45 ACP 3.5" 7+1Rds</h5>
-                </div>
-                <div class="cart-item-msrp">
-                  <span>MSRP</span>
-                  <h6>$129.00</h6>
-                </div>
-                <div class="cart-item-quantity">Quantity</div>
-                <div class="cart-item-subtotal">
-                  <span>Sub Total</span>
-                  <h6>$768</h6>
-                </div>
-                <div class="cart-item-removeButton"></div>
-              </div>
-              <div class="cart-card">
-                <div class="cart-input-box">
-                  <input type="checkbox" name="" class="selectioncheck">
-                </div>
-                <div class="cart-image-box">
-                  <img src="assets/demo-assets/gun1.png">
-                </div>
-                <div class="cart-item-name">
-                  <h5>American Classic 1911 Amigo 45 ACP 3.5" 7+1Rds</h5>
-                </div>
-                <div class="cart-item-msrp">
-                  <span>MSRP</span>
-                  <h6>$129.00</h6>
-                </div>
-                <div class="cart-item-quantity">Quantity</div>
-                <div class="cart-item-subtotal">
-                  <span>Sub Total</span>
-                  <h6>$768</h6>
-                </div>
-                <div class="cart-item-removeButton"></div>
-              </div> -->             
               <div class="cart-bottom-buttons">
                 <button class="cart-place-order">Place Order</button>
-                <button class="cart-place-order cart-continue-shipping">Continue to Shopping</button>
+                <button class="cart-place-order cart-continue-shipping" (click)="backClicked()">Continue to Shopping</button>
               </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-lg-3 cart-order-summery">
@@ -266,7 +103,7 @@
     <!--   __   ___        __      __                
           |  \ |__   |\/| /  \    /  \ |\ | |    \ / 
           |__/ |___  |  | \__/    \__/ | \| |___  |  -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
         // Toggle Search
@@ -282,7 +119,7 @@
           $('body').toggleClass('ac-main-nav-on');
         });
       });
-    </script>
+    </script> -->
     <!--   __   ___        __      __                
           |  \ |__   |\/| /  \    /  \ |\ | |    \ / 
           |__/ |___  |  | \__/    \__/ | \| |___  |  -->
