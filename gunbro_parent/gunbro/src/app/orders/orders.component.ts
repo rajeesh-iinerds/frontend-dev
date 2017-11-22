@@ -7,7 +7,7 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/do';
 import { JwtHelper } from 'angular2-jwt/angular2-jwt';
 import { DemoService } from '../demo-component/demo.service';
-import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+import { Params, ActivatedRoute, RouterModule, Router } from '@angular/router';
 import {Directive, OnDestroy, Output, EventEmitter} from '@angular/core';
 import * as constant from '../shared/config';
 
@@ -28,10 +28,12 @@ export class OrdersComponent implements OnInit {
   retailerAdminUser: any;
   selectedRetailer:  any;
   retailerIdPass: any ;
-
-  constructor(public demoService: DemoService, private http: Http, private router: Router) {
+  userDetails: any;
+  body: Object = {};
+  retailer_id : any;
+  constructor(private route: ActivatedRoute,public demoService: DemoService, private http: Http, private router: Router) {
     this.demoService.showRetailerProfile = false;
-    this.retailerIdPass = 'All';
+ 
   }
 
   ngOnInit() {
@@ -39,25 +41,33 @@ export class OrdersComponent implements OnInit {
     this.configSuperAdminUser = constant.user.superadminUser && constant.user.superadminUser != 'null' ? constant.user.superadminUser : '';
     this.configAdminUser = constant.user.userGroup && constant.user.userGroup != 'null' ? constant.user.userGroup : '';
     this.retailerAdminUser = constant.user.retaileradminUser && constant.user.retaileradminUser != 'null' ? constant.user.retaileradminUser : '';
-    this.listOrders().subscribe((response) => {
-          },
-          (err) => console.error(err)
+    this.route.queryParams.subscribe((params: Params) => {
+        this.listOrders(params.retailer_id).subscribe((response) => {
+        },
+        (err) => console.error(err)
       );
+    });
+    
     this.demoService.listRetailorDetails();  
+    this.userDetails = {};
+    this.userDetails.first_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).first_name : "";
+    this.userDetails.last_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).last_name : "";
   }
 
-  geRetailerId(event){
-    console.log("event details : " + event.target.value)
-    this.retailerIdPass = event.target.value;
-    this.listOrders().subscribe((response) => {
+  getRetailerId(event,selectedRetailer){
+    this.listOrders(selectedRetailer).subscribe((response) => {
+        this.route.queryParams.subscribe((params: Params) => {
+            this.retailer_id = selectedRetailer;
+        });
     },
     (err) => console.error(err)
    );
-  }
+ }
 
   // Method for listing Order list
-  listOrders(): Observable < any > {
-      console.log("list orders  this.retailerIdPass : " + this.retailerIdPass);
+  listOrders(retailerId): Observable < any > {
+    
+      console.log("retailer id : " + retailerId);
       return Observable.create(observer => {
           return this.demoService.getSessionToken().subscribe((response) => {
               if (response.getIdToken().getJwtToken()) {
@@ -65,38 +75,33 @@ export class OrdersComponent implements OnInit {
                   let headers = new Headers({ 'Authorization': jwt });
                   let options = new RequestOptions({ headers: headers });
                   var store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id:"";
-                  var retailer_id = localStorage.getItem("User_Information")?JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId:"":"";
-                //  if(this.userGroup == this.configSuperAdminUser){
-                    let req_body = {
-                       // "store_id": "",
-                        "retailer_id" : (this.userGroup == this.configSuperAdminUser) ? (this.retailerIdPass == 'All' ? "" : this.retailerIdPass):retailer_id
-                    }; 
-                    console.log("request body list orders inside super admin user group : " + JSON.stringify(req_body));
-                  //}
-                  
-                 /* let req_body = {
-                      "store_id": (this.userGroup == this.configAdminUser) ?  store_id : "" ,
-                      "retailer_id" : (this.userGroup == this.configAdminUser || this.userGroup == this.retailerAdminUser) ?  retailer_id : ""   
-                  }; */
-                
+                  var retailer_idUsers = localStorage.getItem("User_Information")?JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId:"":"";
+         
+                  this.retailer_id =  (this.userGroup == this.configSuperAdminUser) ?  retailerId : retailer_idUsers;
+                  var reqBody= {
+                        retailer_id: this.retailer_id 
+                    }
                  
-                 const url = constant.appcohesionURL.orderList_URL && constant.appcohesionURL.orderList_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
-                  this.http.post(url, req_body, options).subscribe(data => {
-                   // console.log("check empty data : " + data);
+
+                  const url = constant.appcohesionURL.orderList_URL && constant.appcohesionURL.orderList_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
+                  this.http.post(url, reqBody, options).subscribe(data => {
+                  
                     this.demoService.loading = false;
                       this.results = data ? data.json() :"";                    
-                      console.log("order list details : " + JSON.stringify(this.results));                     
-                       if(this.results && this.results.statusCode){                       
-                          if (this.results.statusCode == 200 && Object.keys(this.results.data).length) {                           
-                          this.orderDetails = this.results.data ? this.results.data : "";
+                     // console.log("order list details : " + JSON.stringify(this.results));                     
+                       if(this.results && this.results.statusCode){    
+                        if (this.results.statusCode == 200 ) {                           
+                          this.orderDetails = Object.keys(this.results.data).length ? this.results.data : "";
+                         
                           } else if (this.results.statusCode == constant.statusCode.empty_code) {
                           this.orderDetails = [];                   
-                           }
-                           else{
-                            this.orderDetails = [];                            
-                           }
-                          observer.next(this.orderDetails);
-                          observer.complete();
+                          }
+                           this.router.navigate(['/dashboard/order'], {
+                            queryParams: reqBody
+                        });
+
+                         observer.next(this.orderDetails);
+                         observer.complete();
                       }
                     else{
                         observer.next(this.orderDetails);
@@ -118,7 +123,7 @@ export class OrdersComponent implements OnInit {
      this.selectedOrder = {};
     for(var i = 0; i < this.orderDetails.length; i++){
         if(this.orderDetails[i].OrderID == orderID){
-            console.log("order view details : " + JSON.stringify(this.orderDetails[i]));
+           // console.log("order view details : " + JSON.stringify(this.orderDetails[i]));
             this.selectedOrder.OrderID = this.orderDetails[i].OrderID ? this.orderDetails[i].OrderID:'';
             this.selectedOrder.CustomerPrice = this.orderDetails[i].CustomerPrice ? this.orderDetails[i].CustomerPrice : '';
             this.selectedOrder.manufacturer_partnumber = this.orderDetails[i].manufacturer_partnumber && this.orderDetails[i].manufacturer_partnumber !='null'? this.orderDetails[i].manufacturer_partnumber : '';

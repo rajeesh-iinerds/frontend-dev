@@ -27,7 +27,7 @@ import {
     JwtHelper
 } from 'angular2-jwt/angular2-jwt';
 import * as constant from '../shared/config';
-
+import {CommonService} from '../shared/common.service';
 @Injectable()
 export class DemoService {
     userSession: any;
@@ -64,7 +64,7 @@ export class DemoService {
     showEditRetailerView: boolean = false;
     retailerDetails: any;
 
-    constructor(private http: Http, private router: Router) {
+    constructor(private http: Http, private router: Router,private commonService:CommonService) {
         console.log(constant.appcohesionURL);
         this.showclickorder = false;
         this.resultCount = 0;
@@ -158,7 +158,7 @@ export class DemoService {
                     console.log("result conginitive token : ", result);
                     this.jwt = result.getIdToken().getJwtToken();
                     localStorage.setItem('isLoggedIn', 'true');
-
+                    self.commonService.setJwtToken(this.jwt);
                     const idEpxiry = result.getIdToken().getExpiration();
                     console.log("expiration id : " + idEpxiry);
                     const str = idEpxiry + "";
@@ -306,7 +306,7 @@ export class DemoService {
         var retailer_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "" : "";
         this.body['store_id'] = store_id;
         this.body['retailer_id'] = retailer_id;
-
+        console.log("store id : " + this.body['store_id']);
         var reqBody = this.body;
         const url = constant.appcohesionURL.productSearch_URL;
         this.http
