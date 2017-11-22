@@ -1,0 +1,11 @@
+<div class="row fadebg" [class.show]="messagePopup"></div>
+<div class="confirmPopup" [class.show]="messagePopup">
+  <div class="successImgIcon"></div>
+  <div class="sucessMsgText text-center">
+    <h4>{{messageTitle}}</h4>
+    <P>{{messageDescription}}</P>
+  </div>
+  <div class=" col-md-6 gotoDashboardBtn text-right">
+    <span (click)="messagePopup=!messagePopup" style=" margin-right: -25px;">OK</span>
+  </div>
+</div>

@@ -45,34 +45,36 @@ export class ProductSearchComponent implements OnInit {
 			queryParams: detail
 		});
 	}
-	addToCart(event, postMap) {
+	addToCart(event, cartMaps) {
 		event.stopPropagation();
-		postMap.UserID= localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : "";
-		postMap.retailerID= localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
-		postMap.quantity=postMap.quantity ? postMap.quantity: 1;		
+		console.info(cartMaps);
+		let cartMap = Object.assign({}, cartMaps);
+		cartMap.UserID= localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : "";
+		cartMap.retailerID= localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
+		cartMap.quantity=cartMap.quantity ? cartMap.quantity: 1;		
 		var reqBody={
 			UserID: localStorage.getItem("User_Information") ? parseInt(JSON.parse(localStorage.getItem("User_Information"))[0].user_id) : "",
 			retailerID: localStorage.getItem("User_Information") ? parseInt(JSON.parse(localStorage.getItem("User_Information"))[0].user_id) : "",
-			quantity:postMap.quantity ? parseInt(postMap.quantity): 1,
-			GSIN:postMap.gsin ? 3395: "",
-			distributorID:postMap.distributor_id ? parseInt(postMap.distributor_id):"",
+			quantity:cartMap.quantity ? parseInt(cartMap.quantity): 1,
+			GSIN:cartMap.gsin ? parseInt(cartMap.gsin): "",
+			distributorID:cartMap.distributor_id ? parseInt(cartMap.distributor_id):"",
 		}
-		this.commonService.getJwtToken().subscribe((response)=>{
-			this.searchProductService.addToCart(reqBody,response).subscribe((response)=>{
-				this.returnResponse=response;
-				this.returnResponse && this.returnResponse.status.code == constant.statusCode.success_code ? (this.cartBucket.length ? this.checkAndIncrementquantity(postMap):this.cartBucket.push(postMap)) : alert("Add to cart failed");
-			});
+		// this.commonService.getJwtToken().subscribe((response)=>{
+		// 	this.searchProductService.addToCart(reqBody,response).subscribe((response)=>{
+		// 		this.returnResponse=response;
+		// 		this.returnResponse && this.returnResponse.status.code == constant.statusCode.success_code ? (this.cartBucket.length ? this.IncrementquantityOrPushItem(cartMap):this.cartBucket.push(cartMap)) : alert("Add to cart failed");
+		// 	});
 
-		});
-		
+		// });
+		this.cartBucket.length ? this.IncrementquantityOrPushItem(cartMap):this.cartBucket.push(cartMap)
 	}
-	checkAndIncrementquantity(postMap){
-		var index=this.isObjectInTheList(postMap,this.cartBucket);
+	IncrementquantityOrPushItem(cartMap){
+		var index=this.isObjectInTheList(cartMap,this.cartBucket);
 		console.info(index);
-		index < 0 ? this.cartBucket.push(postMap):this.cartBucket[index].quantity=this.cartBucket[index].quantity+1;
+		index < 0 ? this.cartBucket.push(cartMap):this.cartBucket[index].quantity=this.cartBucket[index].quantity+1;
 	}
 	/**
-	 * CHECH IF OBJECT IS CONTAINED IN LIST AND RETURN INDEX 
+	 * CHECK IF OBJECT IS CONTAINED IN LIST AND RETURN INDEX 
 	 */
 
 	isObjectInTheList(obj, list) {
@@ -82,6 +84,11 @@ export class ProductSearchComponent implements OnInit {
 		});
 		return itemIndex;
 	}
-
+	decreaseQuantity(index){
+		this.cartBucket[index].quantity>1?this.cartBucket[index].quantity=this.cartBucket[index].quantity-1:"";
+	}
+	increaseQuantity(index){		
+		this.cartBucket[index].quantity?this.cartBucket[index].quantity=this.cartBucket[index].quantity+1:"";
+	}
 
 }

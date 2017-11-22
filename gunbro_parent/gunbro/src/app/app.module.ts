@@ -29,7 +29,7 @@ import { SearchWidgetPipe } from './search-widget/search-widget.pipe';
 import { SearchProductService } from './product-search/search-product-service';
 import { CommonService } from './shared/common.service';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
-
+import {MessagePopupComponent} from "./shared/component/message-popup/message-popup.component";
 
 const appRoutes: Routes = [
   {
@@ -90,7 +90,8 @@ const appRoutes: Routes = [
     StoreLocationComponent,
     SearchWidgetComponent,
     SearchWidgetPipe,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    MessagePopupComponent
   ],
   imports: [
     BrowserModule,
@@ -113,7 +114,8 @@ const appRoutes: Routes = [
     DashboardComponentComponent,
     OrdersComponent,
     DistributorMarkupComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    MessagePopupComponent
   ],
   bootstrap: [AppComponent]
 })
