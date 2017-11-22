@@ -72,22 +72,24 @@ export class ShoppingCartComponent implements OnInit {
 									    	"subtotal": 0,
 									      	"selectedQuantity": 0
 									    };
-							  			this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].Quantity) * Number(this.cartList[i].msrp))) : 0;
+							  			this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].Quantity) * Number(this.cartList[i].msrp))) : this.totalAmount;
 							  			this.cartObject['subtotal'] = Number(this.cartList[i].Quantity) * Number(this.cartList[i].msrp);
-							  			console.log('+++++++++++++', this.cartObject);
+							  			// console.log('+++++++++++++', this.cartObject);
 							  			this.cartList[i]['cartObject'] = this.cartObject;
 
 							  			// this.cartList[i]['cartObject'].subtotal = Number(this.cartList[i].msrp);
 							  			// this.subtotal = Number(this.cartList[i].msrp);
-							  			this.quantityCount = this.cartList[i].inStock > 0 ? (this.quantityCount + Number(this.cartList[i].Quantity)) : 0;
+							  			console.log('+BEFOREEE this.quantityCount', this.cartList[i].inStock, ',',this.quantityCount);
+							  			this.quantityCount = this.cartList[i].inStock > 0 ? (this.quantityCount + Number(this.cartList[i].Quantity)) : this.quantityCount;
+							  			console.log('+AFTER this.quantityCount', this.cartList[i].inStock, ',',this.quantityCount);
 							  			this.cartObject['selectedQuantity'] = Number(this.cartList[i].Quantity);
 							  			this.cartList[i]['cartObject'] = this.cartObject;
 							  		// }
-							  		this.count = this.cartList[i].inStock > 0 ? (this.count+1) : 0;
+							  		this.count = this.cartList[i].inStock > 0 ? (this.count+1) : this.count;
 							  		if(this.cartList[i].inStock > 0)
 							  			this.cartInStockList.push(this.cartList[i]);
 						  		}
-						  		console.log('****************', this.cartList);
+						  		// console.log('****************', this.cartList);
 						  		this.cartService.setCartInfo(this.cartInStockList);
 		                    }
 		                    else if(this.results.status.code == constant.statusCode.empty_code){
