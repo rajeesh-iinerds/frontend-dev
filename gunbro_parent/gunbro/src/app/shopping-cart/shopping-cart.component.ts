@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Location } from '@angular/common';
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 
 import { DemoService } from '../demo-component/demo.service';
 import * as constant from '../shared/config';
 import { CommonService } from '../shared/common.service';
+import { ShoppingCartService } from './shopping-cart.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -30,11 +32,12 @@ export class ShoppingCartComponent implements OnInit {
 	quantityCount: number = 0;
 	cartObject = {
       "subtotal": 0,
-      "ffl": '',
       "selectedQuantity": 0
     };
+    cartInStockList: any;
 
-  	constructor(public demoService: DemoService , private http: Http, public commonService: CommonService, private location: Location) { }
+  	constructor(public demoService: DemoService , private http: Http, public commonService: CommonService, private location: Location,private route: ActivatedRoute, private router: Router, public cartService: ShoppingCartService) {
+  	}
 
   	ngOnInit() {
   		this.totalAmount = 0;
@@ -61,25 +64,31 @@ export class ShoppingCartComponent implements OnInit {
 	                	if(this.results && this.results.status){
 	                		if(this.results.status.code == constant.statusCode.success_code && this.results.cartList){
 		                		this.cartList = this.results.cartList;
-		                		this.count = this.cartList.length;
+		                		this.cartInStockList = [];
+		                		// this.count = this.cartList.length;
 		                		for(var i = 0; i < this.cartList.length; i++) {
-		                			this.cartObject = {
-								    	"subtotal": 0,
-								      	"ffl": '',
-								      	"selectedQuantity": 0
-								    };
-						  			this.totalAmount = this.totalAmount+(Number(this.cartList[i].Quantity) * Number(this.cartList[i].msrp));
-						  			this.cartObject['subtotal'] = Number(this.cartList[i].Quantity) * Number(this.cartList[i].msrp);
-						  			console.log('+++++++++++++', this.cartObject);
-						  			this.cartList[i]['cartObject'] = this.cartObject;
+		                			// if(this.cartList[i].inStock > 0) {
+			                			this.cartObject = {
+									    	"subtotal": 0,
+									      	"selectedQuantity": 0
+									    };
+							  			this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].Quantity) * Number(this.cartList[i].msrp))) : this.totalAmount;
+							  			this.cartObject['subtotal'] = Number(this.cartList[i].Quantity) * Number(this.cartList[i].msrp);
+							  			// console.log('+++++++++++++', this.cartObject);
+							  			this.cartList[i]['cartObject'] = this.cartObject;
 
-						  			// this.cartList[i]['cartObject'].subtotal = Number(this.cartList[i].msrp);
-						  			// this.subtotal = Number(this.cartList[i].msrp);
-						  			this.quantityCount = this.quantityCount + Number(this.cartList[i].Quantity);
-						  			this.cartObject['selectedQuantity'] = Number(this.cartList[i].Quantity);
-						  			this.cartList[i]['cartObject'] = this.cartObject;
+							  			// this.cartList[i]['cartObject'].subtotal = Number(this.cartList[i].msrp);
+							  			// this.subtotal = Number(this.cartList[i].msrp);
+							  			this.quantityCount = this.cartList[i].inStock > 0 ? (this.quantityCount + Number(this.cartList[i].Quantity)) : this.quantityCount;
+							  			this.cartObject['selectedQuantity'] = Number(this.cartList[i].Quantity);
+							  			this.cartList[i]['cartObject'] = this.cartObject;
+							  		// }
+							  		this.count = this.cartList[i].inStock > 0 ? (this.count+1) : this.count;
+							  		if(this.cartList[i].inStock > 0)
+							  			this.cartInStockList.push(this.cartList[i]);
 						  		}
-						  		console.log('****************', this.cartList);
+						  		// console.log('****************', this.cartList);
+						  		this.cartService.setCartInfo(this.cartInStockList);
 		                    }
 		                    else if(this.results.status.code == constant.statusCode.empty_code){
 		                    }
@@ -105,6 +114,15 @@ export class ShoppingCartComponent implements OnInit {
   			this.totalAmount = this.totalAmount-(Number(size.msrp) * Number(size.cartObject.selectedQuantity));
   			// this.quantityCount = this.quantityCount - 1;
   			this.quantityCount = this.quantityCount - Number(size.cartObject.selectedQuantity);
+  			/* Remove from place order array if unchecked */
+  			for(var i = 0; i < this.cartInStockList.length; i++) {
+  				if(ev.target.id == size.CartItemID) {
+  					const index: number = this.cartInStockList.indexOf(size);
+					    if (index !== -1) {
+					        this.cartInStockList.splice(index, 1);
+					    }
+  				}
+  			}
   		}
   		else {
   			this.count++;
@@ -174,10 +192,10 @@ export class ShoppingCartComponent implements OnInit {
 			item.cartObject.subtotal = Number(item.cartObject.subtotal) - Number(item.msrp);
 			this.quantityCount = this.quantityCount - 1;
 			this.totalAmount = this.totalAmount - Number(item.msrp);
+			item.cartObject.selectedQuantity = item.cartObject.selectedQuantity - 1;
 		}
 	}
 	backClicked() {
     	this.location.back();
     }
-
 }

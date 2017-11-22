@@ -1,40 +1,24 @@
   
       <!-- Generic wrap start -->
       <div class="ac-generic-wrap">
-        <div class="container-fluid">
+        <div class="container-fluid" *ngIf="cartList && cartList.length">
           <div class="row"><!-- Page Title -->
             <div class="col-xs-12 col-sm-9 col-lg-9">
               <h3 class="ac-page-title">Shopping Cart<em class="ac-search-count" *ngIf="cartList && cartList.length">{{cartList.length}} Item(s) in the cart</em></h3>
             </div>
           </div>
           <div class="row">
-            <div class="col-xs-12 col-sm-12 col-lg-9 ac-shopping-cart-box">
-            	
-                <!-- <div class="cart-card" *ngFor="let size of dummy ; let i = index">
-	                <div class="cart-input-box">
-	                  <input type="checkbox" class="selectioncheck" name="sizecb[]" value="{{size.id}}" checked (change)="checkAll(size, $event)" [(ngModel)]="size.id">
-	                </div>
-	                <div class="cart-image-box">
-	                  <img src="assets/demo-assets/gun1.png">
-	                </div>
-	                <div class="cart-item-name">
-	                  <h5>{{size.name}}</h5>
-	                </div>
-	                <div class="cart-item-msrp">
-	                  <span>MSRP</span>
-	                  <h6>{{size.price}}</h6>
-	                </div>
-	                <div class="cart-item-quantity">Quantity</div>
-	                <div class="cart-item-subtotal">
-	                  <span>Sub Total</span>
-	                  <h6>{{size.price}}</h6>
-	                </div>
-	                <div class="cart-item-removeButton" (click) = "removeFromCart(size)"></div>
-              </div> -->
+            <div class="col-xs-12 col-sm-12 col-lg-9 ac-shopping-cart-box">            	
               <div class="cart-card" *ngFor="let size of cartList ; let i = index">
+              	<div class="fadeclass" *ngIf="size.inStock <= 0">
+              		<h4>OUT OF STOCK</h4>
+              	</div>
 	                <div class="cart-input-box">
-	                  <input type="checkbox" class="selectioncheck" name="sizecb[]" value="{{size.GSIN}}" checked (change)="checkAll(size, $event)" [(ngModel)]="size.GSIN">
+                    <label class="" for="{{size.CartItemID}}">
+	                  <input type="checkbox" class="selectioncheck" name="sizecb[]" value="" checked (change)="checkAll(size, $event)" [(ngModel)]="size.GSIN" id={{size.CartItemID}}>
+                    </label>
 	                </div>
+
 	                <div class="cart-image-box">
 	                  <!-- <img src="assets/demo-assets/gun1.png"> -->
 	                  <img [src]="size.largeImage ? size.largeImage : size.smallImage ? size.smallImage : ''">
@@ -71,12 +55,12 @@
 	                <div class="cart-item-removeButton" (click) = "removeFromCart(size)"></div>
               </div>
               <div class="cart-bottom-buttons">
-                <button class="cart-place-order">Place Order</button>
+                <button class="cart-place-order" routerLink="/dashboard/place-order">Place Order</button>
                 <button class="cart-place-order cart-continue-shipping" (click)="backClicked()">Continue to Shopping</button>
               </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-lg-3 cart-order-summery">
-              <h4>Order Summary</h4>
+              <h3>Order Summary</h3>
               <div class="" style="padding: 10px 0px;border-bottom: 1px solid #eaeaea;">
                 <span>Items</span>
                 <span>{{quantityCount}}</span>
@@ -97,6 +81,7 @@
           </div>
           
         </div>
+        <div *ngIf="!cartList" class="noDetails"> No Details Found</div>
       </div>
       <!-- Generic wrap end -->
 
