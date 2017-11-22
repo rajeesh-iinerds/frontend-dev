@@ -183,15 +183,10 @@ export class ShoppingCartComponent implements OnInit {
 			item.cartObject.subtotal = Number(item.cartObject.subtotal) - Number(item.msrp);
 			this.quantityCount = this.quantityCount - 1;
 			this.totalAmount = this.totalAmount - Number(item.msrp);
+			item.cartObject.selectedQuantity = item.cartObject.selectedQuantity - 1;
 		}
 	}
 	backClicked() {
     	this.location.back();
     }
-    navigateToOrder() {
-    	this.router.navigate(['/dashboard/place-order'], {
-			queryParams: this.cartList
-		});
-    }
-
 }

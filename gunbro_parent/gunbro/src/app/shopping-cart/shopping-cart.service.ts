@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class ShoppingCartService {
 	cartInfo: any;
 
-  constructor() { }
+  	constructor() { }
 
 	setCartInfo(cartInfo) {
 		this.cartInfo = cartInfo;
