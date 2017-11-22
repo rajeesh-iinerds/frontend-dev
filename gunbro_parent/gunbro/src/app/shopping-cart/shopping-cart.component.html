@@ -5,7 +5,7 @@
         <div class="container-fluid">
           <div class="row"><!-- Page Title -->
             <div class="col-xs-12 col-sm-9 col-lg-9">
-              <h3 class="ac-page-title">Shopping Cart<em class="ac-search-count">{{dummy.length}} Items in the cart</em></h3>
+              <h3 class="ac-page-title">Shopping Cart<em class="ac-search-count" *ngIf="cartList && cartList.length">{{cartList.length}} Item(s) in the cart</em></h3>
             </div>
             <!-- <div class="col-xs-12 col-sm-3 col-lg-3">
               <div class="shoppingCart">
@@ -68,7 +68,7 @@
                 <div class="text-center">
                     <input type="checkbox" name="sizecb[]" value="{{size.id}}" checked (change)="checkAll($event)"/>
                 </div> -->
-                <div class="cart-card" *ngFor="let size of dummy ; let i = index">
+                <!-- <div class="cart-card" *ngFor="let size of dummy ; let i = index">
 	                <div class="cart-input-box">
 	                  <input type="checkbox" class="selectioncheck" name="sizecb[]" value="{{size.id}}" checked (change)="checkAll(size, $event)" [(ngModel)]="size.id">
 	                </div>
@@ -86,6 +86,45 @@
 	                <div class="cart-item-subtotal">
 	                  <span>Sub Total</span>
 	                  <h6>{{size.price}}</h6>
+	                </div>
+	                <div class="cart-item-removeButton" (click) = "removeFromCart(size)"></div>
+              </div> -->
+              <div class="cart-card" *ngFor="let size of cartList ; let i = index">
+	                <div class="cart-input-box">
+	                  <input type="checkbox" class="selectioncheck" name="sizecb[]" value="{{size.GSIN}}" checked (change)="checkAll(size, $event)" [(ngModel)]="size.GSIN">
+	                </div>
+	                <div class="cart-image-box">
+	                  <!-- <img src="assets/demo-assets/gun1.png"> -->
+	                  <img [src]="size.largeImage ? size.largeImage : size.smallImage ? size.smallImage : ''">
+	                </div>
+	                <div class="cart-item-name">
+	                  <h5>{{size.product_name}}</h5>
+	                </div>
+	                <div class="cart-item-msrp">
+	                  <span>MSRP</span>
+	                  <h6>{{size.msrp}}</h6>
+	                </div>
+	                <div class="cart-item-quantity">
+	                <span>Quantity</span>
+	                <div class="input-group" style="width: 80%;">
+	                    <span class="input-group-btn input-control">
+	                        <button type="button" class="btn btn-default btn-number input-control-btn" data-type="minus" data-field="quant[1]" (click)="decrementQuantity(size)">
+	                            <span class="glyphicon glyphicon-minus"></span>
+	                        </button>
+	                    </span>
+	                    <input type="text" name="quant[1]" class="form-control input-number input-count" value={{size.Quantity}} min="1" max="{{size.inStock}}" [(ngModel)]="size.cartObject.selectedQuantity">
+
+	                    <span class="input-group-btn">
+	                        <button type="button" class="btn btn-default btn-number input-control-btn" data-type="plus" data-field="quant[1]" (click)="incrementQuantity(size)">
+	                            <span class="glyphicon glyphicon-plus"></span>
+	                        </button>
+	                    </span>
+	                </div>
+	                </div>
+	                <div class="cart-item-subtotal">
+	                  <span>Sub Total</span>
+	                  <!-- <h6>{{subtotal}}</h6> -->
+	                  <h6>{{size.cartObject.subtotal}}</h6>
 	                </div>
 	                <div class="cart-item-removeButton" (click) = "removeFromCart(size)"></div>
               </div>
@@ -203,7 +242,7 @@
               <h4>Order Summary</h4>
               <div class="" style="padding: 10px 0px;border-bottom: 1px solid #eaeaea;">
                 <span>Items</span>
-                <span>{{count}}</span>
+                <span>{{quantityCount}}</span>
                 <span class="pull-right">${{totalAmount}}</span>
               </div>
               <!-- <div class="" style="padding: 10px 0px;border-bottom: 1px solid #eaeaea;">

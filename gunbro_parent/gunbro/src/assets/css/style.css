@@ -1807,7 +1807,23 @@ span.hover-card-subtotal {
   width: 100%;
   z-index: 1;
 }
-
+.input-count{
+  padding: 2px;
+  text-align: center;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+.input-control-btn{
+  padding: 0px 5px;
+  border-radius: 0px;
+  margin: 0px !important;
+}
+.input-control-btn span{
+  font-size: 15px;
+  font-family: roboto;
+  font-weight: 600;
+}
 /*shopping cart end*/
 
 /*confirm Order*/
