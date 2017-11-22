@@ -73,6 +73,9 @@ export const forgetPasswordMsg = {
 	"Msg_description" : "Cannot reset password for the user as there is no registered/verified email or phone_number",
 	"Email_description" : "Email Sent"
 };
+export const orderRoute = {
+	"flag" : "order"
+};
 export const SS_prod_param = {
 	"CustomerNumber": "31821", //"99994",
     "UserName": "31821", //"99994",
