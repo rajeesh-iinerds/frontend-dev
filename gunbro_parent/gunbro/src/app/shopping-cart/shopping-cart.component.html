@@ -36,7 +36,9 @@
               		<h4>OUT OF STOCK</h4>
               	</div>
 	                <div class="cart-input-box">
-	                  <input type="checkbox" class="selectioncheck" name="sizecb[]" value="{{size.GSIN}}" checked (change)="checkAll(size, $event)" [(ngModel)]="size.GSIN">
+                    <label class="" for="{{size.CartItemID}}">
+	                  <input type="checkbox" class="selectioncheck" name="sizecb[]" value="" checked (change)="checkAll(size, $event)" [(ngModel)]="size.GSIN" id={{size.CartItemID}}>
+                    </label>
 	                </div>
 
 	                <div class="cart-image-box">

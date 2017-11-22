@@ -116,6 +116,15 @@ export class ShoppingCartComponent implements OnInit {
   			this.totalAmount = this.totalAmount-(Number(size.msrp) * Number(size.cartObject.selectedQuantity));
   			// this.quantityCount = this.quantityCount - 1;
   			this.quantityCount = this.quantityCount - Number(size.cartObject.selectedQuantity);
+  			/* Remove from place order array if unchecked */
+  			for(var i = 0; i < this.cartInStockList.length; i++) {
+  				if(ev.target.id == size.CartItemID) {
+  					const index: number = this.cartInStockList.indexOf(size);
+					    if (index !== -1) {
+					        this.cartInStockList.splice(index, 1);
+					    }
+  				}
+  			}
   		}
   		else {
   			this.count++;
