@@ -21,19 +21,21 @@ export class CommonService {
     GET TOKEN FROM SERVICE IF AVAILABLE OR GET IT THROUGH API CALL
   */
 
-  getJwtToken(): Observable<any> {
+  getJwtToken(){
     {
       return Observable.create(observer => {
         if (this.jwtToken == null || this.jwtToken == '' || this.jwtToken == undefined) {
           this.getSessionToken().subscribe((response) => {
             if (response.getIdToken().getJwtToken()) {
               this.jwtToken = response.getIdToken().getJwtToken();
+              observer.next(this.jwtToken);
+              observer.complete();
             }
           }, (err) => {
             console.log(err);
           });
         }
-        return this.jwtToken;
+       
       }, err => {
         console.log("error on user", err)
       })

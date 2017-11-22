@@ -24,8 +24,6 @@ export class ProductSearchComponent implements OnInit {
 
 	ngOnInit() {
 		let paramVal = this.route.snapshot.queryParams["wildcard"] ? this.route.snapshot.queryParams["wildcard"] : this.route.snapshot.queryParams["gsin"] ? this.route.snapshot.queryParams["gsin"] : this.route.snapshot.queryParams["mpn"] ? this.route.snapshot.queryParams["mpn"] : "";
-
-
 		let paramKey = this.route.snapshot.queryParams["wildcard"] ? "wildcard" : this.route.snapshot.queryParams["gsin"] ? "gsin" : this.route.snapshot.queryParams["mpn"] ? "mpn" : "";
 
 		if (paramVal)
@@ -53,19 +51,20 @@ export class ProductSearchComponent implements OnInit {
 		postMap.retailerID= localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
 		postMap.quantity=postMap.quantity ? postMap.quantity: 1;		
 		var reqBody={
-			UserID: localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : "",
-			retailerID: localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : "",
-			quantity:postMap.quantity ? postMap.quantity: 1,
-			GSIN:postMap.gsin ? postMap.gsin: "",
-			distributorID:postMap.distributor_id ? postMap.distributor_id:"",
+			UserID: localStorage.getItem("User_Information") ? parseInt(JSON.parse(localStorage.getItem("User_Information"))[0].user_id) : "",
+			retailerID: localStorage.getItem("User_Information") ? parseInt(JSON.parse(localStorage.getItem("User_Information"))[0].user_id) : "",
+			quantity:postMap.quantity ? parseInt(postMap.quantity): 1,
+			GSIN:postMap.gsin ? 3395: "",
+			distributorID:postMap.distributor_id ? parseInt(postMap.distributor_id):"",
 		}
-		//this.searchProductService.addToCart(reqBody, this.commonService.getJwtToken()).subscribe((response) => {
-			//this.returnResponse=response;
-			//if(this.returnResponse && this.returnResponse.status.code == constant.statusCode.success_code) 
-			//{
-				this.cartBucket.length?this.checkAndIncrementquantity(postMap):this.cartBucket.push(postMap);
-			//}
-		//});
+		this.commonService.getJwtToken().subscribe((response)=>{
+			this.searchProductService.addToCart(reqBody,response).subscribe((response)=>{
+				this.returnResponse=response;
+				this.returnResponse && this.returnResponse.status.code == constant.statusCode.success_code ? (this.cartBucket.length ? this.checkAndIncrementquantity(postMap):this.cartBucket.push(postMap)) : alert("Add to cart failed");
+			});
+
+		});
+		
 	}
 	checkAndIncrementquantity(postMap){
 		var index=this.isObjectInTheList(postMap,this.cartBucket);
