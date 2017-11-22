@@ -31,9 +31,11 @@ export class OrdersComponent implements OnInit {
   userDetails: any;
   body: Object = {};
   retailer_id : any;
+  path: any;
+  
   constructor(private route: ActivatedRoute,public demoService: DemoService, private http: Http, private router: Router) {
     this.demoService.showRetailerProfile = false;
- 
+   
   }
 
   ngOnInit() {
@@ -41,10 +43,11 @@ export class OrdersComponent implements OnInit {
     this.configSuperAdminUser = constant.user.superadminUser && constant.user.superadminUser != 'null' ? constant.user.superadminUser : '';
     this.configAdminUser = constant.user.userGroup && constant.user.userGroup != 'null' ? constant.user.userGroup : '';
     this.retailerAdminUser = constant.user.retaileradminUser && constant.user.retaileradminUser != 'null' ? constant.user.retaileradminUser : '';
+    this.path = constant.orderRoute.flag && constant.orderRoute.flag != 'null' ? constant.orderRoute.flag  : '';
     this.route.queryParams.subscribe((params: Params) => {
-        this.listOrders(params.retailer_id).subscribe((response) => {
+        this.listOrders(params.retailer_id,this.path).subscribe((response) => {
             this.selectedRetailer = params.retailer_id;
-           
+           console.log("response order details init : " + response)
          },
         (err) => console.error(err)
       );
@@ -56,9 +59,9 @@ export class OrdersComponent implements OnInit {
     this.userDetails.last_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).last_name : "";
   }
 
+  // Method for getting retailer details from retailer drop down
   getRetailerId(event,selectedRetailer){
-      console.log("event : " + event.target.value);
-    this.listOrders(selectedRetailer).subscribe((response) => {
+      this.listOrders(selectedRetailer,this.path).subscribe((response) => {
         this.route.queryParams.subscribe((params: Params) => {
             this.retailer_id = selectedRetailer;
         });
@@ -68,11 +71,9 @@ export class OrdersComponent implements OnInit {
  }
 
   // Method for listing Order list
-  listOrders(retailerId): Observable < any > {
-    
+  listOrders(retailerId, path): Observable < any > {
       console.log("retailer id : " + retailerId);
-      console.log("retailer name***** : " + this.selectedRetailer);
-      return Observable.create(observer => {
+    return Observable.create(observer => {
           return this.demoService.getSessionToken().subscribe((response) => {
               if (response.getIdToken().getJwtToken()) {
                   const jwt = response.getIdToken().getJwtToken();
@@ -80,8 +81,7 @@ export class OrdersComponent implements OnInit {
                   let options = new RequestOptions({ headers: headers });
                   var store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id:"";
                   var retailer_idUsers = localStorage.getItem("User_Information")?JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId:"":"";
-         
-                  this.retailer_id =  (this.userGroup == this.configSuperAdminUser) ?  retailerId : retailer_idUsers;
+                 this.retailer_id =  (this.userGroup == this.configSuperAdminUser) ? (retailerId == 'All' ? "" : retailerId) : retailer_idUsers;
                   var reqBody= {
                         retailer_id: this.retailer_id 
                     }
@@ -90,18 +90,20 @@ export class OrdersComponent implements OnInit {
                   
                     this.demoService.loading = false;
                       this.results = data ? data.json() :"";                    
-                     // console.log("order list details : " + JSON.stringify(this.results));                     
+                                       
                        if(this.results && this.results.statusCode){    
                         if (this.results.statusCode == 200 ) {                           
                           this.orderDetails = Object.keys(this.results.data).length ? this.results.data : "";
-                         console.log("order details : " + this.orderDetails)
-                         console.log("object keys " + Object.keys(this.results.data).length)
                           } else if (this.results.statusCode == constant.statusCode.empty_code) {
-                          this.orderDetails = [];                   
+                          this.orderDetails = {};                   
                           }
-                           this.router.navigate(['/dashboard/order'], {
-                            queryParams: reqBody
-                        });
+                          console.log("path : " + path)
+                          if(path && path != '') {
+                            this.router.navigate(['/dashboard/order'], {
+                                queryParams: reqBody
+                              });
+                          }
+                           
 
                          observer.next(this.orderDetails);
                          observer.complete();
