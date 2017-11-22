@@ -32,12 +32,20 @@ export class RetailerMarkupComponent implements OnInit {
    
     retailerList: any;
     allretailerList: any;
-    retailerInfo: any = {};
+  //  retailerInfo: any = {};
     role_id: any;
     role_name:any;
     isPasswordMismatch: Boolean;
-    checkboxValue: Boolean;
+    checkboxValue: any;
     selectDefaultInventory: any;
+    retailerInfo = {
+        "firstName": '',
+        "lastName": '',
+        "retailerName": '',
+        "retailerAddress": '',
+        "emailId": '',
+        "phoneNumber": ''
+    };
     constructor(private http: Http, private router: Router, public demoService: DemoService) { 
         this.demoService.showRetailerProfile = false;
       
@@ -61,7 +69,14 @@ export class RetailerMarkupComponent implements OnInit {
         this.selectDefaultInventory = this.checkboxValue ? 1 : 0;
       //  console.log("select inventory ; " +  this.selectDefaultInventory);
     }
-   
+    addDefaultInventory(){
+        
+        this.demoService.createUserPopup = !this.demoService.createUserPopup
+        this.checkboxValue = 1;
+        this.selectDefaultInventory = this.checkboxValue;
+        //this.demoService.showNav = !this.demoService.showNav;
+        //console.log("show nav : " + this.demoService.showNav)
+    }
 
     // Method for directing the distributor to their corresponding own page
     retailerCategoryList(retailerId) {
@@ -77,6 +92,7 @@ export class RetailerMarkupComponent implements OnInit {
     }
 
     createRetailer(retailerInfoMap, retailerForm) {
+        console.log("create retailer info : " + JSON.stringify(retailerInfoMap));
        // console.log("inventory in create retailer : " + this.selectDefaultInventory);
         if (retailerForm.valid) {
             let userDetailsMap: any = localStorage.getItem("User_Information");
@@ -97,15 +113,12 @@ export class RetailerMarkupComponent implements OnInit {
                     isAppCoInvSubscribed : this.selectDefaultInventory
                 }
             }
-            
-            //                    "password": retailerInfoMap.userPassword2,
-
-            this.demoService.loading = true;
+           // this.demoService.loading = true;
             this.demoService.getSessionToken().subscribe((response) => {
                 if (response.getIdToken().getJwtToken()) {
                     const jwt = response.getIdToken().getJwtToken();
                     //logged user role is third argument
-                    this.demoService.createUser(jwt, postMap, constant.userRoles.superAdminUser);
+                    this.demoService.createUser(jwt, postMap, constant.userRoles.superAdminUser, this.selectDefaultInventory);
                 }
             });
 

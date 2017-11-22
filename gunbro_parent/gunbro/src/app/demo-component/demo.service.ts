@@ -63,6 +63,7 @@ export class DemoService {
     showRetailerProfile: boolean = false;
     showEditRetailerView: boolean = false;
     retailerDetails: any;
+    showdefaultInventoryPop: boolean = false;
 
     constructor(private http: Http, private router: Router,private commonService:CommonService) {
         console.log(constant.appcohesionURL);
@@ -629,7 +630,9 @@ export class DemoService {
         })
     }
 
-    createUser(jwt,userInfo,loggedInUser) {
+    createUser(jwt,userInfo,loggedInUser,inventory) {
+        console.log("inventory from front end demoservice: " + inventory)
+       
         this.loading = true;
         let headers = new Headers({
             'Content-Type': 'application/json',
@@ -649,7 +652,15 @@ export class DemoService {
         userInfo.user.entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
         
         const url = constant.appcohesionURL.createUser_URL;
-        this.http
+        if(inventory == 0){
+            this.loading = false;
+            this.createUserPopup = true;
+            this.createUserMessage = "Do you want to add default inventory?";
+            return;
+           // this.showNav = !this.showNav;
+        }
+        else{
+            this.http
             .post(url,JSON.stringify(userInfo),options)
             .subscribe(data => {
                 this.loading = false;
@@ -657,12 +668,12 @@ export class DemoService {
                 this.createUserMessage = "";
                 this.createUserStatus = ""
                 if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {
-                    this.createUserPopup = true;
-                    this.createUserMessage = "Congratulations!! You have successfully added user. Email has been sent to his email id!";
-                    this.createUserStatus = "SUCCESS"
-                    console.info("success");
-                    this.showNav = !this.showNav;
-                } else {
+                       this.createUserPopup = true;
+                        this.createUserMessage = "Congratulations!! You have successfully added user. Email has been sent to his email id!";
+                        this.createUserStatus = "SUCCESS"
+                        this.showNav = !this.showNav;
+                    
+                 } else {
                     this.createUserPopup = true;
                     this.createUserMessage = this.results.status.message.message + " ! ";
                     this.createUserStatus = "SORRY";
@@ -671,6 +682,8 @@ export class DemoService {
                 this.loading = false;
                 console.log("error" + JSON.stringify(error));
             });
+        }
+       
     }
 
   // Method for listing retailer 

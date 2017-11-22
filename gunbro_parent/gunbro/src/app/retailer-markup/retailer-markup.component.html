@@ -66,7 +66,7 @@
           <div class="check"></div>
         </span>
       </div> -->
-    <form (ngSubmit)="createRetailer(retailerInfo,retailerForm);retailerForm.resetForm()" novalidate class="ac-create-employee-body retailer-admin-form" #retailerForm="ngForm">
+    <form (ngSubmit)="createRetailer(retailerInfo,retailerForm);" novalidate class="ac-create-employee-body retailer-admin-form" #retailerForm="ngForm">
       <div class="form-group">
         <label for="firstName" class="field-wrapper required-field">FIRST NAME</label>
         <input  type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="retailerInfo.firstName" minlength="3" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
@@ -162,7 +162,11 @@
   </div>
   <div class=" col-md-6 gotoDashboardBtn text-right">
     <span (click) ="demoService.createUserPopup= !demoService.createUserPopup" style = " margin-right: -25px;">OK</span>
+    <span (click) ="addDefaultInventory()" style = " margin-right: -25px;">Add</span>
+  
   </div>
   
 </div>
+
+
 <!-- <div class="ac-actions-overlay" style="display:none;" (click)="demoService.showRetailerProfile = false || this.demoService.showNav=false || demoService.showEditRetailerView = false;"></div> -->
