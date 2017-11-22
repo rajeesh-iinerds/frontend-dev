@@ -131,31 +131,22 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-lg-3 cart-order-summery">
               <h3>Order Summary</h3>
-              <h5>Order Info<span>4 items</span></h5>
+              <h5>Order Info<span>{{orderCount}} item(s)</span></h5>
               <div class="order-info-details">
-                <div class="single-order-summery">
-                  <h5>American Classic<span>$798</span></h5>
+                <div class="single-order-summery" *ngFor="let order of cartInfo ; let i = index">
+                  <h5>{{order.manufacturer}}<span>${{order.cartObject.subtotal}}</span></h5>
                   <img src="assets/images/cart-remove.svg">
                 </div>
-                <div class="single-order-summery">
-                  <h5>American Classic<span>$798</span></h5>
-                  <img src="assets/images/cart-remove.svg">
-                </div>
-                <div class="single-order-summery">
-                  <h5>American Classic<span>$798</span></h5>
-                  <img src="assets/images/cart-remove.svg">
-                </div>
-                <div class="single-order-summery">
+                <!-- <div class="single-order-summery">
                   <h5>Shipping Cost<span style="padding-right: 0px;">$798</span></h5>
-                </div>
+                </div> -->
                 <div class="single-order-summery amount">
-                  <h5>Amount Payable<span style="padding-right: 0px;">$1768</span></h5>
+                  <h5>Amount Payable<span style="padding-right: 0px;">${{amountPayable}}</span></h5>
                 </div>
               </div>
               <div class="customer-info-details">
                 <h5>Customer Info<img src="assets/images/edit.svg"></h5>
                 <span class="custom-name">Janet Joseph</span>
-                <!-- <h6>Janet Joseph</h6> -->
                 <span class="custom-address">5760 Siegen Ln.,Suite A, Baton Rouge LA 70809</span>
                 <span class="custom-contact">joseph@yahoo.com</span>
                 <span class="custom-contact">+1(800) 454-5050</span>
@@ -164,7 +155,6 @@
                 <h5>Shipping Info<img src="assets/images/edit.svg"></h5>
                 <label>Contact Person</label>
                 <span class="custom-name">Janet Joseph</span>
-                <!-- <h6>Janet Joseph</h6> -->
                 <span class="custom-address">5760 Siegen Ln.,Suite A, Baton Rouge LA 70809</span>
                 <label>FFL#</label>
                 <span class="custom-contact">+1(800) 454-5050</span>

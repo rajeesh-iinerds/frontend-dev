@@ -9,14 +9,19 @@ import { ShoppingCartService } from '../shopping-cart.service';
   styleUrls: ['./order-placement.component.css']
 })
 export class OrderPlacementComponent implements OnInit {
-	test: any;
+	cartInfo: any;
+    orderCount: number = 0;
+    amountPayable: number = 0;
 
-  constructor(private route: ActivatedRoute,private router: Router, public cartService: ShoppingCartService) {
-  }
+    constructor(private route: ActivatedRoute,private router: Router, public cartService: ShoppingCartService) {
+    }
 
-  ngOnInit() {
-  	this.test = this.cartService.getCartInfo();
-  	console.log('dfgfffffffffffffffff', this.test);
-  }
+    ngOnInit() {
+        this.cartInfo = this.cartService.getCartInfo();
+        for(var i = 0; i < this.cartInfo.length; i++) {
+            this.orderCount = this.orderCount + Number(this.cartInfo[i].cartObject.selectedQuantity);
+            this.amountPayable = this.amountPayable + Number(this.cartInfo[i].cartObject.subtotal);
+        }
+    }
 
 }

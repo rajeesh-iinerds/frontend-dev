@@ -79,9 +79,7 @@ export class ShoppingCartComponent implements OnInit {
 
 							  			// this.cartList[i]['cartObject'].subtotal = Number(this.cartList[i].msrp);
 							  			// this.subtotal = Number(this.cartList[i].msrp);
-							  			console.log('+BEFOREEE this.quantityCount', this.cartList[i].inStock, ',',this.quantityCount);
 							  			this.quantityCount = this.cartList[i].inStock > 0 ? (this.quantityCount + Number(this.cartList[i].Quantity)) : this.quantityCount;
-							  			console.log('+AFTER this.quantityCount', this.cartList[i].inStock, ',',this.quantityCount);
 							  			this.cartObject['selectedQuantity'] = Number(this.cartList[i].Quantity);
 							  			this.cartList[i]['cartObject'] = this.cartObject;
 							  		// }
