@@ -21,17 +21,23 @@ export class CommonService {
     GET TOKEN FROM SERVICE IF AVAILABLE OR GET IT THROUGH API CALL
   */
 
-  getJwtToken() {
-    if (this.jwtToken == null || this.jwtToken == '' || this.jwtToken == undefined) {
-      this.getSessionToken().subscribe((response) => {
-        if (response.getIdToken().getJwtToken()) {
-          this.jwtToken = response.getIdToken().getJwtToken();
+  getJwtToken(): Observable<any> {
+    {
+      return Observable.create(observer => {
+        if (this.jwtToken == null || this.jwtToken == '' || this.jwtToken == undefined) {
+          this.getSessionToken().subscribe((response) => {
+            if (response.getIdToken().getJwtToken()) {
+              this.jwtToken = response.getIdToken().getJwtToken();
+            }
+          }, (err) => {
+            console.log(err);
+          });
         }
-      }, (err) => {
-        console.log(err);
-      });
+        return this.jwtToken;
+      }, err => {
+        console.log("error on user", err)
+      })
     }
-    return this.jwtToken;
   }
 
 
@@ -88,6 +94,6 @@ export class CommonService {
       this.router.navigate(['']);
     }
   }
-  
+
 
 }
