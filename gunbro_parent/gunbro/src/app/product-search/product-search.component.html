@@ -1,26 +1,47 @@
-<div style = "margin-top:30px" class="ac-generic-wrap">
+<div style="margin-top:30px" class="ac-generic-wrap">
   <div class="container-fluid">
-    <div class="row"><!-- Page Title -->
+    <div class="row">
+      <!-- Page Title -->
       <div class="col-xs-12 col-sm-9 col-lg-9">
 
-        <h3 class="ac-page-title">Search Results<em class="ac-search-count">{{demoService.resultCount}} item(s)</em></h3>
+        <h3 class="ac-page-title">Search Results
+          <em class="ac-search-count">{{demoService.resultCount}} item(s)</em>
+        </h3>
       </div>
-      <div class="col-xs-12 col-sm-3 col-lg-3"><!-- Solve E=mc2 -->
+      <div class="col-xs-12 col-sm-3 col-lg-3">
+        <!-- Solve E=mc2 -->
         <div class="shoppingCart">
           <img src="assets/shopping-cart.svg">
           <span class="item-count-notify">{{this.cartBucket.length}}</span>
           <div class="cart-hover-field">
-            <div class="cart-hover-field-card" *ngFor="let cartItem of cartBucket">
+            <div class="cart-hover-field-card" *ngFor="let cartItem of cartBucket;let idx = index">
               <div class="cart-item-image">
                 <img src="{{cartItem.smallImage}}">
               </div>
+             
+              
               <h5>{{cartItem.product_Name}}</h5>
-              <p>quantity:{{cartItem.quantity}}</p>
+                <div class="input-group" style="width: 80%;">
+                  <span class="input-group-btn input-control">
+                    <button (click)="decreaseQuantity(idx)" type="button" class="btn btn-default btn-number input-control-btn">
+                      <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                  </span>
+                  <input type="text" name="quantity" class="form-control input-number input-count"  [(ngModel)]="cartItem.quantity" >
+                  <span class="input-group-btn">
+                    <button (click)="increaseQuantity(idx)" type="button" class="btn btn-default btn-number input-control-btn" >
+                      <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                  </span>
+                </div>
+             
               <div class="clearfix"></div>
+              
               <span class="hover-card-subtotal pull-left">SUB TOTAL</span>
               <span class="hover-card-subtotal pull-right">${{cartItem.finalPrice}}</span>
-              
+
             </div>
+            <div [hidden]="this.cartBucket.length" class="text-center" >Empty Cart</div>
             <button routerLink="/dashboard/cart" [hidden]="!this.cartBucket.length" class="view-cart-button">View Cart</button>
           </div>
         </div>
@@ -30,14 +51,14 @@
       </div>
     </div>
     <div class="row">
-        
-    <!-- Search Results -->
-      <div class="col-xs-12 col-sm-12 col-lg-12 ac-search-results">
-          
-        <!-- Result Cards Start -->        
 
-          <div class="ac-result-cards" >      
-          <div class="ac-result-card"  *ngFor="let productItem of demoService.resultForloop" (click) = "productDetail(productItem)">
+      <!-- Search Results -->
+      <div class="col-xs-12 col-sm-12 col-lg-12 ac-search-results">
+
+        <!-- Result Cards Start -->
+
+        <div class="ac-result-cards">
+          <div class="ac-result-card" *ngFor="let productItem of demoService.resultForloop" (click)="productDetail(productItem)">
             <div class="ac-result-clickable">
               <div class="ac-result-card-head">
                 <h3>{{productItem.manufacturerName}}</h3>
@@ -45,17 +66,20 @@
                 <!-- <span class="ac-in-stock-count">{{productItem.inStock}}</span> -->
               </div>
               <div class="ac-result-card-body">
-              <!-- [src]='orm.img' -->
+                <!-- [src]='orm.img' -->
                 <img src={{productItem.smallImage}} style="filter: none;" />
               </div>
             </div>
             <div class="ac-result-card-foot">
-              <span class="ac-prod-cost">MSRP<strong><em>$</em>{{productItem.productPrice}}</strong></span>
+              <span class="ac-prod-cost">MSRP
+                <strong>
+                  <em>$</em>{{productItem.productPrice}}</strong>
+              </span>
               <!-- <img src="assets/demo-assets/dealer1.png" /> -->
               <button (click)="addToCart($event,productItem)" class="ac-result-quick-order" style="display: none;">ADD TO CART</button>
             </div>
           </div>
-        
+
 
         </div>
         <!-- Result Cards End -->
