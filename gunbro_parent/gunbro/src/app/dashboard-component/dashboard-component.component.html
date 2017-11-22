@@ -11,15 +11,15 @@
         <ul>
           <li><a routerLink="../dashboard"   class="ac-dash-item-1"><i>Dashboard</i></a></li>
 
-          <li *ngIf="((userGroup == configSuperAdminUserGroup || userGroup == configRetailerAdminUserGroup) ? hideRetailer : true) && (userGroup == configUserGroup )"><a routerLink="markup" class="ac-dash-item-2"><i class="flip">Distributor Management</i><i class="flop" style="display:none;">Distributor</i></a></li>
+          <li *ngIf="((userGroup == configSuperAdminUserGroup || userGroup == configRetailerAdminUserGroup) ? hideRetailer : true) && (userGroup == configUserGroup )"><a routerLink="markup" class="ac-dash-item-2"><i class="flip">Distributors</i><i class="flop" style="display:none;">Distributors</i></a></li>
           
-          <li *ngIf="userGroup == configSuperAdminUserGroup ? showRetailer : false"><a routerLink="RetailerMarkup" class="ac-dash-item-2"><i class="flip">Retailer Management</i><i class="flop" style="display:none;">Retailer Management</i></a></li>
+          <li *ngIf="userGroup == configSuperAdminUserGroup ? showRetailer : false"><a routerLink="RetailerMarkup" class="ac-dash-item-2"><i class="flip">Retailers</i><i class="flop" style="display:none;">Retailers</i></a></li>
           
-          <li *ngIf="userGroup == configRetailerAdminUserGroup"><a routerLink="store-location" class="ac-dash-item-8 "><i class="flip">Store Outlets</i><i class="flop" style="display:none;">Store</i></a></li>
+          <li *ngIf="userGroup == configRetailerAdminUserGroup"><a routerLink="store-location" class="ac-dash-item-8 "><i class="flip">Stores</i><i class="flop" style="display:none;">Stores</i></a></li>
           
-          <li *ngIf="userGroup == configUserGroup || userGroup == configSuperAdminUserGroup || userGroup == configRetailerAdminUserGroup"><a  routerLink="employee" routerLinkActive="active" class="ac-dash-item-3"><i class="flip">Employee Management</i><i class="flop" style="display:none;">Employee</i></a></li>
+          <li *ngIf="userGroup == configUserGroup || userGroup == configSuperAdminUserGroup || userGroup == configRetailerAdminUserGroup"><a  routerLink="employee" routerLinkActive="active" class="ac-dash-item-3"><i class="flip">Employees</i><i class="flop" style="display:none;">Employees</i></a></li>
           
-          <li><a routerLink="order" routerLinkActive="active" class="ac-dash-item-4"><i class="flip">Orders</i><i class="flop" style="display:none;">order</i></a></li>
+          <li><a routerLink="order" routerLinkActive="active" class="ac-dash-item-4"><i class="flip">Orders</i><i class="flop" style="display:none;">Orders</i></a></li>
 
           <!-- <li><a routerLink="cart" routerLinkActive="active" class="ac-dash-item-4"><i class="flip">Cart</i><i class="flop" style="display:none;">Cart</i></a></li> -->
           

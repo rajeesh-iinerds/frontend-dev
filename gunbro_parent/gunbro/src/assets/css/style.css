@@ -945,6 +945,10 @@ border-radius: 0 0 3px 3px;
   text-align: center;
   vertical-align: top;
 }
+label.required-field{
+  float: left;
+  font-size: 10px;
+}
 .ac-button-outlined:hover {
   background-color:#5363b9;
   color:#FFF;
