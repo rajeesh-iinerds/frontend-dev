@@ -32,15 +32,27 @@ export class RetailerMarkupComponent implements OnInit {
    
     retailerList: any;
     allretailerList: any;
-    retailerInfo: any = {};
+  //  retailerInfo: any = {};
     role_id: any;
     role_name:any;
     isPasswordMismatch: Boolean;
+    checkboxValue: any;
+    selectDefaultInventory: any;
+    retailerInfo = {
+        "firstName": '',
+        "lastName": '',
+        "retailerName": '',
+        "retailerAddress": '',
+        "emailId": '',
+        "phoneNumber": ''
+    };
     constructor(private http: Http, private router: Router, public demoService: DemoService) { 
         this.demoService.showRetailerProfile = false;
+      
     }
 
     ngOnInit() {
+        this.selectDefaultInventory = 0;
         this.demoService.listRetailorDetails();
         // this.listRetailorDetails().subscribe((response) => {
         //     console.log("function call retailer detailes : " + JSON.stringify(response));
@@ -49,44 +61,22 @@ export class RetailerMarkupComponent implements OnInit {
         // );
         this.role_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].role_id : "";
         
-        console.info(this.role_name);
+      //  console.info(this.role_name);
     }
-
-
-    // Method for listing retailer details
-    // listRetailorDetails(): Observable<any> {
-    //     this.retailerList = {};
-    //     return Observable.create(observer => {
-    //         return this.demoService.getSessionToken().subscribe((response) => {
-    //             if (response.getIdToken().getJwtToken()) {
-    //                 const jwt = response.getIdToken().getJwtToken();
-    //                 let headers = new Headers({
-    //                     'Authorization': jwt
-    //                 });
-    //                 let options = new RequestOptions({
-    //                     headers: headers
-    //                 });
-    //                 var req_body = '';
-    //                 const url = constant.appcohesionURL.retailerList_URL;
-    //                 this.http.post(url, req_body, options).subscribe(data => {
-    //                     this.demoService.loading = false;
-    //                     this.result = data.json();
-    //                     if (this.result && this.result.status) {
-    //                         if (this.result.status.code == 200) {
-    //                             this.retailerDetails = this.result.retailers;
-    //                         } else if (this.result.statusCode == constant.statusCode.empty_code) {
-    //                             this.retailerDetails = [];
-    //                         }
-    //                     }
-    //                     observer.next(this.retailerDetails);
-    //                     observer.complete();
-    //                 });
-    //             }
-    //         });
-    //     }, err => {
-    //         console.log("error on order", err)
-    //     })
-    // }
+    
+    // Method for selecting default inventory
+    selectInventory(){
+        this.selectDefaultInventory = this.checkboxValue ? 1 : 0;
+      //  console.log("select inventory ; " +  this.selectDefaultInventory);
+    }
+    addDefaultInventory(){
+        
+        this.demoService.createUserPopup = !this.demoService.createUserPopup
+        this.checkboxValue = 1;
+        this.selectDefaultInventory = this.checkboxValue;
+        //this.demoService.showNav = !this.demoService.showNav;
+        //console.log("show nav : " + this.demoService.showNav)
+    }
 
     // Method for directing the distributor to their corresponding own page
     retailerCategoryList(retailerId) {
@@ -100,8 +90,10 @@ export class RetailerMarkupComponent implements OnInit {
             }
         }
     }
+
     createRetailer(retailerInfoMap, retailerForm) {
-        
+        console.log("create retailer info : " + JSON.stringify(retailerInfoMap));
+       // console.log("inventory in create retailer : " + this.selectDefaultInventory);
         if (retailerForm.valid) {
             let userDetailsMap: any = localStorage.getItem("User_Information");
             var role_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].role_id : "";
@@ -117,17 +109,16 @@ export class RetailerMarkupComponent implements OnInit {
                     role_id: constant.userRoles.retailerAdminUser,
                     phone_number: retailerInfoMap.phoneNumber,
                     retailer_name: retailerInfoMap.retailerName,
-                    retailer_address: retailerInfoMap.retailerAddress
+                    retailer_address: retailerInfoMap.retailerAddress,
+                    isAppCoInvSubscribed : this.selectDefaultInventory
                 }
             }
-            //                    "password": retailerInfoMap.userPassword2,
-
-            this.demoService.loading = true;
+           // this.demoService.loading = true;
             this.demoService.getSessionToken().subscribe((response) => {
                 if (response.getIdToken().getJwtToken()) {
                     const jwt = response.getIdToken().getJwtToken();
                     //logged user role is third argument
-                    this.demoService.createUser(jwt, postMap, constant.userRoles.superAdminUser);
+                    this.demoService.createUser(jwt, postMap, constant.userRoles.superAdminUser, this.selectDefaultInventory);
                 }
             });
 

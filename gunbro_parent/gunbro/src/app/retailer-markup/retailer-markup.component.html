@@ -66,7 +66,7 @@
           <div class="check"></div>
         </span>
       </div> -->
-    <form (ngSubmit)="createRetailer(retailerInfo,retailerForm);retailerForm.resetForm()" novalidate class="ac-create-employee-body retailer-admin-form" #retailerForm="ngForm">
+    <form (ngSubmit)="createRetailer(retailerInfo,retailerForm);" novalidate class="ac-create-employee-body retailer-admin-form" #retailerForm="ngForm">
       <div class="form-group">
         <label for="firstName" class="field-wrapper required-field">FIRST NAME</label>
         <input  type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="retailerInfo.firstName" minlength="3" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
@@ -115,6 +115,12 @@
           Invalid Phone Number
         </div>
       </div>
+      <div class="form-group">
+          <input type="checkbox" [(ngModel)]="checkboxValue" (change)="selectInventory()" name="onoffswitch" id="onoffswitch" #onoffswitch="ngModel">Select Default Inventory<br>
+          <div class="invalidField" *ngIf="checkboxValue == 0">
+               Default Inventory Not Added
+            </div>
+      </div>
       <!-- <div class="form-group">
         <label for="userPassword1">PASSWORD</label>
         <input  type="password" class="form-control" placeholder="Enter your password" id="userPassword1" name="userPassword1" [(ngModel)]="retailerInfo.userPassword1" minlength="8" pattern='^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$'    #userPassword1="ngModel" required>
@@ -156,7 +162,11 @@
   </div>
   <div class=" col-md-6 gotoDashboardBtn text-right">
     <span (click) ="demoService.createUserPopup= !demoService.createUserPopup" style = " margin-right: -25px;">OK</span>
+    <span (click) ="addDefaultInventory()" style = " margin-right: -25px;">Add</span>
+  
   </div>
   
 </div>
+
+
 <!-- <div class="ac-actions-overlay" style="display:none;" (click)="demoService.showRetailerProfile = false || this.demoService.showNav=false || demoService.showEditRetailerView = false;"></div> -->
