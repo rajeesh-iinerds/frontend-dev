@@ -17,5 +17,13 @@ export class SearchProductService {
        return this.http.post(url, JSON.stringify(reqBody),options)
         .map((res)=>res);
       }
+      getCartList(reqBody,jwt):Observable<Response>{
+        var self = this;
+        let headers = new Headers({'Authorization': jwt});
+        let options = new RequestOptions({headers: headers});
+        const url = constant.appcohesionURL.cartListing_URL;
+        return this.http.post(url, JSON.stringify(reqBody),options)
+         .map((res)=>res);
+       }
 
 }

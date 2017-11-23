@@ -72,15 +72,15 @@ export class ShoppingCartComponent implements OnInit {
 									    	"subtotal": 0,
 									      	"selectedQuantity": 0
 									    };
-							  			this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].Quantity) * Number(this.cartList[i].msrp))) : this.totalAmount;
-							  			this.cartObject['subtotal'] = Number(this.cartList[i].Quantity) * Number(this.cartList[i].msrp);
+							  			this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].quantity) * Number(this.cartList[i].msrp))) : this.totalAmount;
+							  			this.cartObject['subtotal'] = Number(this.cartList[i].quantity) * Number(this.cartList[i].msrp);
 							  			// console.log('+++++++++++++', this.cartObject);
 							  			this.cartList[i]['cartObject'] = this.cartObject;
 
 							  			// this.cartList[i]['cartObject'].subtotal = Number(this.cartList[i].msrp);
 							  			// this.subtotal = Number(this.cartList[i].msrp);
-							  			this.quantityCount = this.cartList[i].inStock > 0 ? (this.quantityCount + Number(this.cartList[i].Quantity)) : this.quantityCount;
-							  			this.cartObject['selectedQuantity'] = Number(this.cartList[i].Quantity);
+							  			this.quantityCount = this.cartList[i].inStock > 0 ? (this.quantityCount + Number(this.cartList[i].quantity)) : this.quantityCount;
+							  			this.cartObject['selectedQuantity'] = Number(this.cartList[i].quantity);
 							  			this.cartList[i]['cartObject'] = this.cartObject;
 							  		// }
 							  		this.count = this.cartList[i].inStock > 0 ? (this.count+1) : this.count;
@@ -176,18 +176,18 @@ export class ShoppingCartComponent implements OnInit {
 	}
 
 	incrementQuantity(item) {
-		if(item.inStock && item.inStock != item.Quantity) {
-			item.Quantity = Number(item.Quantity) + 1;
-			// this.subtotal = Number(item.msrp) * item.Quantity;
-			item.cartObject.subtotal = Number(item.msrp) * item.Quantity;
+		if(item.inStock && item.inStock != item.quantity) {
+			item.quantity = Number(item.quantity) + 1;
+			// this.subtotal = Number(item.msrp) * item.quantity;
+			item.cartObject.subtotal = Number(item.msrp) * item.quantity;
 			this.quantityCount = this.quantityCount + 1;
 			this.totalAmount = this.totalAmount + Number(item.msrp);
 			item.cartObject.selectedQuantity = item.cartObject.selectedQuantity + 1;
 		}
 	}
 	decrementQuantity(item) {
-		if(item.Quantity > '1') {
-			item.Quantity = Number(item.Quantity) -1;
+		if(item.quantity > '1') {
+			item.quantity = Number(item.quantity) -1;
 			// this.subtotal = Number(this.subtotal) - Number(item.msrp);
 			item.cartObject.subtotal = Number(item.cartObject.subtotal) - Number(item.msrp);
 			this.quantityCount = this.quantityCount - 1;

@@ -48,7 +48,9 @@ export const appcohesionURL = {
 	"deleteStore_URL": apiUrl + "deleteStore",
 	"addToCart_URL": apiUrl + "addToCart",
 	"getCartList_URL": apiUrl + "cartListing",
-	"deleteCart_URL": apiUrl + "deleteItem"
+	"deleteCart_URL": apiUrl + "deleteItem",
+	"cartListing_URL":apiUrl+"cartListing"
+	
 };
 export const distApiList = ["ss"];
 export const statusCode = {

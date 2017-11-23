@@ -252,7 +252,7 @@ export class DemoService {
             console.log("congintio user : " + cognitoUser);
             if (cognitoUser != null) {
                 cognitoUser.getSession(function(err, session) {
-                    console.log('session validity: ' + session.getIdToken().getJwtToken());
+                   // console.log('session validity: ' + session.getIdToken().getJwtToken());
                     if (err) {
                         console.log(err);
                         err => err.json();

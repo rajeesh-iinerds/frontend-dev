@@ -41,12 +41,12 @@
                 <div class="ac-prod-buying-options" *ngIf="demoService.productInfo && demoService.productInfo.distributor_name == 'SS' && ssProductQuantity && ssProductQuantity > '0'">
                     <input type="number" name="quantity" min="1" max="{{ssProductQuantity}}" [(ngModel)]="selectedQuantity" (ngModelChange)="onQuantityChange($event)">
                     <!-- <button class="ac-result-quick-order" (click) = "placeOrder($event)">PLACE MY ORDER</button> -->
-                    <button class="ac-result-quick-order" (click) = "searchComponent.addToCart($event,demoService.productInfo)">ADD TO CART</button>  
+                    <button class="ac-result-quick-order" (click) = "dashboardComponent.addToCart($event,demoService.productInfo,true)">ADD TO CART</button>  
                 </div>
                 <div class="ac-prod-buying-options" *ngIf="demoService.productInfo && demoService.productInfo.distributor_name != 'SS' && demoService.productInfo.inStock && demoService.productInfo.inStock > '0'">
                     <input type="number" name="quantity" min="1" max="{{demoService.productInfo.inStock}} " [(ngModel)]="selectedQuantity" (ngModelChange)="onQuantityChange($event)">
                     <button class="ac-result-quick-order" (click) = "placeOrder($event)">PLACE MY ORDER</button>
-                    <button class="ac-result-quick-order" (click) = "searchComponent.addToCart($event,demoService.productInfo)">ADD TO CART</button>
+                    <button class="ac-result-quick-order" (click) = "dashboardComponent.addToCart($event,demoService.productInfo,true)">ADD TO CART</button>
                 </div>
 
 

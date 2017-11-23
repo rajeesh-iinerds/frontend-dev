@@ -1,198 +1,230 @@
-  
-
-        <div class="container-fluid">
-          <div class="row"><!-- Page Title -->
-            <div class="col-xs-12 col-sm-9 col-lg-9">
-              <h3 class="ac-page-title">Checkout<em class="ac-search-count">Fill in 3 simple steps</em></h3>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Page Title -->
+    <div class="col-xs-12 col-sm-9 col-lg-9">
+      <h3 class="ac-page-title">Checkout
+        <em class="ac-search-count">Fill in 3 simple steps</em>
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-lg-9 checkout-cart-box">
+      <div>
+        <div id="accordion" simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear">
+          <div class="accordian">
+            <span>1</span>
+            <h4 class="accordion-toggle">Customer Info</h4>
+            <div class="accordion-content default">
+              <form (ngSubmit)="customerInfoUpdate(customerInfoMap,customerInfoForm);customerInfoForm.resetForm();" #customerInfoForm="ngForm">
+                <div class="row" style="padding: 0px 15px;">
+                  <div class="form-group pull-left" style="width: 49%;">
+                    <label for="usr_emailid">FIRST NAME*</label>
+                    <input type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="customerInfoMap.firstName" minlength="3" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
+                    <div class="invalidField" *ngIf="firstName.invalid && firstName.dirty">
+                        Please Enter characters with Minimum length 3
+                    </div>
+                  </div>
+                  <div class="form-group pull-right" style="width: 49%;">
+                    <label for="usr_emailid">LAST NAME</label>
+                    <input type="text" class="form-control" placeholder="Enter your last name" id="lastName" name="lastName" [(ngModel)]="customerInfoMap.lastName" minlength="3" pattern="[a-zA-Z ]*"  #lastName="ngModel" required>
+                    <div class="invalidField" *ngIf="lastName.invalid && lastName.dirty">
+                        Please Enter characters with Minimum length 3
+                      </div>
+                  </div>
+                </div>
+                <div class="row" style="padding: 0px 15px;">
+                  <div class="form-group pull-left" style="width: 49%;">
+                    <label for="usr_emailid">PHONE</label>
+                    <input pattern="^(0|[1-9][0-9]*)$" type="text" class="form-control" placeholder="Enter your phone number" id="phoneNumber" name="phoneNumber" [(ngModel)]="customerInfoMap.phoneNumber"   #phoneNumber="ngModel" required>
+                    <div class="clearfix"></div>
+                    <div class="invalidField" *ngIf="phoneNumber.invalid && phoneNumber.dirty">
+                        Invalid Phone Number
+                      </div>
+                  </div>
+                  <div class="form-group pull-right" style="width: 49%;">
+                    <label for="usr_emailid">EMAIL</label>
+                    <input  type="email" class="form-control" placeholder="Enter your email address" id="emailId" name="emailId" [(ngModel)]="customerInfoMap.email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  #emailId="ngModel" required>
+                    <div class="clearfix"></div>
+                    <div class="invalidField" *ngIf="emailId.invalid && emailId.dirty">
+                        Invalid Email
+                      </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="usr_emailid">STREET ADDRESS</label>
+                  <input  type="text" class="form-control" placeholder="Enter Street address" id="streetAddress" name="streetAddress" [(ngModel)]="customerInfoMap.streetAddress" minlength="3"  #streetAddress="ngModel" required>
+                  <div class="clearfix"></div>
+                  <div class="invalidField" *ngIf="streetAddress.invalid && streetAddress.dirty">
+                    Please Enter characters with Minimum length 3
+                  </div>
+                </div>
+                <div class="row" style="padding: 0px 15px;">
+                  <div class="form-group pull-left" style="width: 24%;margin-right: 10px;">
+                    <label for="usr_emailid">ZIP</label>
+                    <input type="text" class="form-control" placeholder="Enter your zip">
+                  </div>
+                  <div class="form-group pull-left" style="width: 24%;">
+                    <label for="usr_emailid">CITY</label>
+                    <input type="text" class="form-control" placeholder="Enter your city">
+                  </div>
+                  <div class="form-group pull-right" style="width: 49%;">
+                    <label for="usr_emailid">STATE</label>
+                    <input type="text" class="form-control" placeholder="Enter your state">
+                  </div>
+                </div>
+                <div class="row accordian-bottom-button" style="padding: 0px 15px;">
+                  <button class="customer-update-btn">Update & Continue</button>
+                </div>
+              </form>
             </div>
           </div>
-          <div class="row">
-            <div class="col-xs-12 col-sm-12 col-lg-9 checkout-cart-box">
-              <div>
-                <div id="accordion" simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear">
-                  <div class="accordian">
-                    <span>1</span>
-                    <h4 class="accordion-toggle">Customer Info</h4>
-                    <div class="accordion-content default">
-                      <div class="row" style="padding: 0px 15px;">
-                        <div class="form-group pull-left" style="width: 49%;">
-                          <label for="usr_emailid">FIRST NAME</label>
-                          <input type="text" class="form-control" placeholder="Enter your first name">
-                        </div>
-                        <div class="form-group pull-right" style="width: 49%;">
-                          <label for="usr_emailid">LAST NAME</label>
-                          <input type="text" class="form-control" placeholder="Enter your last name">
-                        </div>
-                      </div>
-                      <div class="row" style="padding: 0px 15px;">
-                        <div class="form-group pull-left" style="width: 49%;">
-                          <label for="usr_emailid">PHONE</label>
-                          <input type="number" class="form-control" placeholder="Enter your phone number">
-                        </div>
-                        <div class="form-group pull-right" style="width: 49%;">
-                          <label for="usr_emailid">EMAIL</label>
-                          <input type="email" class="form-control" placeholder="Enter your email">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="usr_emailid">STREET ADDRESS</label>
-                        <input type="text" class="form-control" placeholder="Enter your address">
-                      </div>
-                      <div class="row" style="padding: 0px 15px;">
-                        <div class="form-group pull-left" style="width: 24%;margin-right: 10px;">
-                          <label for="usr_emailid">ZIP</label>
-                          <input type="text" class="form-control" placeholder="Enter your zip">
-                        </div>
-                        <div class="form-group pull-left" style="width: 24%;">
-                          <label for="usr_emailid">CITY</label>
-                          <input type="text" class="form-control" placeholder="Enter your city">
-                        </div>
-                        <div class="form-group pull-right" style="width: 49%;">
-                          <label for="usr_emailid">STATE</label>
-                          <input type="text" class="form-control" placeholder="Enter your state">
-                        </div>
-                      </div>
-                      <div class="row accordian-bottom-button" style="padding: 0px 15px;">
-                        <button class="customer-update-btn">Update & Continue</button>
-                      </div>
-                    </div>
-                  </div>
-                    
-                  <div class="accordian">
-                    <span>2</span>
-                    <h4 class="accordion-toggle">Shipping Info</h4>
-                    <div class="accordion-content default">
-                        <div class="row" style="padding: 0px 15px;">
-                        <div class="form-group pull-left" style="width: 49%;">
-                          <label for="usr_emailid">RETAILER NAME</label>
-                          <input type="text" class="form-control" placeholder="Enter your first name">
-                        </div>
-                        <div class="form-group pull-right" style="width: 49%;">
-                          <label for="usr_emailid">SALES ASSOCIATE</label>
-                          <input type="text" class="form-control" placeholder="Enter your last name">
-                        </div>
-                      </div>
-                      <div class="row" style="padding: 0px 15px;">
-                        <div class="form-group pull-left" style="width: 49%;">
-                          <label for="usr_emailid">STORE</label>
-                          <select class="form-control">
-                            <option>store 1</option>
-                            <option>store 2</option>
-                            <option>store 3</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="usr_emailid">STREET ADDRESS</label>
-                        <input type="text" class="form-control" placeholder="Enter your address">
-                      </div>
-                      <div class="row" style="padding: 0px 15px;">
-                        <div class="form-group pull-left" style="width: 24%;margin-right: 10px;">
-                          <label for="usr_emailid">ZIP</label>
-                          <input type="text" class="form-control" placeholder="Enter your zip">
-                        </div>
-                        <div class="form-group pull-left" style="width: 24%;">
-                          <label for="usr_emailid">CITY</label>
-                          <input type="text" class="form-control" placeholder="Enter your city">
-                        </div>
-                        <div class="form-group pull-right" style="width: 49%;">
-                          <label for="usr_emailid">STATE</label>
-                          <input type="text" class="form-control" placeholder="Enter your state">
-                        </div>
-                        <div class="form-group">
-                          <label for="usr_emailid">DELIVERY ADDRESS</label>
-                          <select class="form-control">
-                            <option>same as billing</option>
-                            <option>address</option>
-                            <option>address</option>
-                            <option>address</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="ac-ffl-checking">
-                        <input type="checkbox" class="selectioncheck" name="group1" id="group1" checked="checked" style="position: relative;top:0px;">
-                        <span class="ffl-checking">FFL Required</span>
-                      </div>
-                      <div class="row accordian-bottom-button" style="padding: 0px 15px;">
-                        <button class="customer-update-btn">Confirm Order</button>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="accordian">
-                    <span>3</span>
-                    <h4 class="accordion-toggle last-child">Payment Info</h4>
-                    <div class="accordion-content default">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus faucibus dolor, sed tincidunt diam pellentesque ac. Sed quis cursus orci.</p>
-                    </div>
-                  </div>
+
+          <div class="accordian">
+            <span>2</span>
+            <h4 class="accordion-toggle">Shipping Info</h4>
+            <div class="accordion-content default">
+              <div class="row" style="padding: 0px 15px;">
+                <div class="form-group pull-left" style="width: 49%;">
+                  <label for="usr_emailid">RETAILER NAME</label>
+                  <input type="text" class="form-control" placeholder="Enter your first name">
                 </div>
+                <div class="form-group pull-right" style="width: 49%;">
+                  <label for="usr_emailid">SALES ASSOCIATE</label>
+                  <input type="text" class="form-control" placeholder="Enter your last name">
+                </div>
+              </div>
+              <div class="row" style="padding: 0px 15px;">
+                <div class="form-group pull-left" style="width: 49%;">
+                  <label for="usr_emailid">STORE</label>
+                  <select class="form-control">
+                    <option>store 1</option>
+                    <option>store 2</option>
+                    <option>store 3</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="usr_emailid">STREET ADDRESS</label>
+                <input type="text" class="form-control" placeholder="Enter your address">
+              </div>
+              <div class="row" style="padding: 0px 15px;">
+                <div class="form-group pull-left" style="width: 24%;margin-right: 10px;">
+                  <label for="usr_emailid">ZIP</label>
+                  <input type="text" class="form-control" placeholder="Enter your zip">
+                </div>
+                <div class="form-group pull-left" style="width: 24%;">
+                  <label for="usr_emailid">CITY</label>
+                  <input type="text" class="form-control" placeholder="Enter your city">
+                </div>
+                <div class="form-group pull-right" style="width: 49%;">
+                  <label for="usr_emailid">STATE</label>
+                  <input type="text" class="form-control" placeholder="Enter your state">
+                </div>
+                <div class="form-group">
+                  <label for="usr_emailid">DELIVERY ADDRESS</label>
+                  <select class="form-control">
+                    <option>same as billing</option>
+                    <option>address</option>
+                    <option>address</option>
+                    <option>address</option>
+                  </select>
+                </div>
+              </div>
+              <div class="ac-ffl-checking">
+                <input type="checkbox" class="selectioncheck" name="group1" id="group1" checked="checked" style="position: relative;top:0px;">
+                <span class="ffl-checking">FFL Required</span>
+              </div>
+              <div class="row accordian-bottom-button" style="padding: 0px 15px;">
+                <button class="customer-update-btn">Confirm Order</button>
               </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-lg-3 cart-order-summery">
-              <h3>Order Summary</h3>
-              <h5>Order Info<span>{{orderCount}} item(s)</span></h5>
-              <div class="order-info-details">
-                <div class="single-order-summery" *ngFor="let order of cartInfo ; let i = index">
-                  <h5>{{order.manufacturer}}<span>${{order.cartObject.subtotal}}</span></h5>
-                  <img src="assets/images/cart-remove.svg">
-                </div>
-                <!-- <div class="single-order-summery">
-                  <h5>Shipping Cost<span style="padding-right: 0px;">$798</span></h5>
-                </div> -->
-                <div class="single-order-summery amount">
-                  <h5>Amount Payable<span style="padding-right: 0px;">${{amountPayable}}</span></h5>
-                </div>
-              </div>
-              <div class="customer-info-details">
-                <h5>Customer Info<img src="assets/images/edit.svg"></h5>
-                <span class="custom-name">Janet Joseph</span>
-                <span class="custom-address">5760 Siegen Ln.,Suite A, Baton Rouge LA 70809</span>
-                <span class="custom-contact">joseph@yahoo.com</span>
-                <span class="custom-contact">+1(800) 454-5050</span>
-              </div>
-              <div class="customer-info-details shipping-info-details">
-                <h5>Shipping Info<img src="assets/images/edit.svg"></h5>
-                <label>Contact Person</label>
-                <span class="custom-name">Janet Joseph</span>
-                <span class="custom-address">5760 Siegen Ln.,Suite A, Baton Rouge LA 70809</span>
-                <label>FFL#</label>
-                <span class="custom-contact">+1(800) 454-5050</span>
-              </div>
+          </div>
+
+          <div class="accordian">
+            <span>3</span>
+            <h4 class="accordion-toggle last-child">Payment Info</h4>
+            <div class="accordion-content default">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus faucibus dolor, sed tincidunt diam
+                pellentesque ac. Sed quis cursus orci.</p>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-lg-3 cart-order-summery">
+      <h3>Order Summary</h3>
+      <h5>Order Info
+        <span>{{orderCount}} item(s)</span>
+      </h5>
+      <div class="order-info-details">
+        <div class="single-order-summery" *ngFor="let order of cartInfo ; let i = index">
+          <h5>{{order.manufacturer}}
+            <span>${{order.cartObject.subtotal}}</span>
+          </h5>
+          <img src="assets/images/cart-remove.svg">
+        </div>
+        <!-- <div class="single-order-summery">
+                  <h5>Shipping Cost<span style="padding-right: 0px;">$798</span></h5>
+                </div> -->
+        <div class="single-order-summery amount">
+          <h5>Amount Payable
+            <span style="padding-right: 0px;">${{amountPayable}}</span>
+          </h5>
+        </div>
+      </div>
+      <div class="customer-info-details">
+        <h5>Customer Info
+          <img src="assets/images/edit.svg">
+        </h5>
+        <span class="custom-name">Janet Joseph</span>
+        <span class="custom-address">5760 Siegen Ln.,Suite A, Baton Rouge LA 70809</span>
+        <span class="custom-contact">joseph@yahoo.com</span>
+        <span class="custom-contact">+1(800) 454-5050</span>
+      </div>
+      <div class="customer-info-details shipping-info-details">
+        <h5>Shipping Info
+          <img src="assets/images/edit.svg">
+        </h5>
+        <label>Contact Person</label>
+        <span class="custom-name">Janet Joseph</span>
+        <span class="custom-address">5760 Siegen Ln.,Suite A, Baton Rouge LA 70809</span>
+        <label>FFL#</label>
+        <span class="custom-contact">+1(800) 454-5050</span>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!--   __   ___        __      __                
+<!--   __   ___        __      __                
           |  \ |__   |\/| /  \    /  \ |\ | |    \ / 
           |__/ |___  |  | \__/    \__/ | \| |___  |  -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>
-    <script type="text/javascript">
-     var sampleApp = angular.module('sampleApp', []);
-      sampleApp.directive('simpleAccordion', function () {
-          return {
-            // attribute
-            restrict: 'A',
-            scope: {
-                toggleSpeed: '@toggleSpeed',
-                slideUpSpeed: '@slideUpSpeed',
-                toggleEasing: '@toggleEasing',
-                slideUpEasing: '@slideUpEasing'
-            },
-            link: function (scope, element, attrs) {
-            element.find('.accordion-toggle').click(function () {
-                var elem = $(this);
-                elem.next().slideToggle(scope.toggleSpeed, scope.toggleEasing);
-                $(".accordion-content").not($(this).next()).slideUp(scope.slideUpSpeed, scope.slideUpEasing);
-            });
-          }
-        };
-      });
-   
-    </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>
+<script type="text/javascript">
+  var sampleApp = angular.module('sampleApp', []);
+  sampleApp.directive('simpleAccordion', function () {
+    return {
+      // attribute
+      restrict: 'A',
+      scope: {
+        toggleSpeed: '@toggleSpeed',
+        slideUpSpeed: '@slideUpSpeed',
+        toggleEasing: '@toggleEasing',
+        slideUpEasing: '@slideUpEasing'
+      },
+      link: function (scope, element, attrs) {
+        element.find('.accordion-toggle').click(function () {
+          var elem = $(this);
+          elem.next().slideToggle(scope.toggleSpeed, scope.toggleEasing);
+          $(".accordion-content").not($(this).next()).slideUp(scope.slideUpSpeed, scope.slideUpEasing);
+        });
+      }
+    };
+  });
+
+</script>
 
 
-    <!--   __   ___        __      __                
+<!--   __   ___        __      __                
           |  \ |__   |\/| /  \    /  \ |\ | |    \ / 
           |__/ |___  |  | \__/    \__/ | \| |___  |  -->

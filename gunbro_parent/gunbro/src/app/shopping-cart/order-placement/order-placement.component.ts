@@ -12,7 +12,7 @@ export class OrderPlacementComponent implements OnInit {
 	cartInfo: any;
     orderCount: number = 0;
     amountPayable: number = 0;
-
+    customerInfoMap:any={};
     constructor(private route: ActivatedRoute,private router: Router, public cartService: ShoppingCartService) {
     }
 
@@ -22,6 +22,9 @@ export class OrderPlacementComponent implements OnInit {
             this.orderCount = this.orderCount + Number(this.cartInfo[i].cartObject.selectedQuantity);
             this.amountPayable = this.amountPayable + Number(this.cartInfo[i].cartObject.subtotal);
         }
+    }
+    customerInfoUpdate(customerInfoMap,customerInfoForm){
+
     }
 
 }

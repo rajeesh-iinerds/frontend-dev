@@ -45,6 +45,45 @@
           <a href="javascript:void(0);"><i class="glyphicon glyphicon-envelope"></i><i class="ac-notification">20</i></a>
           <a href="javascript:void(0);"><i class="glyphicon glyphicon-bell"></i><i class="ac-notification">3</i></a>
         </span> -->
+        <div class="shoppingCart">
+          <img src="assets/shopping-cart.svg">
+          <span class="item-count-notify">{{this.cartBucket.length}}</span>
+          <div class="cart-hover-field">
+            <div class="cart-hover-field-card" *ngFor="let cartItem of cartBucket;let idx = index">
+              <div class="cart-item-image">
+                <img src="{{cartItem.smallImage}}">
+              </div>
+             
+              
+              <h5>{{cartItem.product_Name}}</h5>
+                <div class="input-group" style="width: 80%;">
+                  <span class="input-group-btn input-control">
+                    <button [disabled]="cartItem.inStock=='0'" (click)="decreaseQuantity(idx)" type="button" class="btn btn-default btn-number input-control-btn">
+                      <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                  </span>
+                  <input type="text" name="quantity" class="form-control input-number input-count"  [(ngModel)]="cartItem.quantity" >
+                  <button (click)="addToCart($event,cartItem,false)" [hidden]="!this.cartBucket.length" class="btn">Update Cart</button>
+                  <span class="input-group-btn">
+                    <button [disabled]="cartItem.inStock=='0'" (click)="increaseQuantity(idx)" type="button" class="btn btn-default btn-number input-control-btn" >
+                      <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                  </span>
+                </div>
+             
+              <div class="clearfix"></div>
+              
+              <span class="hover-card-subtotal pull-left">SUB TOTAL</span>
+              <span class="hover-card-subtotal pull-right">${{cartItem.finalPrice}}</span>
+              <div *ngIf="cartItem.inStock=='0'" class="inStockClass text-center">
+                <h4 style="line-height:9em;color:rgb(0, 43, 255)">OUT OF STOCK</h4>
+              </div>
+            </div>
+            <div [hidden]="this.cartBucket.length" class="text-center" >Empty Cart</div>
+            <button routerLink="/dashboard/cart" [hidden]="!this.cartBucket.length" class="view-cart-button">View Cart</button>
+           
+          </div>
+        </div> 
         <span class="ac-user-actions">
           <span class="ac-user-img">
             <img src="assets/default-avatar.png" alt="FIRST NAME HERE">

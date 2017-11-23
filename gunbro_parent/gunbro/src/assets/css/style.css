@@ -1281,7 +1281,7 @@ input[type=radio]:checked ~ label{
   color: #ffffff;
   font-size: 14px;
   font-weight: 600;
-  left: 0;
+  right: 0;
   line-height: 40px;
   position: absolute;
   width: 100%;
@@ -1747,12 +1747,22 @@ span.item-count-notify {
   overflow: auto;
   display: none;
 }
+.inStockClass{
+  background: rgba(204, 199, 198, 0.64);
+  position: absolute;
+  width: 100%;
+  top: 0;
+  z-index: 555;
+  height: 100%;
+  
+}
 .cart-hover-field-card {
   margin-bottom: 10px;
   float: left;
   width: 100%;
   border: 1px solid #e8e8e8;
   padding: 5px;
+  position: relative;
 }
 .cart-hover-field::-webkit-scrollbar {
    width: 3px;
