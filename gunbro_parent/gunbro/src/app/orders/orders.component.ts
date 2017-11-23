@@ -32,6 +32,7 @@ export class OrdersComponent implements OnInit {
   body: Object = {};
   retailer_id : any;
   path: any;
+  orderslistCount: any;
   
   constructor(private route: ActivatedRoute,public demoService: DemoService, private http: Http, private router: Router) {
     this.demoService.showRetailerProfile = false;
@@ -58,6 +59,8 @@ export class OrdersComponent implements OnInit {
     this.userDetails.first_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).first_name : "";
     this.userDetails.last_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).last_name : "";
   }
+
+  
 
   // Method for getting retailer details from retailer drop down
   getRetailerId(event,selectedRetailer){
@@ -94,6 +97,8 @@ export class OrdersComponent implements OnInit {
                        if(this.results && this.results.statusCode){    
                         if (this.results.statusCode == 200 ) {                           
                           this.orderDetails = Object.keys(this.results.data).length ? this.results.data : "";
+                          console.log("this.orderDetails lengthg"  + this.orderDetails.length);
+                          this.orderslistCount = this.orderDetails.length ? this.orderDetails.length : "";
                           } else if (this.results.statusCode == constant.statusCode.empty_code) {
                           this.orderDetails = {};                   
                           }
