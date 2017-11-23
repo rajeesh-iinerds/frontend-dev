@@ -1704,14 +1704,14 @@ span.cart-payable {
 }
 .filter{
   float: right;
-  line-height: 5em;
-  width: 25px;
+  line-height: 7em;
+  width: 30px;
   margin-right: 20px;
 }
 .shoppingCart{
   float: right;
-  line-height: 5em;
-  width: 25px;
+  line-height: 7em;
+  width: 30px;
 }
 .filter img{
   max-width: 100%;
@@ -1721,7 +1721,7 @@ span.cart-payable {
 }
 span.item-count-notify {
   position: absolute;
-  top: 20px;
+  top: 35px;
   right: 10px;
   background-color: #0026ff;
   color: white;
@@ -1740,7 +1740,7 @@ span.item-count-notify {
   float: right;
   position: absolute;
   right: 0px;
-  top: 70px;
+  top: 80px;
   background-color: white;
   z-index: 999;
   border: 1px solid #d0d0d0;
@@ -3331,7 +3331,7 @@ button.markup-apply-all[disabled] {
   padding: 10px 45px 10px 10px;
 }
 .ac-user-controls {
-  width: auto;
+  width: 35%;
   float: right;
 }
 .ac-search-wrap {
