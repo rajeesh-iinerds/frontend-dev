@@ -76,6 +76,7 @@ export class RetailerMarkupComponent implements OnInit {
         this.demoService.showNav = !this.demoService.showNav;
         this.checkboxValue = true;
         this.createRetailer(retailerInfoMap, retailerForm,'');
+       // this.selectDefaultInventory = 1;
        
     }
 
@@ -84,7 +85,7 @@ export class RetailerMarkupComponent implements OnInit {
        this.demoService.showNav = !this.demoService.showNav; 
        this.demoService.createUserPopup = false;   
        this.showpopdetails = !this.showpopdetails;
-       this.selectDefaultInventory = 0;     
+      // this.selectDefaultInventory = 0;     
        this.createRetailer(retailerInfoMap, retailerForm,this.showpopdetails);
       // this.checkbtn = false;      
     } 
@@ -125,7 +126,7 @@ export class RetailerMarkupComponent implements OnInit {
                     phone_number: retailerInfoMap.phoneNumber,
                     retailer_name: retailerInfoMap.retailerName,
                     retailer_address: retailerInfoMap.retailerAddress,
-                    isAppCoInvSubscribed : this.selectDefaultInventory
+                    isAppCoInvSubscribed : this.checkboxValue ? 1:0
                 }
             }
             console.log("select default inventory : " +  this.selectDefaultInventory);
