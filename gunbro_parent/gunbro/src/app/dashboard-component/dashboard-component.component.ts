@@ -65,8 +65,8 @@ export class DashboardComponentComponent implements OnInit {
   successDescription: string;
   loggedInUserRole:String;
   showProfile: boolean = false;
-   cartBucket:any=[];
-   returnResponse:any;
+  cartBucket:any=[];
+  returnResponse:any;
   constructor(private searchProductService:SearchProductService,private route: ActivatedRoute,private router: Router, public demoService: DemoService,private http:Http) {
     this.hideMFGSearch = true;
     this.hideGSINSearch = true;
@@ -264,14 +264,14 @@ export class DashboardComponentComponent implements OnInit {
       let cartMap = Object.assign({}, cartObject);
       cartMap.UserID = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : "";
       cartMap.retailerID = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
-      cartMap.gsin = "3213";
+     // cartMap.gsin="3213";
       cartMap.quantity=isAddToCart?(this.returnQuantity(cartMap) ? parseInt(this.returnQuantity(cartMap)) + 1 : 1):(this.returnQuantity(cartMap) ? parseInt(this.returnQuantity(cartMap)):"");	
       
       let reqBody = {
         UserID: localStorage.getItem("User_Information") ? parseInt(JSON.parse(localStorage.getItem("User_Information"))[0].user_id) : "",
         retailerID: localStorage.getItem("User_Information") ? parseInt(JSON.parse(localStorage.getItem("User_Information"))[0].EntityId) : "",
-        quantity: cartMap.quantity,
-        GSIN: "3213",
+        quantity: cartMap.quantity?parseInt(cartMap.quantity):"",
+        GSIN: cartMap.gsin?parseInt(cartMap.gsin):"",
         //GSIN: cartMap.gsin||cartMap.GSIN ? cartMap.gsin ||cartMap.GSIN  : "",
         distributorID: cartMap.distributor_id ? parseInt(cartMap.distributor_id) : "",
       }
@@ -287,13 +287,15 @@ export class DashboardComponentComponent implements OnInit {
       });
     }
     returnQuantity(cartMap) {
+      console.log(this.cartBucket)
       var quantity;
       var index = this.isObjectInTheList(cartMap, this.cartBucket);
-      quantity = index < 0 ? 0 : this.cartBucket[index].quantity;
+      quantity = index < 0 ? 0 : (this.cartBucket[index].quantity ? this.cartBucket[index].quantity:0);
       return quantity;
     }
   
     isObjectInTheList(obj, list) {
+      
       var itemIndexz;
       list.forEach((element, itemIndex) => {
         if (parseInt(element.gsin) === parseInt(obj.gsin)) {
@@ -302,6 +304,7 @@ export class DashboardComponentComponent implements OnInit {
           itemIndex = -1;
         }
       });
+      console.log(itemIndexz);
       return itemIndexz;
     }
     getCartList(){
