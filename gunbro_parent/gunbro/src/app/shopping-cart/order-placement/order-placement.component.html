@@ -88,8 +88,8 @@
               <div class="row" style="padding: 0px 15px;">
                 <div class="form-group pull-left" style="width: 49%;">
                   <label >STORE</label>
-                  <select class="form-control">
-                    <option *ngFor="let item of storeListOfMaps" [value]="item.StoreId" >{{item.StoreName}}</option>
+                  <select class="form-control" name="selectedStore" [(ngModel)]="shippingInfoMap.selectedStore">
+                    <option *ngFor="let item of storeListOfMaps" [value]="item.StoreId">{{item.StoreName}}</option>
                   </select>
                 </div>
               </div>
@@ -129,19 +129,19 @@
                 <span class="ffl-checking">FFL Required</span>
               </div> -->
               <div class="row accordian-bottom-button" style="padding: 0px 15px;">
-                <button class="customer-update-btn">Confirm Order</button>
+                <button class="customer-update-btn" (click)="placeOrder()">Confirm Order</button>
               </div>
             </div>
           </div>
 
-          <div class="accordian">
+          <!-- <div class="accordian">
             <span>3</span>
             <h4 class="accordion-toggle last-child">Payment Info</h4>
             <div class="accordion-content default">
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus faucibus dolor, sed tincidunt diam
                 pellentesque ac. Sed quis cursus orci.</p>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

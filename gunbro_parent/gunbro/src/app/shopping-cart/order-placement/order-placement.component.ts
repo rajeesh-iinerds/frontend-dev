@@ -57,4 +57,57 @@ export class OrderPlacementComponent implements OnInit {
       console.info(customerInfoMap);
     }
 
+    placeOrder() {
+        console.log('cust', this.customerInfoMap);
+        console.log('ship', this.shippingInfoMap);
+        console.log('cart', this.cartInfo);
+        let commonBody = {
+            "storeId": this.shippingInfoMap.selectedStore ? this.shippingInfoMap.selectedStore: "NULL",
+            "ShippingMethod":"DHL",
+            "ShipToStreetLine1": this.customerInfoMap.streetAddress ? this.customerInfoMap.streetAddress : "NULL",
+            "ShipToStreetLine2":"ShipToStreetLine2",
+            "ShipToCity": this.customerInfoMap.city ? this.customerInfoMap.city : "NULL",
+            "BuyerType":"Retailer",
+            "ConsumerName": this.customerInfoMap.firstName ? this.customerInfoMap.firstName : "NULL",
+            "Custom1":"Custom1",
+            "Custom2":"Custom2",
+            "Custom3":"Custom3",
+            "Custom4":"Custom4",
+            "ShipToPostalCode": this.customerInfoMap.zip ? this.customerInfoMap.zip : "NULL",
+            "ShipToState": this.customerInfoMap.state ? this.customerInfoMap.state : "NULL",
+            "Phone": this.customerInfoMap.phoneNumber ? this.customerInfoMap.phoneNumber : "NULL",
+            "FFL":"FFLLicense",
+            "email": this.customerInfoMap.email ? this.customerInfoMap.email : "NULL",
+            "BuyerID": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "" : "",
+            "user_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : "",
+            // "delivery_instructions":"pass on with neighbhour",
+            "SellerType":"Distributor"
+        };
+        let productArray = [];
+        for(var i = 0; i < this.cartInfo.length; i++) {
+            let productObject = {};
+            productObject["distributor_name"] = this.cartInfo[i].distributor_name ? this.cartInfo[i].distributor_name : "NULL";
+            productObject["ecomdashID"] = "ecomdashID";
+            productObject["ProductPrice"] = this.cartInfo[i].cartObject.subtotal ? this.cartInfo[i].cartObject.subtotal : this.cartInfo[i].ProductPrice ? this.cartInfo[i].ProductPrice : "NULL";
+            productObject["CustomerPrice"] = this.cartInfo[i].cartObject.subtotal ? this.cartInfo[i].cartObject.subtotal : this.cartInfo[i].ProductPrice ? this.cartInfo[i].ProductPrice : "NULL";
+            productObject["GSIN"] = this.cartInfo[i].gsin ? this.cartInfo[i].gsin : "NULL";
+            productObject["SKUNumber"] = this.cartInfo[i].SKUNumber ? this.cartInfo[i].SKUNumber : "NULL";
+            // productObject.Quantity = this.cartInfo[i].quantity ? this.cartInfo[i].quantity : "";
+            productObject["Quantity"] = this.cartInfo[i].cartObject.selectedQuantity ? this.cartInfo[i].cartObject.selectedQuantity : "NULL";
+            productObject["SellerID"] = this.cartInfo[i].distributor_id ? this.cartInfo[i].distributor_id : "NULL";
+            productObject["msrp"] = this.cartInfo[i].msrp ? this.cartInfo[i].msrp : "NULL";
+            productObject["BasePrice"] = this.cartInfo[i].ProductPrice ? this.cartInfo[i].ProductPrice : "NULL";
+            productObject["AppCoMarkUp"] = this.cartInfo[i].AppCoMarkUp ? this.cartInfo[i].AppCoMarkUp : "NULL";
+            productObject["RetailerMarkUp"] = this.cartInfo[i].RetailerMarkUp ? this.cartInfo[i].RetailerMarkUp : "NULL";
+            productObject["product_name"] = this.cartInfo[i].product_Name ? this.cartInfo[i].product_Name : "NULL";
+            productObject["manufacturer"] = this.cartInfo[i].manufacturerName ? this.cartInfo[i].manufacturerName : "NULL";
+            productArray.push(productObject);
+        }
+        commonBody["OrderDetails"] = productArray;
+        console.log('reqqqqqq :: ', commonBody);
+        console.log('reqqqqqq :: ', JSON.stringify(commonBody));
+        
+
+    }
+
 }
