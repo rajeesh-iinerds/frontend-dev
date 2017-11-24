@@ -72,8 +72,8 @@ export class ShoppingCartComponent implements OnInit {
 									    	"subtotal": 0,
 									      	"selectedQuantity": 0
 									    };
-							  			this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].quantity) * Number(this.cartList[i].msrp))) : this.totalAmount;
-							  			this.cartObject['subtotal'] = Number(this.cartList[i].quantity) * Number(this.cartList[i].msrp);
+							  			this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].quantity) * Number(this.cartList[i].ProductPrice))) : this.totalAmount;
+							  			this.cartObject['subtotal'] = Number(this.cartList[i].quantity) * Number(this.cartList[i].ProductPrice);
 							  			// console.log('+++++++++++++', this.cartObject);
 							  			this.cartList[i]['cartObject'] = this.cartObject;
 
@@ -111,7 +111,7 @@ export class ShoppingCartComponent implements OnInit {
   		var isChecked = ev.target.checked;
   		if (!isChecked) {
   			this.count--;
-  			this.totalAmount = this.totalAmount-(Number(size.msrp) * Number(size.cartObject.selectedQuantity));
+  			this.totalAmount = this.totalAmount-(Number(size.ProductPrice) * Number(size.cartObject.selectedQuantity));
   			// this.quantityCount = this.quantityCount - 1;
   			this.quantityCount = this.quantityCount - Number(size.cartObject.selectedQuantity);
   			/* Remove from place order array if unchecked */
@@ -126,7 +126,7 @@ export class ShoppingCartComponent implements OnInit {
   		}
   		else {
   			this.count++;
-  			this.totalAmount = this.totalAmount+(Number(size.msrp) * Number(size.cartObject.selectedQuantity));
+  			this.totalAmount = this.totalAmount+(Number(size.ProductPrice) * Number(size.cartObject.selectedQuantity));
   			// this.quantityCount = this.quantityCount + 1;
   			this.quantityCount = this.quantityCount + Number(size.cartObject.selectedQuantity);
   		}
@@ -152,7 +152,7 @@ export class ShoppingCartComponent implements OnInit {
             	if(this.results && this.results.status){
             		if(this.results.status.code == constant.statusCode.success_code){
             			this.count--;
-            			this.totalAmount = this.totalAmount-(Number(obj.msrp) * Number(obj.cartObject.selectedQuantity));
+            			this.totalAmount = this.totalAmount-(Number(obj.ProductPrice) * Number(obj.cartObject.selectedQuantity));
             			this.quantityCount = this.quantityCount - Number(obj.cartObject.selectedQuantity);
             			const index: number = this.cartList.indexOf(obj);
 					    if (index !== -1) {
@@ -179,9 +179,9 @@ export class ShoppingCartComponent implements OnInit {
 		if(item.inStock && item.inStock != item.quantity) {
 			item.quantity = Number(item.quantity) + 1;
 			// this.subtotal = Number(item.msrp) * item.quantity;
-			item.cartObject.subtotal = Number(item.msrp) * item.quantity;
+			item.cartObject.subtotal = Number(item.ProductPrice) * item.quantity;
 			this.quantityCount = this.quantityCount + 1;
-			this.totalAmount = this.totalAmount + Number(item.msrp);
+			this.totalAmount = this.totalAmount + Number(item.ProductPrice);
 			item.cartObject.selectedQuantity = item.cartObject.selectedQuantity + 1;
 		}
 	}
@@ -189,9 +189,9 @@ export class ShoppingCartComponent implements OnInit {
 		if(item.quantity > '1') {
 			item.quantity = Number(item.quantity) -1;
 			// this.subtotal = Number(this.subtotal) - Number(item.msrp);
-			item.cartObject.subtotal = Number(item.cartObject.subtotal) - Number(item.msrp);
+			item.cartObject.subtotal = Number(item.cartObject.subtotal) - Number(item.ProductPrice);
 			this.quantityCount = this.quantityCount - 1;
-			this.totalAmount = this.totalAmount - Number(item.msrp);
+			this.totalAmount = this.totalAmount - Number(item.ProductPrice);
 			item.cartObject.selectedQuantity = item.cartObject.selectedQuantity - 1;
 		}
 	}

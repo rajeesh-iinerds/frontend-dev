@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
-import { DemoService } from '../../demo-component/demo.service';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx'; 
 import 'rxjs/add/operator/map';
+
+import { DemoService } from '../../demo-component/demo.service';
 import { ShoppingCartService } from '../shopping-cart.service';
 import * as constant from '../../shared/config';
 
@@ -19,12 +20,15 @@ export class OrderPlacementComponent implements OnInit {
     customerInfoMap:any={};
     results:any;
     storeListOfMaps:any;
-    shippingInfoMap:any={}
+    shippingInfoMap:any = {};
+    jwt: any;
+
     constructor(private http:Http,private demoService:DemoService,private route: ActivatedRoute,private router: Router, public cartService: ShoppingCartService) {
     }
 
     ngOnInit() {
         this.cartInfo = this.cartService.getCartInfo();
+        console.log('****** :: ', this.cartInfo);
         for(var i = 0; i < this.cartInfo.length; i++) {
             this.orderCount = this.orderCount + Number(this.cartInfo[i].cartObject.selectedQuantity);
             this.amountPayable = this.amountPayable + Number(this.cartInfo[i].cartObject.subtotal);
@@ -33,6 +37,7 @@ export class OrderPlacementComponent implements OnInit {
         this.demoService.getSessionToken().subscribe((response) => {
             if (response.getIdToken().getJwtToken()) {
               const jwt = response.getIdToken().getJwtToken();
+              this.jwt = jwt;
               let headers = new Headers({ 'Authorization': jwt });
               let options = new RequestOptions({ headers: headers });
               let req_body = {
@@ -107,6 +112,19 @@ export class OrderPlacementComponent implements OnInit {
         console.log('reqqqqqq :: ', commonBody);
         console.log('reqqqqqq :: ', JSON.stringify(commonBody));
         
+        
+
+        /*return this.demoService.getSessionToken().subscribe((response) => {
+            if(response.getIdToken().getJwtToken()) {
+                const jwt = response.getIdToken().getJwtToken();
+                this.confirmOrder(bookForm, jwt);
+            }
+        }, (err) => {
+          console.log(err);
+        });*/
+        return this.cartService.placeOrder(commonBody, this.jwt).subscribe((resp) => {
+
+        });
 
     }
 
