@@ -57,7 +57,7 @@ export class ShoppingCartComponent implements OnInit {
 	                let req_body = {
 	                    "user_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : ""
 	                };
-	                const url = constant.appcohesionURL.getCartList_URL;//"https://staging-api.appcohesion.io/cartListing";
+	                const url = constant.appcohesionURL.getCartList_URL;
 	                this.http.post(url, req_body, options).subscribe(data => {
 	                	this.demoService.loading = false;
 	                	this.results = data.json();
@@ -65,24 +65,18 @@ export class ShoppingCartComponent implements OnInit {
 	                		if(this.results.status.code == constant.statusCode.success_code && this.results.cartList){
 		                		this.cartList = this.results.cartList;
 		                		this.cartInStockList = [];
-		                		// this.count = this.cartList.length;
 		                		for(var i = 0; i < this.cartList.length; i++) {
-		                			// if(this.cartList[i].inStock > 0) {
-			                			this.cartObject = {
-									    	"subtotal": 0,
-									      	"selectedQuantity": 0
-									    };
-							  			this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].quantity) * Number(this.cartList[i].ProductPrice))) : this.totalAmount;
-							  			this.cartObject['subtotal'] = Number(this.cartList[i].quantity) * Number(this.cartList[i].ProductPrice);
-							  			// console.log('+++++++++++++', this.cartObject);
-							  			this.cartList[i]['cartObject'] = this.cartObject;
-
-							  			// this.cartList[i]['cartObject'].subtotal = Number(this.cartList[i].msrp);
-							  			// this.subtotal = Number(this.cartList[i].msrp);
-							  			this.quantityCount = this.cartList[i].inStock > 0 ? (this.quantityCount + Number(this.cartList[i].quantity)) : this.quantityCount;
-							  			this.cartObject['selectedQuantity'] = Number(this.cartList[i].quantity);
-							  			this.cartList[i]['cartObject'] = this.cartObject;
-							  		// }
+		                			this.cartObject = {
+								    	"subtotal": 0,
+								      	"selectedQuantity": 0
+								    };
+						  			this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].quantity) * Number(this.cartList[i].ProductPrice))) : this.totalAmount;
+						  			this.cartObject['subtotal'] = Number(this.cartList[i].quantity) * Number(this.cartList[i].ProductPrice);
+						  			// console.log('+++++++++++++', this.cartObject);
+						  			this.cartList[i]['cartObject'] = this.cartObject;
+						  			this.quantityCount = this.cartList[i].inStock > 0 ? (this.quantityCount + Number(this.cartList[i].quantity)) : this.quantityCount;
+						  			this.cartObject['selectedQuantity'] = Number(this.cartList[i].quantity);
+						  			this.cartList[i]['cartObject'] = this.cartObject;
 							  		this.count = this.cartList[i].inStock > 0 ? (this.count+1) : this.count;
 							  		if(this.cartList[i].inStock > 0)
 							  			this.cartInStockList.push(this.cartList[i]);
@@ -115,6 +109,7 @@ export class ShoppingCartComponent implements OnInit {
   			// this.quantityCount = this.quantityCount - 1;
   			this.quantityCount = this.quantityCount - Number(size.cartObject.selectedQuantity);
   			/* Remove from place order array if unchecked */
+  			console.log('instockkkkkkkkkkk ::', this.cartInStockList);
   			for(var i = 0; i < this.cartInStockList.length; i++) {
   				if(ev.target.id == size.CartItemID) {
   					const index: number = this.cartInStockList.indexOf(size);
@@ -127,7 +122,6 @@ export class ShoppingCartComponent implements OnInit {
   		else {
   			this.count++;
   			this.totalAmount = this.totalAmount+(Number(size.ProductPrice) * Number(size.cartObject.selectedQuantity));
-  			// this.quantityCount = this.quantityCount + 1;
   			this.quantityCount = this.quantityCount + Number(size.cartObject.selectedQuantity);
   		}
 	}
@@ -145,7 +139,7 @@ export class ShoppingCartComponent implements OnInit {
             let req_body = {
                 "CartItemId": obj.CartItemID
             };
-            const url = constant.appcohesionURL.deleteCart_URL; //"https://staging-api.appcohesion.io/deleteItem";
+            const url = constant.appcohesionURL.deleteCart_URL;
             this.http.post(url, req_body, options).subscribe(data => {
             	this.demoService.loading = false;
             	this.results = data.json();
@@ -166,19 +160,11 @@ export class ShoppingCartComponent implements OnInit {
             });
 
 		});
-
-		// this.count--;
-  		// this.totalAmount = this.totalAmount-Number(obj.price);
-		/*const index: number = this.dummy.indexOf(obj);
-	    if (index !== -1) {
-	        this.dummy.splice(index, 1);
-	    }*/
 	}
 
 	incrementQuantity(item) {
 		if(item.inStock && item.inStock != item.quantity) {
 			item.quantity = Number(item.quantity) + 1;
-			// this.subtotal = Number(item.msrp) * item.quantity;
 			item.cartObject.subtotal = Number(item.ProductPrice) * item.quantity;
 			this.quantityCount = this.quantityCount + 1;
 			this.totalAmount = this.totalAmount + Number(item.ProductPrice);
@@ -188,7 +174,6 @@ export class ShoppingCartComponent implements OnInit {
 	decrementQuantity(item) {
 		if(item.quantity > '1') {
 			item.quantity = Number(item.quantity) -1;
-			// this.subtotal = Number(this.subtotal) - Number(item.msrp);
 			item.cartObject.subtotal = Number(item.cartObject.subtotal) - Number(item.ProductPrice);
 			this.quantityCount = this.quantityCount - 1;
 			this.totalAmount = this.totalAmount - Number(item.ProductPrice);

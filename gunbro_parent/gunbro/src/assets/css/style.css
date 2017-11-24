@@ -1663,6 +1663,9 @@ input[type=radio]:checked ~ label{
   width: 30%;
   z-index: 1;
 }
+.cart-place-order[disabled]{
+  cursor: not-allowed;
+}
 .cart-continue-shipping {
   background-color: #ffffff;
   border: 1px solid #c9c9c9;

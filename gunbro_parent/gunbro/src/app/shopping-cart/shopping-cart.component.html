@@ -55,7 +55,7 @@
 	                <div class="cart-item-removeButton" (click) = "removeFromCart(size)"></div>
               </div>
               <div class="cart-bottom-buttons">
-                <button class="cart-place-order" routerLink="/dashboard/place-order">Checkout</button>
+                <button class="cart-place-order" routerLink="/dashboard/place-order" [disabled]="!cartInStockList.length">Checkout</button>
                 <button class="cart-place-order cart-continue-shipping" (click)="backClicked()">Continue Shopping</button>
               </div>
             </div>
@@ -81,7 +81,7 @@
           </div>
           
         </div>
-        <div *ngIf="!cartList" class="noDetails"> No Details Found</div>
+        <div *ngIf="cartList && !cartList.length" class="noDetails"> No Details Found</div>
       </div>
       <!-- Generic wrap end -->
 
