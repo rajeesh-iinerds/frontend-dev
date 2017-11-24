@@ -72,7 +72,7 @@ export class RetailerMarkupComponent implements OnInit {
     }
 
     addDefaultInventory(retailerInfoMap, retailerForm){     
-       this.demoService.createUserPopup = false;
+        this.demoService.createUserPopup = false;
         this.demoService.showNav = !this.demoService.showNav;
         this.checkboxValue = true;
         this.createRetailer(retailerInfoMap, retailerForm,'');
@@ -80,12 +80,14 @@ export class RetailerMarkupComponent implements OnInit {
     }
 
 
-    proceedDefaultInventory(retailerInfoMap, retailerForm){     
+    proceedDefaultInventory(retailerInfoMap, retailerForm){ 
+       this.demoService.showNav = !this.demoService.showNav; 
+       this.demoService.createUserPopup = false;   
        this.showpopdetails = !this.showpopdetails;
        this.selectDefaultInventory = 0;     
        this.createRetailer(retailerInfoMap, retailerForm,this.showpopdetails);
-       this.checkbtn = false;      
-    }
+      // this.checkbtn = false;      
+    } 
 
     // Method for directing the distributor to their corresponding own page
     retailerCategoryList(retailerId) {
@@ -102,7 +104,6 @@ export class RetailerMarkupComponent implements OnInit {
 
     createRetailer(retailerInfoMap, retailerForm, showpopview) {
         this.createUserEnabled = false;
-         console.log("show%%%%%%" + showpopview)
          if(this.showpopdetails == false && !this.checkboxValue){
             //this.showpopdetails = true;
             this.demoService.createUserPopup = true;
@@ -154,7 +155,6 @@ export class RetailerMarkupComponent implements OnInit {
     }
 
     validatePasswordMatch(retailerInfoMap, userPasswordFormObject) {
-
         if (retailerInfoMap.userPassword1 === retailerInfoMap.userPassword2) {
             this.isPasswordMismatch = true;
         } else {
