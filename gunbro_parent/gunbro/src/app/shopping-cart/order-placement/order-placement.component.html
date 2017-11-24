@@ -190,7 +190,19 @@
     </div>
   </div>
 </div>
-
+<div class="row fadebg" [class.show]="showPasswordPopup"></div>
+<div class="confirmPopup" [class.show]="showPasswordPopup">
+  <div class="successImgIcon"></div>
+  <div class="sucessMsgText text-center">
+    
+    <P>{{forgetPasswordMsg}}</P>
+  </div>
+  <div class=" col-md-6 gotoDashboardBtn text-right">
+    <!-- <span routerLink="/dashboard">OK</span> -->
+    <span (click) ="showPasswordPopup = !showPasswordPopup" style = " margin-right: -25px;">OK</span>
+  </div>
+  
+</div>
 <!--   __   ___        __      __                
           |  \ |__   |\/| /  \    /  \ |\ | |    \ / 
           |__/ |___  |  | \__/    \__/ | \| |___  |  -->

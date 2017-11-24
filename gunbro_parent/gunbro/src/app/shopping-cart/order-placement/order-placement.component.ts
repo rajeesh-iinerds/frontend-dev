@@ -26,7 +26,7 @@ export class OrderPlacementComponent implements OnInit {
     customerInfoForm:any;
     isSideBarCustomerInfo:boolean=false;
     isSideBarShippingInfo:boolean=false;
-    
+    showPasswordPopup:boolean=false;
     constructor(private MessagePopupComponent:MessagePopupComponent,private http:Http,private demoService:DemoService,private route: ActivatedRoute,private router: Router, public cartService: ShoppingCartService) {
     }
 
@@ -139,13 +139,13 @@ export class OrderPlacementComponent implements OnInit {
 
         return this.cartService.placeOrder(commonBody, this.jwt).subscribe((resp) => {
             if(resp) { 
+               this.showPasswordPopup = !this.showPasswordPopup;              
                 if(resp.data && resp.data[0] && resp.data[0].orderId) { // If response has OrderId
                     var orderId = resp.data[0].orderId;
                     // Insert into DynamodB with OrderId for SS & others
                     var params = {
                         "id": orderId
                     };
-
                     if(resp.data[0].OrderDetails && resp.data[0].OrderDetails.length > 0 ) {
                         var isNotSS = false;
                         for(var i = 0; i < resp.data[0].OrderDetails.length; i++) {
