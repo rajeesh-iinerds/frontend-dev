@@ -1957,14 +1957,20 @@ span.ffl-checking {
   padding-bottom: 10px;
   color: #797979;
   border-bottom: 1px solid #e6e6e6;
+  padding-right: 90px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .order-info-details h5 span {
   background: none;
   font-size: 14px;
-  padding-right: 30px;
   width: auto;
   color: #797979;
+  position: absolute;
+  top: -2px;
+  right: 30px;
 }
 .single-order-summery{
   position: relative;
@@ -1986,6 +1992,7 @@ span.ffl-checking {
 }
 .customer-info-details{
   float: left;
+  width: 100%;
   padding-bottom: 15px;
   border-bottom: 1px solid #e6e6e6;
 }
