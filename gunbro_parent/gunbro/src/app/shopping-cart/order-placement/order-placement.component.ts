@@ -72,7 +72,7 @@ export class OrderPlacementComponent implements OnInit {
         console.log('cart', this.cartInfo);
         let commonBody = {
             "storeId": this.shippingInfoMap.selectedStore ? this.shippingInfoMap.selectedStore: "NULL",
-            "ShippingMethod":"DHL",
+            "ShippingMethod": this.shippingInfoMap.selectedShipping ? this.shippingInfoMap.selectedShipping: "NULL",
             "ShipToStreetLine1": this.customerInfoMap.streetAddress ? JSON.stringify(this.customerInfoMap.streetAddress) : "NULL",
             "ShipToStreetLine2":"ShipToStreetLine2",
             "ShipToCity": this.customerInfoMap.city ? this.customerInfoMap.city : "NULL",
@@ -132,7 +132,44 @@ export class OrderPlacementComponent implements OnInit {
           console.log(err);
         });*/
         return this.cartService.placeOrder(commonBody, this.jwt).subscribe((resp) => {
+            if(resp) { 
+                if(resp.data && resp.data[0] && resp.data[0].orderId) { // If response has OrderId
+                    var orderId = resp.data[0].orderId;
+                    // Insert into DynamodB with OrderId for SS & others
+                    var params = {
+                        "id": orderId
+                    };
 
+                    if(resp.data[0].OrderDetails && resp.data[0].OrderDetails.length > 0 ) {
+                        var isNotSS = false;
+                        for(var i = 0; i < resp.data[0].OrderDetails.length; i++) {
+                            if(resp.data[0].OrderDetails[i].SS_OrderNumber) {
+                                params["SS_OrderNumber"] = resp.data[0].OrderDetails[i].SS_OrderNumber;
+                            }
+                            else {
+                                isNotSS = true;
+                            }
+                        }
+                    }
+                    console.log('first db parammmm', params);
+                    this.demoService.updateRecordinDB(params).subscribe((csvresponse) => {
+                      console.log("updated db" + csvresponse);
+                    }, (err) => {
+                      console.log(err);
+                    });
+                }
+                // Insert CSV file into S3 for other distributors
+                if(isNotSS && isNotSS == true) {
+                    var body_csv = {
+                        "response" : resp && resp.data[0] ? resp.data[0] :''
+                    }   
+                    this.demoService.csvfileUpload(body_csv).subscribe((csvresponse) => {
+                        console.log("CSV upload completed" + csvresponse );
+                    }, (err) => {
+                        console.log(err);
+                    });
+                }
+            }
         });
 
     }

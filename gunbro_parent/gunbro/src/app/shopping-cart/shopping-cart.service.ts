@@ -44,12 +44,12 @@ export class ShoppingCartService {
                 if (this.results) {
                     if (this.results.status.code == constant.statusCode.success_code) {
                     	console.log('successss', this.results);
-                        // this.orderId = this.results.data[0].orderId;
-                        // this.showclickorder = false;
                         // this.showPopup = !this.showPopup;
-                      	// observer.next(this.results);
-                       //  observer.complete();
+                        alert("Order Success");
+                      	observer.next(this.results);
+                        observer.complete();
                     } else {
+                    	alert("Order Failed");
                         alert(this.results.status);
                     }
                     console.log(this.results);
