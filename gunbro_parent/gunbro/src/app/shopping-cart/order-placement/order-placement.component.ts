@@ -3,7 +3,7 @@ import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx'; 
 import 'rxjs/add/operator/map';
-
+import {MessagePopupComponent} from '../../shared/component/message-popup/message-popup.component'
 import { DemoService } from '../../demo-component/demo.service';
 import { ShoppingCartService } from '../shopping-cart.service';
 import * as constant from '../../shared/config';
@@ -24,7 +24,10 @@ export class OrderPlacementComponent implements OnInit {
     jwt: any;
     customerInfoUpdateMap:any={};
     customerInfoForm:any;
-    constructor(private http:Http,private demoService:DemoService,private route: ActivatedRoute,private router: Router, public cartService: ShoppingCartService) {
+    isSideBarCustomerInfo:boolean=false;
+    isSideBarShippingInfo:boolean=false;
+    showPasswordPopup:boolean=false;
+    constructor(private MessagePopupComponent:MessagePopupComponent,private http:Http,private demoService:DemoService,private route: ActivatedRoute,private router: Router, public cartService: ShoppingCartService) {
     }
 
     ngOnInit() {
@@ -64,9 +67,12 @@ export class OrderPlacementComponent implements OnInit {
     }
     customerInfoUpdate(customerInfoMap,customerInfoForm){
       this.customerInfoUpdateMap=Object.assign({}, customerInfoMap);
+      this.isSideBarCustomerInfo=true;
     }
 
     placeOrder(shippingInfoForm,customerInfoForm) {
+      //this.isSideBarShippingInfo=true;
+      
         console.log('cust', this.customerInfoMap);
         console.log('ship', this.shippingInfoMap);
         console.log('cart', this.cartInfo);
@@ -95,7 +101,7 @@ export class OrderPlacementComponent implements OnInit {
         let productArray = [];
         for(var i = 0; i < this.cartInfo.length; i++) {
             let productObject = {};
-            productObject["distributor_name"] = this.cartInfo[i].distributor_name ? JSON.stringify(this.cartInfo[i].distributor_name) : "NULL";
+            productObject["distributor_name"] = this.cartInfo[i].distributor_name ? this.cartInfo[i].distributor_name : "NULL";
             productObject["ecomdashID"] = "ecomdashID";
             productObject["ProductPrice"] = this.cartInfo[i].cartObject.subtotal ? this.cartInfo[i].cartObject.subtotal : this.cartInfo[i].ProductPrice ? this.cartInfo[i].ProductPrice : "NULL";
             productObject["CustomerPrice"] = this.cartInfo[i].cartObject.subtotal ? this.cartInfo[i].cartObject.subtotal : this.cartInfo[i].ProductPrice ? this.cartInfo[i].ProductPrice : "NULL";
@@ -108,8 +114,8 @@ export class OrderPlacementComponent implements OnInit {
             productObject["BasePrice"] = this.cartInfo[i].ProductPrice ? this.cartInfo[i].ProductPrice : "NULL";
             productObject["AppCoMarkUp"] = this.cartInfo[i].AppCoMarkUp ? this.cartInfo[i].AppCoMarkUp : "NULL";
             productObject["RetailerMarkUp"] = this.cartInfo[i].RetailerMarkUp ? this.cartInfo[i].RetailerMarkUp : "NULL";
-            productObject["product_name"] = this.cartInfo[i].product_Name ? JSON.stringify(this.cartInfo[i].product_Name) : "NULL";
-            productObject["manufacturer"] = this.cartInfo[i].manufacturerName ? JSON.stringify(this.cartInfo[i].manufacturerName) : "NULL";
+            productObject["product_name"] = this.cartInfo[i].product_Name ? this.cartInfo[i].product_Name : "NULL";
+            productObject["manufacturer"] = this.cartInfo[i].manufacturerName ? this.cartInfo[i].manufacturerName : "NULL";
             productArray.push(productObject);
         }
         commonBody["OrderDetails"] = productArray;
@@ -121,7 +127,6 @@ export class OrderPlacementComponent implements OnInit {
         shippingInfoForm.resetForm();
         customerInfoForm.resetForm();
         
-        
 
         /*return this.demoService.getSessionToken().subscribe((response) => {
             if(response.getIdToken().getJwtToken()) {
@@ -131,15 +136,16 @@ export class OrderPlacementComponent implements OnInit {
         }, (err) => {
           console.log(err);
         });*/
+
         return this.cartService.placeOrder(commonBody, this.jwt).subscribe((resp) => {
             if(resp) { 
+               this.showPasswordPopup = !this.showPasswordPopup;              
                 if(resp.data && resp.data[0] && resp.data[0].orderId) { // If response has OrderId
                     var orderId = resp.data[0].orderId;
                     // Insert into DynamodB with OrderId for SS & others
                     var params = {
                         "id": orderId
                     };
-
                     if(resp.data[0].OrderDetails && resp.data[0].OrderDetails.length > 0 ) {
                         var isNotSS = false;
                         for(var i = 0; i < resp.data[0].OrderDetails.length; i++) {

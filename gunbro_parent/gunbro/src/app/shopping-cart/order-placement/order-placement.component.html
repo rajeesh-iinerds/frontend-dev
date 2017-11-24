@@ -168,7 +168,7 @@
           </h5>
         </div>
       </div>
-      <div class="customer-info-details">
+      <div class="customer-info-details" [hidden]="!isSideBarCustomerInfo">
         <h5>Customer Info
           <img src="assets/images/edit.svg">
         </h5>
@@ -177,7 +177,7 @@
         <span class="custom-contact">{{customerInfoUpdateMap.email}}</span>
         <span class="custom-contact">{{customerInfoUpdateMap.phoneNumber}}</span>
       </div>
-      <div class="customer-info-details shipping-info-details">
+      <div class="customer-info-details shipping-info-details" [hidden]="shippingInfoMap.retailerName==''">
         <h5>Shipping Info
           <img src="assets/images/edit.svg">
         </h5>
@@ -190,7 +190,19 @@
     </div>
   </div>
 </div>
-
+<div class="row fadebg" [class.show]="showPasswordPopup"></div>
+<div class="confirmPopup" [class.show]="showPasswordPopup">
+  <div class="successImgIcon"></div>
+  <div class="sucessMsgText text-center">
+    
+    <P>{{forgetPasswordMsg}}</P>
+  </div>
+  <div class=" col-md-6 gotoDashboardBtn text-right">
+    <!-- <span routerLink="/dashboard">OK</span> -->
+    <span (click) ="showPasswordPopup = !showPasswordPopup" style = " margin-right: -25px;">OK</span>
+  </div>
+  
+</div>
 <!--   __   ___        __      __                
           |  \ |__   |\/| /  \    /  \ |\ | |    \ / 
           |__/ |___  |  | \__/    \__/ | \| |___  |  -->

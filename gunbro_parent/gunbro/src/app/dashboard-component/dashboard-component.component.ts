@@ -5,7 +5,7 @@ import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx'; 
 import 'rxjs/add/operator/map';
 import { SearchProductService } from '../product-search/search-product-service'
-
+import {MessagePopupComponent} from '../shared/component/message-popup/message-popup.component'
 import { DemoService } from '../demo-component/demo.service';
 import * as constant from '../shared/config';
 
@@ -67,7 +67,7 @@ export class DashboardComponentComponent implements OnInit {
   showProfile: boolean = false;
   cartBucket:any=[];
   returnResponse:any;
-  constructor(private searchProductService:SearchProductService,private route: ActivatedRoute,private router: Router, public demoService: DemoService,private http:Http) {
+  constructor(private MessagePopupComponent:MessagePopupComponent,private searchProductService:SearchProductService,private route: ActivatedRoute,private router: Router, public demoService: DemoService,private http:Http) {
     this.hideMFGSearch = true;
     this.hideGSINSearch = true;
     this.disableSearch = true;
@@ -287,7 +287,6 @@ export class DashboardComponentComponent implements OnInit {
       });
     }
     returnQuantity(cartMap) {
-      console.log(this.cartBucket)
       var quantity;
       var index = this.isObjectInTheList(cartMap, this.cartBucket);
       quantity = index < 0 ? 0 : (this.cartBucket[index].quantity ? this.cartBucket[index].quantity:0);
@@ -304,7 +303,6 @@ export class DashboardComponentComponent implements OnInit {
           itemIndex = -1;
         }
       });
-      console.log(itemIndexz);
       return itemIndexz;
     }
     getCartList(){
