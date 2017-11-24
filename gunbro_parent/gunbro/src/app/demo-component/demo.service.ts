@@ -252,7 +252,7 @@ export class DemoService {
             console.log("congintio user : " + cognitoUser);
             if (cognitoUser != null) {
                 cognitoUser.getSession(function(err, session) {
-                   // console.log('session validity: ' + session.getIdToken().getJwtToken());
+                    console.log('session validity: ' + session.getIdToken().getJwtToken());
                     if (err) {
                         console.log(err);
                         err => err.json();
@@ -630,9 +630,8 @@ export class DemoService {
         })
     }
 
-    createUser(jwt,userInfo,loggedInUser,inventory) {
-        console.log("inventory from front end demoservice: " + inventory)
-       
+    createUser(jwt,userInfo,loggedInUser) {
+     
         this.loading = true;
         let headers = new Headers({
             'Content-Type': 'application/json',
@@ -652,14 +651,17 @@ export class DemoService {
         userInfo.user.entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
         
         const url = constant.appcohesionURL.createUser_URL;
-        if(inventory == 0){
+      
+      
+         
             this.loading = false;
-            this.createUserPopup = true;
-            this.createUserMessage = "Do you want to add default inventory?";
-            return;
+           // this.createUserPopup = true;
+            //this.createUserMessage = "Do you want to add default inventory?";
+           // return;
            // this.showNav = !this.showNav;
-        }
-        else{
+    
+        
+           
             this.http
             .post(url,JSON.stringify(userInfo),options)
             .subscribe(data => {
@@ -682,13 +684,14 @@ export class DemoService {
                 this.loading = false;
                 console.log("error" + JSON.stringify(error));
             });
-        }
+        
        
     }
 
   // Method for listing retailer 
    listRetailorDetails() {
         this.loading = true;
+        console.log("list retailers details :");
        return this.getSessionToken().subscribe((response) => {
            if (response.getIdToken().getJwtToken()) {
                this.jwt = response.getIdToken().getJwtToken();
@@ -702,8 +705,12 @@ export class DemoService {
            var req_body = '';
            const url = constant.appcohesionURL.retailerList_URL;
            this.http.post(url, req_body, options).subscribe(data => {
+               console.log(data)
                this.loading = false;
+               console.log(data)
+               
                this.result = data.json();
+               console.log("list retailer details : successsssss" + this.result)
                if (this.result && this.result.status) {
                    if (this.result.status.code == 200) {
                        this.retailerDetails = this.result.retailers;
