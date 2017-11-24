@@ -22,7 +22,8 @@ export class OrderPlacementComponent implements OnInit {
     storeListOfMaps:any;
     shippingInfoMap:any = {};
     jwt: any;
-
+    customerInfoUpdateMap:any={};
+    customerInfoForm:any;
     constructor(private http:Http,private demoService:DemoService,private route: ActivatedRoute,private router: Router, public cartService: ShoppingCartService) {
     }
 
@@ -33,7 +34,8 @@ export class OrderPlacementComponent implements OnInit {
             this.orderCount = this.orderCount + Number(this.cartInfo[i].cartObject.selectedQuantity);
             this.amountPayable = this.amountPayable + Number(this.cartInfo[i].cartObject.subtotal);
         }
-
+        this.customerInfoUpdateMap.firstName="";
+        this.customerInfoUpdateMap.lastName="";
         this.demoService.getSessionToken().subscribe((response) => {
             if (response.getIdToken().getJwtToken()) {
               const jwt = response.getIdToken().getJwtToken();
@@ -57,12 +59,14 @@ export class OrderPlacementComponent implements OnInit {
           }, err => {
             console.log("error on order", err)
           })
+          this.shippingInfoMap.retailerName=localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityName : "";
+          this.shippingInfoMap.saleAssociate=localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).first_name : "" + " "+localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).last_name : ""
     }
     customerInfoUpdate(customerInfoMap,customerInfoForm){
-      console.info(customerInfoMap);
+      this.customerInfoUpdateMap=Object.assign({}, customerInfoMap);
     }
 
-    placeOrder() {
+    placeOrder(shippingInfoForm,customerInfoForm) {
         console.log('cust', this.customerInfoMap);
         console.log('ship', this.shippingInfoMap);
         console.log('cart', this.cartInfo);
@@ -111,6 +115,9 @@ export class OrderPlacementComponent implements OnInit {
         commonBody["OrderDetails"] = productArray;
         console.log('reqqqqqq :: ', commonBody);
         console.log('reqqqqqq :: ', JSON.stringify(commonBody));
+        this.customerInfoUpdateMap={};
+        shippingInfoForm.resetForm();
+        customerInfoForm.resetForm();
         
         
 
