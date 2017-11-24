@@ -15,7 +15,7 @@
             <span>1</span>
             <h4 class="accordion-toggle">Customer Info</h4>
             <div class="accordion-content default">
-              <form (ngSubmit)="customerInfoUpdate(customerInfoMap,customerInfoForm);customerInfoForm.resetForm();" >
+              <form (ngSubmit)="customerInfoUpdate(customerInfoMap,customerInfoForm);" #customerInfoForm="ngForm" >
                 <div class="row" style="padding: 0px 15px;">
                   <div class="form-group pull-left" style="width: 49%;">
                     <label >FIRST NAME</label>
@@ -58,29 +58,30 @@
                   </div>
                 </div>
                 <div class="row accordian-bottom-button" style="padding: 0px 15px;">
-                  <button type="submit" class="customer-update-btn">Update & Continue</button>
+                  <button  type="submit" class="customer-update-btn">Update & Continue</button>
                 </div>
               </form>
             </div>
           </div>
 
           <div class="accordian">
+            <form (ngSubmit)="placeOrder(shippingInfoForm,customerInfoForm)" #shippingInfoForm="ngForm">
             <span>2</span>
             <h4 class="accordion-toggle">Shipping Info</h4>
             <div class="accordion-content default">
               <div class="row" style="padding: 0px 15px;">
                 <div class="form-group pull-left" style="width: 49%;">
                   <label >RETAILER NAME</label>
-                  <input type="text" class="form-control" placeholder="Enter your name" id="retailerName" name="retailerName" [(ngModel)]="shippingInfoMap.retailerName" minlength="3" pattern="[a-zA-Z ]*"  #retailerName="ngModel" required>
+                  <input [disabled]="true" type="text" class="form-control" placeholder="Enter your name" id="retailerName" name="retailerName" [(ngModel)]="shippingInfoMap.retailerName" minlength="3" pattern="[a-zA-Z ]*"  #retailerName="ngModel" required>
                   <div class="clearfix"></div>
-                  <div class="invalidField" *ngIf="retailerName.invalid && retailerName.dirty">
+                  <div class="invalidField" *ngIf="retailerName.invalid && retailerName.dirty" >
                     Please Enter characters with Minimum length 3
                   </div>
                 </div>
                 <div class="form-group pull-right" style="width: 49%;">
                   <label >SALES ASSOCIATE</label>
-                  <input type="text" class="form-control" placeholder="Enter sales associate" id="saleAssociate" name="saleAssociate" [(ngModel)]="shippingInfoMap.saleAssociate" minlength="3" pattern="[a-zA-Z ]*"  #saleAssociate="ngModel" required>
-                  <div class="invalidField" *ngIf="saleAssociate.invalid && saleAssociate.dirty">
+                  <input [disabled]="true" type="text" class="form-control" placeholder="Enter sales associate" id="saleAssociate" name="saleAssociate" [(ngModel)]="shippingInfoMap.saleAssociate" minlength="3" pattern="[a-zA-Z ]*"  #saleAssociate="ngModel" required>
+                  <div class="invalidField" *ngIf="saleAssociate.invalid && saleAssociate.dirty" >
                     Please Enter characters with Minimum length 3
                   </div>
                 </div>
@@ -129,9 +130,10 @@
                 <span class="ffl-checking">FFL Required</span>
               </div> -->
               <div class="row accordian-bottom-button" style="padding: 0px 15px;">
-                <button class="customer-update-btn" (click)="placeOrder()">Confirm Order</button>
+                <button type="submit" class="customer-update-btn" >Confirm Order</button>
               </div>
             </div>
+          </form>
           </div>
 
           <!-- <div class="accordian">
@@ -170,20 +172,20 @@
         <h5>Customer Info
           <img src="assets/images/edit.svg">
         </h5>
-        <span class="custom-name">Janet Joseph</span>
-        <span class="custom-address">5760 Siegen Ln.,Suite A, Baton Rouge LA 70809</span>
-        <span class="custom-contact">joseph@yahoo.com</span>
-        <span class="custom-contact">+1(800) 454-5050</span>
+        <span class="custom-name">{{customerInfoUpdateMap.firstName+"&nbsp;"+customerInfoUpdateMap.lastName}}</span>
+        <span class="custom-address">{{customerInfoUpdateMap.streetAddress}}</span>
+        <span class="custom-contact">{{customerInfoUpdateMap.email}}</span>
+        <span class="custom-contact">{{customerInfoUpdateMap.phoneNumber}}</span>
       </div>
       <div class="customer-info-details shipping-info-details">
         <h5>Shipping Info
           <img src="assets/images/edit.svg">
         </h5>
         <label>Contact Person</label>
-        <span class="custom-name">Janet Joseph</span>
-        <span class="custom-address">5760 Siegen Ln.,Suite A, Baton Rouge LA 70809</span>
-        <label>FFL#</label>
-        <span class="custom-contact">+1(800) 454-5050</span>
+        <span class="custom-name">{{shippingInfoMap.retailerName}}</span>
+        <!-- <span class="custom-address">{{storeListOfMaps[shippingInfoMap.selectedStore].StoreName}}</span> -->
+        <!-- <label>FFL#</label> -->
+        <span class="custom-contact">{{shippingInfoMap.saleAssociate}}</span>
       </div>
     </div>
   </div>
