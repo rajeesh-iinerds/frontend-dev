@@ -136,11 +136,7 @@ export class OrderPlacementComponent implements OnInit {
         }, (err) => {
           console.log(err);
         });*/
-<<<<<<< HEAD
-        // return this.cartService.placeOrder(commonBody, this.jwt).subscribe((resp) => {
 
-        // });
-=======
         return this.cartService.placeOrder(commonBody, this.jwt).subscribe((resp) => {
             if(resp) { 
                 if(resp.data && resp.data[0] && resp.data[0].orderId) { // If response has OrderId
@@ -181,7 +177,6 @@ export class OrderPlacementComponent implements OnInit {
                 }
             }
         });
->>>>>>> 09c60d2b5b724b33c1158a25f18283d686822b37
 
     }
 
