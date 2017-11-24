@@ -56,18 +56,17 @@ export class DashboardHomeComponent implements OnInit {
       this.userDetails.first_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).first_name : "";
       this.userDetails.last_name = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).last_name : "";
 
-      
+      var retailer_id = localStorage.getItem("User_Information")?JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId:"":"";
 
       //Function to fetch the order count from ordercomponent.
-      this.ordersList.listOrders('','').subscribe((response) => {
+      this.ordersList.listOrders(retailer_id,'').subscribe((response) => {
               this.orderslistCount = response && response.length ? response.length : 0;
           },
           (err) => {
               this.orderslistCount = 0;
               console.error(err);
           }
-
-      );
+       );
       //Function to fetch the distributor count from dist-markup component.
       this.demoService.getSessionToken().subscribe((response) => {
           this.distList.getDistributorsList(response).subscribe((distListResponse) => {

@@ -89,28 +89,24 @@ export class OrdersComponent implements OnInit {
                   var reqBody= {
                         retailer_id: this.retailer_id 
                     }
-                    console.log("input retailer id : " + JSON.stringify(reqBody));
                   const url = constant.appcohesionURL.orderList_URL && constant.appcohesionURL.orderList_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
                   this.http.post(url, reqBody, options).subscribe(data => {
                   this.demoService.loading = false;
-                      this.results = data ? data.json() :"";    
-                      console.log("results *************** : " + JSON.stringify(this.results))                
+                  this.results = data ? data.json() :"";    
                       if(this.results && this.results.status){    
                         if (this.results.status.code == 200 ) {                           
                           this.orderDetails = Object.keys(this.results.data).length ? this.results.data : "";
-                          console.log("this.orderDetails lengthg"  + this.orderDetails.length);
+                          
                           this.orderslistCount = this.orderDetails.length ? this.orderDetails.length : "";
                           } else if (this.results.statusCode == constant.statusCode.empty_code) {
                           this.orderDetails = {};                   
                           }
-                          console.log("path : " + path)
+                         console.log("path : " + path);
                           if(path && path != '') {
                             this.router.navigate(['/dashboard/order'], {
                                 queryParams: reqBody
                               });
                           }
-                           
-
                          observer.next(this.orderDetails);
                          observer.complete();
                       }
@@ -133,13 +129,9 @@ export class OrdersComponent implements OnInit {
      this.showOrderDetails = !this.showOrderDetails;
      this.selectedOrder = {};
      this.orderProductDetails = [];
-   //  console.log("order id _________> " + orderID);
+ 
     for(var i = 0; i < this.orderDetails.length; i++){
         if(this.orderDetails[i].OrderID == orderID){
-
-          console.log("order details -------- >  array : " + JSON.stringify(this.orderDetails[i]));
-          console.log("object order details : " + JSON.stringify(this.orderDetails[i].orderDetails));
-         
           this.orderProductDetails = this.orderDetails[i].orderDetails ? this.orderDetails[i].orderDetails : "";
           this.selectedOrder.OrderID = this.orderDetails[i].OrderID ? this.orderDetails[i].OrderID: '';
           this.selectedOrder.OrderPlacedDate = this.orderDetails[i].OrderPlacedDate ? this.orderDetails[i].OrderPlacedDate : '';
@@ -151,30 +143,6 @@ export class OrdersComponent implements OnInit {
           this.selectedOrder.ShipToCity = this.orderDetails[i].StoreCity ? this.orderDetails[i].StoreCity : "" ;
           this.selectedOrder.StoreZip = this.orderDetails[i].StoreZip ? this.orderDetails[i].StoreZip : "";
           this.selectedOrder.FFL =  this.orderDetails[i].FFL ? this.orderDetails[i].FFL : '';
-         
-          // this.selectedOrder.CustomerPrice = this.orderDetails[i].CustomerPrice ? this.orderDetails[i].CustomerPrice : '';
-            // this.selectedOrder.manufacturer_partnumber = this.orderDetails[i].manufacturer_partnumber && this.orderDetails[i].manufacturer_partnumber !='null'? this.orderDetails[i].manufacturer_partnumber : '';
-           
-          
-            // this.selectedOrder.order_status = this.orderDetails[i].order_status ? this.orderDetails[i].order_status : '';
-           
-          
-           
-            
-            // this.selectedOrder.Quantity = this.orderDetails[i].Quandity ? this.orderDetails[i].Quandity : 0;
-            // this.selectedOrder.OrderPlacedDate = this.orderDetails[i].OrderPlacedDate ? this.orderDetails[i].OrderPlacedDate : '';
-         
-            // this.selectedOrder.service = this.orderDetails[i].service ? this.orderDetails[i].service : '';
-            // this.selectedOrder.arrival = this.orderDetails[i].arrival ? this.orderDetails[i].arrival : '';
-            // this.selectedOrder.ProductName = this.orderDetails[i].ProductName && this.orderDetails[i].ProductName !='null' ? this.orderDetails[i].ProductName : '';
-            // this.selectedOrder.msrp = this.orderDetails[i].msrp && this.orderDetails[i].msrp !='null' ? this.orderDetails[i].msrp : '';
-            // this.selectedOrder.manufacturer = this.orderDetails[i].manufacturer && this.orderDetails[i].manufacturer !='null' ? this.orderDetails[i].manufacturer : '';
-            // //this.selectedOrder.part = this.orderDetails[i].part ? this.orderDetails[i].part : '';
-           
-            // this.selectedOrder.SS_order = this.orderDetails[i].SS_OrderNumber ? this.orderDetails[i].SS_OrderNumber : '';
-            // this.selectedOrder.SmallImage = this.orderDetails[i].SmallImage && this.orderDetails[i].SmallImage !='null' ? this.orderDetails[i].SmallImage : '';
-            // this.selectedOrder.FirstName = this.orderDetails[i].FirstName && this.orderDetails[i].FirstName !='null' ? this.orderDetails[i].FirstName : '';
-            
         }
      }
    }
