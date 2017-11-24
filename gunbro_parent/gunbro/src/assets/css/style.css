@@ -1718,10 +1718,13 @@ span.cart-payable {
 }
 .shoppingCart img{
   max-width: 100%;
+  object-fit: contain;
+  object-position: center center;
+  height: 60px;
 }
 span.item-count-notify {
   position: absolute;
-  top: 35px;
+  top: 20px;
   right: 10px;
   background-color: #0026ff;
   color: white;
@@ -1740,7 +1743,7 @@ span.item-count-notify {
   float: right;
   position: absolute;
   right: 0px;
-  top: 69px;
+  top: 70px;
   background-color: white;
   z-index: 999;
   border: 1px solid #d0d0d0;
@@ -1752,6 +1755,7 @@ span.item-count-notify {
   position: absolute;
   width: 100%;
   top: 0;
+  left: 0;
   z-index: 555;
   height: 100%;
   
@@ -1763,6 +1767,7 @@ span.item-count-notify {
   border: 1px solid #e8e8e8;
   padding: 5px;
   position: relative;
+  height: 180px;
 }
 .cart-hover-field::-webkit-scrollbar {
    width: 3px;
@@ -1796,7 +1801,8 @@ span.item-count-notify {
 }
 .cart-hover-field-card h5 {
   color: #5c6bc0;
-  font-size: 14px;
+  font-size: 13px;
+  text-align: left;
 }
 span.hover-card-subtotal {
   line-height: normal;
@@ -1804,6 +1810,8 @@ span.hover-card-subtotal {
   font-weight: 600;
   font-size: 13px;
   padding-top: 20px;
+  position: relative;
+  top: -65px;
 }
 .view-cart-button{
   background-color: #4053ab;
@@ -1837,6 +1845,13 @@ span.hover-card-subtotal {
   font-size: 15px;
   font-family: roboto;
   font-weight: 600;
+}
+.cart-update-bttn{
+  width: calc(100% - 100px);
+  position: relative;
+  top: -50px;
+  margin-right: 50px;
+  padding: 4px 10px;
 }
 .fadeclass {    
   position: absolute;   

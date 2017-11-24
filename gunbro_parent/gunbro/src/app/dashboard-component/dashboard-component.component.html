@@ -56,27 +56,28 @@
              
               
               <h5>{{cartItem.product_Name}}</h5>
-                <div class="input-group" style="width: 80%;">
+                <div class="input-group" style="width: 35%;float: left;top:-30px;">
                   <span class="input-group-btn input-control">
                     <button [disabled]="cartItem.inStock=='0'" (click)="decreaseQuantity(idx)" type="button" class="btn btn-default btn-number input-control-btn">
                       <span class="glyphicon glyphicon-minus"></span>
                     </button>
                   </span>
-                  <input type="text" name="quantity" class="form-control input-number input-count"  [(ngModel)]="cartItem.quantity" >
-                  <button (click)="addToCart($event,cartItem,false)" [hidden]="!this.cartBucket.length" class="btn">Update Cart</button>
+                  <input type="text" name="quantity" class="form-control input-number input-count" style="top: 17px;"  [(ngModel)]="cartItem.quantity" >
+                  
                   <span class="input-group-btn">
                     <button [disabled]="cartItem.inStock=='0'" (click)="increaseQuantity(idx)" type="button" class="btn btn-default btn-number input-control-btn" >
                       <span class="glyphicon glyphicon-plus"></span>
                     </button>
                   </span>
                 </div>
+                <button (click)="addToCart($event,cartItem,false)" [hidden]="!this.cartBucket.length" class="btn cart-update-bttn">Update Cart</button>
              
               <div class="clearfix"></div>
               
               <span class="hover-card-subtotal pull-left">SUB TOTAL</span>
               <span class="hover-card-subtotal pull-right">${{cartItem.ProductPrice}}</span>
               <div *ngIf="cartItem.inStock=='0'" class="inStockClass text-center">
-                <h4 style="line-height:9em;color:rgb(0, 43, 255)">OUT OF STOCK</h4>
+                <h4 style="line-height:9em;color:rgb(0, 43, 255);font-weight: 600;">OUT OF STOCK</h4>
               </div>
             </div>
             <div [hidden]="this.cartBucket.length" class="text-center" >Empty Cart</div>
