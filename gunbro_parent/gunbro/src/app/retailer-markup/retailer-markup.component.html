@@ -157,11 +157,14 @@
     <h4>{{demoService.createUserStatus}}</h4>
     <P>{{demoService.createUserMessage}}</P>
   </div>
-  <div class=" col-md-6 gotoDashboardBtn text-right">
+  <div class="col-md-12 gotoDashboardBtn text-center">
     <span *ngIf="createUserEnabled" (click) ="demoService.createUserPopup= !demoService.createUserPopup && createUserEnabled = false;" style = " margin-right: -25px;">OK</span>
+  </div>
+  <div class=" col-md-6 gotoDashboardBtn text-right">
      <span *ngIf="!checkboxValue && !createUserEnabled" (click) ="proceedDefaultInventory(retailerInfo,retailerForm)" style = " margin-right: -25px;">Proceed</span> 
+  </div>
+  <div class="col-md-6 gotoDashboardBtn text-left">
     <span  *ngIf="!checkboxValue && !createUserEnabled" (click) ="addDefaultInventory(retailerInfo,retailerForm);" style = " margin-right: -25px;">Add</span>
-  
   </div>
   
 </div>
