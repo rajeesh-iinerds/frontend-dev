@@ -42,6 +42,7 @@ export class RetailerMarkupComponent implements OnInit {
     checkboxValue: boolean = false;
     continueJourney:Boolean=false;
     checkbtn:boolean=false;
+    createUserEnabled = false;
     retailerInfo = {
         "firstName": '',
         "lastName": '',
@@ -70,39 +71,20 @@ export class RetailerMarkupComponent implements OnInit {
         console.log("this.checkboxValue ngInit" + this.checkboxValue)
     }
 
-    addDefaultInventory(retailerInfoMap, retailerForm){
-       
-       // this.demoService.showNav = !this.demoService.showNav;
+    addDefaultInventory(retailerInfoMap, retailerForm){     
+       this.demoService.createUserPopup = false;
         this.demoService.showNav = !this.demoService.showNav;
         this.checkboxValue = true;
-
-        //this.selectDefaultInventory = this.checkboxValue;
-        //this.showHideDefaultInventory = true;
         this.createRetailer(retailerInfoMap, retailerForm,'');
-        this.checkboxValue = false;
        
-         retailerForm.resetForm();
-     //   this.showHideDefaultInventory =   this.selectDefaultInventory == true ? true : false;
-      
     }
 
 
-    proceedDefaultInventory(retailerInfoMap, retailerForm){
-       
-       // this.demoService.createUserPopup = !this.demoService.createUserPopup;
-      // this.demoService.showNav = !this.demoService.showNav;
-       // retailerForm.resetForm();
-       // this.selectDefaultInventory = 0;
-   
-      //this.checkboxValue = false;
-        
-       // this.selectDefaultInventory = 0;
+    proceedDefaultInventory(retailerInfoMap, retailerForm){     
        this.showpopdetails = !this.showpopdetails;
-       this.selectDefaultInventory = 0;
-      
+       this.selectDefaultInventory = 0;     
        this.createRetailer(retailerInfoMap, retailerForm,this.showpopdetails);
-       this.checkbtn = false;
-      
+       this.checkbtn = false;      
     }
 
     // Method for directing the distributor to their corresponding own page
@@ -119,16 +101,14 @@ export class RetailerMarkupComponent implements OnInit {
     }
 
     createRetailer(retailerInfoMap, retailerForm, showpopview) {
+        this.createUserEnabled = false;
          console.log("show%%%%%%" + showpopview)
-           if(this.showpopdetails == false){
-               console.log("inside popup show")
-            this.showHideDefaultInventory = this.checkboxValue == false ? true : false;
-            this.selectDefaultInventory = this.checkboxValue ? 1 : 0;
-            this.demoService.createUserPopup=!this.checkboxValue ? true : false;
-            this.demoService.createUserMessage=!this.checkboxValue? "Do you want to add default inventory?":"";
-            this.checkbtn = !this.checkboxValue?true:false;
-           }
-            if (retailerForm.valid) {
+         if(this.showpopdetails == false && !this.checkboxValue){
+            //this.showpopdetails = true;
+            this.demoService.createUserPopup = true;
+            this.demoService.createUserMessage=!this.checkboxValue? "Do you want to add default inventory?":"";            
+         }
+           else if (retailerForm.valid) {
             let userDetailsMap: any = localStorage.getItem("User_Information");
             var role_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].role_id : "";
             var entity_type = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].entity_type : "";
@@ -148,15 +128,26 @@ export class RetailerMarkupComponent implements OnInit {
                 }
             }
             console.log("select default inventory : " +  this.selectDefaultInventory);
-           // this.demoService.loading = true;
             this.demoService.getSessionToken().subscribe((response) => {
                 if (response.getIdToken().getJwtToken()) {
-                    const jwt = response.getIdToken().getJwtToken();
-                    //logged user role is third argument
+                    const jwt = response.getIdToken().getJwtToken();                   
                     console.log("heree!!!!!")
-                    this.demoService.createUser(jwt, postMap, constant.userRoles.superAdminUser);
-                    retailerForm.resetForm();
-                  //this.checkbtn=!  this.checkbtn;
+                    this.createUserEnabled = true;
+                    this.demoService.createUser(jwt, postMap, constant.userRoles.superAdminUser).subscribe((response) => {; 
+                        
+                        this.checkboxValue = false;
+                        this.showOrHideCreateEmployee(event);
+                        retailerForm.resetForm();
+                    },
+                    (err) =>{
+                        this.checkboxValue = false;
+                        this.showOrHideCreateEmployee(event);
+                        retailerForm.resetForm();
+                    });
+                    
+
+
+                    
                 }
             });
         }

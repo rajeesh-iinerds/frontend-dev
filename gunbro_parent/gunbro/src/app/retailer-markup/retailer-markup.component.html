@@ -158,9 +158,9 @@
     <P>{{demoService.createUserMessage}}</P>
   </div>
   <div class=" col-md-6 gotoDashboardBtn text-right">
-    <span *ngIf="!checkbtn" (click) ="demoService.createUserPopup= !demoService.createUserPopup" style = " margin-right: -25px;">OK</span>
-     <span *ngIf="checkbtn" (click) ="proceedDefaultInventory(retailerInfo,retailerForm)" style = " margin-right: -25px;">Proceed</span> 
-    <span  *ngIf="checkbtn" (click) ="addDefaultInventory(retailerInfo,retailerForm);" style = " margin-right: -25px;">Add</span>
+    <span *ngIf="createUserEnabled" (click) ="demoService.createUserPopup= !demoService.createUserPopup && createUserEnabled = false;" style = " margin-right: -25px;">OK</span>
+     <span *ngIf="!checkboxValue && !createUserEnabled" (click) ="proceedDefaultInventory(retailerInfo,retailerForm)" style = " margin-right: -25px;">Proceed</span> 
+    <span  *ngIf="!checkboxValue && !createUserEnabled" (click) ="addDefaultInventory(retailerInfo,retailerForm);" style = " margin-right: -25px;">Add</span>
   
   </div>
   
