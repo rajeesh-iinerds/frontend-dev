@@ -33,6 +33,7 @@ export class OrdersComponent implements OnInit {
   retailer_id : any;
   path: any;
   orderslistCount: any;
+  orderProductDetails: any;
   
   constructor(private route: ActivatedRoute,public demoService: DemoService, private http: Http, private router: Router) {
     this.demoService.showRetailerProfile = false;
@@ -84,18 +85,18 @@ export class OrdersComponent implements OnInit {
                   let options = new RequestOptions({ headers: headers });
                   var store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id:"";
                   var retailer_idUsers = localStorage.getItem("User_Information")?JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId:"":"";
-                 this.retailer_id =  (this.userGroup == this.configSuperAdminUser) ? (retailerId == 'All' ? "" : retailerId) : retailer_idUsers;
+                  this.retailer_id =  (this.userGroup == this.configSuperAdminUser) ? (retailerId == 'All' ? "" : retailerId) : retailer_idUsers;
                   var reqBody= {
                         retailer_id: this.retailer_id 
                     }
+                    console.log("input retailer id : " + JSON.stringify(reqBody));
                   const url = constant.appcohesionURL.orderList_URL && constant.appcohesionURL.orderList_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
                   this.http.post(url, reqBody, options).subscribe(data => {
-                  
-                    this.demoService.loading = false;
-                      this.results = data ? data.json() :"";                    
-                                       
-                       if(this.results && this.results.statusCode){    
-                        if (this.results.statusCode == 200 ) {                           
+                  this.demoService.loading = false;
+                      this.results = data ? data.json() :"";    
+                      console.log("results *************** : " + JSON.stringify(this.results))                
+                      if(this.results && this.results.status){    
+                        if (this.results.status.code == 200 ) {                           
                           this.orderDetails = Object.keys(this.results.data).length ? this.results.data : "";
                           console.log("this.orderDetails lengthg"  + this.orderDetails.length);
                           this.orderslistCount = this.orderDetails.length ? this.orderDetails.length : "";
@@ -131,32 +132,48 @@ export class OrdersComponent implements OnInit {
      event.stopPropagation()
      this.showOrderDetails = !this.showOrderDetails;
      this.selectedOrder = {};
+     this.orderProductDetails = [];
+   //  console.log("order id _________> " + orderID);
     for(var i = 0; i < this.orderDetails.length; i++){
         if(this.orderDetails[i].OrderID == orderID){
-           // console.log("order view details : " + JSON.stringify(this.orderDetails[i]));
-            this.selectedOrder.OrderID = this.orderDetails[i].OrderID ? this.orderDetails[i].OrderID:'';
-            this.selectedOrder.CustomerPrice = this.orderDetails[i].CustomerPrice ? this.orderDetails[i].CustomerPrice : '';
-            this.selectedOrder.manufacturer_partnumber = this.orderDetails[i].manufacturer_partnumber && this.orderDetails[i].manufacturer_partnumber !='null'? this.orderDetails[i].manufacturer_partnumber : '';
-            this.selectedOrder.Phone = this.orderDetails[i].Phone ? this.orderDetails[i].Phone : '';
-            this.selectedOrder.FFL =  this.orderDetails[i].storeffl ? this.orderDetails[i].storeffl : '';
-            this.selectedOrder.order_status = this.orderDetails[i].order_status ? this.orderDetails[i].order_status : '';
-            this.selectedOrder.ConsumerName = this.orderDetails[i].ConsumerName ? this.orderDetails[i].ConsumerName : '';
-            this.selectedOrder.address = this.orderDetails[i].StoreAddress ? this.orderDetails[i].StoreAddress : "";
-            this.selectedOrder.ShipToCity = this.orderDetails[i].StoreCity ? this.orderDetails[i].StoreCity : "" 
-            this.selectedOrder.StoreZip = this.orderDetails[i].StoreZip ? this.orderDetails[i].StoreZip : "";
-            this.selectedOrder.Quantity = this.orderDetails[i].Quandity ? this.orderDetails[i].Quandity : 0;
-            this.selectedOrder.OrderPlacedDate = this.orderDetails[i].OrderPlacedDate ? this.orderDetails[i].OrderPlacedDate : '';
-            this.selectedOrder.tracking = this.orderDetails[i].TrackingNumber ? this.orderDetails[i].TrackingNumber : '';
-            this.selectedOrder.service = this.orderDetails[i].service ? this.orderDetails[i].service : '';
-            this.selectedOrder.arrival = this.orderDetails[i].arrival ? this.orderDetails[i].arrival : '';
-            this.selectedOrder.ProductName = this.orderDetails[i].ProductName && this.orderDetails[i].ProductName !='null' ? this.orderDetails[i].ProductName : '';
-            this.selectedOrder.msrp = this.orderDetails[i].msrp && this.orderDetails[i].msrp !='null' ? this.orderDetails[i].msrp : '';
-            this.selectedOrder.manufacturer = this.orderDetails[i].manufacturer && this.orderDetails[i].manufacturer !='null' ? this.orderDetails[i].manufacturer : '';
-            //this.selectedOrder.part = this.orderDetails[i].part ? this.orderDetails[i].part : '';
-            this.selectedOrder.email = this.orderDetails[i].Email && this.orderDetails[i].Email !='null' ? this.orderDetails[i].Email : '';
-            this.selectedOrder.SS_order = this.orderDetails[i].SS_OrderNumber ? this.orderDetails[i].SS_OrderNumber : '';
-            this.selectedOrder.SmallImage = this.orderDetails[i].SmallImage && this.orderDetails[i].SmallImage !='null' ? this.orderDetails[i].SmallImage : '';
-            this.selectedOrder.FirstName = this.orderDetails[i].FirstName && this.orderDetails[i].FirstName !='null' ? this.orderDetails[i].FirstName : '';
+
+          console.log("order details -------- >  array : " + JSON.stringify(this.orderDetails[i]));
+          console.log("object order details : " + JSON.stringify(this.orderDetails[i].orderDetails));
+         
+          this.orderProductDetails = this.orderDetails[i].orderDetails ? this.orderDetails[i].orderDetails : "";
+          this.selectedOrder.OrderID = this.orderDetails[i].OrderID ? this.orderDetails[i].OrderID: '';
+          this.selectedOrder.OrderPlacedDate = this.orderDetails[i].OrderPlacedDate ? this.orderDetails[i].OrderPlacedDate : '';
+          this.selectedOrder.CostumerName = this.orderDetails[i].CostumerName && this.orderDetails[i].CostumerName !='null' ? this.orderDetails[i].CostumerName : '';
+          this.selectedOrder.email = this.orderDetails[i].CustomerEmail && this.orderDetails[i].CustomerEmail !='null' ? this.orderDetails[i].CustomerEmail : '';
+          this.selectedOrder.Phone = this.orderDetails[i].CustomerPhone ? this.orderDetails[i].CustomerPhone : '';
+          this.selectedOrder.tracking = this.orderDetails[i].TrackingNumber ? this.orderDetails[i].TrackingNumber : '';
+          this.selectedOrder.address = this.orderDetails[i].StoreAddress ? this.orderDetails[i].StoreAddress : "";
+          this.selectedOrder.ShipToCity = this.orderDetails[i].StoreCity ? this.orderDetails[i].StoreCity : "" ;
+          this.selectedOrder.StoreZip = this.orderDetails[i].StoreZip ? this.orderDetails[i].StoreZip : "";
+          this.selectedOrder.FFL =  this.orderDetails[i].FFL ? this.orderDetails[i].FFL : '';
+         
+          // this.selectedOrder.CustomerPrice = this.orderDetails[i].CustomerPrice ? this.orderDetails[i].CustomerPrice : '';
+            // this.selectedOrder.manufacturer_partnumber = this.orderDetails[i].manufacturer_partnumber && this.orderDetails[i].manufacturer_partnumber !='null'? this.orderDetails[i].manufacturer_partnumber : '';
+           
+          
+            // this.selectedOrder.order_status = this.orderDetails[i].order_status ? this.orderDetails[i].order_status : '';
+           
+          
+           
+            
+            // this.selectedOrder.Quantity = this.orderDetails[i].Quandity ? this.orderDetails[i].Quandity : 0;
+            // this.selectedOrder.OrderPlacedDate = this.orderDetails[i].OrderPlacedDate ? this.orderDetails[i].OrderPlacedDate : '';
+         
+            // this.selectedOrder.service = this.orderDetails[i].service ? this.orderDetails[i].service : '';
+            // this.selectedOrder.arrival = this.orderDetails[i].arrival ? this.orderDetails[i].arrival : '';
+            // this.selectedOrder.ProductName = this.orderDetails[i].ProductName && this.orderDetails[i].ProductName !='null' ? this.orderDetails[i].ProductName : '';
+            // this.selectedOrder.msrp = this.orderDetails[i].msrp && this.orderDetails[i].msrp !='null' ? this.orderDetails[i].msrp : '';
+            // this.selectedOrder.manufacturer = this.orderDetails[i].manufacturer && this.orderDetails[i].manufacturer !='null' ? this.orderDetails[i].manufacturer : '';
+            // //this.selectedOrder.part = this.orderDetails[i].part ? this.orderDetails[i].part : '';
+           
+            // this.selectedOrder.SS_order = this.orderDetails[i].SS_OrderNumber ? this.orderDetails[i].SS_OrderNumber : '';
+            // this.selectedOrder.SmallImage = this.orderDetails[i].SmallImage && this.orderDetails[i].SmallImage !='null' ? this.orderDetails[i].SmallImage : '';
+            // this.selectedOrder.FirstName = this.orderDetails[i].FirstName && this.orderDetails[i].FirstName !='null' ? this.orderDetails[i].FirstName : '';
             
         }
      }
