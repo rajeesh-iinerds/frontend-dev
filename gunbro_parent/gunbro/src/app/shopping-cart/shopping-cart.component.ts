@@ -35,6 +35,7 @@ export class ShoppingCartComponent implements OnInit {
       "selectedQuantity": 0
     };
     cartInStockList: any;
+    tempList: any;
     hideQuantity: boolean = false;
 
   	constructor(public demoService: DemoService , private http: Http, public commonService: CommonService, private location: Location,private route: ActivatedRoute, private router: Router, public cartService: ShoppingCartService) {
@@ -66,6 +67,7 @@ export class ShoppingCartComponent implements OnInit {
 	                		if(this.results.status.code == constant.statusCode.success_code && this.results.cartList){
 		                		this.cartList = this.results.cartList;
 		                		this.cartInStockList = [];
+		                		this.tempList = [];
 		                		for(var i = 0; i < this.cartList.length; i++) {
 		                			this.cartObject = {
 								    	"subtotal": 0,
@@ -79,8 +81,10 @@ export class ShoppingCartComponent implements OnInit {
 						  			this.cartObject['selectedQuantity'] = Number(this.cartList[i].quantity);
 						  			this.cartList[i]['cartObject'] = this.cartObject;
 							  		this.count = this.cartList[i].inStock > 0 ? (this.count+1) : this.count;
-							  		if(this.cartList[i].inStock > 0)
+							  		if(this.cartList[i].inStock > 0){
 							  			this.cartInStockList.push(this.cartList[i]);
+							  			this.tempList.push(this.cartList[i]);
+							  		}
 						  		}
 						  		// console.log('****************', this.cartList);
 						  		this.cartService.setCartInfo(this.cartInStockList);
@@ -101,7 +105,6 @@ export class ShoppingCartComponent implements OnInit {
 
 	checkAll(size, ev) {
   		// this.sizes.forEach(x => x.state = ev.target.checked)
-  		console.log('******', ev);
   		console.log("itemmmmmmmmm", size);
   		var isChecked = ev.target.checked;
   		if (!isChecked) {
@@ -111,7 +114,6 @@ export class ShoppingCartComponent implements OnInit {
   			// this.quantityCount = this.quantityCount - 1;
   			this.quantityCount = this.quantityCount - Number(size.cartObject.selectedQuantity);
   			/* Remove from place order array if unchecked */
-  			console.log('instockkkkkkkkkkk ::', this.cartInStockList);
   			for(var i = 0; i < this.cartInStockList.length; i++) {
   				if(ev.target.id == size.CartItemID) {
   					const index: number = this.cartInStockList.indexOf(size);
@@ -126,6 +128,14 @@ export class ShoppingCartComponent implements OnInit {
   			this.count++;
   			this.totalAmount = this.totalAmount+(Number(size.ProductPrice) * Number(size.cartObject.selectedQuantity));
   			this.quantityCount = this.quantityCount + Number(size.cartObject.selectedQuantity);
+  			for(var j = 0; j < this.tempList.length; j++) {
+				if(ev.target.id == size.CartItemID) {
+  					const index: number = this.tempList.indexOf(size);
+				    if (index !== -1) {
+				        this.cartInStockList.push(size);
+				    }
+  				}
+  			}
   		}
 	}
 
