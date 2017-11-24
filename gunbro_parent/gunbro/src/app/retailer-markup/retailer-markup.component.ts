@@ -116,7 +116,7 @@ export class RetailerMarkupComponent implements OnInit {
             let postMap = {
                 "role_id": role_id,
                 "user": {
-                    entity_type: entity_type,
+                    entity_type: "Retailer",
                     user_name: retailerInfoMap.emailId,
                     email: retailerInfoMap.emailId,
                     first_name: retailerInfoMap.firstName,
