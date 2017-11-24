@@ -35,6 +35,7 @@ export class ShoppingCartComponent implements OnInit {
       "selectedQuantity": 0
     };
     cartInStockList: any;
+    hideQuantity: boolean = false;
 
   	constructor(public demoService: DemoService , private http: Http, public commonService: CommonService, private location: Location,private route: ActivatedRoute, private router: Router, public cartService: ShoppingCartService) {
   	}
@@ -104,6 +105,7 @@ export class ShoppingCartComponent implements OnInit {
   		console.log("itemmmmmmmmm", size);
   		var isChecked = ev.target.checked;
   		if (!isChecked) {
+  			this.hideQuantity = true;
   			this.count--;
   			this.totalAmount = this.totalAmount-(Number(size.ProductPrice) * Number(size.cartObject.selectedQuantity));
   			// this.quantityCount = this.quantityCount - 1;
@@ -120,6 +122,7 @@ export class ShoppingCartComponent implements OnInit {
   			}
   		}
   		else {
+  			this.hideQuantity = false;
   			this.count++;
   			this.totalAmount = this.totalAmount+(Number(size.ProductPrice) * Number(size.cartObject.selectedQuantity));
   			this.quantityCount = this.quantityCount + Number(size.cartObject.selectedQuantity);

@@ -34,14 +34,14 @@
 	                <span>Quantity</span>
 	                <div class="input-group" style="width: 80%;">
 	                    <span class="input-group-btn input-control">
-	                        <button type="button" class="btn btn-default btn-number input-control-btn" data-type="minus" data-field="quant[1]" (click)="decrementQuantity(size)">
+	                        <button type="button" class="btn btn-default btn-number input-control-btn" data-type="minus" data-field="quant[1]" (click)="decrementQuantity(size)" [disabled] = "hideQuantity">
 	                            <span class="glyphicon glyphicon-minus"></span>
 	                        </button>
 	                    </span>
 	                    <input type="text" name="quant[1]" class="form-control input-number input-count" value={{size.quantity}} min="1" max="{{size.inStock}}" [(ngModel)]="size.cartObject.selectedQuantity">
 
 	                    <span class="input-group-btn">
-	                        <button type="button" class="btn btn-default btn-number input-control-btn" data-type="plus" data-field="quant[1]" (click)="incrementQuantity(size)">
+	                        <button type="button" class="btn btn-default btn-number input-control-btn" data-type="plus" data-field="quant[1]" (click)="incrementQuantity(size)" [disabled] = "hideQuantity">
 	                            <span class="glyphicon glyphicon-plus"></span>
 	                        </button>
 	                    </span>
@@ -50,7 +50,7 @@
 	                <div class="cart-item-subtotal">
 	                  <span>Sub Total</span>
 	                  <!-- <h6>{{subtotal}}</h6> -->
-	                  <h6>{{size.cartObject.subtotal}}</h6>
+	                  <h6>{{size.cartObject.subtotal | number : '1.2-2'}}</h6>
 	                </div>
 	                <div class="cart-item-removeButton" (click) = "removeFromCart(size)"></div>
               </div>
@@ -64,7 +64,7 @@
               <div class="" style="padding: 10px 0px;border-bottom: 1px solid #eaeaea;">
                 <span>Items</span>
                 <span>{{quantityCount}}</span>
-                <span class="pull-right">${{totalAmount}}</span>
+                <span class="pull-right">${{totalAmount | number : '1.2-2'}}</span>
               </div>
               <!-- <div class="" style="padding: 10px 0px;border-bottom: 1px solid #eaeaea;">
                 <span>Shipping Cost</span>
@@ -73,7 +73,7 @@
               <div class="" style="padding: 10px 0px;">
                 <em class="selected-items-count">Item selected {{count}} only</em>
                 <span class="cart-payable">Amount Payable</span>
-                <span class="cart-payable pull-right">${{totalAmount}}</span>
+                <span class="cart-payable pull-right">${{totalAmount | number : '1.2-2'}}</span>
               </div>
               
               
