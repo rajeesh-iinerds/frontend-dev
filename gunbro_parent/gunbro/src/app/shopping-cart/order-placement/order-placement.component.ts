@@ -69,7 +69,7 @@ export class OrderPlacementComponent implements OnInit {
         let commonBody = {
             "storeId": this.shippingInfoMap.selectedStore ? this.shippingInfoMap.selectedStore: "NULL",
             "ShippingMethod":"DHL",
-            "ShipToStreetLine1": this.customerInfoMap.streetAddress ? this.customerInfoMap.streetAddress : "NULL",
+            "ShipToStreetLine1": this.customerInfoMap.streetAddress ? JSON.stringify(this.customerInfoMap.streetAddress) : "NULL",
             "ShipToStreetLine2":"ShipToStreetLine2",
             "ShipToCity": this.customerInfoMap.city ? this.customerInfoMap.city : "NULL",
             "BuyerType":"Retailer",
@@ -91,7 +91,7 @@ export class OrderPlacementComponent implements OnInit {
         let productArray = [];
         for(var i = 0; i < this.cartInfo.length; i++) {
             let productObject = {};
-            productObject["distributor_name"] = this.cartInfo[i].distributor_name ? this.cartInfo[i].distributor_name : "NULL";
+            productObject["distributor_name"] = this.cartInfo[i].distributor_name ? JSON.stringify(this.cartInfo[i].distributor_name) : "NULL";
             productObject["ecomdashID"] = "ecomdashID";
             productObject["ProductPrice"] = this.cartInfo[i].cartObject.subtotal ? this.cartInfo[i].cartObject.subtotal : this.cartInfo[i].ProductPrice ? this.cartInfo[i].ProductPrice : "NULL";
             productObject["CustomerPrice"] = this.cartInfo[i].cartObject.subtotal ? this.cartInfo[i].cartObject.subtotal : this.cartInfo[i].ProductPrice ? this.cartInfo[i].ProductPrice : "NULL";
@@ -104,8 +104,8 @@ export class OrderPlacementComponent implements OnInit {
             productObject["BasePrice"] = this.cartInfo[i].ProductPrice ? this.cartInfo[i].ProductPrice : "NULL";
             productObject["AppCoMarkUp"] = this.cartInfo[i].AppCoMarkUp ? this.cartInfo[i].AppCoMarkUp : "NULL";
             productObject["RetailerMarkUp"] = this.cartInfo[i].RetailerMarkUp ? this.cartInfo[i].RetailerMarkUp : "NULL";
-            productObject["product_name"] = this.cartInfo[i].product_Name ? this.cartInfo[i].product_Name : "NULL";
-            productObject["manufacturer"] = this.cartInfo[i].manufacturerName ? this.cartInfo[i].manufacturerName : "NULL";
+            productObject["product_name"] = this.cartInfo[i].product_Name ? JSON.stringify(this.cartInfo[i].product_Name) : "NULL";
+            productObject["manufacturer"] = this.cartInfo[i].manufacturerName ? JSON.stringify(this.cartInfo[i].manufacturerName) : "NULL";
             productArray.push(productObject);
         }
         commonBody["OrderDetails"] = productArray;
