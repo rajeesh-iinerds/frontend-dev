@@ -36,8 +36,12 @@ export class RetailerMarkupComponent implements OnInit {
     role_id: any;
     role_name:any;
     isPasswordMismatch: Boolean;
-    checkboxValue: any;
+    DefaultInventorycheck: any;
     selectDefaultInventory: any;
+    retailerForm:any;
+    checkboxValue: boolean = false;
+    continueJourney:Boolean=false;
+    checkbtn:boolean=false;
     retailerInfo = {
         "firstName": '',
         "lastName": '',
@@ -45,14 +49,16 @@ export class RetailerMarkupComponent implements OnInit {
         "retailerAddress": '',
         "emailId": '',
         "phoneNumber": ''
+       
     };
+    showHideDefaultInventory:Boolean;
+    showpopdetails: Boolean = false;
     constructor(private http: Http, private router: Router, public demoService: DemoService) { 
         this.demoService.showRetailerProfile = false;
-      
     }
 
     ngOnInit() {
-        this.selectDefaultInventory = 0;
+       
         this.demoService.listRetailorDetails();
         // this.listRetailorDetails().subscribe((response) => {
         //     console.log("function call retailer detailes : " + JSON.stringify(response));
@@ -61,26 +67,47 @@ export class RetailerMarkupComponent implements OnInit {
         // );
         this.role_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].role_id : "";
         
-      //  console.info(this.role_name);
+        console.log("this.checkboxValue ngInit" + this.checkboxValue)
     }
-    
-    // Method for selecting default inventory
-    selectInventory(){
-        this.selectDefaultInventory = this.checkboxValue ? 1 : 0;
-      //  console.log("select inventory ; " +  this.selectDefaultInventory);
+
+    addDefaultInventory(retailerInfoMap, retailerForm){
+       
+       // this.demoService.showNav = !this.demoService.showNav;
+        this.demoService.showNav = !this.demoService.showNav;
+        this.checkboxValue = true;
+
+        //this.selectDefaultInventory = this.checkboxValue;
+        //this.showHideDefaultInventory = true;
+        this.createRetailer(retailerInfoMap, retailerForm,'');
+        this.checkboxValue = false;
+       
+         retailerForm.resetForm();
+     //   this.showHideDefaultInventory =   this.selectDefaultInventory == true ? true : false;
+      
     }
-    addDefaultInventory(){
+
+
+    proceedDefaultInventory(retailerInfoMap, retailerForm){
+       
+       // this.demoService.createUserPopup = !this.demoService.createUserPopup;
+      // this.demoService.showNav = !this.demoService.showNav;
+       // retailerForm.resetForm();
+       // this.selectDefaultInventory = 0;
+   
+      //this.checkboxValue = false;
         
-        this.demoService.createUserPopup = !this.demoService.createUserPopup
-        this.checkboxValue = 1;
-        this.selectDefaultInventory = this.checkboxValue;
-        //this.demoService.showNav = !this.demoService.showNav;
-        //console.log("show nav : " + this.demoService.showNav)
+       // this.selectDefaultInventory = 0;
+       this.showpopdetails = !this.showpopdetails;
+       this.selectDefaultInventory = 0;
+      
+       this.createRetailer(retailerInfoMap, retailerForm,this.showpopdetails);
+       this.checkbtn = false;
+      
     }
 
     // Method for directing the distributor to their corresponding own page
     retailerCategoryList(retailerId) {
-        for (var i = 0; i < this.demoService.retailerDetails.length; i++) {
+       for (var i = 0; i < this.demoService.retailerDetails.length; i++) {
             if ( this.demoService.retailerDetails[i].retailerId == retailerId) {
                 this.demoService.setRetailerIdforCategory(retailerId);
                 this.router.navigate(['/dashboard/RetailerSingle']);
@@ -91,10 +118,17 @@ export class RetailerMarkupComponent implements OnInit {
         }
     }
 
-    createRetailer(retailerInfoMap, retailerForm) {
-        console.log("create retailer info : " + JSON.stringify(retailerInfoMap));
-       // console.log("inventory in create retailer : " + this.selectDefaultInventory);
-        if (retailerForm.valid) {
+    createRetailer(retailerInfoMap, retailerForm, showpopview) {
+         console.log("show%%%%%%" + showpopview)
+           if(this.showpopdetails == false){
+               console.log("inside popup show")
+            this.showHideDefaultInventory = this.checkboxValue == false ? true : false;
+            this.selectDefaultInventory = this.checkboxValue ? 1 : 0;
+            this.demoService.createUserPopup=!this.checkboxValue ? true : false;
+            this.demoService.createUserMessage=!this.checkboxValue? "Do you want to add default inventory?":"";
+            this.checkbtn = !this.checkboxValue?true:false;
+           }
+            if (retailerForm.valid) {
             let userDetailsMap: any = localStorage.getItem("User_Information");
             var role_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].role_id : "";
             var entity_type = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].entity_type : "";
@@ -113,16 +147,18 @@ export class RetailerMarkupComponent implements OnInit {
                     isAppCoInvSubscribed : this.selectDefaultInventory
                 }
             }
+            console.log("select default inventory : " +  this.selectDefaultInventory);
            // this.demoService.loading = true;
             this.demoService.getSessionToken().subscribe((response) => {
                 if (response.getIdToken().getJwtToken()) {
                     const jwt = response.getIdToken().getJwtToken();
                     //logged user role is third argument
-                    this.demoService.createUser(jwt, postMap, constant.userRoles.superAdminUser, this.selectDefaultInventory);
+                    console.log("heree!!!!!")
+                    this.demoService.createUser(jwt, postMap, constant.userRoles.superAdminUser);
+                    retailerForm.resetForm();
+                  //this.checkbtn=!  this.checkbtn;
                 }
             });
-
-
         }
     }
 
@@ -135,8 +171,18 @@ export class RetailerMarkupComponent implements OnInit {
 
         }
     }
+
     showOrHideCreateEmployee(event) {
+       
         event.stopPropagation();
+        this.retailerInfo = {
+            "firstName": '',
+            "lastName": '',
+            "retailerName": '',
+            "retailerAddress": '',
+            "emailId": '',
+            "phoneNumber": ''
+        };
         this.demoService.showNav = !this.demoService.showNav;
     }
         
