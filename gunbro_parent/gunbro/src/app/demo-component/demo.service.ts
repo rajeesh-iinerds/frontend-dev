@@ -644,12 +644,19 @@ export class DemoService {
             userInfo.user.store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id : "";
         }
         else if(loggedInUser==constant.userRoles.retailerAdminUser){
+            userInfo.user.entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";          
             userInfo.user.store_id=userInfo.user.store_id;
         }else if(loggedInUser==constant.userRoles.storeAdminUser){
+            userInfo.user.entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
             userInfo.user.store_id=userInfo.user.store_id;
         }
-        userInfo.user.entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";       
-        const url = constant.appcohesionURL.createUser_URL;         
+       // userInfo.user.entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
+        
+        const url = constant.appcohesionURL.createUser_URL;
+      
+         
+
+           
             this.http
             .post(url,JSON.stringify(userInfo),options)
             .subscribe(data => {
@@ -667,18 +674,21 @@ export class DemoService {
                     
                  } else {
                     this.createUserPopup = true;
+                   
                     this.createUserMessage = this.results.status.message.message + " ! ";
-                    this.showNav = !this.showNav;
-                    this.createUserStatus = "SORRY";                  
+                    this.createUserStatus = "SORRY";
+                    
                 }observer.next(true);
                     observer.complete();
             }, error => {
                 this.loading = false;
                 console.log("error" + JSON.stringify(error));
             });
-        }, err => {                 
+        }, err => {
+                  
                 console.log("error", err)
-            })      
+            })
+        
        
     }
 
