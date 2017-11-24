@@ -116,6 +116,8 @@ export class OrderPlacementComponent implements OnInit {
         console.log('reqqqqqq :: ', commonBody);
         console.log('reqqqqqq :: ', JSON.stringify(commonBody));
         this.customerInfoUpdateMap={};
+        this.customerInfoUpdateMap.firstName="";
+        this.customerInfoUpdateMap.lastName="";
         shippingInfoForm.resetForm();
         customerInfoForm.resetForm();
         
