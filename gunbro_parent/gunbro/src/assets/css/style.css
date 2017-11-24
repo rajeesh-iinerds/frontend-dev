@@ -2498,6 +2498,31 @@ span.order-inprogress-Btn {
   max-width: 80px;
   padding: 0px;
 }
+.hhhh {
+  float: left;
+  height: 130px;
+  width: 100%;
+  overflow: auto;
+}
+.product-info-table tr{
+border-bottom: 1px solid #dbdbdb;
+font-size: 13px;
+}
+.product-info-table th, td{
+padding: 5px;
+}
+.product-info-table th{
+background-color: #dbdbdb;
+}
+.hhhh::-webkit-scrollbar {
+  width: 3px;
+}
+.hhhh::-webkit-scrollbar-track {
+  background-color: #DEDEDE;
+}
+.hhhh::-webkit-scrollbar-thumb {
+  background-color: #c2c2c2;
+}
 /*order list drawer ends*/
 
 /*profile page starts*/
