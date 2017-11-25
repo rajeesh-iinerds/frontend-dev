@@ -38,7 +38,10 @@ export class ShoppingCartComponent implements OnInit {
     tempList: any;
     hideQuantity: boolean = false;
 
-  	constructor(public demoService: DemoService , private http: Http, public commonService: CommonService, private location: Location,private route: ActivatedRoute, private router: Router, public cartService: ShoppingCartService) {
+  	constructor(public demoService: DemoService , private http: Http, 
+  		public commonService: CommonService, private location: Location,
+  		private route: ActivatedRoute, private router: Router,
+  		public cartService: ShoppingCartService) {
   	}
 
   	ngOnInit() {
@@ -195,5 +198,9 @@ export class ShoppingCartComponent implements OnInit {
 	}
 	backClicked() {
     	this.location.back();
+    }
+    navigateToCheckoutPage() {
+    	// routerLink="/dashboard/place-order"
+    	this.router.navigate(['/dashboard/place-order']);
     }
 }

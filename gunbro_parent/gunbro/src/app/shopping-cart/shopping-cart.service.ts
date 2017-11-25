@@ -35,7 +35,7 @@ export class ShoppingCartService {
             });
             console.log("product info" + orderInfo);
             let req_body = orderInfo;
-;            const url = constant.appcohesionURL.placeOrder_URL;
+            const url = constant.appcohesionURL.placeOrder_URL;
             this.http
             .post(url, req_body, options)
             .subscribe(data => {
@@ -44,13 +44,11 @@ export class ShoppingCartService {
                 if (this.results) {
                     if (this.results.status.code == constant.statusCode.success_code) {
                     	console.log('successss', this.results);
-                        // this.showPopup = !this.showPopup;
-                        alert("Order Success");
                       	observer.next(this.results);
                         observer.complete();
                     } else {
-                    	alert("Order Failed");
-                        alert(this.results.status);
+                        observer.next(this.results);
+                        observer.complete();
                     }
                     console.log(this.results);
                 } else {

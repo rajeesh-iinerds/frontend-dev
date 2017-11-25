@@ -190,49 +190,33 @@
     </div>
   </div>
 </div>
-<div class="row fadebg" [class.show]="showPasswordPopup"></div>
-<div class="confirmPopup" [class.show]="showPasswordPopup">
-  <div class="successImgIcon"></div>
-  <div class="sucessMsgText text-center">
-    
-    <P>{{forgetPasswordMsg}}</P>
+
+<!-- success popup starts -->
+  <div class="row fadebg" [class.show]="showSuccessPopup"></div>
+  <div class="confirmPopup" [class.show]="showSuccessPopup">
+    <div class="successImgIcon"></div>
+    <div class="sucessMsgText text-center">
+      <h4>SUCCESS</h4>
+      <P>Congratulations!! You have successfully placed the order.</P>
+    </div>
+    <div class=" col-md-6 gotoDashboardBtn text-right">
+      <span routerLink="/dashboard">GO TO DASHBOARD</span>
+    </div>
+    <div class=" col-md-6 checkOrderStatusBtn text-left">
+      <span routerLink="../order">CHECK ORDER STATUS</span>
+    </div>
   </div>
-  <div class=" col-md-6 gotoDashboardBtn text-right">
-    <!-- <span routerLink="/dashboard">OK</span> -->
-    <span (click) ="showPasswordPopup = !showPasswordPopup" style = " margin-right: -25px;">OK</span>
+<!-- success popup ends -->
+<!-- error popup starts -->
+  <div class="row fadebg" [class.show]="showErrorPopup"></div>
+  <div class="confirmPopup" [class.show]="showErrorPopup">
+    <div class="successImgIcon"></div>
+    <div class="sucessMsgText text-center">
+      <h4>ERROR</h4>
+      <P>Sorry!! Order not placed, Please try again.</P>
+    </div>
+    <div class=" col-md-6 gotoDashboardBtn text-right">
+      <button type="submit" class="btn btn-default" (click) = "showErrorPopup = !showErrorPopup;">OK</button>
+    </div>
   </div>
-  
-</div>
-<!--   __   ___        __      __                
-          |  \ |__   |\/| /  \    /  \ |\ | |    \ / 
-          |__/ |___  |  | \__/    \__/ | \| |___  |  -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>
-<script type="text/javascript">
-  var sampleApp = angular.module('sampleApp', []);
-  sampleApp.directive('simpleAccordion', function () {
-    return {
-      // attribute
-      restrict: 'A',
-      scope: {
-        toggleSpeed: '@toggleSpeed',
-        slideUpSpeed: '@slideUpSpeed',
-        toggleEasing: '@toggleEasing',
-        slideUpEasing: '@slideUpEasing'
-      },
-      link: function (scope, element, attrs) {
-        element.find('.accordion-toggle').click(function () {
-          var elem = $(this);
-          elem.next().slideToggle(scope.toggleSpeed, scope.toggleEasing);
-          $(".accordion-content").not($(this).next()).slideUp(scope.slideUpSpeed, scope.slideUpEasing);
-        });
-      }
-    };
-  });
-
-</script>
-
-
-<!--   __   ___        __      __                
-          |  \ |__   |\/| /  \    /  \ |\ | |    \ / 
-          |__/ |___  |  | \__/    \__/ | \| |___  |  -->
+<!-- error popup ends -->

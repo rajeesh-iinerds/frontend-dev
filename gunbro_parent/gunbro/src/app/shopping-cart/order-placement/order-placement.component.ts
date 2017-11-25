@@ -26,7 +26,9 @@ export class OrderPlacementComponent implements OnInit {
     customerInfoForm:any;
     isSideBarCustomerInfo:boolean=false;
     isSideBarShippingInfo:boolean=false;
-    showPasswordPopup:boolean=false;
+    showSuccessPopup:boolean=false;
+    showErrorPopup:boolean=false;
+
     constructor(private MessagePopupComponent:MessagePopupComponent,private http:Http,private demoService:DemoService,private route: ActivatedRoute,private router: Router, public cartService: ShoppingCartService) {
     }
 
@@ -71,8 +73,6 @@ export class OrderPlacementComponent implements OnInit {
     }
 
     placeOrder(shippingInfoForm,customerInfoForm) {
-      //this.isSideBarShippingInfo=true;
-      
         console.log('cust', this.customerInfoMap);
         console.log('ship', this.shippingInfoMap);
         console.log('cart', this.cartInfo);
@@ -124,22 +124,17 @@ export class OrderPlacementComponent implements OnInit {
         this.customerInfoUpdateMap={};
         this.customerInfoUpdateMap.firstName="";
         this.customerInfoUpdateMap.lastName="";
-        shippingInfoForm.resetForm();
-        customerInfoForm.resetForm();
-        
-
-        /*return this.demoService.getSessionToken().subscribe((response) => {
-            if(response.getIdToken().getJwtToken()) {
-                const jwt = response.getIdToken().getJwtToken();
-                this.confirmOrder(bookForm, jwt);
-            }
-        }, (err) => {
-          console.log(err);
-        });*/
-
+        // shippingInfoForm.resetForm();
+        customerInfoForm.resetForm();        
         return this.cartService.placeOrder(commonBody, this.jwt).subscribe((resp) => {
-            if(resp) { 
-               this.showPasswordPopup = !this.showPasswordPopup;              
+            if(resp) {
+                if(resp.status && (resp.status.code == constant.statusCode.success_code)) {
+                    this.showSuccessPopup = !this.showSuccessPopup;
+                }
+                else if (resp.status && (resp.status.code == constant.statusCode.error_code)) {
+                    this.showErrorPopup = !this.showErrorPopup;
+                }
+                var isNotSS = false;              
                 if(resp.data && resp.data[0] && resp.data[0].orderId) { // If response has OrderId
                     var orderId = resp.data[0].orderId;
                     // Insert into DynamodB with OrderId for SS & others
@@ -147,7 +142,6 @@ export class OrderPlacementComponent implements OnInit {
                         "id": orderId
                     };
                     if(resp.data[0].OrderDetails && resp.data[0].OrderDetails.length > 0 ) {
-                        var isNotSS = false;
                         for(var i = 0; i < resp.data[0].OrderDetails.length; i++) {
                             if(resp.data[0].OrderDetails[i].SS_OrderNumber) {
                                 params["SS_OrderNumber"] = resp.data[0].OrderDetails[i].SS_OrderNumber;

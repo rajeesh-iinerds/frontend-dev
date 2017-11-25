@@ -55,7 +55,7 @@
 	                <div class="cart-item-removeButton" (click) = "removeFromCart(size)"></div>
               </div>
               <div class="cart-bottom-buttons">
-                <button class="cart-place-order" routerLink="/dashboard/place-order" [disabled]="!cartInStockList.length">Checkout</button>
+                <button class="cart-place-order" [disabled]="!cartInStockList.length" (click)="navigateToCheckoutPage()">Checkout</button>
                 <button class="cart-place-order cart-continue-shipping" (click)="backClicked()">Continue Shopping</button>
               </div>
             </div>
