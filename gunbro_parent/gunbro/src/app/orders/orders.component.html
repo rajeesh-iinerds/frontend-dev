@@ -154,31 +154,31 @@
                         </span>
                     </div> -->
                 </div>
-                <span class="ac-order-drawer-head">
+                <span class="ac-order-drawer-head" *ngIf="selectedOrder.CostumerName || selectedOrder.email || selectedOrder.Phone">
                     <h4 style="font-size: 13px;">Customer Info</h4>
                 </span>
-                <div class="ac-order-details">
-                    <span style="width: 25%;" *ngIf="selectedOrder.CostumerName">
+                <div class="ac-order-details" *ngIf="selectedOrder.CostumerName || selectedOrder.email || selectedOrder.Phone">
+                    <span style="width: 25%;">
                         <p>Name</p>
                         <h5>{{selectedOrder.CostumerName}}</h5>
                     </span>
-                    <span style="width: 25%;" *ngIf="selectedOrder.email">
+                    <span style="width: 25%;">
                         <p>Email</p>
                         <h5>{{selectedOrder.email}}</h5>
                     </span>
-                    <span style="width: 25%;" *ngIf = "selectedOrder.Phone">
+                    <span style="width: 25%;">
                         <p>Phone</p>
                         <h5>{{selectedOrder.Phone}}</h5>
                     </span>
                 </div>
-                <span class="ac-order-drawer-head">
+                <!-- <span class="ac-order-drawer-head">
                     <h4 style="font-size: 13px;">Shipping Info</h4>
-                </span>
-                <div class="col-md-2 ac-productimg-field ac-shippinginfo-logo">
+                </span> -->
+                <!-- <div class="col-md-2 ac-productimg-field ac-shippinginfo-logo">
                     <div class="shippingInfo-img-viewer">
                         <img src="demo-assets/logo_fedex.jpg">
                     </div>
-                </div>
+                </div> -->
                 <div class="col-md-10">
                     <div class="productinfo-field">
                          <!-- <span>
@@ -191,7 +191,7 @@
                         </span> -->
                     </div>
                 </div>
-                <div class="productinfo-field">
+                <!-- <div class="productinfo-field">
                      <span style="width: 100%;">
                         <p>Shipping Address</p>
                         <h5>{{selectedOrder.address}},{{selectedOrder.ShipToCity}},{{selectedOrder.StoreZip}}</h5>
@@ -200,7 +200,7 @@
                         <p>FFL #</p>
                         <h5>{{selectedOrder.FFL}}</h5>
                     </span>
-                </div>
+                </div> -->
                   <!-- <span class="ac-create-employee-head">
                     <a href="javascript:void(0);" class="ac-close-employee-drawer"></a>
                     <h4>Add Employee</h4>
