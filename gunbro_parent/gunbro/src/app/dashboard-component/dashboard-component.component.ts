@@ -300,7 +300,6 @@ export class DashboardComponentComponent implements OnInit {
       var cartItemIndex=-1;
       list.forEach((element, itemIndex) => {
         if (parseInt(element.gsin) === parseInt(obj.gsin)) {
-        
           cartItemIndex = itemIndex;
         } else {
           cartItemIndex = -1;
