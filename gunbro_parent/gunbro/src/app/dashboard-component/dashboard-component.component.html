@@ -56,7 +56,7 @@
              
               
               <h5>{{cartItem.product_Name}}</h5>
-                <div class="input-group" style="width: 35%;float: left;top:-20px;">
+                <div class="input-group" style="width: 35%;float: left;top:-20px;z-index: 0;">
                   <span class="input-group-btn input-control">
                     <button [disabled]="cartItem.inStock=='0'" (click)="decreaseQuantity(idx)" type="button" class="btn btn-default btn-number input-control-btn">
                       <span class="glyphicon glyphicon-minus"></span>
