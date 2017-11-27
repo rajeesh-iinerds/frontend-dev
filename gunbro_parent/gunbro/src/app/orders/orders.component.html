@@ -41,7 +41,7 @@
               <tbody>
                   <tr *ngFor = "let order of orderDetails">
                       <td>{{order.OrderID ? order.OrderID : ''}}</td>
-                      <td>{{userDetails.first_name}}{{userDetails.last_name}}</td>
+                      <td>{{order.FirstName ? order.FirstName: ''}}</td>
                       <td>{{order.RetailerName && order.RetailerName != 'null' ? order.RetailerName : ''}}</td>
                       <!-- <td>{{order.DistributorName && order.DistributorName != 'null' ? order.DistributorName : ''}}</td> -->
                       <td>{{order.CostumerName && order.CostumerName != 'null' ? order.CostumerName : ''}}</td>
