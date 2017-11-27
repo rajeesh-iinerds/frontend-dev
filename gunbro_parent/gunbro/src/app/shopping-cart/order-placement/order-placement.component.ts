@@ -71,9 +71,8 @@ export class OrderPlacementComponent implements OnInit {
     }
     customerInfoUpdate(customerInfoMap, customerInfoForm) {
         this.customerInfoUpdateMap = Object.assign({}, customerInfoMap);
-        this.isSideBarCustomerInfo=Object.keys(customerInfoMap).length === 0 && customerInfoMap.constructor === Object?true:false;
-        this.customerInfoUpdateMap.firstName = "";
-        this.customerInfoUpdateMap.lastName = "";
+        this.isSideBarCustomerInfo=true;
+        
     }
 
     placeOrder(shippingInfoForm, customerInfoForm) {
