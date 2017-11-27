@@ -14,10 +14,10 @@ export const userRoles = {
 	"storeUser": 2,
 };
 export const userTypes = {
-	"superadmin" : "SUPER ADMIN",
+	"superadmin" : "APPCO ADMIN",
 	"retaileradmin": "RETAILER ADMIN",
 	"admin": "STORE ADMIN",
-	"posuser": "USER"
+	"posuser": "STORE USER"
 };
 export const userPoolData = {
 	"UserPoolId" : 'us-east-1_Q3sA5af5A',
