@@ -135,7 +135,6 @@ export class StoreLocationComponent implements OnInit {
 	      	"address": '',
 	      	"phone": '',
 	      	"fax": '',
-	      	"email": '',
 	      	"zip": ''
 	    };
   		this.showCreateStore = true;
