@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  apiUrl : 'https://staging-api.appcohesion.io/'
+  // apiUrl : 'https://staging-api.appcohesion.io/'
+  apiUrl: 'https://api.appcohesion.io/'
 };

@@ -58,7 +58,7 @@ export class EmployeeComponent implements OnInit {
         };
         const url = constant.appcohesionURL.retailerStore_URL && constant.appcohesionURL.retailerStore_URL != 'null' ? constant.appcohesionURL.retailerStore_URL : '';
         this.http.post(url, req_body, options).subscribe(data => {
-          this.results = data.json();
+          this.results = data ? data.json() : "";
           if (this.results && this.results.status) {
             if (this.results.status.code == 200) {
               this.storeListOfMaps = this.results.data;
