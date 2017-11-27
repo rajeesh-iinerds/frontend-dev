@@ -20,6 +20,7 @@ export class EmployeeComponent implements OnInit {
   results: any;
   storeListOfMaps: any;
   role_id: number;
+  user_id:number;
   userList: any;
   userGroup: string;
   configSuperAdminUserGroup: string;
@@ -39,6 +40,8 @@ export class EmployeeComponent implements OnInit {
     (err) => console.error(err)
    );
     this.role_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].role_id : "";
+    this.user_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].role_id : "";
+    
     if (this.role_id == 4) {
       this.userPostMap.userRole = 1;
     } else {
@@ -72,6 +75,7 @@ export class EmployeeComponent implements OnInit {
     event.stopPropagation();
     this.demoService.showNav = !this.demoService.showNav;
   }
+
   validatePasswordMatch(retailerInfoMap, userPasswordFormObject) {
     if (retailerInfoMap.userPassword1 === retailerInfoMap.userPassword2) {
       this.isPasswordMismatch = true;
@@ -79,8 +83,9 @@ export class EmployeeComponent implements OnInit {
       this.isPasswordMismatch = false;
     }
   }
+
   createUser(userPostMap, createStoreAdminForm) {
-    var entity_type = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].entity_type : "";
+   var entity_type = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].entity_type : "";
     var store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id : "";
     let postMap = {
       role_id: this.role_id,
@@ -99,7 +104,16 @@ export class EmployeeComponent implements OnInit {
       if (response.getIdToken().getJwtToken()) {
         const jwt = response.getIdToken().getJwtToken();
         //logged user role is third argument
-        this.demoService.createUser(jwt, postMap, constant.userRoles.retailerAdminUser);
+        console.log("user iddddd from employee : " + this.user_id);
+        this.demoService.createUser(jwt, postMap,this.user_id).subscribe((response) => {
+          this.getEmployeeList().subscribe((employeeListResponse) => {
+            console.log("Success");
+          },
+          (err) => console.error(err)
+         );
+        },
+        (err) =>{
+        });
         this.userPostMap = {};
         this.userPostMap.userRole = 2;
       }
@@ -125,6 +139,7 @@ export class EmployeeComponent implements OnInit {
         // console.log(this.results.users.length);
         if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {
             this.userList = this.results;  
+            console.log("employeeee results: " + JSON.stringify(this.userList));
             observer.next(this.userList);  
             observer.complete();  
         } else if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.error_code) {

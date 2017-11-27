@@ -289,13 +289,15 @@ export class DashboardComponentComponent implements OnInit {
     returnQuantity(cartMap) {
       var quantity;
       var index = this.isObjectInTheList(cartMap, this.cartBucket);
+      console.info(index);
       quantity = index < 0 ? 0 : (this.cartBucket[index].quantity ? this.cartBucket[index].quantity:0);
+      console.info(quantity);
       return quantity;
     }
   
     isObjectInTheList(obj, list) {
       
-      var cartItemIndex;
+      var cartItemIndex=-1;
       list.forEach((element, itemIndex) => {
         if (parseInt(element.gsin) === parseInt(obj.gsin)) {
           cartItemIndex = itemIndex;
