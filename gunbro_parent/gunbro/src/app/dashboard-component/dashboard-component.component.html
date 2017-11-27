@@ -45,7 +45,7 @@
           <a href="javascript:void(0);"><i class="glyphicon glyphicon-envelope"></i><i class="ac-notification">20</i></a>
           <a href="javascript:void(0);"><i class="glyphicon glyphicon-bell"></i><i class="ac-notification">3</i></a>
         </span> -->
-        <div *ngIf="userGroup != configSuperAdminUserGroup" class="shoppingCart">
+        <div *ngIf="userGroup != configSuperAdminUserGroup&&this.cartBucket.length" class="shoppingCart">
           <img src="assets/shopping-cart.svg">
           <span class="item-count-notify">{{this.cartBucket.length}}</span>
           <div class="cart-hover-field">
@@ -80,7 +80,7 @@
                 <h4 style="line-height:9em;color:rgb(0, 43, 255);font-weight: 600;">OUT OF STOCK</h4>
               </div>
             </div>
-            <div [hidden]="this.cartBucket.length" class="text-center" >Empty Cart</div>
+            <!-- <div [hidden]="this.cartBucket.length" class="text-center" >Empty Cart</div> -->
             <button routerLink="/dashboard/cart" [hidden]="!this.cartBucket.length" class="view-cart-button">View Cart</button>
            
           </div>
