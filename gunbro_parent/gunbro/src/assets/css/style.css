@@ -1581,6 +1581,7 @@ input[type=radio]:checked ~ label{
   width: 100%;
   object-fit: contain;
   object-position: center center;
+  height: 65px;
 }
 .cart-item-name {
   width: 34%;
@@ -1714,7 +1715,7 @@ span.cart-payable {
 }
 .shoppingCart{
   float: right;
-  line-height: 5em;
+  line-height: 4em;
   width: 30px;
 }
 .filter img{
@@ -1747,7 +1748,7 @@ span.item-count-notify {
   float: right;
   position: absolute;
   right: 0px;
-  top: 70px;
+  top: 60px;
   background-color: white;
   z-index: 999;
   border: 1px solid #d0d0d0;
@@ -1815,7 +1816,7 @@ span.hover-card-subtotal {
   font-size: 13px;
   padding-top: 20px;
   position: relative;
-  top: -65px;
+  top: -40px;
 }
 .view-cart-button{
   background-color: #4053ab;
@@ -1823,15 +1824,15 @@ span.hover-card-subtotal {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  bottom: 0;
-  margin-top: 15px;
+  bottom: 10px;
   color: #ffffff;
   font-size: 12px;
   font-weight: 600;
   float: right;
   line-height: 35px;
   width: 100%;
-  z-index: 1;
+  z-index: 9;
+  position: sticky;
 }
 .input-count{
   padding: 2px;
@@ -1853,13 +1854,13 @@ span.hover-card-subtotal {
 .cart-update-bttn{
   width: calc(100% - 100px);
   position: relative;
-  top: -50px;
+  top: -30px;
   margin-right: 50px;
   padding: 4px 10px;
 }
 .fadeclass {    
   position: absolute;   
-  width: 100%;    
+  width: 91%;    
   height: 100%;    
   background-color: rgba(219, 219, 219, 0.76);  
   left: 0px;    
