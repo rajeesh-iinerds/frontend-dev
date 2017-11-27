@@ -26,7 +26,12 @@ import { DistributorCategoryComponent } from './distributor-category/distributor
 import { StoreLocationComponent } from './store-location/store-location.component';
 import { SearchWidgetComponent } from './search-widget/search-widget.component';
 import { SearchWidgetPipe } from './search-widget/search-widget.pipe';
-
+import { SearchProductService } from './product-search/search-product-service';
+import { CommonService } from './shared/common.service';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import {MessagePopupComponent} from "./shared/component/message-popup/message-popup.component";
+import { OrderPlacementComponent } from './shopping-cart/order-placement/order-placement.component';
+import { ShoppingCartService } from './shopping-cart/shopping-cart.service';
 
 const appRoutes: Routes = [
   {
@@ -35,17 +40,19 @@ const appRoutes: Routes = [
     
     children: [
       { path: '',  component:  DashboardHomeComponent },
-      { path: 'employee', component:  EmployeeComponent},
-      { path: 'search', component:  ProductSearchComponent},
-      { path: 'productdetail', component:  ProductdetailComponent},
-      { path: 'order', component:  OrdersComponent},
-      { path: 'retailer', component: RetailersComponent},
-      { path: 'RetailerMarkup', component: RetailerMarkupComponent},
-      { path: 'RetailerSingle', component: RetailerSingleComponent},
-      { path: 'markup', component:  DistributorMarkupComponent},
-      { path: 'dist-category', component:  DistributorCategoryComponent},
-      { path: 'store-location', component:  StoreLocationComponent}
-    ]
+      { path: 'employee', component:  EmployeeComponent,canActivate:[AuthGuard],data:['admin','superadmin','retaileradmin']},
+      { path: 'search', component:  ProductSearchComponent,canActivate:[AuthGuard],data:['admin','posuser','retaileradmin']},
+      { path: 'productdetail', component:  ProductdetailComponent,canActivate:[AuthGuard],data:['admin','posuser','retaileradmin']},
+      { path: 'order', component:  OrdersComponent,canActivate:[AuthGuard],data:['admin','superadmin','retaileradmin','posuser']},
+      { path: 'retailer', component: RetailersComponent,canActivate:[AuthGuard],data:['superadmin']},
+      { path: 'RetailerMarkup', component: RetailerMarkupComponent,canActivate:[AuthGuard],data:['superadmin']},
+      { path: 'RetailerSingle', component: RetailerSingleComponent,canActivate:[AuthGuard],data:['superadmin']},
+      { path: 'markup', component:  DistributorMarkupComponent,canActivate:[AuthGuard],data:['admin']},
+      { path: 'dist-category', component:  DistributorCategoryComponent,canActivate:[AuthGuard],data:['admin']},
+      { path: 'store-location', component:  StoreLocationComponent,canActivate:[AuthGuard],data:['retaileradmin']},
+      { path: 'cart', component:  ShoppingCartComponent,canActivate:[AuthGuard],data:['admin','retaileradmin','posuser']},
+      { path: 'place-order', component:  OrderPlacementComponent,canActivate:[AuthGuard],data:['admin','retaileradmin','posuser']}
+   ]
   },
   {
     path: 'forgot',
@@ -85,7 +92,10 @@ const appRoutes: Routes = [
     DistributorCategoryComponent,
     StoreLocationComponent,
     SearchWidgetComponent,
-    SearchWidgetPipe
+    SearchWidgetPipe,
+    ShoppingCartComponent,
+    MessagePopupComponent,
+    OrderPlacementComponent
   ],
   imports: [
     BrowserModule,
@@ -101,9 +111,16 @@ const appRoutes: Routes = [
   ],
   providers: [
     DemoService,
+    SearchProductService,
+    CommonService,
     AuthGuard,
     ProductSearchComponent,
-    DashboardComponentComponent
+    DashboardComponentComponent,
+    OrdersComponent,
+    DistributorMarkupComponent,
+    EmployeeComponent,
+    MessagePopupComponent,
+    ShoppingCartService
   ],
   bootstrap: [AppComponent]
 })

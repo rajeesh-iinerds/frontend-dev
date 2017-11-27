@@ -6,7 +6,7 @@
           <h3 class="ac-page-title">Employee Management</h3>
         </div>
         <div class="col-xs-12 col-sm-3 col-lg-3 text-right xs-text-left">
-          <button *ngIf="role_id!=3"  class="ac-button-outlined " (click)="showOrHideCreateEmployee($event)"><i style="display: inline-block;font-size: 22px;    font-style: normal; padding-right: 5px;vertical-align: top;">+</i>CREATE USER</button>
+          <button *ngIf="role_id!=3"  class="ac-button-outlined " (click)="showOrHideCreateEmployee($event)"><i style="display: inline-block;font-size: 22px;    font-style: normal; padding-right: 5px;vertical-align: top;">+</i>ADD EMPLOYEE</button>
         </div>
       </div>
       <!-- <div class="row" *ngIf= "demoService.usersList && demoService.usersList.data">
@@ -140,7 +140,7 @@
           </div>
       </div> -->
       <span class="ac-create-employee-foot">
-        <button type="submit" [disabled]="createStoreAdminForm.invalid" class="btn btn-default">CREATE EMPLOYEE</button>
+        <button type="submit" [disabled]="createStoreAdminForm.invalid" class="btn btn-default">ADD EMPLOYEE</button>
       </span>
     </form>
 
@@ -177,7 +177,7 @@
                 Invalid Phone Number
               </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" *ngIf="role_id==4">
               <label for="usr_emailid" class="field-wrapper required-field">STORE</label>
               <select class="form-control"  [(ngModel)]="userPostMap.storeId" id="storeId" name="storeId" #storeId="ngModel" required>
                 <option *ngFor="let item of storeListOfMaps" [value]="item.StoreId" >{{item.StoreName}}</option>

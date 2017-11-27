@@ -84,8 +84,7 @@ export class RetailersComponent implements OnInit {
                       headers: headers
                   });
                   let req_body = {
-                      //"retailerId": "1",
-                      "entityId": "1"
+                      "entity_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : ""                     
                   };
                   const url = constant.appcohesionURL.retailerStore_URL && constant.appcohesionURL.retailerStore_URL != 'null' ? constant.appcohesionURL.retailerStore_URL : '';
                   this.http.post(url, req_body, options).subscribe(data => {

@@ -4,6 +4,8 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { ProductSearchComponent } from '../product-search/product-search.component';
+import { DashboardComponentComponent } from '../dashboard-component/dashboard-component.component';
+
 import { DemoService } from '../demo-component/demo.service';
 import * as constant from '../shared/config';
 
@@ -46,7 +48,7 @@ results: any;
 	selectedStore: any;
 	getStoreDetails : boolean = false;
 	userDetails: any;
-  	constructor(private route: ActivatedRoute,private router: Router,public searchComponent: ProductSearchComponent, public demoService: DemoService, private http:Http) {
+  	constructor(private route: ActivatedRoute,private router: Router,public searchComponent: ProductSearchComponent, public demoService: DemoService, private http:Http,private dashboardComponent:DashboardComponentComponent) {
 		this.selectedQuantity = 1;
 		this.ffl = "5-76-339-07-6M-02775";
 		this.amount = demoService.productInfo && demoService.productInfo.productPrice ? demoService.productInfo.productPrice : '';

@@ -44,7 +44,13 @@ export const appcohesionURL = {
 	"retailerProfile_URL" : apiUrl +"userInfo",
 	"updateRetailerProfile_URL" : apiUrl + "updateUserInfo",
 	"getEmployeeList_URL": apiUrl +"usersList",
-	"forgetPasssword_URL": apiUrl + "forgotPwd"
+	"forgetPasssword_URL": apiUrl + "forgotPwd",
+	"deleteStore_URL": apiUrl + "deleteStore",
+	"addToCart_URL": apiUrl + "addToCart",
+	"getCartList_URL": apiUrl + "cartListing",
+	"deleteCart_URL": apiUrl + "deleteItem",
+	"cartListing_URL":apiUrl+"cartListing"
+	
 };
 export const distApiList = ["ss"];
 export const statusCode = {
@@ -61,7 +67,8 @@ export const retailerProfile_messages = {
 	"success_description": "Retailer profile updated successfully!"
 };
 export const store_messages = {
-	"success_description": "Store has been created successfully!"
+	"success_description": "Store has been created successfully!",
+	"delete_confirm_description": "Do you really want to continue?"
 };
 export const error_message = {
 	"error_title": "ERROR"
@@ -69,6 +76,9 @@ export const error_message = {
 export const forgetPasswordMsg = {
 	"Msg_description" : "Cannot reset password for the user as there is no registered/verified email or phone_number",
 	"Email_description" : "Email Sent"
+};
+export const orderRoute = {
+	"flag" : "order"
 };
 export const SS_prod_param = {
 	"CustomerNumber": "31821", //"99994",

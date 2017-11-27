@@ -14,7 +14,6 @@ import * as constant from '../shared/config';
 })
 
 export class EmployeeComponent implements OnInit {
-
   userPostMap: any = {};
   isPasswordMismatch: Boolean;
   showNav: boolean = false;
@@ -34,7 +33,11 @@ export class EmployeeComponent implements OnInit {
     // this.demoService.listUsers();
     this.userGroup = localStorage.getItem('userGroup') && localStorage.getItem('userGroup') != 'null' ? localStorage.getItem('userGroup') : '';
     this.configSuperAdminUserGroup =  constant.user.superadminUser && constant.user.superadminUser != 'null' ? constant.user.superadminUser : '';
-    this.getEmployeeList();
+    this.getEmployeeList().subscribe((employeeListResponse) => {
+      console.log("Success");
+    },
+    (err) => console.error(err)
+   );
     this.role_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].role_id : "";
     if (this.role_id == 4) {
       this.userPostMap.userRole = 1;
@@ -78,11 +81,12 @@ export class EmployeeComponent implements OnInit {
   }
   createUser(userPostMap, createStoreAdminForm) {
     var entity_type = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].entity_type : "";
+    var store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id : "";
     let postMap = {
       role_id: this.role_id,
       user: {
         entity_type: entity_type,
-        store_id: userPostMap.storeId,
+        store_id: userPostMap.storeId ? userPostMap.storeId : store_id,
         user_name: userPostMap.email,
         email: userPostMap.email,
         first_name: userPostMap.firstName,
@@ -101,7 +105,8 @@ export class EmployeeComponent implements OnInit {
       }
     });
   }
-  getEmployeeList() {
+  getEmployeeList(): Observable < any > { 
+    return Observable.create(observer => {
     let headers = new Headers({
         'Content-Type': 'application/json'
     });
@@ -117,18 +122,29 @@ export class EmployeeComponent implements OnInit {
     .subscribe(data => {
         this.demoService.loading = false;
         this.results = data ? data.json() : '';
-        console.log(this.results);
+        // console.log(this.results.users.length);
         if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {
-            this.userList = this.results;
+            this.userList = this.results;  
+            observer.next(this.userList);  
+            observer.complete();  
         } else if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.error_code) {
             //show error popup
             // alert(this.results.status.userMessage);
+            observer.error();  
+            observer.complete();  
         } else {
-
+          observer.error();  
+          observer.complete(); 
         }
     }, error => {
         this.demoService.loading = false;
         console.log("error" + JSON.stringify(error));
+        observer.error();  
+        observer.complete(); 
     });
-  }
+  },(err)=>{
+    
+    console.log('Error');
+    this.userList = "";
+  });}
 }

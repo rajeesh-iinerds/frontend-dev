@@ -12,10 +12,10 @@
     </div>
     <div class="row"><!-- Employee Listing -->
       <div class="col-xs-12 col-sm-12 col-lg-12 ac-distributor-listing">
-        <div *ngIf="retailerDetails && !retailerDetails.length" class="noDetails">No Details Found</div>
+        <div *ngIf="demoService.retailerDetails && !demoService.retailerDetails.length" class="noDetails">No Details Found</div>
         <!-- Distributor Cards Start -->
         <div class="ac-distributor-cards" >
-            <div *ngFor="let markup of retailerDetails; let i = index">    
+            <div *ngFor="let markup of demoService.retailerDetails; let i = index">    
             <!-- Single Card Start -->
             <div class="ac-distributor-card">
                <!-- <div class="ac-distributor-head">
@@ -66,7 +66,7 @@
           <div class="check"></div>
         </span>
       </div> -->
-    <form (ngSubmit)="createRetailer(retailerInfo,retailerForm);retailerForm.resetForm()" novalidate class="ac-create-employee-body retailer-admin-form" #retailerForm="ngForm">
+    <form (ngSubmit)="createRetailer(retailerInfo,retailerForm,'');" novalidate class="ac-create-employee-body retailer-admin-form" #retailerForm="ngForm">
       <div class="form-group">
         <label for="firstName" class="field-wrapper required-field">FIRST NAME</label>
         <input  type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="retailerInfo.firstName" minlength="3" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
@@ -79,7 +79,7 @@
         <label for="lastName" class="field-wrapper required-field">LAST NAME</label>
         <input  type="text" class="form-control" placeholder="Enter your last name" id="lastName" name="lastName" [(ngModel)]="retailerInfo.lastName" minlength="3" pattern="[a-zA-Z ]*"  #lastName="ngModel" required>
         <div class="clearfix"></div>
-        <div class="invalidField" *ngIf="lastName.invalid && lastName.dirty">
+        <div class="invalidField" *ngIf="lastName.invalid  && (lastName.dirty || lastName.touched)">
           Please Enter characters with Minimum length 3
         </div>
       </div>
@@ -114,6 +114,9 @@
         <div class="invalidField" *ngIf="phoneNumber.invalid && phoneNumber.dirty">
           Invalid Phone Number
         </div>
+      </div>
+      <div class="form-group">
+          <input type="checkbox" [(ngModel)]="checkboxValue"  name="onoffswitch" id="onoffswitch" #onoffswitch="ngModel">Select Default Inventory<br>
       </div>
       <!-- <div class="form-group">
         <label for="userPassword1">PASSWORD</label>
@@ -154,9 +157,17 @@
     <h4>{{demoService.createUserStatus}}</h4>
     <P>{{demoService.createUserMessage}}</P>
   </div>
+  <div class="col-md-12 gotoDashboardBtn text-center">
+    <span *ngIf="createUserEnabled" (click) ="demoService.createUserPopup= !demoService.createUserPopup && createUserEnabled = false;" style = " margin-right: -25px;">OK</span>
+  </div>
   <div class=" col-md-6 gotoDashboardBtn text-right">
-    <span (click) ="demoService.createUserPopup= !demoService.createUserPopup" style = " margin-right: -25px;">OK</span>
+     <span *ngIf="!checkboxValue && !createUserEnabled" (click) ="proceedDefaultInventory(retailerInfo,retailerForm)" style = " margin-right: -25px;">Proceed</span> 
+  </div>
+  <div class="col-md-6 gotoDashboardBtn text-left">
+    <span  *ngIf="!checkboxValue && !createUserEnabled" (click) ="addDefaultInventory(retailerInfo,retailerForm);" style = " margin-right: -25px;">Add</span>
   </div>
   
 </div>
+
+
 <!-- <div class="ac-actions-overlay" style="display:none;" (click)="demoService.showRetailerProfile = false || this.demoService.showNav=false || demoService.showEditRetailerView = false;"></div> -->

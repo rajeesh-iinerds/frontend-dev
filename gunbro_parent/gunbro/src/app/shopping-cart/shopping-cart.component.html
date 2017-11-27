@@ -1,0 +1,112 @@
+  
+      <!-- Generic wrap start -->
+      <div class="ac-generic-wrap">
+        <div class="container-fluid" *ngIf="cartList && cartList.length">
+          <div class="row"><!-- Page Title -->
+            <div class="col-xs-12 col-sm-9 col-lg-9">
+              <h3 class="ac-page-title">Shopping Cart<em class="ac-search-count" *ngIf="cartList && cartList.length">{{cartList.length}} Item(s) in the cart</em></h3>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-lg-9 ac-shopping-cart-box">            	
+              <div class="cart-card" *ngFor="let size of cartList ; let i = index">
+              	<div class="fadeclass" *ngIf="size.inStock <= 0">
+              		<h4>OUT OF STOCK</h4>
+              	</div>
+	                <div class="cart-input-box">
+                    <label class="" for="{{size.CartItemID}}">
+	                  <input type="checkbox" class="selectioncheck" name="sizecb[]" value="" checked (change)="checkAll(size, $event)" [(ngModel)]="size.gsin" id={{size.CartItemID}}>
+                    </label>
+	                </div>
+
+	                <div class="cart-image-box">
+	                  <!-- <img src="assets/demo-assets/gun1.png"> -->
+	                  <img [src]="size.largeImage ? size.largeImage : size.smallImage ? size.smallImage : ''">
+	                </div>
+	                <div class="cart-item-name">
+	                  <h5>{{size.product_name}}</h5>
+	                </div>
+	                <div class="cart-item-msrp">
+	                  <span>Price</span>
+	                  <h6>{{size.ProductPrice}}</h6>
+	                </div>
+	                <div class="cart-item-quantity">
+	                <span>Quantity</span>
+	                <div class="input-group" style="width: 80%;">
+	                    <span class="input-group-btn input-control">
+	                        <button type="button" class="btn btn-default btn-number input-control-btn" data-type="minus" data-field="quant[1]" (click)="decrementQuantity(size)" [disabled] = "hideQuantity">
+	                            <span class="glyphicon glyphicon-minus"></span>
+	                        </button>
+	                    </span>
+	                    <input type="text" name="quant[1]" class="form-control input-number input-count" value={{size.quantity}} min="1" max="{{size.inStock}}" [(ngModel)]="size.cartObject.selectedQuantity">
+
+	                    <span class="input-group-btn">
+	                        <button type="button" class="btn btn-default btn-number input-control-btn" data-type="plus" data-field="quant[1]" (click)="incrementQuantity(size)" [disabled] = "hideQuantity">
+	                            <span class="glyphicon glyphicon-plus"></span>
+	                        </button>
+	                    </span>
+	                </div>
+	                </div>
+	                <div class="cart-item-subtotal">
+	                  <span>Sub Total</span>
+	                  <!-- <h6>{{subtotal}}</h6> -->
+	                  <h6>{{size.cartObject.subtotal | number : '1.2-2'}}</h6>
+	                </div>
+	                <div class="cart-item-removeButton" (click) = "removeFromCart(size)"></div>
+              </div>
+              <div class="cart-bottom-buttons">
+                <button class="cart-place-order" [disabled]="!cartInStockList.length" (click)="navigateToCheckoutPage()">Checkout</button>
+                <button class="cart-place-order cart-continue-shipping" (click)="backClicked()">Continue Shopping</button>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-lg-3 cart-order-summery">
+              <h3>Order Summary</h3>
+              <div class="" style="padding: 10px 0px;border-bottom: 1px solid #eaeaea;">
+                <span>Items</span>
+                <span>{{quantityCount}}</span>
+                <span class="pull-right">${{totalAmount | number : '1.2-2'}}</span>
+              </div>
+              <!-- <div class="" style="padding: 10px 0px;border-bottom: 1px solid #eaeaea;">
+                <span>Shipping Cost</span>
+                <span class="pull-right">$50.00</span>
+              </div> -->
+              <div class="" style="padding: 10px 0px;">
+                <em class="selected-items-count">Item selected {{count}} only</em>
+                <span class="cart-payable">Amount Payable</span>
+                <span class="cart-payable pull-right">${{totalAmount | number : '1.2-2'}}</span>
+              </div>
+              
+              
+            </div>
+          </div>
+          
+        </div>
+        <div *ngIf="cartList && !cartList.length" class="noDetails"> No Details Found</div>
+      </div>
+      <!-- Generic wrap end -->
+
+    <!--   __   ___        __      __                
+          |  \ |__   |\/| /  \    /  \ |\ | |    \ / 
+          |__/ |___  |  | \__/    \__/ | \| |___  |  -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        // Toggle Search
+        $('body').on('click', '.ac-search-trigger', function() {
+          $('.ac-global-header').toggleClass('ac-search-on');
+        });
+        // Toggle Quick Access
+        $('body').on('click', '.ac-quick-access-togglr', function() {
+          $('body').toggleClass('ac-quick-access-on');
+        });
+        // Toggle Main Nav
+        $('body').on('click', '.ac-main-nav-toggle', function() {
+          $('body').toggleClass('ac-main-nav-on');
+        });
+      });
+    </script> -->
+    <!--   __   ___        __      __                
+          |  \ |__   |\/| /  \    /  \ |\ | |    \ / 
+          |__/ |___  |  | \__/    \__/ | \| |___  |  -->
+
+

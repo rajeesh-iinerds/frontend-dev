@@ -1,4 +1,3 @@
-
 <div [ngClass]="{'ac-create-employee-on': demoService.showclickorder  || demoService.showNav? true : false, 'ac-main-nav-on' :demoService.subMenuToggle ? true : false, 'ac-edit-profile-drawer-on' : demoService.showEditRetailerView ? true : false, 'ac-profile-drawer-on' : demoService.showRetailerProfile ? true : false}" >
   <!-- Left Side Nav Start -->
   <div class="ac-main-nav-wrap">
@@ -11,15 +10,17 @@
         <ul>
           <li><a routerLink="../dashboard"   class="ac-dash-item-1"><i>Dashboard</i></a></li>
 
-          <li *ngIf="((userGroup == configSuperAdminUserGroup || userGroup == configRetailerAdminUserGroup) ? hideRetailer : true) && (userGroup == configUserGroup )"><a routerLink="markup" class="ac-dash-item-2"><i class="flip">Distributor Management</i><i class="flop" style="display:none;">Distributor</i></a></li>
+          <li *ngIf="((userGroup == configSuperAdminUserGroup || userGroup == configRetailerAdminUserGroup) ? hideRetailer : true) && (userGroup == configUserGroup )"><a routerLink="markup" class="ac-dash-item-2"><i class="flip">Distributors</i><i class="flop" style="display:none;">Distributors</i></a></li>
           
-          <li *ngIf="userGroup == configSuperAdminUserGroup ? showRetailer : false"><a routerLink="RetailerMarkup" class="ac-dash-item-2"><i class="flip">Retailer Management</i><i class="flop" style="display:none;">Retailer Management</i></a></li>
+          <li *ngIf="userGroup == configSuperAdminUserGroup ? showRetailer : false"><a routerLink="RetailerMarkup" class="ac-dash-item-2"><i class="flip">Retailers</i><i class="flop" style="display:none;">Retailers</i></a></li>
           
-          <li *ngIf="userGroup == configRetailerAdminUserGroup"><a routerLink="store-location" class="ac-dash-item-8 "><i class="flip">Store Outlets</i><i class="flop" style="display:none;">Store</i></a></li>
+          <li *ngIf="userGroup == configRetailerAdminUserGroup"><a routerLink="store-location" class="ac-dash-item-8 "><i class="flip">Stores</i><i class="flop" style="display:none;">Stores</i></a></li>
           
-          <li *ngIf="userGroup == configUserGroup || userGroup == configSuperAdminUserGroup || userGroup == configRetailerAdminUserGroup"><a  routerLink="employee" routerLinkActive="active" class="ac-dash-item-3"><i class="flip">Employee Management</i><i class="flop" style="display:none;">Employee</i></a></li>
+          <li *ngIf="userGroup == configUserGroup || userGroup == configSuperAdminUserGroup || userGroup == configRetailerAdminUserGroup"><a  routerLink="employee" routerLinkActive="active" class="ac-dash-item-3"><i class="flip">Employees</i><i class="flop" style="display:none;">Employees</i></a></li>
           
-          <li *ngIf="userGroup != configSuperAdminUserGroup"><a routerLink="order" routerLinkActive="active" class="ac-dash-item-4"><i class="flip">Orders</i><i class="flop" style="display:none;">order</i></a></li>
+          <li><a routerLink="order" routerLinkActive="active" class="ac-dash-item-4"><i class="flip">Orders</i><i class="flop" style="display:none;">Orders</i></a></li>
+
+          <!-- <li><a routerLink="cart" routerLinkActive="active" class="ac-dash-item-4"><i class="flip">Cart</i><i class="flop" style="display:none;">Cart</i></a></li> -->
           
           <!--  <li><a href="javascript:void(0);" class="ac-dash-item-5"><i>Customers</i></a></li>
           <li><a href="javascript:void(0);" class="ac-dash-item-6"><i>Reports</i></a></li> 
@@ -44,6 +45,46 @@
           <a href="javascript:void(0);"><i class="glyphicon glyphicon-envelope"></i><i class="ac-notification">20</i></a>
           <a href="javascript:void(0);"><i class="glyphicon glyphicon-bell"></i><i class="ac-notification">3</i></a>
         </span> -->
+        <div *ngIf="userGroup != configSuperAdminUserGroup" class="shoppingCart">
+          <img src="assets/shopping-cart.svg">
+          <span class="item-count-notify">{{this.cartBucket.length}}</span>
+          <div class="cart-hover-field">
+            <div class="cart-hover-field-card" *ngFor="let cartItem of cartBucket;let idx = index">
+              <div class="cart-item-image">
+                <img src="{{cartItem.smallImage}}">
+              </div>
+             
+              
+              <h5>{{cartItem.product_Name}}</h5>
+                <div class="input-group" style="width: 35%;float: left;top:-30px;">
+                  <span class="input-group-btn input-control">
+                    <button [disabled]="cartItem.inStock=='0'" (click)="decreaseQuantity(idx)" type="button" class="btn btn-default btn-number input-control-btn">
+                      <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+                  </span>
+                  <input type="text" name="quantity" class="form-control input-number input-count" style="top: 17px;"  [(ngModel)]="cartItem.quantity" >
+                  
+                  <span class="input-group-btn">
+                    <button [disabled]="cartItem.inStock=='0'" (click)="increaseQuantity(idx)" type="button" class="btn btn-default btn-number input-control-btn" >
+                      <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                  </span>
+                </div>
+                <button (click)="addToCart($event,cartItem,false)" [hidden]="!this.cartBucket.length" class="btn cart-update-bttn">Update Cart</button>
+             
+              <div class="clearfix"></div>
+              
+              <span class="hover-card-subtotal pull-left">SUB TOTAL</span>
+              <span class="hover-card-subtotal pull-right">${{cartItem.ProductPrice}}</span>
+              <div *ngIf="cartItem.inStock=='0'" class="inStockClass text-center">
+                <h4 style="line-height:9em;color:rgb(0, 43, 255);font-weight: 600;">OUT OF STOCK</h4>
+              </div>
+            </div>
+            <div [hidden]="this.cartBucket.length" class="text-center" >Empty Cart</div>
+            <button routerLink="/dashboard/cart" [hidden]="!this.cartBucket.length" class="view-cart-button">View Cart</button>
+           
+          </div>
+        </div> 
         <span class="ac-user-actions">
           <span class="ac-user-img">
             <img src="assets/default-avatar.png" alt="FIRST NAME HERE">
@@ -213,10 +254,11 @@
      <h4>{{successTitle}}</h4>
      <P>{{successDescription}}</P>
    </div>
-   <div class=" col-md-6 gotoDashboardBtn text-right">
+   <div class=" col-md-12 gotoDashboardBtn text-center">
      <!-- <span routerLink="/dashboard">OK</span> -->
-     <span (click) ="updateRetailerProfilePopup = !updateRetailerProfilePopup" style = " margin-right: -25px;">OK</span>
+     <span (click) ="updateRetailerProfilePopup = !updateRetailerProfilePopup">OK</span>
    </div>
    
  </div>
+ <app-message-popup></app-message-popup>
 

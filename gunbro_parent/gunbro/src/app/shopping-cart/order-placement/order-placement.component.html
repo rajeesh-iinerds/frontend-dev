@@ -1,0 +1,222 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Page Title -->
+    <div class="col-xs-12 col-sm-9 col-lg-9">
+      <h3 class="ac-page-title">Checkout
+        <em class="ac-search-count">Fill in 3 simple steps</em>
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-lg-9 checkout-cart-box">
+      <div>
+        <div id="accordion" simple-accordion toggle-speed="fast" toggle-easing="linear" slide-up-speed="fast" slide-up-easing="linear">
+          <div class="accordian">
+            <span>1</span>
+            <h4 class="accordion-toggle">Customer Info</h4>
+            <div class="accordion-content default">
+              <form (ngSubmit)="customerInfoUpdate(customerInfoMap,customerInfoForm);" #customerInfoForm="ngForm" >
+                <div class="row" style="padding: 0px 15px;">
+                  <div class="form-group pull-left" style="width: 49%;">
+                    <label >FIRST NAME</label>
+                    <input type="text" class="form-control" placeholder="Enter your first name" name="firstName" [(ngModel)]="customerInfoMap.firstName" >
+                  </div>
+                  <div class="form-group pull-right" style="width: 49%;">
+                    <label >LAST NAME</label>
+                    <input type="text" class="form-control" placeholder="Enter your last name" name="lastName" [(ngModel)]="customerInfoMap.lastName" >
+                  </div>
+                </div>
+                <div class="row" style="padding: 0px 15px;">
+                  <div class="form-group pull-left" style="width: 49%;">
+                    <label >PHONE</label>
+                    <input type="text" class="form-control" placeholder="Enter your phone number" name="phoneNumber" [(ngModel)]="customerInfoMap.phoneNumber">
+                    <div class="clearfix"></div>
+                    
+                  </div>
+                  <div class="form-group pull-right" style="width: 49%;">
+                    <label >EMAIL</label>
+                    <input  type="email" class="form-control" placeholder="Enter your email address" name="email"  [(ngModel)]="customerInfoMap.email" >
+                    
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label >STREET ADDRESS</label>
+                  <input  type="text" class="form-control" placeholder="Enter Street address" name="streetAddress" [(ngModel)]="customerInfoMap.streetAddress">
+                </div>
+                <div class="row" style="padding: 0px 15px;">
+                  <div class="form-group pull-left" style="width: 24%;margin-right: 10px;">
+                    <label >ZIP</label>
+                    <input type="text"  name="zip" [(ngModel)]="customerInfoMap.zip" class="form-control" placeholder="Enter your zip">
+                  </div>
+                  <div class="form-group pull-left" style="width: 24%;">
+                    <label >CITY</label>
+                    <input type="text" name="city" [(ngModel)]="customerInfoMap.city" class="form-control" placeholder="Enter your city">
+                  </div>
+                  <div class="form-group pull-right" style="width: 49%;">
+                    <label >STATE</label>
+                    <input type="text" name="state" [(ngModel)]="customerInfoMap.state" class="form-control" placeholder="Enter your state">
+                  </div>
+                </div>
+                <div class="row accordian-bottom-button" style="padding: 0px 15px;">
+                  <button  type="submit" class="customer-update-btn">Update & Continue</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="accordian">
+            <form (ngSubmit)="placeOrder(shippingInfoForm,customerInfoForm)" #shippingInfoForm="ngForm">
+            <span>2</span>
+            <h4 class="accordion-toggle">Shipping Info</h4>
+            <div class="accordion-content default">
+              <div class="row" style="padding: 0px 15px;">
+                <div class="form-group pull-left" style="width: 49%;">
+                  <label >RETAILER NAME</label>
+                  <input [disabled]="true" type="text" class="form-control" placeholder="Enter your name" id="retailerName" name="retailerName" [(ngModel)]="shippingInfoMap.retailerName" minlength="3" pattern="[a-zA-Z ]*"  #retailerName="ngModel" required>
+                  <div class="clearfix"></div>
+                  <div class="invalidField" *ngIf="retailerName.invalid && retailerName.dirty" >
+                    Please Enter characters with Minimum length 3
+                  </div>
+                </div>
+                <div class="form-group pull-right" style="width: 49%;">
+                  <label >SALES ASSOCIATE</label>
+                  <input [disabled]="true" type="text" class="form-control" placeholder="Enter sales associate" id="saleAssociate" name="saleAssociate" [(ngModel)]="shippingInfoMap.saleAssociate" minlength="3" pattern="[a-zA-Z ]*"  #saleAssociate="ngModel" required>
+                  <div class="invalidField" *ngIf="saleAssociate.invalid && saleAssociate.dirty" >
+                    Please Enter characters with Minimum length 3
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="padding: 0px 15px;">
+                <div class="form-group pull-left" style="width: 49%;">
+                  <label >STORE</label>
+                  <select class="form-control" name="selectedStore" [(ngModel)]="shippingInfoMap.selectedStore">
+                    <option *ngFor="let item of storeListOfMaps" [value]="item.StoreId">{{item.StoreName}}</option>
+                  </select>
+                </div>
+              </div>
+              <!-- <div class="form-group">
+                <label >STREET ADDRESS</label>
+                <input  type="text" class="form-control" placeholder="Enter Street address" id="streetAddress" name="streetAddress" [(ngModel)]="customerInfoMap.streetAddress" minlength="3"  #streetAddress="ngModel" required>
+                <div class="clearfix"></div>
+                <div class="invalidField" *ngIf="streetAddress.invalid && streetAddress.dirty">
+                  Please Enter characters with Minimum length 3
+                </div>
+              </div>
+              <div class="row" style="padding: 0px 15px;">
+                <div class="form-group pull-left" style="width: 24%;margin-right: 10px;">
+                  <label >ZIP</label>
+                  <input type="text" class="form-control" placeholder="Enter your zip">
+                </div>
+                <div class="form-group pull-left" style="width: 24%;">
+                  <label >CITY</label>
+                  <input type="text" class="form-control" placeholder="Enter your city">
+                </div>
+                <div class="form-group pull-right" style="width: 49%;">
+                  <label >STATE</label>
+                  <input type="text" class="form-control" placeholder="Enter your state">
+                </div>
+                <div class="form-group">
+                  <label >DELIVERY ADDRESS</label>
+                  <select class="form-control">
+                    <option>same as billing</option>
+                    <option>address</option>
+                    <option>address</option>
+                    <option>address</option>
+                  </select>
+                </div>
+              </div>
+              <div class="ac-ffl-checking">
+                <input type="checkbox" class="selectioncheck" name="group1" id="group1" checked="checked" style="position: relative;top:0px;">
+                <span class="ffl-checking">FFL Required</span>
+              </div> -->
+              <div class="row accordian-bottom-button" style="padding: 0px 15px;">
+                <button type="submit" class="customer-update-btn" >Confirm Order</button>
+              </div>
+            </div>
+          </form>
+          </div>
+
+          <!-- <div class="accordian">
+            <span>3</span>
+            <h4 class="accordion-toggle last-child">Payment Info</h4>
+            <div class="accordion-content default">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus faucibus dolor, sed tincidunt diam
+                pellentesque ac. Sed quis cursus orci.</p>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-lg-3 cart-order-summery">
+      <h3>Order Summary</h3>
+      <h5>Order Info
+        <span>{{orderCount}} item(s)</span>
+      </h5>
+      <div class="order-info-details">
+        <div class="single-order-summery" *ngFor="let order of cartInfo ; let i = index">
+          <h5>{{order.manufacturerName}}
+            <span>${{order.cartObject.subtotal}}</span>
+          </h5>
+          <img src="assets/images/cart-remove.svg">
+        </div>
+        <!-- <div class="single-order-summery">
+                  <h5>Shipping Cost<span style="padding-right: 0px;">$798</span></h5>
+                </div> -->
+        <div class="single-order-summery amount">
+          <h5>Amount Payable
+            <span style="padding-right: 0px;right: 0px;">${{amountPayable}}</span>
+          </h5>
+        </div>
+      </div>
+      <div class="customer-info-details" [hidden]="!isSideBarCustomerInfo">
+        <h5>Customer Info
+          <img src="assets/images/edit.svg">
+        </h5>
+        <span class="custom-name">{{customerInfoUpdateMap.firstName+"&nbsp;"+customerInfoUpdateMap.lastName}}</span>
+        <span class="custom-address">{{customerInfoUpdateMap.streetAddress}}</span>
+        <span class="custom-contact">{{customerInfoUpdateMap.email}}</span>
+        <span class="custom-contact">{{customerInfoUpdateMap.phoneNumber}}</span>
+      </div>
+      <div class="customer-info-details shipping-info-details" [hidden]="shippingInfoMap.retailerName==''">
+        <h5>Shipping Info
+          <img src="assets/images/edit.svg">
+        </h5>
+        <label>Contact Person</label>
+        <span class="custom-name">{{shippingInfoMap.retailerName}}</span>
+        <!-- <span class="custom-address">{{storeListOfMaps[shippingInfoMap.selectedStore].StoreName}}</span> -->
+        <!-- <label>FFL#</label> -->
+        <span class="custom-contact">{{shippingInfoMap.saleAssociate}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- success popup starts -->
+  <div class="row fadebg" [class.show]="showSuccessPopup"></div>
+  <div class="confirmPopup" [class.show]="showSuccessPopup">
+    <div class="successImgIcon"></div>
+    <div class="sucessMsgText text-center">
+      <h4>SUCCESS</h4>
+      <P>Congratulations!! You have successfully placed the order.</P>
+    </div>
+    <div class=" col-md-6 gotoDashboardBtn text-right">
+      <span routerLink="/dashboard">GO TO DASHBOARD</span>
+    </div>
+    <div class=" col-md-6 checkOrderStatusBtn text-left">
+      <span routerLink="../order">CHECK ORDER STATUS</span>
+    </div>
+  </div>
+<!-- success popup ends -->
+<!-- error popup starts -->
+  <div class="row fadebg" [class.show]="showErrorPopup"></div>
+  <div class="confirmPopup" [class.show]="showErrorPopup">
+    <div class="successImgIcon"></div>
+    <div class="sucessMsgText text-center">
+      <h4>ERROR</h4>
+      <P>Sorry!! Order not placed, Please try again.</P>
+    </div>
+    <div class=" col-md-6 gotoDashboardBtn text-right">
+      <button type="submit" class="btn btn-default" (click) = "showErrorPopup = !showErrorPopup;">OK</button>
+    </div>
+  </div>
+<!-- error popup ends -->

@@ -7,14 +7,20 @@
         <h3 class="ac-page-title">Orders</h3>
       </div>
       <div class="col-xs-6 col-sm-3 col-lg-3 text-right">
-        <!-- <div class="ac-order-stat-actions">
-          <a href="javascript:void(0);" class="ac-button-search"><i class="glyphicon glyphicon-search"></i></a>
-          <a href="javascript:void(0);" class="ac-button-filter"></a>
-        </div> -->
+            <div *ngIf="userGroup == configSuperAdminUser" class="form-group" style="margin-top: 15px;">
+                <label class="field-wrapper required-field" for="usr_lastname">RETAILER NAME</label>
+                 <select class="form-control" style="border-radius: 0px;" name="selectedRetailer" [(ngModel)]="selectedRetailer" (change)="getRetailerId($event,selectedRetailer)" >
+                        <option [ngValue]>All</option>
+                        <option *ngFor="let value of demoService.retailerDetails" [value]="value.retailerId">{{value.retailerName}}</option>
+                </select>
+                <div class="clearfix"></div>
+            </div>
       </div>
     </div>
     <div class="row"><!-- Order Listing -->
-        <div *ngIf="orderDetails && !orderDetails.length" class="noDetails"> No Details Found</div>
+        <div *ngIf="orderDetails == 0 || !orderDetails" class="noDetails"> Number of Orders <span>0</span></div>
+        <div class="col-sm-12">number of Orders<span style="font-size: 14px;color: #3b4acc;font-weight: 600;"> {{orderslistCount}}</span></div>
+        
       <div class="col-xs-12 col-sm-12 col-lg-12 ac-order-status" *ngIf="orderDetails && orderDetails.length">
           <!-- Table Start -->
           <table class="table">
@@ -22,24 +28,26 @@
               <thead>
                   <tr>
                       <th>Order #</th>
-                      <th>Product</th>
-                      <th>Distributor</th>
+                      <th>Employee Name</th>
+                      <th>Retailer Name</th>
+                      <!-- <th>Distributor</th> -->
                       <th>Customer</th>
                       <th>Date</th>
-                      <th>Total</th>
-                      <th>Status</th>
+                      <!-- <th>Total</th> -->
+                      <!-- <th>Status</th> -->
                       <th>View</th>
                   </tr>
               </thead>
               <tbody>
                   <tr *ngFor = "let order of orderDetails">
                       <td>{{order.OrderID ? order.OrderID : ''}}</td>
-                      <td>{{order.ProductName && order.ProductName != 'null' ? order.ProductName : ''}}</td>
-                      <td>{{order.DistributorName && order.DistributorName != 'null' ? order.DistributorName : ''}}</td>
-                      <td>{{order.ConsumerName ? order.ConsumerName : ''}}</td>
+                      <td>{{order.FirstName ? order.FirstName: ''}}</td>
+                      <td>{{order.RetailerName && order.RetailerName != 'null' ? order.RetailerName : ''}}</td>
+                      <!-- <td>{{order.DistributorName && order.DistributorName != 'null' ? order.DistributorName : ''}}</td> -->
+                      <td>{{order.CostumerName && order.CostumerName != 'null' ? order.CostumerName : ''}}</td>
                       <td>{{order.OrderPlacedDate ? (order.OrderPlacedDate | date: 'dd/MM/yyyy') : ''}}</td>
-                      <td>{{order.CustomerPrice ? (order.CustomerPrice | currency:'USD':true) : ''}}</td>
-                      <td class="ac-stat-ordered">{{order.order_status ? order.order_status : ''}}</td>
+                      <!-- <td>{{order.CustomerPrice ? (order.CustomerPrice | currency:'USD':true) : ''}}</td> -->
+                      <!-- <td class="ac-stat-ordered">{{order.order_status ? order.order_status : ''}}</td> -->
                       <td><a class="ac-button-outlined" (click)="viewOrderDetails(order.OrderID,$event)">VIEW</a></td>
                   </tr>
               </tbody>
@@ -66,150 +74,163 @@
 
 
 <div *ngIf="showOrderDetails == true">
-<div class="ac-create-employee-drawer order-list-drawer text-left"  style="right:-600px;opacity:0;" >
-  <span class="placeMyOrderClose" (click)="closeOrderList()"></span>
-  <span class="ac-order-drawer-head">
-      <h4>Order Details</h4>
-  </span>
-  <div class="clearfix"></div>
-  <!-- <div class="inprogress_field">
-      <span class="order-inprogress-Btn">In-Progress</span>
-  </div> -->
-  <div class="ac-order-details">
-      <span>
-          <p>Order #</p>
-          <h5 >{{selectedOrder.OrderID}}</h5>
-      </span>
-      <span>
-          <p>Order Total</p>
-          <h5 >{{selectedOrder.CustomerPrice | currency:'USD':true}}</h5>
-      </span>
-      <span>
-          <p>Ordered on</p>
-          <h5 >{{selectedOrder.OrderPlacedDate | date: 'dd/MM/yyyy'}}</h5>
-      </span>
-       <span>
-          <p>Ordered by</p>
-          <h5 *ngIf="showOrderDetails == true">{{selectedOrder.FirstName}}</h5>
-      </span>
-    <!--  <span>
-          <p>Estimated Arrival</p>
-          <h5 *ngIf="showOrderDetails == true">{{selectedOrder.arrival | date: 'dd/MM/yyyy'}}</h5>
-      </span> -->
-  </div>
-  <div class="product-information-wrapper">
-      <span class="ac-order-drawer-head">
-          <h4 style="font-size: 13px;">Product Info</h4>
-      </span>
-      <div class="col-md-3 ac-productimg-field">
-          <div class="productInfo-img-viewer" *ngIf="showOrderDetails == true">
-              <img src="{{selectedOrder.SmallImage}}">
-          </div>
-      </div>
-      <div class="col-md-9 productinfo-field">
-           <!-- <h3>American Classic 1911 Amigo 45 ACP 3.5" 7+1Rds</h3> -->
-           <h3 >{{selectedOrder.ProductName}}</h3>
-           <span>
-              <p>MSRP</p>
-              <h5 >{{selectedOrder.msrp}}</h5>
-          </span>
-          <span>
-              <p>Qty</p>
-              <h5 >{{selectedOrder.Quantity}}</h5>
-          </span>
-          <div class="clearfix"></div>
-          <span>
-              <p>Manufacturer</p>
-              <h5 >{{selectedOrder.manufacturer}}</h5>
-          </span>
-          <span>
-              <p>Manufacturer Part Number</p>
-              <h5>{{selectedOrder.manufacturer_partnumber}}</h5>
-          </span>
-      </div>
-  </div>
-  <span class="ac-order-drawer-head">
-      <h4 style="font-size: 13px;">Customer Info</h4>
-  </span>
-  <div class="ac-order-details">
-      <span style="width: auto;min-width: 20%;padding-right: 10px;">
-          <p>Name</p>
-          <h5 >{{selectedOrder.ConsumerName}}</h5>
-      </span>
-      <span style="width: auto;min-width: 30%;padding-right: 10px;">
-          <p>Email</p>
-          <h5 >{{selectedOrder.email}}</h5>
-      </span>
-      <span style="width: auto;min-width: 25%;">
-          <p>Phone</p>
-          <h5 >{{selectedOrder.Phone}}</h5>
-      </span>
-  </div>
-  <span class="ac-order-drawer-head">
-      <h4 style="font-size: 13px;">Shipping Info</h4>
-  </span>
-  <div class="col-md-2 ac-productimg-field ac-shippinginfo-logo">
-      <div class="shippingInfo-img-viewer">
-          <img src="assets/demo-assets/logo_fedex.jpg">
-      </div>
-  </div>
-  <div class="col-md-10">
-      <div class="productinfo-field">
-           <span style="width: 33%;">
-              <p>Tracking #</p>
-              <h5>{{selectedOrder.tracking}}</h5>
-          </span>
-          <span style="width: 33%;">
-            <p>Distributor OrderID</p>
-            <h5>{{selectedOrder.SS_order}}</h5>
-        </span>
-          <span style="width: 33%;">
-              <p>Status</p>
-               <h5>{{selectedOrder.order_status}}</h5> 
-              <!-- <h5 *ngIf="showOrderDetails == true && selectedOrder.service"> Processed with {{selectedOrder.service}}</h5> -->
-          </span>
-      </div>
-  </div>
-  <div class="productinfo-field">
-       <span style="width: 100%;">
-          <p>Shipping Address</p>
-          <h5 *ngIf="showOrderDetails == true">{{selectedOrder.address}},{{selectedOrder.ShipToCity}},{{selectedOrder.StoreZip}}</h5>
-      </span>
-      <span style="width: 100%;">
-          <p>FFL #</p>
-          <h5 >{{selectedOrder.FFL}}</h5>
-      </span>
-  </div>
-    <!-- <span class="ac-create-employee-head">
-      <a href="javascript:void(0);" class="ac-close-employee-drawer"></a>
-      <h4>Add Employee</h4>
-    </span>
-    <form class="ac-create-employee-body">
-      <div class="form-group">
-        <label for="usr_firstname">FIRST NAME</label>
-        <input type="text" class="form-control" placeholder="Enter your first name" id="usr_firstname">
-      </div>
-      <div class="form-group">
-        <label for="usr_lastname">LAST NAME</label>
-        <input type="text" class="form-control" placeholder="Enter your last name" id="usr_lastname">
-      </div>
-      <div class="form-group">
-        <label for="usr_emailid">EMAIL ID</label>
-        <input type="email" class="form-control" placeholder="Enter your email address" id="usr_emailid">
-      </div>
-      <div class="form-group">
-        <label for="usr_password">PASSWORD</label>
-        <input type="password" class="form-control" placeholder="Enter your password" id="usr_password">
-      </div>
-      <div class="form-group">
-        <label for="usr_confirm_password">CONFIRM PASSWORD</label>
-        <input type="password" class="form-control" placeholder="Confirm your password" id="usr_confirm_password">
-      </div>
-      <span class="ac-create-employee-foot">
-        <button type="submit" class="btn btn-default">CREATE EMPLOYEE</button>
-      </span>
-    </form> -->
-  </div>
+        <div class="ac-create-employee-drawer order-list-drawer" style="right:-400px;opacity:0;">
+            <span class="placeMyOrderClose" (click)="closeOrderList()"></span>
+                <span class="ac-order-drawer-head">
+                    <h4>Order Details</h4>
+                </span>
+                <div class="clearfix"></div>
+                <div class="inprogress_field">
+                    <span class="order-inprogress-Btn">In-Progress</span>
+                </div>
+                <div class="ac-order-details">
+                    <span>
+                        <p>Order #</p>
+                        <h5>{{selectedOrder.OrderID}}</h5>
+                    </span>
+                    <span>
+                        <p>Order Total</p>
+                        <h5>$798.00</h5>
+                    </span>
+                    <span>
+                        <p>Ordered on</p>
+                        <h5>{{selectedOrder.OrderPlacedDate | date: 'dd/MM/yyyy'}}</h5>
+                    </span>
+                    <!-- <span>
+                        <p>Estimated Arrival</p>
+                        <h5>Oct 15,2017</h5>
+                    </span> -->
+                </div>
+                <div class="product-information-wrapper">
+                    <span class="ac-order-drawer-head">
+                        <h4 style="font-size: 13px;">Product Info</h4>
+                    </span>
+                    <div class="hhhh">
+                        <table class="product-info-table" style="width:100%" >
+                            <thead>
+                                    <tr class="sticky">
+                                            <th style="width: 70%;">PRODUCT</th>
+                                            <th>ORDER TOTAL</th> 
+                                            <th>DISTRIBUTOR</th>
+                                            <th>TRACKING #</th>
+                                            <th>STATUS</th>
+                                          </tr>
+                            </thead>
+                         <tbody>
+                                <tr *ngFor="let order of orderProductDetails">
+                                    <td>{{order.ProductName ? order.ProductName : ''}}</td>
+                                     <td>{{order.Quandity ? order.Quandity : ''}}</td> 
+                                     <td>{{order.DistributorName ? order.DistributorName : ''}}</td>
+                                     <td>{{order.TrackingNumber ? order.TrackingNumber : ''}}</td>
+                                     <td>{{order.order_status ? order.order_status : ''}}</td>
+                                </tr>
+                         </tbody>
+                         
+                         </table>
+                    </div>
+                    <!-- <div class="col-md-3 ac-productimg-field">
+                        <div class="productInfo-img-viewer">
+                            <img src="demo-assets/gun1.png">
+                        </div>
+                    </div>
+                    <div class="col-md-9 productinfo-field">
+                         <h3>American Classic 1911 Amigo 45 ACP 3.5" 7+1Rds</h3>
+                         <span>
+                            <p>MSRP</p>
+                            <h5>$399.00</h5>
+                        </span>
+                        <span>
+                            <p>Qty</p>
+                            <h5>2</h5>
+                        </span>
+                        <div class="clearfix"></div>
+                        <span>
+                            <p>Manufacturer</p>
+                            <h5>American Classic</h5>
+                        </span>
+                        <span>
+                            <p>Manufacturer Part Number</p>
+                            <h5>ACA45B</h5>
+                        </span>
+                    </div> -->
+                </div>
+                <span class="ac-order-drawer-head">
+                    <h4 style="font-size: 13px;">Customer Info</h4>
+                </span>
+                <div class="ac-order-details">
+                    <span style="width: 25%;" *ngIf = "selectedOrder.CostumerName != null ? !hideCustomerInfo : false">
+                        <p>Name</p>
+                        <h5>{{selectedOrder.CostumerName}}</h5>
+                    </span>
+                    <span style="width: 25%;" *ngIf = "selectedOrder.email != null ? !hideCustomerInfo : false">
+                        <p>Email</p>
+                        <h5>{{selectedOrder.email}}</h5>
+                    </span>
+                    <span style="width: 25%;" *ngIf = "selectedOrder.Phone != null ? !hideCustomerInfo : false">
+                        <p>Phone</p>
+                        <h5>{{selectedOrder.Phone}}</h5>
+                    </span>
+                </div>
+                <span class="ac-order-drawer-head">
+                    <h4 style="font-size: 13px;">Shipping Info</h4>
+                </span>
+                <div class="col-md-2 ac-productimg-field ac-shippinginfo-logo">
+                    <div class="shippingInfo-img-viewer">
+                        <img src="demo-assets/logo_fedex.jpg">
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="productinfo-field">
+                         <!-- <span>
+                            <p>Tracking #</p>
+                            <h5>{{selectedOrder.tracking}}</h5>
+                        </span> -->
+                        <!-- <span>
+                            <p>Status</p>
+                            <h5>Processed with FedEx</h5>
+                        </span> -->
+                    </div>
+                </div>
+                <div class="productinfo-field">
+                     <span style="width: 100%;">
+                        <p>Shipping Address</p>
+                        <h5>{{selectedOrder.address}},{{selectedOrder.ShipToCity}},{{selectedOrder.StoreZip}}</h5>
+                    </span>
+                    <span style="width: 100%;">
+                        <p>FFL #</p>
+                        <h5>{{selectedOrder.FFL}}</h5>
+                    </span>
+                </div>
+                  <!-- <span class="ac-create-employee-head">
+                    <a href="javascript:void(0);" class="ac-close-employee-drawer"></a>
+                    <h4>Add Employee</h4>
+                  </span>
+                  <form class="ac-create-employee-body">
+                    <div class="form-group">
+                      <label for="usr_firstname">FIRST NAME</label>
+                      <input type="text" class="form-control" placeholder="Enter your first name" id="usr_firstname">
+                    </div>
+                    <div class="form-group">
+                      <label for="usr_lastname">LAST NAME</label>
+                      <input type="text" class="form-control" placeholder="Enter your last name" id="usr_lastname">
+                    </div>
+                    <div class="form-group">
+                      <label for="usr_emailid">EMAIL ID</label>
+                      <input type="email" class="form-control" placeholder="Enter your email address" id="usr_emailid">
+                    </div>
+                    <div class="form-group">
+                      <label for="usr_password">PASSWORD</label>
+                      <input type="password" class="form-control" placeholder="Enter your password" id="usr_password">
+                    </div>
+                    <div class="form-group">
+                      <label for="usr_confirm_password">CONFIRM PASSWORD</label>
+                      <input type="password" class="form-control" placeholder="Confirm your password" id="usr_confirm_password">
+                    </div>
+                    <span class="ac-create-employee-foot">
+                      <button type="submit" class="btn btn-default">CREATE EMPLOYEE</button>
+                    </span>
+                  </form> -->
+                </div>
 </div>
   </div>
   <!-- <div class="ac-actions-overlay" style="display:none;" (click)="showOrderDetails = false || demoService.showRetailerProfile = false;"></div> -->

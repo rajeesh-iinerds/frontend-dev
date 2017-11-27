@@ -4,7 +4,8 @@ import { Location } from '@angular/common';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx'; 
 import 'rxjs/add/operator/map';
-
+import { SearchProductService } from '../product-search/search-product-service'
+import {MessagePopupComponent} from '../shared/component/message-popup/message-popup.component'
 import { DemoService } from '../demo-component/demo.service';
 import * as constant from '../shared/config';
 
@@ -64,7 +65,9 @@ export class DashboardComponentComponent implements OnInit {
   successDescription: string;
   loggedInUserRole:String;
   showProfile: boolean = false;
-  constructor(private route: ActivatedRoute,private router: Router, public demoService: DemoService,private http:Http) {
+  cartBucket:any=[];
+  returnResponse:any;
+  constructor(private MessagePopupComponent:MessagePopupComponent,private searchProductService:SearchProductService,private route: ActivatedRoute,private router: Router, public demoService: DemoService,private http:Http) {
     this.hideMFGSearch = true;
     this.hideGSINSearch = true;
     this.disableSearch = true;
@@ -95,6 +98,8 @@ export class DashboardComponentComponent implements OnInit {
      
     //   this.showProfile = true;
     // }
+    this.getCartList();
+    
   }
 
     clickedSearch(){
@@ -246,6 +251,69 @@ export class DashboardComponentComponent implements OnInit {
         }
       }, (err) => {
         console.log(err);
+      });
+    }
+    decreaseQuantity(index) {
+      this.cartBucket[index].quantity > 1 ? this.cartBucket[index].quantity = parseInt(this.cartBucket[index].quantity) - 1 : "";
+    }
+    increaseQuantity(index) {
+      this.cartBucket[index].quantity ? this.cartBucket[index].quantity = parseInt(this.cartBucket[index].quantity) + 1 : "";
+    }
+    addToCart(event,cartObject,isAddToCart) {
+      event.stopPropagation();
+      let cartMap = Object.assign({}, cartObject);
+      cartMap.UserID = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : "";
+      cartMap.retailerID = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
+     // cartMap.gsin="3213";
+      cartMap.quantity=isAddToCart?(this.returnQuantity(cartMap) ? parseInt(this.returnQuantity(cartMap)) + 1 : 1):(this.returnQuantity(cartMap) ? parseInt(this.returnQuantity(cartMap)):"");	
+      
+      let reqBody = {
+        UserID: localStorage.getItem("User_Information") ? parseInt(JSON.parse(localStorage.getItem("User_Information"))[0].user_id) : "",
+        retailerID: localStorage.getItem("User_Information") ? parseInt(JSON.parse(localStorage.getItem("User_Information"))[0].EntityId) : "",
+        quantity: cartMap.quantity?parseInt(cartMap.quantity):"",
+        GSIN: cartMap.gsin?parseInt(cartMap.gsin):"",
+        //GSIN: cartMap.gsin||cartMap.GSIN ? cartMap.gsin ||cartMap.GSIN  : "",
+        distributorID: cartMap.distributor_id ? parseInt(cartMap.distributor_id) : "",
+      }
+    
+      this.demoService.getSessionToken().subscribe((response) => {
+        if (response.getIdToken().getJwtToken()) {
+          const jwt = response.getIdToken().getJwtToken();
+          this.searchProductService.addToCart(reqBody, response).subscribe((response) => {
+            this.returnResponse = response.json();
+            this.returnResponse && this.returnResponse.status.code == constant.statusCode.success_code ?  this.getCartList()  : alert("Add to cart failed");		
+          });
+        }
+      });
+    }
+    returnQuantity(cartMap) {
+      var quantity;
+      var index = this.isObjectInTheList(cartMap, this.cartBucket);
+      quantity = index < 0 ? 0 : (this.cartBucket[index].quantity ? this.cartBucket[index].quantity:0);
+      return quantity;
+    }
+  
+    isObjectInTheList(obj, list) {
+      
+      var cartItemIndex;
+      list.forEach((element, itemIndex) => {
+        if (parseInt(element.gsin) === parseInt(obj.gsin)) {
+          cartItemIndex = itemIndex;
+        } else {
+          cartItemIndex = -1;
+        }
+      });
+      return cartItemIndex;
+    }
+    getCartList(){
+      this.demoService.getSessionToken().subscribe((response) => {
+        if (response.getIdToken().getJwtToken()) {
+          const jwt = response.getIdToken().getJwtToken();
+          this.searchProductService.getCartList({ "user_id":localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : "" }, jwt).subscribe((response) => {
+          this.cartBucket=response?response.json().cartList:[];
+          this.demoService.loading=false;
+          });
+        }
       });
     }
    

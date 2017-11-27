@@ -27,7 +27,7 @@ import {
     JwtHelper
 } from 'angular2-jwt/angular2-jwt';
 import * as constant from '../shared/config';
-
+import {CommonService} from '../shared/common.service';
 @Injectable()
 export class DemoService {
     userSession: any;
@@ -62,8 +62,10 @@ export class DemoService {
     resultsApiIntegration: any;
     showRetailerProfile: boolean = false;
     showEditRetailerView: boolean = false;
-   
-    constructor(private http: Http, private router: Router) {
+    retailerDetails: any;
+    showdefaultInventoryPop: boolean = false;
+
+    constructor(private http: Http, private router: Router,private commonService:CommonService) {
         console.log(constant.appcohesionURL);
         this.showclickorder = false;
         this.resultCount = 0;
@@ -157,7 +159,7 @@ export class DemoService {
                     console.log("result conginitive token : ", result);
                     this.jwt = result.getIdToken().getJwtToken();
                     localStorage.setItem('isLoggedIn', 'true');
-
+                    self.commonService.setJwtToken(this.jwt);
                     const idEpxiry = result.getIdToken().getExpiration();
                     console.log("expiration id : " + idEpxiry);
                     const str = idEpxiry + "";
@@ -305,7 +307,7 @@ export class DemoService {
         var retailer_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "" : "";
         this.body['store_id'] = store_id;
         this.body['retailer_id'] = retailer_id;
-
+        console.log("store id : " + this.body['store_id']);
         var reqBody = this.body;
         const url = constant.appcohesionURL.productSearch_URL;
         this.http
@@ -628,7 +630,9 @@ export class DemoService {
         })
     }
 
-    createUser(jwt,userInfo,loggedInUser) {
+    createUser(jwt,userInfo,loggedInUser) : Observable < any > {
+      
+        return Observable.create(observer => {
         this.loading = true;
         let headers = new Headers({
             'Content-Type': 'application/json',
@@ -641,14 +645,17 @@ export class DemoService {
             userInfo.user.store_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].store_id : "";
         }
         else if(loggedInUser==constant.userRoles.retailerAdminUser){
+            userInfo.user.entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";          
             userInfo.user.store_id=userInfo.user.store_id;
         }else if(loggedInUser==constant.userRoles.storeAdminUser){
+         
+            userInfo.user.entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
             userInfo.user.store_id=userInfo.user.store_id;
         }
-        userInfo.user.entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
+       // userInfo.user.entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
         
         const url = constant.appcohesionURL.createUser_URL;
-        this.http
+         this.http
             .post(url,JSON.stringify(userInfo),options)
             .subscribe(data => {
                 this.loading = false;
@@ -656,21 +663,76 @@ export class DemoService {
                 this.createUserMessage = "";
                 this.createUserStatus = ""
                 if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.success_code) {
+                    
                     this.createUserPopup = true;
-                    this.createUserMessage = "Congratulations!! You have successfully added user. Email has been sent to his email id!";
-                    this.createUserStatus = "SUCCESS"
-                    console.info("success");
-                    this.showNav = !this.showNav;
-                } else {
+                        this.createUserMessage = "Congratulations!! You have successfully added user. Email has been sent to his email id!";
+                        this.createUserStatus = "SUCCESS"
+                        this.showNav = !this.showNav;
+                        this.listRetailorDetails();
+                        observer.next(true);
+                        observer.complete();
+                    
+                 } else {
                     this.createUserPopup = true;
+                   
                     this.createUserMessage = this.results.status.message.message + " ! ";
                     this.createUserStatus = "SORRY";
-                }
+                    
+                }observer.next(true);
+                    observer.complete();
             }, error => {
                 this.loading = false;
                 console.log("error" + JSON.stringify(error));
             });
+        }, err => {
+                  
+                console.log("error", err)
+            })
+        
+       
     }
+
+  // Method for listing retailer 
+   listRetailorDetails() {
+        this.loading = true;
+        console.log("list retailers details :");
+       return this.getSessionToken().subscribe((response) => {
+           if (response.getIdToken().getJwtToken()) {
+               this.jwt = response.getIdToken().getJwtToken();
+           }
+           let headers = new Headers({
+               'Authorization': this.jwt
+           });
+           let options = new RequestOptions({
+               headers: headers
+           });  
+           var req_body = '';
+           const url = constant.appcohesionURL.retailerList_URL;
+           this.http.post(url, req_body, options).subscribe(data => {
+               console.log(data)
+               this.loading = false;
+               console.log(data)
+               
+               this.result = data.json();
+               console.log("list retailer details : successsssss" + this.result)
+               if (this.result && this.result.status) {
+                   if (this.result.status.code == 200) {
+                       this.retailerDetails = this.result.retailers;
+                       console.log("retailer list array list : " + JSON.stringify(this.retailerDetails))
+                   } else if (this.result.statusCode == constant.statusCode.empty_code) {
+                       this.retailerDetails = [];
+                   }
+               }
+           }, error => {
+               this.loading = false;
+               console.log("error" + JSON.stringify(error));
+           });
+
+       }, (err) => {
+           console.log(err);
+       });
+
+   }
 
     // Method for setting retailer id for retailer markup
     setRetailerIdforCategory(retailerId) {
@@ -746,4 +808,8 @@ export class DemoService {
             console.log(err);
         });
     }
+
+  
+
+
 }

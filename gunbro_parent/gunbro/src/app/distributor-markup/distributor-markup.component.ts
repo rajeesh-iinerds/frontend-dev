@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 
 import { DemoService } from '../demo-component/demo.service';
 import * as constant from '../shared/config';
-
+import {Observable} from 'rxjs/Observable';
 @Component({
   selector: 'app-distributor-markup',
   templateUrl: './distributor-markup.component.html',
@@ -23,11 +23,16 @@ export class DistributorMarkupComponent implements OnInit {
 
 	ngOnInit() {
   		this.demoService.getSessionToken().subscribe((response) => {
-  	 		this.getDistributorsList(response);
+			this.getDistributorsList(response).subscribe((distListResponse) => {
+                   console.log("Success in Distributor list");
+				  },
+			  (err) =>{}
+			  );
   		});
   	}
 
-  	getDistributorsList(resp) {
+  	getDistributorsList(resp): Observable < any > {
+		return Observable.create(observer => {   
 	  	this.demoService.loading = true;
 	    if(resp.getIdToken().getJwtToken()) {
 		    this.jwt = resp.getIdToken().getJwtToken();
@@ -48,20 +53,31 @@ export class DistributorMarkupComponent implements OnInit {
 	                console.log(this.results_markup.distributors);
 	                if (this.results_markup && this.results_markup.status) {
 	                    if (this.results_markup.status.code == constant.statusCode.success_code) {
-	                    	this.distList = this.results_markup.distributors;
+							this.distList = this.results_markup.distributors;
+							observer.next(this.distList);
+							observer.complete();
 	                    } else {
 	                    	console.log("Error");
-	                    	alert(this.results_markup.status.message + " ! ");
+							alert(this.results_markup.status.message + " ! ");
+							observer.next(this.results_markup.status.message);
+							observer.complete();
 	                    }
 	                }
 	            }, error => {
+					observer.next(error);
+					observer.complete();
 	                this.demoService.loading = false;
 	                console.log(JSON.stringify(error));
 	            });
 	  	}
 	  	else {
+			observer.error();
+			observer.complete();
 	  		console.log("Missing Token");
-	  	}
+		  }}
+		  , err => {
+			console.log("error on listing", err)
+		})
 	}
 
 	getDistCategory (dist_id) {

@@ -23,13 +23,8 @@
                 <span class="ac-prod-feat">Distributor<br><strong>{{demoService.productInfo && demoService.productInfo.distributor_name ? demoService.productInfo.distributor_name : ''}}</strong></span>
                 <span class="ac-prod-feat">UPC<strong><br>{{demoService.productInfo && demoService.productInfo.upc ? demoService.productInfo.upc : ''}}</strong> <i class="ac-tool-tip" title="Tooltip Descripion Here"></i></span>
                 <span class="ac-store-location">Select a Shipping method<br>
-                  <!-- <select [(ngModel)]="selectedShipping" name ="method">
-                    <option [value]="1" selected="selected"> Ground (3-5 days) </option>
-                    <option [value]="2"> Priority (2 days) Priority </option>
-                    <option [value]="3"> Next Day Air</option>
-                  </select> -->
+                 
                   <select name="selectedShipping" [(ngModel)]="selectedShipping">
-                    
                     <option *ngFor="let value of values" [ngValue]="value.key">{{value.name}}</option>
                   </select>
                 </span>
@@ -45,11 +40,13 @@
                 </div> -->
                 <div class="ac-prod-buying-options" *ngIf="demoService.productInfo && demoService.productInfo.distributor_name == 'SS' && ssProductQuantity && ssProductQuantity > '0'">
                     <input type="number" name="quantity" min="1" max="{{ssProductQuantity}}" [(ngModel)]="selectedQuantity" (ngModelChange)="onQuantityChange($event)">
-                    <button class="ac-result-quick-order" (click) = "placeOrder($event)">PLACE MY ORDER</button>
+                    <!-- <button class="ac-result-quick-order" (click) = "placeOrder($event)">PLACE MY ORDER</button> -->
+                    <button class="ac-result-quick-order" (click) = "dashboardComponent.addToCart($event,demoService.productInfo,true)">ADD TO CART</button>  
                 </div>
                 <div class="ac-prod-buying-options" *ngIf="demoService.productInfo && demoService.productInfo.distributor_name != 'SS' && demoService.productInfo.inStock && demoService.productInfo.inStock > '0'">
                     <input type="number" name="quantity" min="1" max="{{demoService.productInfo.inStock}} " [(ngModel)]="selectedQuantity" (ngModelChange)="onQuantityChange($event)">
                     <button class="ac-result-quick-order" (click) = "placeOrder($event)">PLACE MY ORDER</button>
+                    <button class="ac-result-quick-order" (click) = "dashboardComponent.addToCart($event,demoService.productInfo,true)">ADD TO CART</button>
                 </div>
 
 
