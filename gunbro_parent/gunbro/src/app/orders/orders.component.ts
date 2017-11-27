@@ -34,7 +34,8 @@ export class OrdersComponent implements OnInit {
   path: any;
   orderslistCount: any;
   orderProductDetails: any;
-  
+  showCustomerInfo: Boolean = true;
+
   constructor(private route: ActivatedRoute,public demoService: DemoService, private http: Http, private router: Router) {
     this.demoService.showRetailerProfile = false;
    

@@ -669,6 +669,7 @@ export class DemoService {
                         this.createUserMessage = "Congratulations!! You have successfully added user. Email has been sent to his email id!";
                         this.createUserStatus = "SUCCESS"
                         this.showNav = !this.showNav;
+                        this.listRetailorDetails();
                         observer.next(true);
                         observer.complete();
                     
