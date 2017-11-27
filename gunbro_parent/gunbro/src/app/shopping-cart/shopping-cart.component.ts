@@ -154,9 +154,11 @@ export class ShoppingCartComponent implements OnInit {
 
 	removeFromCart(obj) {
 		// TODO confirm popup for remove cart
+		console.log('insideee deleteeeeeeee');
 		this.demoService.loading = true;
-		this.commonService.getJwtToken().subscribe((response)=>{
-			const jwt = response;
+		this.demoService.getSessionToken().subscribe((response) => {
+			if (response.getIdToken().getJwtToken()) {
+			const jwt = response.getIdToken().getJwtToken();
             let headers = new Headers({ 'Authorization': jwt });
             let options = new RequestOptions({ headers: headers });
             let req_body = {
@@ -164,6 +166,7 @@ export class ShoppingCartComponent implements OnInit {
             };
             const url = constant.appcohesionURL.deleteCart_URL;
             this.http.post(url, req_body, options).subscribe(data => {
+            	console.log('insideee delete api');
             	this.demoService.loading = false;
             	this.results = data.json();
             	if(this.results && this.results.status){
@@ -202,6 +205,7 @@ export class ShoppingCartComponent implements OnInit {
                     }
                 }               	
             });
+        }
 
 		});
 	}
