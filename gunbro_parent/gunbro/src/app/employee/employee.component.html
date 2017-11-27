@@ -6,7 +6,7 @@
           <h3 class="ac-page-title">Employee Management</h3>
         </div>
         <div class="col-xs-12 col-sm-3 col-lg-3 text-right xs-text-left">
-          <button *ngIf="role_id!=3"  class="ac-button-outlined " (click)="showOrHideCreateEmployee($event)"><i style="display: inline-block;font-size: 22px;    font-style: normal; padding-right: 5px;vertical-align: top;">+</i>ADD EMPLOYEE</button>
+          <button *ngIf="role_id!=3"  class="ac-button-outlined .ac-create-employee" (click)="showOrHideCreateEmployee($event)"><i style="display: inline-block;font-size: 22px;    font-style: normal; padding-right: 5px;vertical-align: top;">+</i>ADD EMPLOYEE</button>
         </div>
       </div>
       <!-- <div class="row" *ngIf= "demoService.usersList && demoService.usersList.data">
@@ -76,7 +76,7 @@
     <form class="ac-create-employee-body store-admin-form" *ngIf="userPostMap.userRole==1&&role_id==4" (ngSubmit)="createUser(userPostMap,createStoreAdminForm);createStoreAdminForm.resetForm();" #createStoreAdminForm="ngForm">
       <div class="form-group">
         <label for="usr_firstname" class="field-wrapper required-field">FIRST NAME</label>
-        <input  type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="userPostMap.firstName" minlength="3" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
+        <input  type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="userPostMap.firstName" minlength="1" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
         <div class="clearfix"></div>
         <div class="invalidField" *ngIf="firstName.invalid && firstName.dirty">
             Please Enter characters with Minimum length 3
@@ -84,7 +84,7 @@
       </div>
       <div class="form-group">
         <label for="usr_lastname" class="field-wrapper required-field">LAST NAME</label>
-        <input  type="text" class="form-control" placeholder="Enter your last name" id="lastName" name="lastName" [(ngModel)]="userPostMap.lastName" minlength="3" pattern="[a-zA-Z ]*"  #lastName="ngModel" required>
+        <input  type="text" class="form-control" placeholder="Enter your last name" id="lastName" name="lastName" [(ngModel)]="userPostMap.lastName" minlength="1" pattern="[a-zA-Z ]*"  #lastName="ngModel" required>
         <div class="clearfix"></div>
         <div class="invalidField" *ngIf="lastName.invalid && lastName.dirty">
             Please Enter characters with Minimum length 3
@@ -147,7 +147,7 @@
     <form class="ac-create-employee-body store-user-form" *ngIf="userPostMap.userRole==2" (ngSubmit)="createUser(userPostMap,createStoreUserForm);createStoreUserForm.resetForm();" #createStoreUserForm="ngForm">
         <div class="form-group">
             <label for="usr_firstname" class="field-wrapper required-field">FIRST NAME</label>
-            <input  type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="userPostMap.firstName" minlength="3" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
+            <input  type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="userPostMap.firstName" minlength="1" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
             <div class="clearfix"></div>
             <div class="invalidField" *ngIf="firstName.invalid && firstName.dirty">
                 Please Enter characters with Minimum length 3
@@ -155,7 +155,7 @@
           </div>
           <div class="form-group">
             <label for="usr_lastname" class="field-wrapper required-field">LAST NAME</label>
-            <input  type="text" class="form-control" placeholder="Enter your last name" id="lastName" name="lastName" [(ngModel)]="userPostMap.lastName" minlength="3" pattern="[a-zA-Z ]*"  #lastName="ngModel" required>
+            <input  type="text" class="form-control" placeholder="Enter your last name" id="lastName" name="lastName" [(ngModel)]="userPostMap.lastName" minlength="1" pattern="[a-zA-Z ]*"  #lastName="ngModel" required>
             <div class="clearfix"></div>
             <div class="invalidField" *ngIf="lastName.invalid && lastName.dirty">
                 Please Enter characters with Minimum length 3

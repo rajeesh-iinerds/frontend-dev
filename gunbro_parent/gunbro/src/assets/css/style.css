@@ -944,6 +944,7 @@ border-radius: 0 0 3px 3px;
   vertical-align: top;
   text-align: center;
   vertical-align: top;
+  cursor: pointer;
 }
 label.required-field{
   float: left;
@@ -976,7 +977,7 @@ label.required-field{
   opacity: 0;
   top: 70px;
   width: 320px;
-  z-index: 9999;
+  z-index: 9;
 }
 .ac-create-employee-head {
   float: left;
