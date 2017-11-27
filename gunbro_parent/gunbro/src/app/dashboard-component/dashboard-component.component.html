@@ -56,13 +56,13 @@
              
               
               <h5>{{cartItem.product_Name}}</h5>
-                <div class="input-group" style="width: 35%;float: left;top:-30px;">
+                <div class="input-group" style="width: 35%;float: left;top:-20px;">
                   <span class="input-group-btn input-control">
                     <button [disabled]="cartItem.inStock=='0'" (click)="decreaseQuantity(idx)" type="button" class="btn btn-default btn-number input-control-btn">
                       <span class="glyphicon glyphicon-minus"></span>
                     </button>
                   </span>
-                  <input type="text" name="quantity" class="form-control input-number input-count" style="top: 17px;"  [(ngModel)]="cartItem.quantity" >
+                  <input type="text" name="quantity" class="form-control input-number input-count" style="top: 10px;"  [(ngModel)]="cartItem.quantity" >
                   
                   <span class="input-group-btn">
                     <button [disabled]="cartItem.inStock=='0'" (click)="increaseQuantity(idx)" type="button" class="btn btn-default btn-number input-control-btn" >
