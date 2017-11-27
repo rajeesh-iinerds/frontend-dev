@@ -105,7 +105,7 @@ export class EmployeeComponent implements OnInit {
         const jwt = response.getIdToken().getJwtToken();
         //logged user role is third argument
         console.log("user iddddd from employee : " + this.user_id);
-        this.demoService.createUser(jwt, postMap,this.user_id).subscribe((response) => {
+        this.demoService.createUser(jwt, postMap,this.user_id,'').subscribe((response) => {
           this.getEmployeeList().subscribe((employeeListResponse) => {
             console.log("Success");
           },
