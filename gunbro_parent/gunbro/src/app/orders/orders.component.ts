@@ -48,11 +48,11 @@ export class OrdersComponent implements OnInit {
     this.retailerAdminUser = constant.user.retaileradminUser && constant.user.retaileradminUser != 'null' ? constant.user.retaileradminUser : '';
     this.path = constant.orderRoute.flag && constant.orderRoute.flag != 'null' ? constant.orderRoute.flag  : '';
     this.route.queryParams.subscribe((params: Params) => {
-        this.listOrders(params.retailer_id,this.path).subscribe((response) => {
-            this.selectedRetailer = params.retailer_id;
-         },
-        (err) => console.error(err)
-      );
+      this.listOrders(params.retailer_id,this.path).subscribe((response) => {
+        this.selectedRetailer = params.retailer_id;
+     },
+    (err) => console.error(err)
+  );
     });
     
     this.demoService.listRetailorDetails(); 

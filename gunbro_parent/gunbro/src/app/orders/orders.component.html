@@ -10,7 +10,7 @@
             <div *ngIf="userGroup == configSuperAdminUser" class="form-group" style="margin-top: 15px;">
                 <label class="field-wrapper required-field" for="usr_lastname">RETAILER NAME</label>
                  <select class="form-control" style="border-radius: 0px;" name="selectedRetailer" [(ngModel)]="selectedRetailer" (change)="getRetailerId($event,selectedRetailer)" >
-                        <option [ngValue]>All</option>
+                        <option [ngValue]="undefined">All</option>
                         <option *ngFor="let value of demoService.retailerDetails" [value]="value.retailerId">{{value.retailerName}}</option>
                 </select>
                 <div class="clearfix"></div>
