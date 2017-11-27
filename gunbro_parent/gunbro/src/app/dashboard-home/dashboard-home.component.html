@@ -31,7 +31,7 @@
 
 
      
-     <div  *ngIf = "distlistCount!=0 && userGroup != configSuperAdminUserGroup" routerLink="../dashboard/markup" class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
+     <div  *ngIf = "distlistCount!=0 && (userGroup != configSuperAdminUserGroup || !userGroup)" routerLink="../dashboard/markup" class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
         <div class="ac-single-stat-inset">
             <h3 class="ac-stat-icn-invntry">Distributors</h3>
             <div  class = "loader" [hidden]="distlistCount!=undefined">
@@ -51,7 +51,7 @@
                     </span>
           </div>
         </div>-->
-     <div *ngIf = "emplistCount!=0" routerLink="../dashboard/employee" class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
+     <div *ngIf = "emplistCount!=0 && !userGroup" routerLink="../dashboard/employee" class="col-xs-12 col-sm-6 col-lg-3 ac-single-stat-box">
         <div class="ac-single-stat-inset">
             <h3 class="ac-stat-icn-cstmrob">Employees Onboard</h3>
             <div  class = "loader" [hidden]="emplistCount!=undefined">
