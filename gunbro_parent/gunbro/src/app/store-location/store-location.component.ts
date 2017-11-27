@@ -187,7 +187,8 @@ export class StoreLocationComponent implements OnInit {
                     	this.createStorePopup = true;
                     	this.successTitle = constant.distributor_markup_messages.success_title;
                     	// this.successDescription = constant.store_messages.success_description;
-                    	this.successDescription = this.results.status.userMessage;
+						this.successDescription = this.results.status.userMessage;
+						this.showCreateStore = !this.showCreateStore;
 	                } else if (this.results.status && this.results.status.code && this.results.status.code == constant.statusCode.error_code) {
 	                    //show error popup
                     	this.createStorePopup = true;
