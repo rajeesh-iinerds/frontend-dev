@@ -155,16 +155,16 @@
       <div class="order-info-details">
         <div class="single-order-summery" *ngFor="let order of cartInfo ; let i = index">
           <h5>{{order.manufacturerName}}
-            <span>${{order.cartObject.subtotal}}</span>
+            <span>${{order.cartObject.subtotal | number : '1.2-2'}}</span>
           </h5>
-          <img src="assets/images/cart-remove.svg">
+          
         </div>
         <!-- <div class="single-order-summery">
                   <h5>Shipping Cost<span style="padding-right: 0px;">$798</span></h5>
                 </div> -->
         <div class="single-order-summery amount">
           <h5>Amount Payable
-            <span style="padding-right: 0px;right: 0px;">${{amountPayable}}</span>
+            <span style="padding-right: 0px;right: 0px;">${{amountPayable | number : '1.2-2'}}</span>
           </h5>
         </div>
       </div>
