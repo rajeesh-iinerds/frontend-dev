@@ -295,15 +295,15 @@ export class DashboardComponentComponent implements OnInit {
   
     isObjectInTheList(obj, list) {
       
-      var itemIndexz;
+      var cartItemIndex;
       list.forEach((element, itemIndex) => {
         if (parseInt(element.gsin) === parseInt(obj.gsin)) {
-          itemIndexz = itemIndex;
+          cartItemIndex = itemIndex;
         } else {
-          itemIndex = -1;
+          cartItemIndex = -1;
         }
       });
-      return itemIndexz;
+      return cartItemIndex;
     }
     getCartList(){
       this.demoService.getSessionToken().subscribe((response) => {
