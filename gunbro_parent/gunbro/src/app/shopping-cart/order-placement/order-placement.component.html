@@ -72,7 +72,7 @@
               <div class="row" style="padding: 0px 15px;">
                 <div class="form-group pull-left" style="width: 49%;">
                   <label >RETAILER NAME</label>
-                  <input [disabled]="true" type="text" class="form-control" placeholder="Enter your name" id="retailerName" name="retailerName" [(ngModel)]="shippingInfoMap.retailerName" minlength="3" pattern="[a-zA-Z ]*"  #retailerName="ngModel" required>
+                  <input [disabled]="true" type="text" class="form-control" placeholder="Enter your name" id="retailerName" name="retailerName" [(ngModel)]="shippingInfoMap.retailerName" minlength="1" pattern="[a-zA-Z ]*"  #retailerName="ngModel" required>
                   <div class="clearfix"></div>
                   <div class="invalidField" *ngIf="retailerName.invalid && retailerName.dirty" >
                     Please Enter characters with Minimum length 3
@@ -80,7 +80,7 @@
                 </div>
                 <div class="form-group pull-right" style="width: 49%;">
                   <label >SALES ASSOCIATE</label>
-                  <input [disabled]="true" type="text" class="form-control" placeholder="Enter sales associate" id="saleAssociate" name="saleAssociate" [(ngModel)]="shippingInfoMap.saleAssociate" minlength="3" pattern="[a-zA-Z ]*"  #saleAssociate="ngModel" required>
+                  <input [disabled]="true" type="text" class="form-control" placeholder="Enter sales associate" id="saleAssociate" name="saleAssociate" [(ngModel)]="shippingInfoMap.saleAssociate" minlength="1" pattern="[a-zA-Z ]*"  #saleAssociate="ngModel" required>
                   <div class="invalidField" *ngIf="saleAssociate.invalid && saleAssociate.dirty" >
                     Please Enter characters with Minimum length 3
                   </div>
@@ -96,7 +96,7 @@
               </div>
               <!-- <div class="form-group">
                 <label >STREET ADDRESS</label>
-                <input  type="text" class="form-control" placeholder="Enter Street address" id="streetAddress" name="streetAddress" [(ngModel)]="customerInfoMap.streetAddress" minlength="3"  #streetAddress="ngModel" required>
+                <input  type="text" class="form-control" placeholder="Enter Street address" id="streetAddress" name="streetAddress" [(ngModel)]="customerInfoMap.streetAddress" minlength="1"  #streetAddress="ngModel" required>
                 <div class="clearfix"></div>
                 <div class="invalidField" *ngIf="streetAddress.invalid && streetAddress.dirty">
                   Please Enter characters with Minimum length 3
@@ -155,16 +155,16 @@
       <div class="order-info-details">
         <div class="single-order-summery" *ngFor="let order of cartInfo ; let i = index">
           <h5>{{order.manufacturerName}}
-            <span>${{order.cartObject.subtotal}}</span>
+            <span>${{order.cartObject.subtotal | number : '1.2-2'}}</span>
           </h5>
-          <img src="assets/images/cart-remove.svg">
+          
         </div>
         <!-- <div class="single-order-summery">
                   <h5>Shipping Cost<span style="padding-right: 0px;">$798</span></h5>
                 </div> -->
         <div class="single-order-summery amount">
           <h5>Amount Payable
-            <span style="padding-right: 0px;right: 0px;">${{amountPayable}}</span>
+            <span style="padding-right: 0px;right: 0px;">${{amountPayable | number : '1.2-2'}}</span>
           </h5>
         </div>
       </div>

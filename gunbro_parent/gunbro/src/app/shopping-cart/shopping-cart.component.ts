@@ -8,6 +8,7 @@ import { DemoService } from '../demo-component/demo.service';
 import * as constant from '../shared/config';
 import { CommonService } from '../shared/common.service';
 import { ShoppingCartService } from './shopping-cart.service';
+import { DashboardComponentComponent } from '../dashboard-component/dashboard-component.component'
 
 @Component({
   selector: 'app-shopping-cart',
@@ -41,7 +42,8 @@ export class ShoppingCartComponent implements OnInit {
   	constructor(public demoService: DemoService , private http: Http, 
   		public commonService: CommonService, private location: Location,
   		private route: ActivatedRoute, private router: Router,
-  		public cartService: ShoppingCartService) {
+  		public cartService: ShoppingCartService,
+  		public dashboardComponent: DashboardComponentComponent) {
   	}
 
   	ngOnInit() {
@@ -76,8 +78,8 @@ export class ShoppingCartComponent implements OnInit {
 								    	"subtotal": 0,
 								      	"selectedQuantity": 0
 								    };
-						  			this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].quantity) * Number(this.cartList[i].ProductPrice))) : this.totalAmount;
-						  			this.cartObject['subtotal'] = Number(this.cartList[i].quantity) * Number(this.cartList[i].ProductPrice);
+						  			this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].quantity) * Number(this.cartList[i].productPrice))) : this.totalAmount;
+						  			this.cartObject['subtotal'] = Number(this.cartList[i].quantity) * Number(this.cartList[i].productPrice);
 						  			// console.log('+++++++++++++', this.cartObject);
 						  			this.cartList[i]['cartObject'] = this.cartObject;
 						  			this.quantityCount = this.cartList[i].inStock > 0 ? (this.quantityCount + Number(this.cartList[i].quantity)) : this.quantityCount;
@@ -113,7 +115,7 @@ export class ShoppingCartComponent implements OnInit {
   		if (!isChecked) {
   			this.hideQuantity = true;
   			this.count--;
-  			this.totalAmount = this.totalAmount-(Number(size.ProductPrice) * Number(size.cartObject.selectedQuantity));
+  			this.totalAmount = this.totalAmount-(Number(size.productPrice) * Number(size.cartObject.selectedQuantity));
   			// this.quantityCount = this.quantityCount - 1;
   			this.quantityCount = this.quantityCount - Number(size.cartObject.selectedQuantity);
   			/* Remove from place order array if unchecked */
@@ -129,13 +131,17 @@ export class ShoppingCartComponent implements OnInit {
   		else {
   			this.hideQuantity = false;
   			this.count++;
-  			this.totalAmount = this.totalAmount+(Number(size.ProductPrice) * Number(size.cartObject.selectedQuantity));
+  			this.totalAmount = this.totalAmount+(Number(size.productPrice) * Number(size.cartObject.selectedQuantity));
   			this.quantityCount = this.quantityCount + Number(size.cartObject.selectedQuantity);
   			for(var j = 0; j < this.tempList.length; j++) {
 				if(ev.target.id == size.CartItemID) {
   					const index: number = this.tempList.indexOf(size);
-				    if (index !== -1) {
-				        this.cartInStockList.push(size);
+  					const ind: number = this.cartInStockList.indexOf(size);
+				    // if (ind !== -1 && index !== -1) {
+				        // this.cartInStockList.push(size);
+				    // }
+				    if(ind == -1 && index !== -1) {
+				    	this.cartInStockList.push(size);
 				    }
   				}
   			}
@@ -148,6 +154,7 @@ export class ShoppingCartComponent implements OnInit {
 
 	removeFromCart(obj) {
 		// TODO confirm popup for remove cart
+		this.demoService.loading = true;
 		this.commonService.getJwtToken().subscribe((response)=>{
 			const jwt = response;
             let headers = new Headers({ 'Authorization': jwt });
@@ -162,12 +169,33 @@ export class ShoppingCartComponent implements OnInit {
             	if(this.results && this.results.status){
             		if(this.results.status.code == constant.statusCode.success_code){
             			this.count--;
-            			this.totalAmount = this.totalAmount-(Number(obj.ProductPrice) * Number(obj.cartObject.selectedQuantity));
+            			this.totalAmount = this.totalAmount-(Number(obj.productPrice) * Number(obj.cartObject.selectedQuantity));
             			this.quantityCount = this.quantityCount - Number(obj.cartObject.selectedQuantity);
             			const index: number = this.cartList.indexOf(obj);
 					    if (index !== -1) {
 					        this.cartList.splice(index, 1);
 					    }
+					    this.dashboardComponent.cartBucket = this.cartList;
+					    /*const index: number = this.cartInStockList.indexOf(obj);
+					    if (index !== -1) {
+					        this.cartInStockList.splice(index, 1);
+					        this.cartDetails().subscribe((response) => {
+							},
+							(err) => console.error(err)
+							);
+					    }*/
+					    for(var j = 0; j < this.cartInStockList.length; j++) {
+							if(this.cartInStockList[j].CartItemID == obj.CartItemID) {
+			  					const index: number = this.cartInStockList.indexOf(obj);
+							    if (index !== -1) {
+							        this.cartInStockList.splice(index, 1);
+							  //       this.cartDetails().subscribe((response) => {
+									// },
+									// (err) => console.error(err)
+									// );
+							    }
+			  				}
+			  			}
                     }
                     else if(this.results.status.code == constant.statusCode.empty_code){
 
@@ -181,18 +209,18 @@ export class ShoppingCartComponent implements OnInit {
 	incrementQuantity(item) {
 		if(item.inStock && item.inStock != item.quantity) {
 			item.quantity = Number(item.quantity) + 1;
-			item.cartObject.subtotal = Number(item.ProductPrice) * item.quantity;
+			item.cartObject.subtotal = Number(item.productPrice) * item.quantity;
 			this.quantityCount = this.quantityCount + 1;
-			this.totalAmount = this.totalAmount + Number(item.ProductPrice);
+			this.totalAmount = this.totalAmount + Number(item.productPrice);
 			item.cartObject.selectedQuantity = item.cartObject.selectedQuantity + 1;
 		}
 	}
 	decrementQuantity(item) {
 		if(item.quantity > '1') {
 			item.quantity = Number(item.quantity) -1;
-			item.cartObject.subtotal = Number(item.cartObject.subtotal) - Number(item.ProductPrice);
+			item.cartObject.subtotal = Number(item.cartObject.subtotal) - Number(item.productPrice);
 			this.quantityCount = this.quantityCount - 1;
-			this.totalAmount = this.totalAmount - Number(item.ProductPrice);
+			this.totalAmount = this.totalAmount - Number(item.productPrice);
 			item.cartObject.selectedQuantity = item.cartObject.selectedQuantity - 1;
 		}
 	}
@@ -200,7 +228,6 @@ export class ShoppingCartComponent implements OnInit {
     	this.location.back();
     }
     navigateToCheckoutPage() {
-    	// routerLink="/dashboard/place-order"
     	this.router.navigate(['/dashboard/place-order']);
     }
 }

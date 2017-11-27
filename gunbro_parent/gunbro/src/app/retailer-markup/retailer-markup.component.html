@@ -69,7 +69,7 @@
     <form (ngSubmit)="createRetailer(retailerInfo,retailerForm,'');" novalidate class="ac-create-employee-body retailer-admin-form" #retailerForm="ngForm">
       <div class="form-group">
         <label for="firstName" class="field-wrapper required-field">FIRST NAME</label>
-        <input  type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="retailerInfo.firstName" minlength="2" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
+        <input  type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="retailerInfo.firstName" minlength="1" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
         <div class="clearfix"></div>
         <div class="invalidField" *ngIf="firstName.invalid && firstName.dirty">
           Please Enter characters with Minimum length 2
@@ -77,7 +77,7 @@
       </div>
       <div class="form-group">
         <label for="lastName" class="field-wrapper required-field">LAST NAME</label>
-        <input  type="text" class="form-control" placeholder="Enter your last name" id="lastName" name="lastName" [(ngModel)]="retailerInfo.lastName" minlength="2" pattern="[a-zA-Z ]*"  #lastName="ngModel" required>
+        <input  type="text" class="form-control" placeholder="Enter your last name" id="lastName" name="lastName" [(ngModel)]="retailerInfo.lastName" minlength="1" pattern="[a-zA-Z ]*"  #lastName="ngModel" required>
         <div class="clearfix"></div>
         <div class="invalidField" *ngIf="lastName.invalid  && (lastName.dirty || lastName.touched)">
           Please Enter characters with Minimum length 2
@@ -85,7 +85,7 @@
       </div>
       <div class="form-group" *ngIf="role_id!='4'">
         <label for="firstName" class="field-wrapper required-field">RETAILER NAME</label>
-        <input  type="text" class="form-control" placeholder="Enter retailer name" id="retailerName" name="retailerName" [(ngModel)]="retailerInfo.retailerName" minlength="3" pattern="[a-zA-Z ]*"  #retailerName="ngModel" required>
+        <input  type="text" class="form-control" placeholder="Enter retailer name" id="retailerName" name="retailerName" [(ngModel)]="retailerInfo.retailerName" minlength="1" pattern="[a-zA-Z ]*"  #retailerName="ngModel" required>
         <div class="clearfix"></div>
         <div class="invalidField" *ngIf="retailerName.invalid && retailerName.dirty">
           Please Enter characters with Minimum length 3
@@ -93,7 +93,7 @@
       </div>
       <div class="form-group" *ngIf="role_id!='4'">
         <label for="retailerAddress" class="field-wrapper required-field">RETAILER ADDRESS</label>
-        <textarea  type="text" class="form-control" placeholder="Enter retailer address" id="retailerAddress" name="retailerAddress" [(ngModel)]="retailerInfo.retailerAddress" minlength="3"  #retailerAddress="ngModel" required></textarea>
+        <textarea  type="text" class="form-control" placeholder="Enter retailer address" id="retailerAddress" name="retailerAddress" [(ngModel)]="retailerInfo.retailerAddress" minlength="1"  #retailerAddress="ngModel" required></textarea>
         <div class="clearfix"></div>
         <div class="invalidField" *ngIf="retailerAddress.invalid && retailerAddress.dirty">
           Please Enter characters with Minimum length 3
