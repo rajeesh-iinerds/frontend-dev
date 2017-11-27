@@ -163,7 +163,6 @@ export class StoreLocationComponent implements OnInit {
 					"address": JSON.stringify(this.userInfo.address),
 					"phone": this.userInfo.phone,
 					"fax" : this.userInfo.fax ?  this.userInfo.fax : 'NULL',
-					"email" : this.userInfo.email,
 					"zip" : this.userInfo.zip
 		        };
 		        if(this.isEditClicked == true) {
