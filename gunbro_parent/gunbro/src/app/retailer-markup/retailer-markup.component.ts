@@ -53,6 +53,7 @@ export class RetailerMarkupComponent implements OnInit {
        
     };
     showHideDefaultInventory:Boolean;
+    retailerCount: any;
     showpopdetails: Boolean = false;
     constructor(private http: Http, private router: Router, public demoService: DemoService) { 
         this.demoService.showRetailerProfile = false;
@@ -75,18 +76,21 @@ export class RetailerMarkupComponent implements OnInit {
         this.demoService.createUserPopup = false;
         this.demoService.showNav = !this.demoService.showNav;
         this.checkboxValue = true;
-        this.createRetailer(retailerInfoMap, retailerForm,'');
+        this.retailerCount = this.demoService.retailerDetails.length;
+        this.createRetailer(retailerInfoMap, retailerForm,'', this.retailerCount);
        // this.selectDefaultInventory = 1;
        
     }
 
 
-    proceedDefaultInventory(retailerInfoMap, retailerForm){ 
+    proceedDefaultInventory(retailerInfoMap, retailerForm,retailerlength){ 
+        console.log("retailerlength" + retailerlength)
        this.demoService.showNav = !this.demoService.showNav; 
        this.demoService.createUserPopup = false;   
        this.showpopdetails = !this.showpopdetails;
-      // this.selectDefaultInventory = 0;     
-       this.createRetailer(retailerInfoMap, retailerForm,this.showpopdetails);
+      // this.selectDefaultInventory = 0; 
+      this.retailerCount = this.demoService.retailerDetails.length;    
+       this.createRetailer(retailerInfoMap, retailerForm,this.showpopdetails, this.retailerCount);
       // this.checkbtn = false;      
     } 
 
@@ -103,7 +107,8 @@ export class RetailerMarkupComponent implements OnInit {
         }
     }
 
-    createRetailer(retailerInfoMap, retailerForm, showpopview) {
+    createRetailer(retailerInfoMap, retailerForm, showpopview,retailerLength) {
+        console.log("retailer length: " + retailerLength);
         this.createUserEnabled = false;
          if(this.showpopdetails == false && !this.checkboxValue){
             //this.showpopdetails = true;
@@ -135,7 +140,7 @@ export class RetailerMarkupComponent implements OnInit {
                     const jwt = response.getIdToken().getJwtToken();                   
                     console.log("heree!!!!!")
                     this.createUserEnabled = true;
-                    this.demoService.createUser(jwt, postMap, constant.userRoles.superAdminUser).subscribe((response) => {; 
+                    this.demoService.createUser(jwt, postMap, constant.userRoles.superAdminUser,retailerLength).subscribe((response) => { 
                         
                         this.checkboxValue = false;
                         this.showOrHideCreateEmployee(event);

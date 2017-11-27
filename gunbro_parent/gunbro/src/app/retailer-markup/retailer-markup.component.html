@@ -66,7 +66,7 @@
           <div class="check"></div>
         </span>
       </div> -->
-    <form (ngSubmit)="createRetailer(retailerInfo,retailerForm,'');" novalidate class="ac-create-employee-body retailer-admin-form" #retailerForm="ngForm">
+    <form (ngSubmit)="createRetailer(retailerInfo,retailerForm,'',demoService.retailerDetails.length);" novalidate class="ac-create-employee-body retailer-admin-form" #retailerForm="ngForm">
       <div class="form-group">
         <label for="firstName" class="field-wrapper required-field">FIRST NAME</label>
         <input  type="text" class="form-control" placeholder="Enter your first name" id="firstName" name="firstName" [(ngModel)]="retailerInfo.firstName" minlength="1" pattern="[a-zA-Z ]*"  #firstName="ngModel" required>
