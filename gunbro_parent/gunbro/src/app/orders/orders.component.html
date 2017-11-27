@@ -158,15 +158,15 @@
                     <h4 style="font-size: 13px;">Customer Info</h4>
                 </span>
                 <div class="ac-order-details">
-                    <span style="width: 25%;">
+                    <span style="width: 25%;" *ngIf = "selectedOrder.CostumerName != null ? !hideCustomerInfo : false">
                         <p>Name</p>
                         <h5>{{selectedOrder.CostumerName}}</h5>
                     </span>
-                    <span style="width: 25%;">
+                    <span style="width: 25%;" *ngIf = "selectedOrder.email != null ? !hideCustomerInfo : false">
                         <p>Email</p>
                         <h5>{{selectedOrder.email}}</h5>
                     </span>
-                    <span style="width: 25%;">
+                    <span style="width: 25%;" *ngIf = "selectedOrder.Phone != null ? !hideCustomerInfo : false">
                         <p>Phone</p>
                         <h5>{{selectedOrder.Phone}}</h5>
                     </span>
