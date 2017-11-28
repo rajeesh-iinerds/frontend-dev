@@ -34,14 +34,14 @@
 	                <span>Quantity</span>
 	                <div class="input-group" style="width: 80%;z-index: 0;">
 	                    <span class="input-group-btn input-control">
-	                        <button type="button" class="btn btn-default btn-number input-control-btn" data-type="minus" data-field="quant[1]" (click)="decrementQuantity(size)" [disabled] = "hideQuantity">
+	                        <button type="button" class="btn btn-default btn-number input-control-btn" data-type="minus" data-field="quant[1]" (click)="decrementQuantity(size)" [disabled] = "!size.cartObject.makeChecked">
 	                            <span class="glyphicon glyphicon-minus"></span>
 	                        </button>
 	                    </span>
 	                    <input type="text" name="quant[1]" class="form-control input-number input-count" style="background: none;" value={{size.quantity}} min="1" max="{{size.inStock}}" [(ngModel)]="size.cartObject.selectedQuantity" disabled>
 
 	                    <span class="input-group-btn">
-	                        <button type="button" class="btn btn-default btn-number input-control-btn" data-type="plus" data-field="quant[1]" (click)="incrementQuantity(size)" [disabled] = "hideQuantity">
+	                        <button type="button" class="btn btn-default btn-number input-control-btn" data-type="plus" data-field="quant[1]" (click)="incrementQuantity(size)" [disabled] = "!size.cartObject.makeChecked">
 	                            <span class="glyphicon glyphicon-plus"></span>
 	                        </button>
 	                    </span>
