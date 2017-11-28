@@ -158,11 +158,11 @@ export class StoreLocationComponent implements OnInit {
 		        let req_body = {
 					"entity_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "",
 					"store_name": this.userInfo.firstName,
-					"ffl" : this.userInfo.ffl,
+					"ffl" : this.userInfo.ffl ? this.userInfo.ffl : 'NULL',
 					"city": this.userInfo.city,
 					"state": this.userInfo.state,
 					"address": JSON.stringify(this.userInfo.address),
-					"phone": this.userInfo.phone,
+					"phone": this.userInfo.phone ? this.userInfo.phone : 'NULL',
 					"fax" : this.userInfo.fax ?  this.userInfo.fax : 'NULL',
 					"email" : this.userInfo.email ?  this.userInfo.email : 'NULL',
 					"zip" : this.userInfo.zip
