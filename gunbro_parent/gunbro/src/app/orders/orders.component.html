@@ -27,7 +27,7 @@
              
               <thead>
                   <tr>
-                      <th>Order #</th>
+                      <th>Order Number</th>
                       <th>Employee Name</th>
                       <th>Retailer Name</th>
                       <!-- <th>Distributor</th> -->
@@ -40,7 +40,7 @@
               </thead>
               <tbody>
                   <tr *ngFor = "let order of orderDetails">
-                      <td>{{order.OrderID ? order.OrderID : ''}}</td>
+                      <td>{{order.OrderNumber ? order.OrderNumber : ''}}</td>
                       <td>{{order.FirstName ? order.FirstName: ''}}</td>
                       <td>{{order.RetailerName && order.RetailerName != 'null' ? order.RetailerName : ''}}</td>
                       <!-- <td>{{order.DistributorName && order.DistributorName != 'null' ? order.DistributorName : ''}}</td> -->
@@ -157,16 +157,16 @@
                 <span class="ac-order-drawer-head" *ngIf="selectedOrder.CostumerName || selectedOrder.email || selectedOrder.Phone">
                     <h4 style="font-size: 13px;">Customer Info</h4>
                 </span>
-                <div class="ac-order-details" *ngIf="selectedOrder.CostumerName || selectedOrder.email || selectedOrder.Phone">
-                    <span style="width: 25%;">
+                <div class="ac-order-details">
+                    <span style="width: 25%;" *ngIf="selectedOrder.CostumerName">
                         <p>Name</p>
                         <h5>{{selectedOrder.CostumerName}}</h5>
                     </span>
-                    <span style="width: 25%;">
+                    <span style="width: 25%;" *ngIf="selectedOrder.email">
                         <p>Email</p>
                         <h5>{{selectedOrder.email}}</h5>
                     </span>
-                    <span style="width: 25%;">
+                    <span style="width: 25%;" *ngIf="selectedOrder.Phone">
                         <p>Phone</p>
                         <h5>{{selectedOrder.Phone}}</h5>
                     </span>

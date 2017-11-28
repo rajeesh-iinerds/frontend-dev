@@ -87,7 +87,6 @@ export class OrdersComponent implements OnInit {
                   var retailer_idUsers = localStorage.getItem("User_Information")?JSON.parse(localStorage.getItem("User_Information"))[0].entity_type == "Retailer" ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId:"":"";
                   this.retailer_id =  (this.userGroup == this.configSuperAdminUser) ? (retailerId == 'All' ? '' : retailerId) : retailer_idUsers;
                   var reqBody=this.retailer_id ?{retailer_id: this.retailer_id}:reqBody={};
-                    console.log("request body : " + reqBody)
                   const url = constant.appcohesionURL.orderList_URL && constant.appcohesionURL.orderList_URL != 'null' ? constant.appcohesionURL.orderList_URL : '';
                   this.http.post(url, reqBody, options).subscribe(data => {
                   this.demoService.loading = false;
