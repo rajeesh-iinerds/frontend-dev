@@ -38,7 +38,7 @@
 	                            <span class="glyphicon glyphicon-minus"></span>
 	                        </button>
 	                    </span>
-	                    <input type="text" name="quant[1]" class="form-control input-number input-count" value={{size.quantity}} min="1" max="{{size.inStock}}" [(ngModel)]="size.cartObject.selectedQuantity">
+	                    <input type="text" name="quant[1]" class="form-control input-number input-count" value={{size.quantity}} min="1" max="{{size.inStock}}" [(ngModel)]="size.cartObject.selectedQuantity" disabled>
 
 	                    <span class="input-group-btn">
 	                        <button type="button" class="btn btn-default btn-number input-control-btn" data-type="plus" data-field="quant[1]" (click)="incrementQuantity(size)" [disabled] = "hideQuantity">

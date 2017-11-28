@@ -62,7 +62,7 @@
                       <span class="glyphicon glyphicon-minus"></span>
                     </button>
                   </span>
-                  <input type="text" name="quantity" class="form-control input-number input-count" style="top: 10px;"  [(ngModel)]="cartItem.quantity" >
+                  <input type="text" name="quantity" class="form-control input-number input-count" style="top: 10px;"  [(ngModel)]="cartItem.quantity" disabled>
                   
                   <span class="input-group-btn">
                     <button [disabled]="cartItem.inStock<=cartBucket[idx].quantity" (click)="increaseQuantity(idx)" type="button" class="btn btn-default btn-number input-control-btn" >
