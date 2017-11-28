@@ -17,7 +17,7 @@ export class ProductSearchComponent implements OnInit {
 	resultssearch: any;
 	cartBucket = [];
 	returnResponse: any;
-
+	cartItemIndex: any;
 	constructor(public dashboardComponent: DashboardComponentComponent, private route: ActivatedRoute, private router: Router, public demoService: DemoService, public commonService: CommonService, public searchProductService: SearchProductService) {
 		this.resultssearch = this.details;
 		this.demoService.showRetailerProfile = false;
@@ -32,15 +32,7 @@ export class ProductSearchComponent implements OnInit {
 				if (response.getIdToken().getJwtToken()) {
 					const jwt = response.getIdToken().getJwtToken();
 					this.demoService.productSearchfromService("wildcard", paramVal, jwt, "");
-					this.demoService.getSessionToken().subscribe((response) => {
-						if (response.getIdToken().getJwtToken()) {
-							const jwt = response.getIdToken().getJwtToken();
-							this.searchProductService.getCartList({ "user_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : "" }, jwt).subscribe((response) => {
-								self.cartBucket = response ? response.json().cartList : [];
-								console.info(self.cartBucket);
-							});
-						}
-					});
+					self.getCartList();
 				}
 			}, (err) => {
 				console.log(err);
@@ -55,77 +47,52 @@ export class ProductSearchComponent implements OnInit {
 			queryParams: detail
 		});
 	}
-	/**
-	 * 
-	 * CART STARTS HERE
-	 *  
-	 */
-	// getCartList() {
-	// 	alert();
-	// 	this.demoService.getSessionToken().subscribe((response) => {
-	// 		if (response.getIdToken().getJwtToken()) {
-	// 			const jwt = response.getIdToken().getJwtToken();
-	// 			this.searchProductService.getCartList({ "user_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : "" }, jwt).subscribe((response) => {
-	// 				this.cartBucket = response ? response.json().cartList : [];
-	// 				this.demoService.loading = false;
-	// 			});
-	// 		}
-	// 	});
-	// }
+	addToCartBucket(event, productItem, isAddToCart) {
+		event.stopPropagation();
+		this.demoService.getSessionToken().subscribe((response) => {
+			if (response.getIdToken().getJwtToken()) {
+				const jwt = response.getIdToken().getJwtToken();
+				this.searchProductService.getCartList({ "user_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : "" }, jwt).subscribe((response) => {
+					this.cartBucket = response ? response.json().cartList : [];
+					this.demoService.loading = false;
+					console.log(parseInt(this.returnQuantity(productItem)) +"<"+parseInt(productItem.inStock));
+					if(parseInt(this.returnQuantity(productItem))<parseInt(productItem.inStock)){
+						this.dashboardComponent.addToCart(event, productItem, isAddToCart)	
+					}
+					
+				});
+			}
+		});		
+	}
+	returnQuantity(cartMap) {
+		var quantity;
+		var index = this.isObjectInTheList(cartMap, this.cartBucket);
+		quantity = index < 0 ? 0 : (this.cartBucket[index].quantity ? this.cartBucket[index].quantity : 0);
+		return quantity;
+	}
 
-	// addToCart(event,cartObject,isAddToCart) {
-	// 	alert();
-	// 	event.stopPropagation();
-	// 	let cartMap = Object.assign({}, cartObject);
-	// 	cartMap.UserID = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : "";
-	// 	cartMap.retailerID = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
-	// 	cartMap.gsin = "3217";
-	// 	cartMap.quantity=isAddToCart?(this.returnQuantity(cartMap) ? parseInt(this.returnQuantity(cartMap)) + 1 : 1):(this.returnQuantity(cartMap) ? parseInt(this.returnQuantity(cartMap)):"");
-	// 	let reqBody = {
-	// 		UserID: localStorage.getItem("User_Information") ? parseInt(JSON.parse(localStorage.getItem("User_Information"))[0].user_id) : "",
-	// 		retailerID: localStorage.getItem("User_Information") ? parseInt(JSON.parse(localStorage.getItem("User_Information"))[0].EntityId) : "",
-	// 		quantity: cartMap.quantity,
-	// 		GSIN: "3217",
-	// 		//GSIN: cartMap.gsin||cartMap.GSIN ? cartMap.gsin ||cartMap.GSIN  : "",
-	// 		distributorID: cartMap.distributor_id ? parseInt(cartMap.distributor_id) : "",
-	// 	}
-	// 	this.demoService.getSessionToken().subscribe((response) => {
-	// 		if (response.getIdToken().getJwtToken()) {
-	// 			const jwt = response.getIdToken().getJwtToken();
-	// 			this.searchProductService.addToCart(reqBody, response).subscribe((response) => {
-	// 				this.returnResponse = response.json();
-	// 				this.returnResponse && this.returnResponse.status.code == constant.statusCode.success_code ?  this.getCartList()  : alert("Add to cart failed");		
-	// 			});
-	// 		}
-	// 	});
-	// }
-	// returnQuantity(cartMap) {
-	// 	alert();
-	// 	var quantity;
-	// 	var index = this.isObjectInTheList(cartMap, this.cartBucket);
-	// 	quantity = index < 0 ? 0 : this.cartBucket[index].quantity;
-	// 	return quantity;
-	// }
-	// isObjectInTheList(obj, list) {
-	// 	alert();
-	// 	var itemIndexz;
-	// 	list.forEach((element, itemIndex) => {
-	// 		if (parseInt(element.gsin) === parseInt(obj.gsin)) {
-	// 			itemIndexz = itemIndex;
-	// 		} else {
-	// 			itemIndex = -1;
-	// 		}
-	// 	});
-	// 	return itemIndexz;
-	// }
-	// decreaseQuantity(index) {
-	// 	alert();
-	// 	this.cartBucket[index].quantity > 1 ? this.cartBucket[index].quantity = parseInt(this.cartBucket[index].quantity) - 1 : "";
-	// }
-	// increaseQuantity(index) {
-	// 	alert();
-	// 	this.cartBucket[index].quantity ? this.cartBucket[index].quantity = parseInt(this.cartBucket[index].quantity) + 1 : "";
-	// }
-
+	isObjectInTheList(obj, list) {
+		this.cartItemIndex = -1;
+		for (var i = 0; i < list.length; i++) {
+			if (parseInt(list[i].gsin) === parseInt(obj.gsin)) {
+				this.cartItemIndex = i;
+				break;
+			} else {
+				this.cartItemIndex = -1;
+			}
+		}
+		return this.cartItemIndex;
+	}
+	getCartList() {
+		this.demoService.getSessionToken().subscribe((response) => {
+			if (response.getIdToken().getJwtToken()) {
+				const jwt = response.getIdToken().getJwtToken();
+				this.searchProductService.getCartList({ "user_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : "" }, jwt).subscribe((response) => {
+					this.cartBucket = response ? response.json().cartList : [];
+					this.demoService.loading = false;
+				});
+			}
+		});
+	}
 
 }

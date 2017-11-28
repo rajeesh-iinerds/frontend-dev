@@ -78,7 +78,7 @@
                   <em>$</em>{{productItem.productPrice}}</strong>
               </span>
               <!-- <img src="assets/demo-assets/dealer1.png" /> -->
-              <button (click)="dashboardComponent.addToCart($event,productItem,true)" class="ac-result-quick-order" style="display: none;width:49%;left:0;">ADD TO CART</button>
+              <button [disabled]="productItem.inStock=='0'" (click)="addToCartBucket($event,productItem,true)" class="ac-result-quick-order" style="display: none;width:49%;left:0;">ADD TO CART</button>
               <button  class="ac-result-quick-order" style="display: none;width:49%;">VIEW DETAILS</button>
               
             </div>
