@@ -25,7 +25,8 @@ export class ShoppingCartComponent implements OnInit {
 	quantityCount: number = 0;
 	cartObject = {
       "subtotal": 0,
-      "selectedQuantity": 0
+      "selectedQuantity": 0,
+      "makeChecked": true
     };
     cartInStockList: any;
     tempList: any;
@@ -68,7 +69,8 @@ export class ShoppingCartComponent implements OnInit {
 		                		for(var i = 0; i < this.cartList.length; i++) {
 		                			this.cartObject = {
 								    	"subtotal": 0,
-								      	"selectedQuantity": 0
+								      	"selectedQuantity": 0,
+								      	"makeChecked": true
 								    };
 						  			this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].quantity ? this.cartList[i].quantity : 0) * Number(this.cartList[i].productPrice ? this.cartList[i].productPrice : 0))) : this.totalAmount;
 						  			this.cartObject['subtotal'] = Number(this.cartList[i].quantity ? this.cartList[i].quantity : 0) * Number(this.cartList[i].productPrice ? this.cartList[i].productPrice : 0);
@@ -76,6 +78,8 @@ export class ShoppingCartComponent implements OnInit {
 						  			this.cartList[i]['cartObject'] = this.cartObject;
 						  			this.quantityCount = this.cartList[i].inStock > 0 ? (this.quantityCount + Number(this.cartList[i].quantity)) : this.quantityCount;
 						  			this.cartObject['selectedQuantity'] = Number(this.cartList[i].quantity);
+						  			this.cartList[i]['cartObject'] = this.cartObject;
+						  			this.cartObject['makeChecked'] = true;
 						  			this.cartList[i]['cartObject'] = this.cartObject;
 							  		this.count = this.cartList[i].inStock > 0 ? (this.count+1) : this.count;
 							  		if(this.cartList[i].inStock > 0){

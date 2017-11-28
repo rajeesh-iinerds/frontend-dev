@@ -1586,7 +1586,7 @@ input[type=radio]:checked ~ label{
 .cart-item-name {
   width: 34%;
   float: left;
-  padding: 5px;
+  padding: 15px;
 }
 .cart-item-name h5 {
   font-size: 12px;
@@ -1596,7 +1596,7 @@ input[type=radio]:checked ~ label{
 .cart-item-msrp {
   width: 15%;
   float: left;
-  padding: 5px;
+  padding: 15px;
 }
 .cart-item-msrp span {
   font-size: 12px;
@@ -1610,12 +1610,12 @@ input[type=radio]:checked ~ label{
 .cart-item-quantity {
   width: 15%;
   float: left;
-  padding: 5px;
+  padding: 15px 10px 5px 10px;
 }
 .cart-item-subtotal {
   width: 15%;
   float: left;
-  padding: 5px;
+  padding: 15px;
 }
 .cart-item-subtotal span {
   font-size: 12px;
@@ -1761,7 +1761,7 @@ span.item-count-notify {
   width: 100%;
   top: 0;
   left: 0;
-  z-index: 555;
+  z-index: 5;
   height: 100%;
   
 }
@@ -2795,7 +2795,7 @@ right: -400px;
 opacity: 0;
 top: 70px;
 width: 320px;
-z-index: 9999;
+z-index: 9;
 }
 .ac-profile-drawer-on .ac-profile-drawer {
 opacity: 1 !important;
