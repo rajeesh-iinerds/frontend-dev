@@ -64,7 +64,7 @@
                       <span class="glyphicon glyphicon-minus"></span>
                     </button>
                   </span>
-                  <input type="text" name="quantity" class="form-control input-number input-count" style="top: 10px;"  [(ngModel)]="cartItem.quantity" disabled>
+                  <input type="text" name="quantity" class="form-control input-number input-count" style="top: 10px;background: none;"  [(ngModel)]="cartItem.quantity" disabled>
                   
                   <span class="input-group-btn">
                     <button [disabled]="cartItem.inStock<=cartBucket[idx].quantity" (click)="increaseQuantity(idx)" type="button" class="btn btn-default btn-number input-control-btn" >
@@ -110,7 +110,7 @@
     <!-- Global Header End -->
     <!-- Generic wrap start -->
     <div class="ac-generic-wrap">
-        <div  class = "loader" [hidden]="!demoService.loading">
+        <div  class = "loaderdashboard" [hidden]="!demoService.loading">
         </div>
       <div [hidden]="demoService.loading">
       <router-outlet></router-outlet>
@@ -226,8 +226,7 @@
 
                <input class="editableContacts" type="text" id="phone_number" placeholder="Enter your phone number" [(ngModel)]= "retailer.UserPhone" name="phone_number" required pattern="[0-9]*" minlength="1" maxlength="10" #phone_number="ngModel"> 
                <div  class="ac-required-field">
-                 <div class="clearfix"></div>
-                  <div [hidden]="phone_number.valid">
+                  <div class="validationText" [hidden]="phone_number.valid">
                    Accept only numbers with min 1 length
                   </div>
               </div>

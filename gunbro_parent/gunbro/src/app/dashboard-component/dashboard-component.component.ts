@@ -68,7 +68,6 @@ export class DashboardComponentComponent implements OnInit {
   cartBucket: any = [];
   returnResponse: any;
   cartItemIndex: number;
-  isUpdating:boolean=false;
   constructor(private MessagePopupComponent: MessagePopupComponent, private searchProductService: SearchProductService, private route: ActivatedRoute, private router: Router, public demoService: DemoService, private http: Http) {
     this.hideMFGSearch = true;
     this.hideGSINSearch = true;
@@ -169,7 +168,7 @@ export class DashboardComponentComponent implements OnInit {
     this.demoService.showRetailerProfile = true;
     event.stopPropagation()
     this.retailerProfileDetails = {};
-    this.demoService.loading = true;
+    this.demoService.democomponentLoading = true;
     return this.demoService.getSessionToken().subscribe((response) => {
       if (response.getIdToken().getJwtToken()) {
         const jwt = response.getIdToken().getJwtToken();
@@ -180,9 +179,9 @@ export class DashboardComponentComponent implements OnInit {
           headers: headers
         });
         var req_body = { "userId": this.userId };
-        const url = constant.appcohesionURL.retailerProfile_URL;
+        const url = constant.appcohesionURL.retailerProfile_URL ? constant.appcohesionURL.retailerProfile_URL : "";
         this.http.post(url, req_body, options).subscribe(data => {
-          this.demoService.loading = false;
+          this.demoService.democomponentLoading = false;
           this.result = data ? data.json() : {};
           if (this.result && this.result.status) {
             if (this.result.status.code == constant.statusCode.success_code) {
@@ -269,7 +268,7 @@ export class DashboardComponentComponent implements OnInit {
     cartMap.retailerID = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
     // cartMap.gsin="3213";
     cartMap.quantity = isAddToCart ? (this.returnQuantity(cartMap) ? parseInt(this.returnQuantity(cartMap)) + 1 : 1) : (this.returnQuantity(cartMap) ? parseInt(this.returnQuantity(cartMap)) : "");
-    this.isUpdating=isAddToCart ? false:true;
+
     let reqBody = {
       UserID: localStorage.getItem("User_Information") ? parseInt(JSON.parse(localStorage.getItem("User_Information"))[0].user_id) : "",
       retailerID: localStorage.getItem("User_Information") ? parseInt(JSON.parse(localStorage.getItem("User_Information"))[0].EntityId) : "",
@@ -285,7 +284,6 @@ export class DashboardComponentComponent implements OnInit {
         this.searchProductService.addToCart(reqBody, response).subscribe((response) => {
           this.returnResponse = response.json();
           this.returnResponse && this.returnResponse.status.code == constant.statusCode.success_code ? this.getCartList() : alert("Add to cart failed");
-          this.isUpdating=false;
         });
       }
     });
