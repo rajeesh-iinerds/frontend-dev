@@ -49,6 +49,8 @@
           <img src="assets/shopping-cart.svg">
           <span class="item-count-notify">{{this.cartBucket.length}}</span>
           <div class="cart-hover-field">
+              <div  class = "loader" [hidden]="!isUpdating"> </div>
+              
             <div class="cart-hover-field-card" *ngFor="let cartItem of cartBucket;let idx = index">
               <div class="cart-item-image">
                 <img src="{{cartItem.smallImage}}">
