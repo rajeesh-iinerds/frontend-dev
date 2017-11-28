@@ -60,7 +60,7 @@ export class RetailerMarkupComponent implements OnInit {
     }
 
     ngOnInit() {
-       
+       console.log("retailer category : " + this.demoService.retailerCategory)
         this.demoService.listRetailorDetails();
         // this.listRetailorDetails().subscribe((response) => {
         //     console.log("function call retailer detailes : " + JSON.stringify(response));
