@@ -176,7 +176,7 @@
       </div>
       <div class="customer-info-details" [hidden]="!isSideBarCustomerInfo && (!customerInfoUpdateMap.firstName||!customerInfoUpdateMap.lastName||!customerInfoUpdateMap.streetAddress||!customerInfoUpdateMap.email||!customerInfoUpdateMap.phoneNumber)">
           <h5>Customer Info
-            <img src="assets/images/edit.svg">
+            <!-- <img src="assets/images/edit.svg"> -->
           </h5>
           <span class="custom-name" ><span *ngIf="customerInfoUpdateMap.firstName">{{customerInfoUpdateMap.firstName}}</span>&nbsp;<span *ngIf="customerInfoUpdateMap.lastName">{{customerInfoUpdateMap.lastName}}</span></span>
           <span class="custom-address" *ngIf="customerInfoUpdateMap.streetAddress">{{customerInfoUpdateMap.streetAddress}}</span>
@@ -185,7 +185,7 @@
         </div>
       <div class="customer-info-details shipping-info-details" [hidden]="shippingInfoMap.retailerName==''">
         <h5>Shipping Info
-          <img src="assets/images/edit.svg">
+          <!-- <img src="assets/images/edit.svg"> -->
         </h5>
         <label>Contact Person</label>
         <span class="custom-name">{{shippingInfoMap.retailerName}}</span>

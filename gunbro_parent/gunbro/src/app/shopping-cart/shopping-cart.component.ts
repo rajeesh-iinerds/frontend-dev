@@ -18,7 +18,6 @@ import { DashboardComponentComponent } from '../dashboard-component/dashboard-co
 export class ShoppingCartComponent implements OnInit {
 
 	totalAmount: any;
-	// list: any;
 	count: number = 0;
 	results: any;
 	cartList: any;
@@ -109,7 +108,6 @@ export class ShoppingCartComponent implements OnInit {
   			this.hideQuantity = true;
   			this.count--;
   			this.totalAmount = this.totalAmount-(Number(size.productPrice) * Number(size.cartObject.selectedQuantity));
-  			// this.quantityCount = this.quantityCount - 1;
   			this.quantityCount = this.quantityCount - Number(size.cartObject.selectedQuantity);
   			/* Remove from place order array if unchecked */
   			for(var i = 0; i < this.cartInStockList.length; i++) {
@@ -164,9 +162,12 @@ export class ShoppingCartComponent implements OnInit {
             	this.results = data.json();
             	if(this.results && this.results.status){
             		if(this.results.status.code == constant.statusCode.success_code){
-            			this.count--;
-            			this.totalAmount = this.totalAmount-(Number(obj.productPrice) * Number(obj.cartObject.selectedQuantity));
-            			this.quantityCount = this.quantityCount - Number(obj.cartObject.selectedQuantity);
+            			// Quantity & total change only if deleted item has inStock available
+            			if(obj.inStock > 0) {
+            				this.count--;
+            				this.totalAmount = this.totalAmount-(Number(obj.productPrice) * Number(obj.cartObject.selectedQuantity));
+            				this.quantityCount = this.quantityCount - Number(obj.cartObject.selectedQuantity);
+            			}
             			const index: number = this.cartList.indexOf(obj);
 					    if (index !== -1) {
 					        this.cartList.splice(index, 1);
@@ -185,10 +186,6 @@ export class ShoppingCartComponent implements OnInit {
 			  					const index: number = this.cartInStockList.indexOf(obj);
 							    if (index !== -1) {
 							        this.cartInStockList.splice(index, 1);
-							  //       this.cartDetails().subscribe((response) => {
-									// },
-									// (err) => console.error(err)
-									// );
 							    }
 			  				}
 			  			}
