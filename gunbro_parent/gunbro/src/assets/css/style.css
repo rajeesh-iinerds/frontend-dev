@@ -2556,6 +2556,10 @@ background-color: #dbdbdb;
 /*order list drawer ends*/
 
 /*profile page starts*/
+.validationText{
+  position: relative;
+  top: 8px;
+}
 .ac-profile-details {
   padding: 0px 50px;
 }
