@@ -140,14 +140,14 @@ export class OrderPlacementComponent implements OnInit {
                     if (resp.status && (resp.status.code == constant.statusCode.success_code)) {
                         this.showSuccessPopup = !this.showSuccessPopup;
                         // if success remove object from cart bucket
-                        for (var i = 0; i < this.cartInfo.length; i++) {
+                        for (var i = 0; i < this.dashboardComponent.cartBucket.length; i++) {
                             for (var j = 0; j < resp.data[0].OrderDetails.length; j++) {
-                                if(this.cartInfo[i].SKUNumber == resp.data[0].OrderDetails[j].SKUNumber) {
-                                    const index: number = this.cartInfo.indexOf(this.cartInfo[i]);
+                                if(this.dashboardComponent.cartBucket[i].SKUNumber == resp.data[0].OrderDetails[j].SKUNumber) {
+                                    const index: number = this.dashboardComponent.cartBucket.indexOf(this.dashboardComponent.cartBucket[i]);
                                     if (index !== -1) {
-                                        this.cartInfo.splice(index, 1);
+                                        this.dashboardComponent.cartBucket.splice(index, 1);
                                     }
-                                    this.dashboardComponent.cartBucket = this.cartInfo;
+                                    // this.dashboardComponent.cartBucket = this.cartInfo;
                                 }
                             }
                         }
