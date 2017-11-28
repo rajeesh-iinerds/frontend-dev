@@ -22,17 +22,19 @@ export class OrderPlacementComponent implements OnInit {
     storeListOfMaps: any;
     shippingInfoMap: any = {};
     jwt: any;
-    customerInfoUpdateMap: any = {};
-    customerInfoForm: any;
-    isSideBarCustomerInfo: boolean = false;
-    isSideBarShippingInfo: boolean = false;
-    showSuccessPopup: boolean = false;
-    showErrorPopup: boolean = false;
+    customerInfoUpdateMap:any={};
+    customerInfoForm:any;
+    isSideBarCustomerInfo:boolean=false;
+    isSideBarShippingInfo:boolean=false;
+    showSuccessPopup:boolean=false;
+    showErrorPopup:boolean=false;
+    allStoreList: any;
 
     constructor(private MessagePopupComponent: MessagePopupComponent, private http: Http, private demoService: DemoService, private route: ActivatedRoute, private router: Router, public cartService: ShoppingCartService) {
     }
 
     ngOnInit() {
+        this.shippingInfoMap.isFFLRequired = false;
         this.cartInfo = this.cartService.getCartInfo();
         console.log('****** :: ', this.cartInfo);
         for (var i = 0; i < this.cartInfo.length; i++) {
@@ -43,23 +45,23 @@ export class OrderPlacementComponent implements OnInit {
         this.customerInfoUpdateMap.lastName = "";
         this.demoService.getSessionToken().subscribe((response) => {
             if (response.getIdToken().getJwtToken()) {
-                const jwt = response.getIdToken().getJwtToken();
-                this.jwt = jwt;
-                let headers = new Headers({ 'Authorization': jwt });
-                let options = new RequestOptions({ headers: headers });
-                let req_body = {
-                    "entityId": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : ""
-                };
-                const url = constant.appcohesionURL.retailerStore_URL && constant.appcohesionURL.retailerStore_URL != 'null' ? constant.appcohesionURL.retailerStore_URL : '';
-                this.http.post(url, req_body, options).subscribe(data => {
-                    this.results = data.json();
-                    if (this.results && this.results.status) {
-                        if (this.results.status.code == 200) {
-                            this.storeListOfMaps = this.results.data;
-                            this.demoService.loading = false;
-                        }
-                    }
-                });
+              const jwt = response.getIdToken().getJwtToken();
+              this.jwt = jwt;
+              let headers = new Headers({ 'Authorization': jwt });
+              let options = new RequestOptions({ headers: headers });
+              let req_body = {
+                "entityId": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : ""              };
+              const url = constant.appcohesionURL.retailerStore_URL && constant.appcohesionURL.retailerStore_URL != 'null' ? constant.appcohesionURL.retailerStore_URL : '';
+              this.http.post(url, req_body, options).subscribe(data => {
+                this.results = data.json();
+                if (this.results && this.results.status) {
+                  if (this.results.status.code == 200) {
+                    this.storeListOfMaps = this.results.data;
+                    this.allStoreList = this.results.data;
+                    this.demoService.loading=false;
+                  }
+                }
+              });
             }
         }, err => {
             console.log("error on order", err)
@@ -69,9 +71,8 @@ export class OrderPlacementComponent implements OnInit {
     }
     customerInfoUpdate(customerInfoMap, customerInfoForm) {
         this.customerInfoUpdateMap = Object.assign({}, customerInfoMap);
-        this.isSideBarCustomerInfo=Object.keys(customerInfoMap).length === 0 && customerInfoMap.constructor === Object?true:false;
-        this.customerInfoUpdateMap.firstName = "";
-        this.customerInfoUpdateMap.lastName = "";
+        this.isSideBarCustomerInfo=true;
+        
     }
 
     placeOrder(shippingInfoForm, customerInfoForm) {
@@ -176,6 +177,25 @@ export class OrderPlacementComponent implements OnInit {
             });
 
         }
+    }
+    onFFLChange(event) {
+        console.log(event, this.storeListOfMaps.length);
+        // this.allStoreList = this.storeListOfMaps;
+        console.log('alllll',this.allStoreList.length);
+        if(event && event == true) {
+            var temp = [];
+            // const storeListOfMaps: any;
+            for(var i = 0; i < this.storeListOfMaps.length; i++) {
+                if(this.storeListOfMaps[i].StoreFFLId && this.storeListOfMaps[i].FFLNumber) {
+                    temp.push(this.storeListOfMaps[i]);
+                }
+            }
+            this.storeListOfMaps = temp;
+        }
+        else {
+            this.storeListOfMaps = this.allStoreList;
+        }
+        console.log(this.storeListOfMaps.length);
     }
 
 }

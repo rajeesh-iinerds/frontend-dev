@@ -22,7 +22,8 @@
                   <!-- <img src="assets/demo-assets/dealer6.png"> -->
                 </div>
                 <span class="ac-prod-feat">Distributor<br><strong>{{demoService.productInfo && demoService.productInfo.distributor_name ? demoService.productInfo.distributor_name : ''}}</strong></span>
-                <span class="ac-prod-feat">UPC<strong><br>{{demoService.productInfo && demoService.productInfo.upc ? demoService.productInfo.upc : ''}}</strong> <i class="ac-tool-tip" title="Tooltip Descripion Here"></i></span>
+                <span class="ac-prod-feat">UPC<strong><br>{{demoService.productInfo && demoService.productInfo.upc ? demoService.productInfo.upc : ''}}</strong> <!-- <i class="ac-tool-tip" title="Tooltip Descripion Here"></i> -->
+                </span>
                 <span class="ac-store-location">Select a Shipping method<br>
                  
                   <select name="selectedShipping" [(ngModel)]="selectedShipping">

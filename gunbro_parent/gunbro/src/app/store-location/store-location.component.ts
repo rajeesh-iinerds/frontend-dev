@@ -82,7 +82,7 @@ export class StoreLocationComponent implements OnInit {
             				this.storeLocations.RetailerEmail = this.results.data[i].RetailerEmail ? this.results.data[i].RetailerEmail : '';
             				this.storeLocations.StoreFax = this.results.data[i].StoreFax && this.results.data[i].StoreFax !='null' ? this.results.data[i].StoreFax : '';
             				this.storeLocations.StoreEmail = this.results.data[i].StoreEmail ? this.results.data[i].StoreEmail : '';
-            				this.storeLocations.FFLNumber = this.results.data[i].FFLNumber ? this.results.data[i].FFLNumber : '';
+            				this.storeLocations.FFLNumber = this.results.data[i].FFLNumber ? this.results.data[i].FFLNumber : 'Not available';
 
 	                        this.retailerStoreDetails.push(this.storeLocations);
 	                      }
