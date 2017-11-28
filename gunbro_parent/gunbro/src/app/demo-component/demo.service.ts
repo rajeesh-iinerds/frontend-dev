@@ -290,6 +290,7 @@ export class DemoService {
         this.results = '';
         this.globalresultForLoop = '';
         var data = '';
+        this.loading = true;
         this.productsearch_name = request_productsearch_name ? request_productsearch_name : "";
         this.productsearch_type = request_productsearch_type ? request_productsearch_type : "";
         // this.product_manufacturerId = request_manufacturerId ? request_manufacturerId : "";

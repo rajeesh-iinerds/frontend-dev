@@ -140,7 +140,7 @@ export class OrdersComponent implements OnInit {
           this.selectedOrder.ShipToCity = this.orderDetails[i].StoreCity ? this.orderDetails[i].StoreCity : "" ;
           this.selectedOrder.StoreZip = this.orderDetails[i].StoreZip ? this.orderDetails[i].StoreZip : "";
           this.selectedOrder.FFL =  this.orderDetails[i].FFL ? this.orderDetails[i].FFL : '';
-          this.selectedOrder.orderPrice = this.orderDetails[i].OrderPrice;
+          this.selectedOrder.orderPrice = this.orderDetails[i].OrderPrice ? this.orderDetails[i].OrderPrice : "";
         }
      }
    }

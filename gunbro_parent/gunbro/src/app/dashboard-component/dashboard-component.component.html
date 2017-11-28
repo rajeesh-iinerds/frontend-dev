@@ -227,15 +227,13 @@
                 <div class="contact-info-wrapper" *ngIf="demoService.showEditRetailerView == true">{{retailer.UserEmail}}</div>
               
               <div class="contact-info-wrapper contact-call" >
-              <input type="text" class="editableContacts" id="phone_number" required minlength="1" maxlength="10" [(ngModel)]="retailer.UserPhone" pattern="^(0|[1-9][0-9]*)$" placeholder="Enter your phone number" name="phone_number" #phone_number="ngModel">
+              <input type="text" class="editableContacts" id="phone_number" required minlength="10" maxlength="10"  [(ngModel)]="retailer.UserPhone" pattern="^(0|[1-9][0-9]*)$" placeholder="Enter your phone number" name="phone_number" #phone_number="ngModel">
               <div *ngIf="phone_number.errors && (phone_number.dirty || phone_number.touched)" class="ac-required-field">
                     
-                    <div [hidden]="!phone_number.errors.minlength">
-                        Phone number must be at least 1 characters long.
+                    <div [hidden]="phone_number.errors.minlength">
+                        Phone number must be at least 10 characters long.
                     </div>
-                    <div [hidden]="!phone_number.errors.maxlength">
-                        Phone number cannot be more than 10 characters long.
-                    </div>
+                  
                     <div [hidden]="!phone_number.errors.pattern">
                         Invalid Phone Number
                       </div>
