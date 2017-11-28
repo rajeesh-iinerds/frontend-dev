@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+
 import { MessagePopupComponent } from '../../shared/component/message-popup/message-popup.component'
 import { DemoService } from '../../demo-component/demo.service';
 import { ShoppingCartService } from '../shopping-cart.service';
@@ -196,11 +197,9 @@ export class OrderPlacementComponent implements OnInit {
     }
     onFFLChange(event) {
         console.log(event, this.storeListOfMaps.length);
-        // this.allStoreList = this.storeListOfMaps;
         console.log('alllll',this.allStoreList.length);
         if(event && event == true) {
             var temp = [];
-            // const storeListOfMaps: any;
             for(var i = 0; i < this.storeListOfMaps.length; i++) {
                 if(this.storeListOfMaps[i].StoreFFLId && this.storeListOfMaps[i].FFLNumber) {
                     temp.push(this.storeListOfMaps[i]);
