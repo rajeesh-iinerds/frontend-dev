@@ -2566,12 +2566,14 @@ span.order-inprogress-Btn {
 }
 .hhhh {
   float: left;
-  height: 130px;
+  height: auto;
+  max-height: 135px;
   width: 100%;
   overflow: auto;
+  background-color: #f8f8f8;
 }
 .product-info-table tr{
-border-bottom: 1px solid #dbdbdb;
+border-bottom: 1px solid #eeeeee;
 font-size: 13px;
 }
 .product-info-table th, td{
