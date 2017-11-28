@@ -630,6 +630,7 @@ padding-right: 200px;
   display: inline-block;
   max-width: 350px;
   width: 100%;
+  cursor: pointer;
 }
 .ac-single-stat-box {
   margin: 20px 0;
