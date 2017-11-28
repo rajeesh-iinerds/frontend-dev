@@ -1,4 +1,4 @@
-  
+
       <!-- Generic wrap start -->
       <div class="ac-generic-wrap">
         <div class="container-fluid" *ngIf="cartList && cartList.length">
@@ -24,11 +24,11 @@
 	                  <img [src]="size.largeImage ? size.largeImage : size.smallImage ? size.smallImage : ''">
 	                </div>
 	                <div class="cart-item-name">
-	                  <h5>{{size.product_Name}}</h5>
+	                  <h5>{{size.product_Name ? size.product_Name : ''}}</h5>
 	                </div>
 	                <div class="cart-item-msrp">
 	                  <span>Price</span>
-	                  <h6>{{size.productPrice}}</h6>
+	                  <h6>{{size.productPrice ? size.productPrice : 0}}</h6>
 	                </div>
 	                <div class="cart-item-quantity">
 	                <span>Quantity</span>
@@ -55,7 +55,7 @@
 	                <div class="cart-item-removeButton" (click) = "removeFromCart(size)"></div>
               </div>
               <div class="cart-bottom-buttons">
-                <button class="cart-place-order" [disabled]="!cartInStockList.length" (click)="navigateToCheckoutPage()">Checkout</button>
+                <button class="cart-place-order" [disabled]="(!cartInStockList.length || totalAmount == 0)" (click)="navigateToCheckoutPage()">Checkout</button>
                 <button class="cart-place-order cart-continue-shipping" (click)="backClicked()">Continue Shopping</button>
               </div>
             </div>
