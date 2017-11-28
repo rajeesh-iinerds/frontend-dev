@@ -17,13 +17,6 @@ import { DashboardComponentComponent } from '../dashboard-component/dashboard-co
 })
 export class ShoppingCartComponent implements OnInit {
 
-	dummy: any[] = [
-		{"name": "American Classic 1911 Amigo 45 ACP 3.5", "price": "129.00", "id": "101"},
-		{"name": "Ruger", "price": "230.00", "id": "102"},
-		{"name": "Hornady", "price": "112.00", "id": "103"},
-		{"name": "Test", "price": "150.00", "id": "104"},
-		{"name": "Dump", "price": "500.00", "id": "105"}
-	];
 	totalAmount: any;
 	// list: any;
 	count: number = 0;
@@ -78,8 +71,8 @@ export class ShoppingCartComponent implements OnInit {
 								    	"subtotal": 0,
 								      	"selectedQuantity": 0
 								    };
-						  			this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].quantity) * Number(this.cartList[i].productPrice))) : this.totalAmount;
-						  			this.cartObject['subtotal'] = Number(this.cartList[i].quantity) * Number(this.cartList[i].productPrice);
+						  			this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].quantity ? this.cartList[i].quantity : 0) * Number(this.cartList[i].productPrice ? this.cartList[i].productPrice : 0))) : this.totalAmount;
+						  			this.cartObject['subtotal'] = Number(this.cartList[i].quantity ? this.cartList[i].quantity : 0) * Number(this.cartList[i].productPrice ? this.cartList[i].productPrice : 0);
 						  			// console.log('+++++++++++++', this.cartObject);
 						  			this.cartList[i]['cartObject'] = this.cartObject;
 						  			this.quantityCount = this.cartList[i].inStock > 0 ? (this.quantityCount + Number(this.cartList[i].quantity)) : this.quantityCount;

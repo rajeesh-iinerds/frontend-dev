@@ -7,6 +7,7 @@ import { MessagePopupComponent } from '../../shared/component/message-popup/mess
 import { DemoService } from '../../demo-component/demo.service';
 import { ShoppingCartService } from '../shopping-cart.service';
 import * as constant from '../../shared/config';
+import { DashboardComponentComponent } from '../../dashboard-component/dashboard-component.component'
 
 @Component({
     selector: 'app-order-placement',
@@ -30,7 +31,10 @@ export class OrderPlacementComponent implements OnInit {
     showErrorPopup:boolean=false;
     allStoreList: any;
 
-    constructor(private MessagePopupComponent: MessagePopupComponent, private http: Http, private demoService: DemoService, private route: ActivatedRoute, private router: Router, public cartService: ShoppingCartService) {
+    constructor(private MessagePopupComponent: MessagePopupComponent, private http: Http, 
+        private demoService: DemoService, private route: ActivatedRoute, 
+        private router: Router, public cartService: ShoppingCartService,
+        public dashboardComponent: DashboardComponentComponent) {
     }
 
     ngOnInit() {
@@ -134,6 +138,18 @@ export class OrderPlacementComponent implements OnInit {
                 if (resp) {
                     if (resp.status && (resp.status.code == constant.statusCode.success_code)) {
                         this.showSuccessPopup = !this.showSuccessPopup;
+                        // if success remove object from cart bucket
+                        for (var i = 0; i < this.cartInfo.length; i++) {
+                            for (var j = 0; j < resp.data[0].OrderDetails.length; j++) {
+                                if(this.cartInfo[i].SKUNumber == resp.data[0].OrderDetails[j].SKUNumber) {
+                                    const index: number = this.cartInfo.indexOf(this.cartInfo[i]);
+                                    if (index !== -1) {
+                                        this.cartInfo.splice(index, 1);
+                                    }
+                                    this.dashboardComponent.cartBucket = this.cartInfo;
+                                }
+                            }
+                        }
                     }
                     else if (resp.status && (resp.status.code == constant.statusCode.error_code)) {
                         this.showErrorPopup = !this.showErrorPopup;

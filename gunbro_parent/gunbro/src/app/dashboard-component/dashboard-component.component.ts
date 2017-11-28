@@ -168,7 +168,7 @@ export class DashboardComponentComponent implements OnInit {
     this.demoService.showRetailerProfile = true;
     event.stopPropagation()
     this.retailerProfileDetails = {};
-    this.demoService.loading = true;
+    this.demoService.democomponentLoading = true;
     return this.demoService.getSessionToken().subscribe((response) => {
       if (response.getIdToken().getJwtToken()) {
         const jwt = response.getIdToken().getJwtToken();
@@ -179,9 +179,9 @@ export class DashboardComponentComponent implements OnInit {
           headers: headers
         });
         var req_body = { "userId": this.userId };
-        const url = constant.appcohesionURL.retailerProfile_URL;
+        const url = constant.appcohesionURL.retailerProfile_URL ? constant.appcohesionURL.retailerProfile_URL : "";
         this.http.post(url, req_body, options).subscribe(data => {
-          this.demoService.loading = false;
+          this.demoService.democomponentLoading = false;
           this.result = data ? data.json() : {};
           if (this.result && this.result.status) {
             if (this.result.status.code == constant.statusCode.success_code) {

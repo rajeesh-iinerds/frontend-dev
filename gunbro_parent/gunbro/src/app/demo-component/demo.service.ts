@@ -64,7 +64,8 @@ export class DemoService {
     showEditRetailerView: boolean = false;
     retailerDetails: any;
     showdefaultInventoryPop: boolean = false;
-
+    democomponentLoading: boolean = false;
+    
     constructor(private http: Http, private router: Router,private commonService:CommonService) {
         console.log(constant.appcohesionURL);
         this.showclickorder = false;
@@ -244,15 +245,15 @@ export class DemoService {
 
     getSessionToken(): Observable < any > {
         var self = this;
-        this.loading = true;
+        // this.loading = true;
         return Observable.create(observer => {
             var poolData = constant.userPoolData;
             var userPool = new CognitoUserPool(poolData);
             var cognitoUser = userPool.getCurrentUser();
-            console.log("congintio user : " + cognitoUser);
+            //console.log("congintio user : " + cognitoUser);
             if (cognitoUser != null) {
                 cognitoUser.getSession(function(err, session) {
-                    console.log('session validity: ' + session.getIdToken().getJwtToken());
+                    //console.log('session validity: ' + session.getIdToken().getJwtToken());
                     if (err) {
                         console.log(err);
                         err => err.json();
