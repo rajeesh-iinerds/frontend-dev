@@ -38,7 +38,7 @@
 	                            <span class="glyphicon glyphicon-minus"></span>
 	                        </button>
 	                    </span>
-	                    <input type="text" name="quant[1]" class="form-control input-number input-count" value={{size.quantity}} min="1" max="{{size.inStock}}" [(ngModel)]="size.cartObject.selectedQuantity" disabled>
+	                    <input type="text" name="quant[1]" class="form-control input-number input-count" style="background: none;" value={{size.quantity}} min="1" max="{{size.inStock}}" [(ngModel)]="size.cartObject.selectedQuantity" disabled>
 
 	                    <span class="input-group-btn">
 	                        <button type="button" class="btn btn-default btn-number input-control-btn" data-type="plus" data-field="quant[1]" (click)="incrementQuantity(size)" [disabled] = "hideQuantity">
@@ -62,8 +62,8 @@
             <div class="col-xs-12 col-sm-12 col-lg-3 cart-order-summery">
               <h3>Order Summary</h3>
               <div class="" style="padding: 10px 0px;border-bottom: 1px solid #eaeaea;">
-                <span>Items</span>
                 <span>{{quantityCount}}</span>
+                <span>Item(s)</span>
                 <span class="pull-right">${{totalAmount | number : '1.2-2'}}</span>
               </div>
               <!-- <div class="" style="padding: 10px 0px;border-bottom: 1px solid #eaeaea;">
@@ -71,7 +71,7 @@
                 <span class="pull-right">$50.00</span>
               </div> -->
               <div class="" style="padding: 10px 0px;">
-                <em class="selected-items-count">Item selected {{count}} only</em>
+                <em class="selected-items-count">Item selected {{count}} </em>
                 <span class="cart-payable">Amount Payable</span>
                 <span class="cart-payable pull-right">${{totalAmount | number : '1.2-2'}}</span>
               </div>
