@@ -22,6 +22,7 @@ export class DashboardComponentComponent implements OnInit {
   productsearch_name: any;
   hideMFGSearch: boolean = false;
   hideGSINSearch: boolean = true;
+  updatingProfile : boolean = true;
   values = [
     { "name": 'Search Type', key: '' },
     { "name": 'GSIN', key: 'gsin' },
@@ -59,6 +60,7 @@ export class DashboardComponentComponent implements OnInit {
   retailerProfileDetails: any;
   userId: any;
   result: any;
+  retailerProfileloading : boolean = false;
   editRetailerDetails: any;
   updateRetailerProfilePopup: boolean = false;
   successTitle: string;
@@ -163,12 +165,13 @@ export class DashboardComponentComponent implements OnInit {
 
   // Method for showing Retailer profile 
   retailerProfile(event) {
+    this.retailerProfileloading = true;
     //  console.log("usergroup : " + this.userGroup);
     //  console.log("this.configSuperAdminUserGroup : " + this.configSuperAdminUserGroup)
     this.demoService.showRetailerProfile = true;
     event.stopPropagation()
     this.retailerProfileDetails = {};
-    this.demoService.democomponentLoading = true;
+    //this.demoService.democomponentLoading = true;
     return this.demoService.getSessionToken().subscribe((response) => {
       if (response.getIdToken().getJwtToken()) {
         const jwt = response.getIdToken().getJwtToken();
@@ -181,7 +184,8 @@ export class DashboardComponentComponent implements OnInit {
         var req_body = { "userId": this.userId };
         const url = constant.appcohesionURL.retailerProfile_URL ? constant.appcohesionURL.retailerProfile_URL : "";
         this.http.post(url, req_body, options).subscribe(data => {
-          this.demoService.democomponentLoading = false;
+          this.retailerProfileloading = false;
+         // this.demoService.democomponentLoading = false;
           this.result = data ? data.json() : {};
           if (this.result && this.result.status) {
             if (this.result.status.code == constant.statusCode.success_code) {
@@ -215,7 +219,8 @@ export class DashboardComponentComponent implements OnInit {
 
   // Method for updating retailer profile
   updateRetailerProfile(retailer) {
-    this.demoService.loading = true;
+  
+   // this.demoService.democomponentLoading = true;
     return this.demoService.getSessionToken().subscribe((response) => {
       if (response.getIdToken().getJwtToken()) {
         const jwt = response.getIdToken().getJwtToken();
@@ -233,7 +238,8 @@ export class DashboardComponentComponent implements OnInit {
         };
         const url = constant.appcohesionURL.updateRetailerProfile_URL ? constant.appcohesionURL.updateRetailerProfile_URL : "";
         this.http.post(url, req_body, options).subscribe(data => {
-          this.demoService.loading = false;
+        
+         // this.demoService.democomponentLoading = false;
           this.result = data ? data.json() : {};
           if (this.result && this.result.status) {
             if (this.result.status.code == constant.statusCode.success_code) {
@@ -241,6 +247,7 @@ export class DashboardComponentComponent implements OnInit {
               this.successTitle = constant.retailerProfile_messages.success_title;
               this.successDescription = constant.retailerProfile_messages.success_description;
               this.retailerProfile(event);
+             
               this.demoService.showEditRetailerView = !this.demoService.showEditRetailerView;
               this.demoService.showRetailerProfile = !this.demoService.showRetailerProfile
               //  this.demoService.showEditRetailerView = this.updateRetailerProfilePopup ? false : true; 

@@ -64,7 +64,7 @@ export class DemoService {
     showEditRetailerView: boolean = false;
     retailerDetails: any;
     showdefaultInventoryPop: boolean = false;
-    democomponentLoading: boolean = false;
+    popupLoading: boolean = false;
     
     constructor(private http: Http, private router: Router,private commonService:CommonService) {
         console.log(constant.appcohesionURL);

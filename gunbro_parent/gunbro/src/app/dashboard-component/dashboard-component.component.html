@@ -110,7 +110,7 @@
     <!-- Global Header End -->
     <!-- Generic wrap start -->
     <div class="ac-generic-wrap">
-        <div  class = "loaderdashboard" [hidden]="!demoService.loading">
+        <div  class = "loader" [hidden]="!demoService.loading">
         </div>
       <div [hidden]="demoService.loading">
       <router-outlet></router-outlet>
@@ -122,8 +122,10 @@
 
 
     <!-- profile drawer : START -->
+
     <div class="ac-profile-drawer" style="right:-400px;opacity:0;">
-        <span class="addRetailerCloseDrawer profile-drawer-close" (click)="demoService.showRetailerProfile = false"></span>
+        <div  class = "loaderdashboard" [hidden]="!retailerProfileloading"> </div>
+      <span class="addRetailerCloseDrawer profile-drawer-close" (click)="demoService.showRetailerProfile = false"></span>
         <div class="profile-header">
           <h4>PROFILE</h4>
         </div>
@@ -174,12 +176,14 @@
             <button type="submit" class="btn btn-default" (click)="editRetailerProfile($event)">EDIT PROFILE</button>
           </span>
         </div>
+       
       </div>
       <!-- profile drawer : END -->
 
    <!-- edit profile drawer starts -->
    <form class="ac-create-employee-body" #employeeForm="ngForm">
       <div class="ac-edit-profile-drawer" style="right:-400px;opacity:0;">
+        
           <span class="addRetailerCloseDrawer profile-drawer-close" (click)="demoService.showEditRetailerView = false"></span>
           <div class="clearfix"></div>
           <div class="profile-header">
@@ -223,14 +227,26 @@
                 <div class="contact-info-wrapper" *ngIf="demoService.showEditRetailerView == true">{{retailer.UserEmail}}</div>
               
               <div class="contact-info-wrapper contact-call" >
-
-               <input class="editableContacts" type="text" id="phone_number" placeholder="Enter your phone number" [(ngModel)]= "retailer.UserPhone" name="phone_number" required pattern="[0-9]*" minlength="1" maxlength="10" #phone_number="ngModel"> 
-               <div  class="ac-required-field">
+              <input type="text" class="editableContacts" id="phone_number" required minlength="1" maxlength="10" [(ngModel)]="retailer.UserPhone" pattern="^(0|[1-9][0-9]*)$" placeholder="Enter your phone number" name="phone_number" #phone_number="ngModel">
+              <div *ngIf="phone_number.errors && (phone_number.dirty || phone_number.touched)" class="ac-required-field">
+                    
+                    <div [hidden]="!phone_number.errors.minlength">
+                        Phone number must be at least 1 characters long.
+                    </div>
+                    <div [hidden]="!phone_number.errors.maxlength">
+                        Phone number cannot be more than 10 characters long.
+                    </div>
+                    <div [hidden]="!phone_number.errors.pattern">
+                        Invalid Phone Number
+                      </div>
+               </div>
+               </div>
+               <!-- <div  class="ac-required-field">
                   <div class="validationText" [hidden]="phone_number.valid">
                    Accept only numbers with min 1 length
                   </div>
-              </div>
-            </div>
+              </div> -->
+            <!-- </div> -->
           
             </div>
             <span class="ac-create-employee-foot ac-edit-profile">
