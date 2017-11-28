@@ -1777,6 +1777,9 @@ span.item-count-notify {
 .cart-hover-field::-webkit-scrollbar {
    width: 3px;
 }
+.cart-hover-field.cart-hover-field-card input{
+  background: #ffffff !important;
+}
 .cart-hover-field::-webkit-scrollbar-track {
    background-color: #DEDEDE;
 }
