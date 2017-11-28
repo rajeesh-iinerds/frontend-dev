@@ -34,7 +34,7 @@
                        </div> -->
                         <div class="storeDetails">
                           <h6>FFL#</h6>
-                          <span>{{store.FFLNumber}}</span>
+                          <span>{{store.FFLNumber && store.FFLNumber!='null'  ? store.FFLNumber : "Not Available"}}</span>
                         </div>
                         <div class="storeDetails">
                           <h6>Store Address</h6>

@@ -61,7 +61,8 @@ export class StoreLocationComponent implements OnInit {
 	                let options = new RequestOptions({ headers: headers });
 	                let req_body = {
 	                    "entityId": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : ""
-	                };
+					};
+					this.demoService.loading = true;
 	                const url = constant.appcohesionURL.retailerStore_URL && constant.appcohesionURL.retailerStore_URL != 'null' ? constant.appcohesionURL.retailerStore_URL : '';
 	                this.http.post(url, req_body, options).subscribe(data => {
 	                  this.demoService.loading = false;
@@ -166,7 +167,8 @@ export class StoreLocationComponent implements OnInit {
 					"fax" : this.userInfo.fax ?  this.userInfo.fax : 'NULL',
 					"email" : this.userInfo.email ?  this.userInfo.email : 'NULL',
 					"zip" : this.userInfo.zip
-		        };
+				};
+				console.log("request body : " + JSON.stringify(req_body))
 		        if(this.isEditClicked == true) {
 		        	req_body['storeID'] = this.currentStore.StoreId;
 		        	req_body['fflID'] = this.currentStore.StoreFFLId;
