@@ -1558,7 +1558,8 @@ input[type=radio]:checked ~ label{
 .cart-card {
   width: 100%;
   float: left;
-  border: 1px solid #e6e6e6; */
+  border: 1px solid #e6e6e6;
+  background-color: white;
   padding: 15px 10px;
   padding: 15px 10px;
   margin-bottom: 10px;
@@ -1647,12 +1648,14 @@ input[type=radio]:checked ~ label{
   position: fixed;
   bottom: 0px;
   width: 52%;
-  background-color: white;
+  background-color: #ffffff00;
   padding: 20px 5px;
+  z-index: 9;
 }
 .cart-place-order {
   background-color: #4053ab;
   border: medium none;
+  box-shadow: 0px 0px 16px -3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -1671,6 +1674,7 @@ input[type=radio]:checked ~ label{
 .cart-continue-shipping {
   background-color: #ffffff;
   border: 1px solid #c9c9c9;
+  box-shadow: 0px 0px 16px -3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -1683,10 +1687,16 @@ input[type=radio]:checked ~ label{
   line-height: 34px;
   width: 30%;
   z-index: 1;
+  background-image: url(../images/icon-arrow-left.png);
+  background-repeat: no-repeat;
+  background-position: left;
+  background-size: 20px;
+  background-origin: content-box;
 }
 .cart-order-summery {
   border: 1px solid #e6e6e6;
   padding: 15px 15px 15px 15px;
+  background-color: white;
 }
 .cart-order-summery h3 {
   color: #5c6bc0;
@@ -1868,7 +1878,7 @@ span.hover-card-subtotal {
   background-color: rgba(219, 219, 219, 0.76);  
   left: 0px;    
   top: 0px;    
-  z-index: 99999;
+  z-index: 9;
 }
 .fadeclass h4{  
   text-align: center;  
