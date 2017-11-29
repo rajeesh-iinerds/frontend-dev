@@ -76,7 +76,7 @@ export class RetailerMarkupComponent implements OnInit {
         this.demoService.createUserPopup = false;
         this.demoService.showNav = !this.demoService.showNav;
         this.checkboxValue = true;
-        this.retailerCount = this.demoService.retailerDetails.length;
+        this.retailerCount = this.demoService.retailerDetails ?this.demoService.retailerDetails.length : "";
         this.createRetailer(retailerInfoMap, retailerForm,'', this.retailerCount);
        // this.selectDefaultInventory = 1;
        
@@ -89,13 +89,14 @@ export class RetailerMarkupComponent implements OnInit {
        this.demoService.createUserPopup = false;   
        this.showpopdetails = !this.showpopdetails;
       // this.selectDefaultInventory = 0; 
-      this.retailerCount = this.demoService.retailerDetails.length;    
+      this.retailerCount = this.demoService.retailerDetails ? this.demoService.retailerDetails.length: "";    
        this.createRetailer(retailerInfoMap, retailerForm,this.showpopdetails, this.retailerCount);
       // this.checkbtn = false;      
     } 
 
     // Method for directing the distributor to their corresponding own page
     retailerCategoryList(retailerId) {
+        if(this.demoService.retailerDetails){
        for (var i = 0; i < this.demoService.retailerDetails.length; i++) {
             if ( this.demoService.retailerDetails[i].retailerId == retailerId) {
                 this.demoService.setRetailerIdforCategory(retailerId);
@@ -105,6 +106,7 @@ export class RetailerMarkupComponent implements OnInit {
                 this.router.navigate(['/dashboard/RetailerMarkup']);
             }
         }
+    }
     }
 
     createRetailer(retailerInfoMap, retailerForm, showpopview,retailerLength) {

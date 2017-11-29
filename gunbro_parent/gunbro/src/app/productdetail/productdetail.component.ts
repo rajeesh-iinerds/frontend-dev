@@ -217,7 +217,7 @@ export class ProductdetailComponent implements OnInit {
 						this.demoService.loading = false;
 						this.results = data.json();
 						if (this.results && this.results.status) {
-							if (this.results.status.code == 200) {
+							if (this.results.status.code == 200 && this.results.data) {
 								for (var i = 0; i < this.results.data.length; i++) {
 									this.storeLocations = {};
 									this.storeLocations.StoreName = this.results.data[i].StoreName && this.results.data[i].StoreName ? this.results.data[i].StoreName : '';
@@ -264,7 +264,9 @@ export class ProductdetailComponent implements OnInit {
 	}
 
 	isObjectInTheList(obj, list) {
+		
 		this.cartItemIndex = -1;
+		if(list){
 		for (var i = 0; i < list.length; i++) {
 			if (parseInt(list[i].gsin) === parseInt(obj.gsin)) {
 				this.cartItemIndex = i;
@@ -273,6 +275,7 @@ export class ProductdetailComponent implements OnInit {
 				this.cartItemIndex = -1;
 			}
 		}
+	}
 		return this.cartItemIndex;
 	}
 	getCartList() {

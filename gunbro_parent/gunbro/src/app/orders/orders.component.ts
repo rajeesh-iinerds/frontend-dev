@@ -93,8 +93,8 @@ export class OrdersComponent implements OnInit {
                   this.results = data ? data.json() :"";
                   if(this.results && this.results.status){    
                         if (this.results.status.code == constant.statusCode.success_code) {                           
-                          this.orderDetails = Object.keys(this.results.data[0]).length ? this.results.data : "";
-                          this.orderslistCount = this.orderDetails.length ? this.orderDetails.length : "";
+                          this.orderDetails = this.results.data[0] && Object.keys(this.results.data[0]).length ? this.results.data : "";
+                          this.orderslistCount = this.orderDetails && this.orderDetails.length ? this.orderDetails.length : "";
                         } else if (this.results.status.code == constant.statusCode.empty_code) {
                           this.orderDetails = [];                   
                           }
@@ -126,7 +126,7 @@ export class OrdersComponent implements OnInit {
      this.showOrderDetails = !this.showOrderDetails;
      this.selectedOrder = {};
      this.orderProductDetails = [];
- 
+ if(this.orderDetails){
     for(var i = 0; i < this.orderDetails.length; i++){
         if(this.orderDetails[i].OrderID == orderID){
           this.orderProductDetails = this.orderDetails[i].orderDetails ? this.orderDetails[i].orderDetails : "";
@@ -143,6 +143,7 @@ export class OrdersComponent implements OnInit {
           this.selectedOrder.orderPrice = this.orderDetails[i].OrderPrice && this.orderDetails[i].OrderPrice !='null' ? this.orderDetails[i].OrderPrice : "";
         }
      }
+    }
    }
 
 // Closing Order list
