@@ -27,7 +27,8 @@ export class StoreLocationComponent implements OnInit {
       "phone": '',
       "fax": '',
       "email": '',
-      "zip": ''
+	  "zip": '',
+	  "ffldoc":''
     };
     createStorePopup: boolean = false;
 	successTitle : string;
@@ -36,7 +37,7 @@ export class StoreLocationComponent implements OnInit {
 	currentStore: any;
 	deleteStoreId: any;
 	deleteStorePopup: boolean = false;
-
+	ffldoc:any;
 	constructor(public demoService: DemoService , private http: Http) {
 		this.demoService.showRetailerProfile = false;
 	}
@@ -139,11 +140,21 @@ export class StoreLocationComponent implements OnInit {
 	      	"phone": '',
 	      	"fax": '',
 	      	"email": '',
-	      	"zip": ''
+			  "zip": '',
+			  "ffldoc":''
 	    };
   		this.showCreateStore = true;
   	}
+	  changeListener(event) {
+		var file: File = event.target.files[0];
+		var myReader: FileReader = new FileReader();
 
+		myReader.onloadend = (e) => {
+			this.ffldoc = myReader.result;
+			console.error(this.ffldoc);
+		}
+		myReader.readAsBinaryString(file);
+	}
   	createStoreClick() {
   		console.log(this.userInfo);
   		var entity_id = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityId : "";
@@ -168,7 +179,9 @@ export class StoreLocationComponent implements OnInit {
 					"phone": this.userInfo.phone ? this.userInfo.phone : 'NULL',
 					"fax" : this.userInfo.fax ?  this.userInfo.fax : 'NULL',
 					"email" : this.userInfo.email ?  this.userInfo.email : 'NULL',
-					"zip" : this.userInfo.zip
+					"zip" : this.userInfo.zip,
+					"ffldoc":JSON.stringify(btoa(this.ffldoc))
+					
 				};
 				console.log("request body : " + JSON.stringify(req_body))
 		        if(this.isEditClicked == true) {
@@ -232,9 +245,15 @@ export class StoreLocationComponent implements OnInit {
 	      "phone": '',
 	      "fax": '',
 	      "email": '',
+<<<<<<< HEAD
 	      "zip": ''
 		};
 		if(this.results &&this.results.data){
+=======
+		  "zip": '',
+		  "ffldoc":''
+	    };
+>>>>>>> d5fb4d91245fd9fa019a1c05b8caa0b6177affda
   		for(var i = 0; i < this.results.data.length; i++) {
 			if (this.results.data[i].StoreId == id) {
 				this.currentStore = this.results.data[i];

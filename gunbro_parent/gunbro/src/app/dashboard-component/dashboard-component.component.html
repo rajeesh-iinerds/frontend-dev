@@ -46,6 +46,8 @@
           <a href="javascript:void(0);"><i class="glyphicon glyphicon-bell"></i><i class="ac-notification">3</i></a>
         </span> -->
         <div *ngIf="userGroup != configSuperAdminUserGroup && this.cartBucket && this.cartBucket.length" class="shoppingCart">
+
+       
           <img src="assets/shopping-cart.svg">
           <span class="item-count-notify">{{this.cartBucket.length}}</span>
           <div class="cart-hover-field">
@@ -67,8 +69,9 @@
                   <input type="text" name="quantity" class="form-control input-number input-count" style="top: 10px;background: none;"  [(ngModel)]="cartItem.quantity" disabled>
                   
                   <span class="input-group-btn">
-                    <button [disabled]="cartItem.inStock<=cartBucket[idx].quantity" (click)="increaseQuantity(idx)" type="button" class="btn btn-default btn-number input-control-btn" >
-                      <span class="glyphicon glyphicon-plus"></span>
+                      <button [disabled]="cartItem.inStock=='0'" (click)="increaseQuantity(idx)" type="button" class="btn btn-default btn-number input-control-btn" >
+                          
+                    <span class="glyphicon glyphicon-plus"></span>
                     </button>
                   </span>
                 </div>

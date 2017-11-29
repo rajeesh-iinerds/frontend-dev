@@ -80,6 +80,7 @@ export const forgetPasswordMsg = {
 export const orderRoute = {
 	"flag" : "order"
 };
+export const cartRoute ="/dashboard/cart";
 export const SS_prod_param = {
 	"CustomerNumber": "31821", //"99994",
     "UserName": "31821", //"99994",
