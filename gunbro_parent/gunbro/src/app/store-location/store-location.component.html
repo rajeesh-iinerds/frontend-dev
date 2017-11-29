@@ -144,7 +144,7 @@
         </div>
         <div class="storeDetails" *ngIf="showViewStore == true">
           <h6>FFL#</h6>
-          <span>{{selectedStore.FFLNumber}}</span>
+          <span>{{selectedStore.FFLNumber &&  selectedStore.FFLNumber != 'null' ? selectedStore.FFLNumber : "Not Available"}}</span>
         </div>
         <!-- <div class="storeDetails" *ngIf="showViewStore == true">
           <h6>Contact Person</h6>
@@ -152,11 +152,11 @@
         </div> -->
         <div class="storeDetails" style="width: 50%;" *ngIf="showViewStore == true">
           <h6>Phone</h6>
-          <span>{{selectedStore.StoreContact}}</span>
+          <span>{{selectedStore.StoreContact!='null' ? selectedStore.StoreContact :""}}</span>
         </div>
         <div class="storeDetails" style="width: 50%;" *ngIf="showViewStore == true">
           <h6>Fax</h6>
-          <span>{{selectedStore.StoreFax}}</span>
+          <span>{{selectedStore.StoreFax!='null' ? selectedStore.StoreFax : ""}}</span>
         </div>
         <!-- <div class="storeDetails" *ngIf="showViewStore == true">
           <h6>Email</h6>
@@ -164,7 +164,7 @@
         </div> -->
         <div class="storeDetails" *ngIf="showViewStore == true">
           <h6>Store Address</h6>
-          <span>{{selectedStore.StoreAddress}}</span>
+          <span>{{selectedStore.StoreAddress!='null'? selectedStore.StoreAddress :""}}</span>
         </div>
         <!-- <div class="storeDetails storeDetails-distibutors">
           <h6>Sales Associates On-board</h6>

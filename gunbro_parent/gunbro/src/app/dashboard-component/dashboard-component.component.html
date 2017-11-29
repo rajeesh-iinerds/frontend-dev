@@ -45,7 +45,7 @@
           <a href="javascript:void(0);"><i class="glyphicon glyphicon-envelope"></i><i class="ac-notification">20</i></a>
           <a href="javascript:void(0);"><i class="glyphicon glyphicon-bell"></i><i class="ac-notification">3</i></a>
         </span> -->
-        <div *ngIf="userGroup != configSuperAdminUserGroup&&this.cartBucket.length" class="shoppingCart">
+        <div *ngIf="userGroup != configSuperAdminUserGroup && this.cartBucket && this.cartBucket.length" class="shoppingCart">
           <img src="assets/shopping-cart.svg">
           <span class="item-count-notify">{{this.cartBucket.length}}</span>
           <div class="cart-hover-field">
