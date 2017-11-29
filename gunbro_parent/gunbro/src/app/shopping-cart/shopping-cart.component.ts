@@ -66,27 +66,29 @@ export class ShoppingCartComponent implements OnInit {
 		                		this.cartList = this.results.cartList;
 		                		this.cartInStockList = [];
 		                		this.tempList = [];
-		                		for(var i = 0; i < this.cartList.length; i++) {
-		                			this.cartObject = {
-								    	"subtotal": 0,
-								      	"selectedQuantity": 0,
-								      	"makeChecked": true
-								    };
-						  			this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].quantity ? this.cartList[i].quantity : 0) * Number(this.cartList[i].productPrice ? this.cartList[i].productPrice : 0))) : this.totalAmount;
-						  			this.cartObject['subtotal'] = Number(this.cartList[i].quantity ? this.cartList[i].quantity : 0) * Number(this.cartList[i].productPrice ? this.cartList[i].productPrice : 0);
-						  			// console.log('+++++++++++++', this.cartObject);
-						  			this.cartList[i]['cartObject'] = this.cartObject;
-						  			this.quantityCount = this.cartList[i].inStock > 0 ? (this.quantityCount + Number(this.cartList[i].quantity)) : this.quantityCount;
-						  			this.cartObject['selectedQuantity'] = Number(this.cartList[i].quantity);
-						  			this.cartList[i]['cartObject'] = this.cartObject;
-						  			this.cartObject['makeChecked'] = true;
-						  			this.cartList[i]['cartObject'] = this.cartObject;
-							  		this.count = this.cartList[i].inStock > 0 ? (this.count+1) : this.count;
-							  		if(this.cartList[i].inStock > 0){
-							  			this.cartInStockList.push(this.cartList[i]);
-							  			this.tempList.push(this.cartList[i]);
+		                		if(this.cartList) {
+			                		for(var i = 0; i < this.cartList.length; i++) {
+			                			this.cartObject = {
+									    	"subtotal": 0,
+									      	"selectedQuantity": 0,
+									      	"makeChecked": true
+									    };
+							  			this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].quantity ? this.cartList[i].quantity : 0) * Number(this.cartList[i].productPrice ? this.cartList[i].productPrice : 0))) : this.totalAmount;
+							  			this.cartObject['subtotal'] = Number(this.cartList[i].quantity ? this.cartList[i].quantity : 0) * Number(this.cartList[i].productPrice ? this.cartList[i].productPrice : 0);
+							  			// console.log('+++++++++++++', this.cartObject);
+							  			this.cartList[i]['cartObject'] = this.cartObject;
+							  			this.quantityCount = this.cartList[i].inStock > 0 ? (this.quantityCount + Number(this.cartList[i].quantity)) : this.quantityCount;
+							  			this.cartObject['selectedQuantity'] = Number(this.cartList[i].quantity);
+							  			this.cartList[i]['cartObject'] = this.cartObject;
+							  			this.cartObject['makeChecked'] = true;
+							  			this.cartList[i]['cartObject'] = this.cartObject;
+								  		this.count = this.cartList[i].inStock > 0 ? (this.count+1) : this.count;
+								  		if(this.cartList[i].inStock > 0){
+								  			this.cartInStockList.push(this.cartList[i]);
+								  			this.tempList.push(this.cartList[i]);
+								  		}
 							  		}
-						  		}
+							  	}
 						  		// console.log('****************', this.cartList);
 						  		this.cartService.setCartInfo(this.cartInStockList);
 		                    }
@@ -114,32 +116,36 @@ export class ShoppingCartComponent implements OnInit {
   			this.totalAmount = this.totalAmount-(Number(size.productPrice) * Number(size.cartObject.selectedQuantity));
   			this.quantityCount = this.quantityCount - Number(size.cartObject.selectedQuantity);
   			/* Remove from place order array if unchecked */
-  			for(var i = 0; i < this.cartInStockList.length; i++) {
-  				if(ev.target.id == size.CartItemID) {
-  					const index: number = this.cartInStockList.indexOf(size);
+  			if(this.cartInStockList) {
+	  			for(var i = 0; i < this.cartInStockList.length; i++) {
+	  				if(ev.target.id == size.CartItemID) {
+	  					const index: number = this.cartInStockList.indexOf(size);
 					    if (index !== -1) {
 					        this.cartInStockList.splice(index, 1);
 					    }
-  				}
-  			}
+	  				}
+	  			}
+	  		}
   		}
   		else {
   			this.hideQuantity = false;
   			this.count++;
   			this.totalAmount = this.totalAmount+(Number(size.productPrice) * Number(size.cartObject.selectedQuantity));
   			this.quantityCount = this.quantityCount + Number(size.cartObject.selectedQuantity);
-  			for(var j = 0; j < this.tempList.length; j++) {
-				if(ev.target.id == size.CartItemID) {
-  					const index: number = this.tempList.indexOf(size);
-  					const ind: number = this.cartInStockList.indexOf(size);
-				    // if (ind !== -1 && index !== -1) {
-				        // this.cartInStockList.push(size);
-				    // }
-				    if(ind == -1 && index !== -1) {
-				    	this.cartInStockList.push(size);
-				    }
-  				}
-  			}
+	  		if(this.tempList) {
+	  			for(var j = 0; j < this.tempList.length; j++) {
+					if(ev.target.id == size.CartItemID) {
+	  					const index: number = this.tempList.indexOf(size);
+	  					const ind: number = this.cartInStockList.indexOf(size);
+					    // if (ind !== -1 && index !== -1) {
+					        // this.cartInStockList.push(size);
+					    // }
+					    if(ind == -1 && index !== -1) {
+					    	this.cartInStockList.push(size);
+					    }
+	  				}
+	  			}
+	  		}
   		}
 	}
 
@@ -185,14 +191,16 @@ export class ShoppingCartComponent implements OnInit {
 							(err) => console.error(err)
 							);
 					    }*/
-					    for(var j = 0; j < this.cartInStockList.length; j++) {
-							if(this.cartInStockList[j].CartItemID == obj.CartItemID) {
-			  					const index: number = this.cartInStockList.indexOf(obj);
-							    if (index !== -1) {
-							        this.cartInStockList.splice(index, 1);
-							    }
-			  				}
-			  			}
+					    if(this.cartInStockList) {
+						    for(var j = 0; j < this.cartInStockList.length; j++) {
+								if(this.cartInStockList[j].CartItemID == obj.CartItemID) {
+				  					const index: number = this.cartInStockList.indexOf(obj);
+								    if (index !== -1) {
+								        this.cartInStockList.splice(index, 1);
+								    }
+				  				}
+				  			}
+				  		}
                     }
                     else if(this.results.status.code == constant.statusCode.empty_code){
 
