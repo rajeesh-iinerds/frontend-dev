@@ -98,10 +98,7 @@
             <label for="zip" class="field-wrapper required-field">ZIP CODE</label>
             <input type="text" class="form-control" placeholder="Enter zip" id="zip" name="zip" [(ngModel)]="userInfo.zip" required #zip="ngModel">
         </div>
-        <!-- <div class="form-group">
-          <label for="usr_lastname">UPLOAD STORE PHOTO</label>
-          <div class="ffl-upload-field">upload Photo Here</div>
-        </div> -->
+        
         <div class="form-group">
           <label for="phone">PHONE</label>
           <input type="text" class="form-control" placeholder="Enter phone" id="phone" name="phone" [(ngModel)]="userInfo.phone" pattern="[0-9]*" #phone="ngModel">
@@ -114,6 +111,10 @@
         <div class="form-group">
           <label for="fax">FAX</label>
           <input type="text" class="form-control" placeholder="Enter fax" id="fax" name="fax" [(ngModel)]="userInfo.fax" #fax="ngModel">
+        </div>
+        <div class="form-group">
+          <label for="usr_lastname">UPLOAD STORE PHOTO</label>
+          <div class="ffl-upload-field"><input type="file" (click)="changeListener($event)" ([ngModel])="userInfo.ffldoc"></div>
         </div>
         <!-- <div class="form-group">
           <label for="usr_email" class="field-wrapper required-field">EMAIL ID</label>
