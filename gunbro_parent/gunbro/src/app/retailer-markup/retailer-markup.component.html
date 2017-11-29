@@ -91,14 +91,14 @@
           Please Enter characters with Minimum length 3
         </div>
       </div>
-      <!-- <div class="form-group" *ngIf="role_id!='4'">
+      <div class="form-group" *ngIf="role_id!='4'">
         <label for="retailerAddress" class="field-wrapper required-field">RETAILER ADDRESS</label>
         <textarea  type="text" class="form-control" placeholder="Enter retailer address" id="retailerAddress" name="retailerAddress" [(ngModel)]="retailerInfo.retailerAddress" minlength="1"  #retailerAddress="ngModel" required></textarea>
         <div class="clearfix"></div>
         <div class="invalidField" *ngIf="retailerAddress.invalid && retailerAddress.dirty">
           Please Enter characters with Minimum length 3
         </div>
-      </div> -->
+      </div>
       <div class="form-group">
         <label for="emailId">EMAIL ID</label>
         <input  type="email" class="form-control" placeholder="Enter your email address" id="emailId" name="emailId" [(ngModel)]="retailerInfo.emailId" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"  #emailId="ngModel">
