@@ -305,8 +305,9 @@ export class DashboardComponentComponent implements OnInit {
   }
 
   isObjectInTheList(obj, list) {
-
     this.cartItemIndex = -1;
+   if(list){
+    
     for (var i = 0; i < list.length; i++) {
       if (parseInt(list[i].gsin) === parseInt(obj.gsin)) {
         this.cartItemIndex = i;
@@ -325,6 +326,7 @@ export class DashboardComponentComponent implements OnInit {
     //   }
     // });  
     console.info(this.cartItemIndex);
+  }
 
     return this.cartItemIndex;
   }

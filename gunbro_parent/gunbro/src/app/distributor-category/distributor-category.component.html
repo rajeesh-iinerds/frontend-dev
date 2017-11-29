@@ -15,7 +15,7 @@
 
                   <!-- Single Card Start -->
                   
-			<div *ngIf="category && category.markups.length >0" >
+			<div *ngIf="category && category.markups && category.markups.length >0" >
                 <div *ngFor="let markup of markupList; let i = index">                
                   <div class="ac-distributor-card" [ngClass]="{ 'ac-show-markup': temp && temp.categoryId == markup.categoryId }">
                      <div class="ac-distributor-head">
