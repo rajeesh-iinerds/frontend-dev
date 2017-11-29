@@ -39,7 +39,7 @@ export class OrderPlacementComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.shippingInfoMap.isFFLRequired = false;
+        // this.shippingInfoMap.isFFLRequired = false;
         this.cartInfo = this.cartService.getCartInfo();
         console.log('****** :: ', this.cartInfo);
         if(this.cartInfo) {
@@ -62,10 +62,14 @@ export class OrderPlacementComponent implements OnInit {
               this.http.post(url, req_body, options).subscribe(data => {
                 this.results = data.json();
                 if (this.results && this.results.status) {
-                  if (this.results.status.code == 200) {
+                  if (this.results.status.code == constant.statusCode.success_code) {
                     this.storeListOfMaps = this.results.data;
                     this.allStoreList = this.results.data;
                     this.demoService.loading=false;
+                    this.checkFirearm().subscribe((response) => {
+                    },
+                    (err) => console.error(err)
+                    );
                   }
                 }
               });
@@ -201,7 +205,7 @@ export class OrderPlacementComponent implements OnInit {
 
         }
     }
-    onFFLChange(event) {
+    /*onFFLChange(event) {
         console.log(event, this.storeListOfMaps.length);
         console.log('alllll',this.allStoreList.length);
         if(this.storeListOfMaps) {
@@ -219,6 +223,64 @@ export class OrderPlacementComponent implements OnInit {
             }
             console.log(this.storeListOfMaps.length);
         }
+    }*/
+
+    checkFirearm(): Observable < any > {
+        return Observable.create(observer => {
+            return this.demoService.getSessionToken().subscribe((response) => {
+                if (response.getIdToken().getJwtToken()) {
+                    const jwt = response.getIdToken().getJwtToken();
+                    let headers = new Headers({ 'Authorization': jwt });
+                    let options = new RequestOptions({ headers: headers });
+                    let req_body = {
+                        "user_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : ""
+                    };
+                    const url = constant.appcohesionURL.getCartList_URL;
+                    this.http.post(url, req_body, options).subscribe(data => {
+                        this.demoService.loading = false;
+                        this.results = data.json();
+                        if(this.results && this.results.status){
+                            if(this.results.status.code == constant.statusCode.success_code && this.results.cartList){
+                                this.cartList = this.results.cartList;
+                                this.cartInStockList = [];
+                                this.tempList = [];
+                                if(this.cartList) {
+                                    for(var i = 0; i < this.cartList.length; i++) {
+                                        this.cartObject = {
+                                            "subtotal": 0,
+                                            "selectedQuantity": 0,
+                                            "makeChecked": true
+                                        };
+                                        this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].quantity ? this.cartList[i].quantity : 0) * Number(this.cartList[i].productPrice ? this.cartList[i].productPrice : 0))) : this.totalAmount;
+                                        this.cartObject['subtotal'] = Number(this.cartList[i].quantity ? this.cartList[i].quantity : 0) * Number(this.cartList[i].productPrice ? this.cartList[i].productPrice : 0);
+                                        // console.log('+++++++++++++', this.cartObject);
+                                        this.cartList[i]['cartObject'] = this.cartObject;
+                                        this.quantityCount = this.cartList[i].inStock > 0 ? (this.quantityCount + Number(this.cartList[i].quantity)) : this.quantityCount;
+                                        this.cartObject['selectedQuantity'] = Number(this.cartList[i].quantity);
+                                        this.cartList[i]['cartObject'] = this.cartObject;
+                                        this.cartObject['makeChecked'] = true;
+                                        this.cartList[i]['cartObject'] = this.cartObject;
+                                        this.count = this.cartList[i].inStock > 0 ? (this.count+1) : this.count;
+                                        if(this.cartList[i].inStock > 0){
+                                            this.cartInStockList.push(this.cartList[i]);
+                                            this.tempList.push(this.cartList[i]);
+                                        }
+                                    }
+                                }
+                                // console.log('****************', this.cartList);
+                                this.cartService.setCartInfo(this.cartInStockList);
+                            }
+                            else if(this.results.status.code == constant.statusCode.empty_code){
+                            }
+                        }
+                        observer.next();
+                        observer.complete();
+                    });
+                }
+            });
+        }, err => {
+            console.log("error on order", err)
+        })
     }
 
 }
