@@ -140,8 +140,8 @@ export class StoreLocationComponent implements OnInit {
 	      	"phone": '',
 	      	"fax": '',
 	      	"email": '',
-			  "zip": '',
-			  "ffldoc":''
+			 "zip": '',
+			 "ffldoc":''
 	    };
   		this.showCreateStore = true;
   	}
@@ -245,15 +245,11 @@ export class StoreLocationComponent implements OnInit {
 	      "phone": '',
 	      "fax": '',
 	      "email": '',
-<<<<<<< HEAD
-	      "zip": ''
-		};
-		if(this.results &&this.results.data){
-=======
-		  "zip": '',
+	      "zip": '',
 		  "ffldoc":''
-	    };
->>>>>>> d5fb4d91245fd9fa019a1c05b8caa0b6177affda
+		};
+
+		if(this.results &&this.results.data){	    
   		for(var i = 0; i < this.results.data.length; i++) {
 			if (this.results.data[i].StoreId == id) {
 				this.currentStore = this.results.data[i];
