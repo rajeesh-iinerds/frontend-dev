@@ -51,7 +51,7 @@ export class RetailerSingleComponent implements OnInit {
   ngOnInit() {
       //Service function for listing retailers
       this.demoService.listRetailer();
-     
+      console.log("retailer id inittttttt : " + this.demoService.retailerId);
      this.MarkupApplied = true;
      this.MarkupAppliedAll = true;
   }
@@ -83,6 +83,7 @@ export class RetailerSingleComponent implements OnInit {
 
   // Method for Markup functionality : apply, applyAll, Update, UpdateAll
   applyMarkupEvent(markup, retailer, flag, tempFlag, categoryId) {
+    console.log("retailer id : " + JSON.stringify(retailer));
       this.applyFlag = flag && flag == "single" ? "single" : "all";
       this.categoryId = categoryId ? categoryId : "";
       this.demoService.loading = true;
@@ -98,10 +99,11 @@ export class RetailerSingleComponent implements OnInit {
               });
               var req_body = {
                   "categoryId": this.categoryId,
-                  "retailerId": "1",
+                  "retailerId": this.demoService.retailerId,
                   "update": this.applyFlag,
                   "markup": markup
               };
+              console.log("appppppplyyy markupppppp " + JSON.stringify(req_body));
               const url = constant.appcohesionURL.retailerApply_URL;
               this.http.post(url, req_body, options).subscribe(data => {
                   this.demoService.loading = false;

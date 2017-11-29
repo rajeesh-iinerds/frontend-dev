@@ -60,7 +60,7 @@ export class RetailerMarkupComponent implements OnInit {
     }
 
     ngOnInit() {
-       
+       console.log("retailer category : " + this.demoService.retailerCategory)
         this.demoService.listRetailorDetails();
         // this.listRetailorDetails().subscribe((response) => {
         //     console.log("function call retailer detailes : " + JSON.stringify(response));
@@ -130,7 +130,7 @@ export class RetailerMarkupComponent implements OnInit {
                     role_id: constant.userRoles.retailerAdminUser,
                     phone_number: retailerInfoMap.phoneNumber,
                     retailer_name: retailerInfoMap.retailerName,
-                    retailer_address: retailerInfoMap.retailerAddress,
+                    retailer_address: retailerInfoMap.retailerAddress ? retailerInfoMap.retailerAddress : 'NULL',
                     isAppCoInvSubscribed : this.checkboxValue ? 1:0
                 }
             }
