@@ -31,6 +31,7 @@ export class OrderPlacementComponent implements OnInit {
     showSuccessPopup:boolean=false;
     showErrorPopup:boolean=false;
     allStoreList: any;
+    isFirearm: number = 0;
 
     constructor(private MessagePopupComponent: MessagePopupComponent, private http: Http, 
         private demoService: DemoService, private route: ActivatedRoute, 
@@ -46,6 +47,9 @@ export class OrderPlacementComponent implements OnInit {
             for (var i = 0; i < this.cartInfo.length; i++) {
                 this.orderCount = this.orderCount + Number(this.cartInfo[i].cartObject.selectedQuantity);
                 this.amountPayable = this.amountPayable + Number(this.cartInfo[i].cartObject.subtotal);
+                if(this.cartInfo[i].IsFirearm && this.cartInfo[i].IsFirearm == 1) {
+                    this.isFirearm = 1;
+                }
             }
         }
         this.customerInfoUpdateMap.firstName = "";
@@ -64,12 +68,17 @@ export class OrderPlacementComponent implements OnInit {
                 if (this.results && this.results.status) {
                   if (this.results.status.code == constant.statusCode.success_code) {
                     this.storeListOfMaps = this.results.data;
-                    this.allStoreList = this.results.data;
+                    // this.allStoreList = this.results.data;
                     this.demoService.loading=false;
-                    this.checkFirearm().subscribe((response) => {
-                    },
-                    (err) => console.error(err)
-                    );
+                    if(this.isFirearm && this.isFirearm == 1) {
+                        var temp = [];
+                        for(var i = 0; i < this.storeListOfMaps.length; i++) {
+                            if(this.storeListOfMaps[i].StoreFFLId && this.storeListOfMaps[i].FFLNumber) {
+                                temp.push(this.storeListOfMaps[i]);
+                            }
+                        }
+                        this.storeListOfMaps = temp;
+                    }
                   }
                 }
               });
@@ -80,10 +89,10 @@ export class OrderPlacementComponent implements OnInit {
         this.shippingInfoMap.retailerName = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityName : "";
         this.shippingInfoMap.saleAssociate = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).first_name : "" + " " + localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).last_name : ""
     }
+
     customerInfoUpdate(customerInfoMap, customerInfoForm) {
         this.customerInfoUpdateMap = Object.assign({}, customerInfoMap);
         this.isSideBarCustomerInfo=true;
-        
     }
 
     placeOrder(shippingInfoForm, customerInfoForm) {
@@ -224,63 +233,5 @@ export class OrderPlacementComponent implements OnInit {
             console.log(this.storeListOfMaps.length);
         }
     }*/
-
-    checkFirearm(): Observable < any > {
-        return Observable.create(observer => {
-            return this.demoService.getSessionToken().subscribe((response) => {
-                if (response.getIdToken().getJwtToken()) {
-                    const jwt = response.getIdToken().getJwtToken();
-                    let headers = new Headers({ 'Authorization': jwt });
-                    let options = new RequestOptions({ headers: headers });
-                    let req_body = {
-                        "user_id": localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].user_id : ""
-                    };
-                    const url = constant.appcohesionURL.getCartList_URL;
-                    this.http.post(url, req_body, options).subscribe(data => {
-                        this.demoService.loading = false;
-                        this.results = data.json();
-                        if(this.results && this.results.status){
-                            if(this.results.status.code == constant.statusCode.success_code && this.results.cartList){
-                                this.cartList = this.results.cartList;
-                                this.cartInStockList = [];
-                                this.tempList = [];
-                                if(this.cartList) {
-                                    for(var i = 0; i < this.cartList.length; i++) {
-                                        this.cartObject = {
-                                            "subtotal": 0,
-                                            "selectedQuantity": 0,
-                                            "makeChecked": true
-                                        };
-                                        this.totalAmount = this.cartList[i].inStock > 0 ? (this.totalAmount+(Number(this.cartList[i].quantity ? this.cartList[i].quantity : 0) * Number(this.cartList[i].productPrice ? this.cartList[i].productPrice : 0))) : this.totalAmount;
-                                        this.cartObject['subtotal'] = Number(this.cartList[i].quantity ? this.cartList[i].quantity : 0) * Number(this.cartList[i].productPrice ? this.cartList[i].productPrice : 0);
-                                        // console.log('+++++++++++++', this.cartObject);
-                                        this.cartList[i]['cartObject'] = this.cartObject;
-                                        this.quantityCount = this.cartList[i].inStock > 0 ? (this.quantityCount + Number(this.cartList[i].quantity)) : this.quantityCount;
-                                        this.cartObject['selectedQuantity'] = Number(this.cartList[i].quantity);
-                                        this.cartList[i]['cartObject'] = this.cartObject;
-                                        this.cartObject['makeChecked'] = true;
-                                        this.cartList[i]['cartObject'] = this.cartObject;
-                                        this.count = this.cartList[i].inStock > 0 ? (this.count+1) : this.count;
-                                        if(this.cartList[i].inStock > 0){
-                                            this.cartInStockList.push(this.cartList[i]);
-                                            this.tempList.push(this.cartList[i]);
-                                        }
-                                    }
-                                }
-                                // console.log('****************', this.cartList);
-                                this.cartService.setCartInfo(this.cartInStockList);
-                            }
-                            else if(this.results.status.code == constant.statusCode.empty_code){
-                            }
-                        }
-                        observer.next();
-                        observer.complete();
-                    });
-                }
-            });
-        }, err => {
-            console.log("error on order", err)
-        })
-    }
 
 }
