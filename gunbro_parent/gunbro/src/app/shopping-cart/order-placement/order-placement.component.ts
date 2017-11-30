@@ -31,6 +31,7 @@ export class OrderPlacementComponent implements OnInit {
     showSuccessPopup:boolean=false;
     showErrorPopup:boolean=false;
     allStoreList: any;
+    isFirearm: number = 0;
 
     constructor(private MessagePopupComponent: MessagePopupComponent, private http: Http, 
         private demoService: DemoService, private route: ActivatedRoute, 
@@ -39,13 +40,16 @@ export class OrderPlacementComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.shippingInfoMap.isFFLRequired = false;
+        // this.shippingInfoMap.isFFLRequired = false;
         this.cartInfo = this.cartService.getCartInfo();
         console.log('****** :: ', this.cartInfo);
         if(this.cartInfo) {
             for (var i = 0; i < this.cartInfo.length; i++) {
                 this.orderCount = this.orderCount + Number(this.cartInfo[i].cartObject.selectedQuantity);
                 this.amountPayable = this.amountPayable + Number(this.cartInfo[i].cartObject.subtotal);
+                if(this.cartInfo[i].IsFirearm && this.cartInfo[i].IsFirearm == 1) {
+                    this.isFirearm = 1;
+                }
             }
         }
         this.customerInfoUpdateMap.firstName = "";
@@ -62,10 +66,19 @@ export class OrderPlacementComponent implements OnInit {
               this.http.post(url, req_body, options).subscribe(data => {
                 this.results = data.json();
                 if (this.results && this.results.status) {
-                  if (this.results.status.code == 200) {
+                  if (this.results.status.code == constant.statusCode.success_code) {
                     this.storeListOfMaps = this.results.data;
-                    this.allStoreList = this.results.data;
+                    // this.allStoreList = this.results.data;
                     this.demoService.loading=false;
+                    if(this.isFirearm && this.isFirearm == 1) {
+                        var temp = [];
+                        for(var i = 0; i < this.storeListOfMaps.length; i++) {
+                            if(this.storeListOfMaps[i].StoreFFLId && this.storeListOfMaps[i].FFLNumber) {
+                                temp.push(this.storeListOfMaps[i]);
+                            }
+                        }
+                        this.storeListOfMaps = temp;
+                    }
                   }
                 }
               });
@@ -76,10 +89,10 @@ export class OrderPlacementComponent implements OnInit {
         this.shippingInfoMap.retailerName = localStorage.getItem("User_Information") ? JSON.parse(localStorage.getItem("User_Information"))[0].EntityName : "";
         this.shippingInfoMap.saleAssociate = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).first_name : "" + " " + localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")).last_name : ""
     }
+
     customerInfoUpdate(customerInfoMap, customerInfoForm) {
         this.customerInfoUpdateMap = Object.assign({}, customerInfoMap);
         this.isSideBarCustomerInfo=true;
-        
     }
 
     placeOrder(shippingInfoForm, customerInfoForm) {
@@ -201,7 +214,7 @@ export class OrderPlacementComponent implements OnInit {
 
         }
     }
-    onFFLChange(event) {
+    /*onFFLChange(event) {
         console.log(event, this.storeListOfMaps.length);
         console.log('alllll',this.allStoreList.length);
         if(this.storeListOfMaps) {
@@ -219,6 +232,6 @@ export class OrderPlacementComponent implements OnInit {
             }
             console.log(this.storeListOfMaps.length);
         }
-    }
+    }*/
 
 }
