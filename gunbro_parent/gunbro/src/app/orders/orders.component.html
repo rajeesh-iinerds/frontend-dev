@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="row"><!-- Order Listing -->
-        <div *ngIf="orderDetails == 0 || !orderDetails" class="noDetails"> No Orders found</div>
+        <div *ngIf="orderDetails?.length == 0" class="noDetails"> No Orders found</div>
         <div *ngIf="orderDetails" class="col-sm-12">Number of Orders<span style="font-size: 14px;color: #3b4acc;font-weight: 600;"> {{orderslistCount}}</span></div>
         
       <div class="col-xs-12 col-sm-12 col-lg-12 ac-order-status" *ngIf="orderDetails && orderDetails.length">

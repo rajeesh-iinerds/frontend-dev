@@ -8,7 +8,6 @@ import { SearchProductService } from '../product-search/search-product-service'
 import { MessagePopupComponent } from '../shared/component/message-popup/message-popup.component'
 import { DemoService } from '../demo-component/demo.service';
 import * as constant from '../shared/config';
-
 @Component({
   selector: 'app-dashboard-component',
   templateUrl: './dashboard-component.component.html',
@@ -70,7 +69,7 @@ export class DashboardComponentComponent implements OnInit {
   cartBucket: any = [];
   returnResponse: any;
   cartItemIndex: number;
-  constructor(private MessagePopupComponent: MessagePopupComponent, private searchProductService: SearchProductService, private route: ActivatedRoute, private router: Router, public demoService: DemoService, private http: Http) {
+  constructor(private MessagePopupComponent: MessagePopupComponent, private searchProductService: SearchProductService, private route: ActivatedRoute, private router: Router, public demoService: DemoService, private http: Http,private location:Location) {
     this.hideMFGSearch = true;
     this.hideGSINSearch = true;
     this.disableSearch = true;
@@ -266,7 +265,8 @@ export class DashboardComponentComponent implements OnInit {
     this.cartBucket[index].quantity > 1 ? this.cartBucket[index].quantity = parseInt(this.cartBucket[index].quantity) - 1 : "";
   }
   increaseQuantity(index) {
-    this.cartBucket[index].quantity ? this.cartBucket[index].quantity = parseInt(this.cartBucket[index].quantity) + 1 : "";
+    console.info(this.cartBucket[index])
+    this.cartBucket[index].quantity&&parseInt(this.cartBucket[index].quantity)<parseInt(this.cartBucket[index].inStock) ? this.cartBucket[index].quantity = parseInt(this.cartBucket[index].quantity) + 1 : "";
   }
   addToCart(event, cartObject, isAddToCart) {
     event.stopPropagation();
@@ -294,6 +294,7 @@ export class DashboardComponentComponent implements OnInit {
         });
       }
     });
+   this.router.url==constant.cartRoute ?(location.reload()):"";
   }
   returnQuantity(cartMap) {
     var quantity;
@@ -304,8 +305,9 @@ export class DashboardComponentComponent implements OnInit {
   }
 
   isObjectInTheList(obj, list) {
-
     this.cartItemIndex = -1;
+   if(list){
+    
     for (var i = 0; i < list.length; i++) {
       if (parseInt(list[i].gsin) === parseInt(obj.gsin)) {
         this.cartItemIndex = i;
@@ -324,6 +326,7 @@ export class DashboardComponentComponent implements OnInit {
     //   }
     // });  
     console.info(this.cartItemIndex);
+  }
 
     return this.cartItemIndex;
   }

@@ -42,9 +42,11 @@ export class OrderPlacementComponent implements OnInit {
         this.shippingInfoMap.isFFLRequired = false;
         this.cartInfo = this.cartService.getCartInfo();
         console.log('****** :: ', this.cartInfo);
-        for (var i = 0; i < this.cartInfo.length; i++) {
-            this.orderCount = this.orderCount + Number(this.cartInfo[i].cartObject.selectedQuantity);
-            this.amountPayable = this.amountPayable + Number(this.cartInfo[i].cartObject.subtotal);
+        if(this.cartInfo) {
+            for (var i = 0; i < this.cartInfo.length; i++) {
+                this.orderCount = this.orderCount + Number(this.cartInfo[i].cartObject.selectedQuantity);
+                this.amountPayable = this.amountPayable + Number(this.cartInfo[i].cartObject.subtotal);
+            }
         }
         this.customerInfoUpdateMap.firstName = "";
         this.customerInfoUpdateMap.lastName = "";
@@ -108,24 +110,26 @@ export class OrderPlacementComponent implements OnInit {
                 "SellerType": "Distributor"
             };
             let productArray = [];
-            for (var i = 0; i < this.cartInfo.length; i++) {
-                let productObject = {};
-                productObject["distributor_name"] = this.cartInfo[i].distributor_name ? JSON.stringify(this.cartInfo[i].distributor_name) : "NULL";
-                productObject["ecomdashID"] = "ecomdashID";
-                productObject["ProductPrice"] = this.cartInfo[i].cartObject.subtotal ? this.cartInfo[i].cartObject.subtotal : this.cartInfo[i].productPrice ? this.cartInfo[i].productPrice : "NULL";
-                productObject["CustomerPrice"] = this.cartInfo[i].cartObject.subtotal ? this.cartInfo[i].cartObject.subtotal : this.cartInfo[i].productPrice ? this.cartInfo[i].productPrice : "NULL";
-                productObject["GSIN"] = this.cartInfo[i].gsin ? this.cartInfo[i].gsin : "NULL";
-                productObject["SKUNumber"] = this.cartInfo[i].SKUNumber ? this.cartInfo[i].SKUNumber : "NULL";
-                // productObject.Quantity = this.cartInfo[i].quantity ? this.cartInfo[i].quantity : "";
-                productObject["Quantity"] = this.cartInfo[i].cartObject.selectedQuantity ? this.cartInfo[i].cartObject.selectedQuantity : "NULL";
-                productObject["SellerID"] = this.cartInfo[i].distributor_id ? this.cartInfo[i].distributor_id : "NULL";
-                productObject["msrp"] = this.cartInfo[i].msrp ? this.cartInfo[i].msrp : "NULL";
-                productObject["BasePrice"] = this.cartInfo[i].productPrice ? this.cartInfo[i].productPrice : "NULL";
-                productObject["AppCoMarkUp"] = this.cartInfo[i].AppCoMarkUp ? this.cartInfo[i].AppCoMarkUp : "NULL";
-                productObject["RetailerMarkUp"] = this.cartInfo[i].RetailerMarkUp ? this.cartInfo[i].RetailerMarkUp : "NULL";
-                productObject["product_name"] = this.cartInfo[i].product_Name ? JSON.stringify(this.cartInfo[i].product_Name) : "NULL";
-                productObject["manufacturer"] = this.cartInfo[i].manufacturerName ? JSON.stringify(this.cartInfo[i].manufacturerName) : "NULL";
-                productArray.push(productObject);
+            if(this.cartInfo) {
+                for (var i = 0; i < this.cartInfo.length; i++) {
+                    let productObject = {};
+                    productObject["distributor_name"] = this.cartInfo[i].distributor_name ? JSON.stringify(this.cartInfo[i].distributor_name) : "NULL";
+                    productObject["ecomdashID"] = "ecomdashID";
+                    productObject["ProductPrice"] = this.cartInfo[i].cartObject.subtotal ? this.cartInfo[i].cartObject.subtotal : this.cartInfo[i].productPrice ? this.cartInfo[i].productPrice : "NULL";
+                    productObject["CustomerPrice"] = this.cartInfo[i].cartObject.subtotal ? this.cartInfo[i].cartObject.subtotal : this.cartInfo[i].productPrice ? this.cartInfo[i].productPrice : "NULL";
+                    productObject["GSIN"] = this.cartInfo[i].gsin ? this.cartInfo[i].gsin : "NULL";
+                    productObject["SKUNumber"] = this.cartInfo[i].SKUNumber ? this.cartInfo[i].SKUNumber : "NULL";
+                    // productObject.Quantity = this.cartInfo[i].quantity ? this.cartInfo[i].quantity : "";
+                    productObject["Quantity"] = this.cartInfo[i].cartObject.selectedQuantity ? this.cartInfo[i].cartObject.selectedQuantity : "NULL";
+                    productObject["SellerID"] = this.cartInfo[i].distributor_id ? this.cartInfo[i].distributor_id : "NULL";
+                    productObject["msrp"] = this.cartInfo[i].msrp ? this.cartInfo[i].msrp : "NULL";
+                    productObject["BasePrice"] = this.cartInfo[i].productPrice ? this.cartInfo[i].productPrice : "NULL";
+                    productObject["AppCoMarkUp"] = this.cartInfo[i].AppCoMarkUp ? this.cartInfo[i].AppCoMarkUp : "NULL";
+                    productObject["RetailerMarkUp"] = this.cartInfo[i].RetailerMarkUp ? this.cartInfo[i].RetailerMarkUp : "NULL";
+                    productObject["product_name"] = this.cartInfo[i].product_Name ? JSON.stringify(this.cartInfo[i].product_Name) : "NULL";
+                    productObject["manufacturer"] = this.cartInfo[i].manufacturerName ? JSON.stringify(this.cartInfo[i].manufacturerName) : "NULL";
+                    productArray.push(productObject);
+                }
             }
             commonBody["OrderDetails"] = productArray;
             console.log('reqqqqqq :: ', commonBody);
@@ -140,14 +144,16 @@ export class OrderPlacementComponent implements OnInit {
                     if (resp.status && (resp.status.code == constant.statusCode.success_code)) {
                         this.showSuccessPopup = !this.showSuccessPopup;
                         // if success remove object from cart bucket
-                        for (var i = 0; i < this.dashboardComponent.cartBucket.length; i++) {
-                            for (var j = 0; j < resp.data[0].OrderDetails.length; j++) {
-                                if(this.dashboardComponent.cartBucket[i].SKUNumber == resp.data[0].OrderDetails[j].SKUNumber) {
-                                    const index: number = this.dashboardComponent.cartBucket.indexOf(this.dashboardComponent.cartBucket[i]);
-                                    if (index !== -1) {
-                                        this.dashboardComponent.cartBucket.splice(index, 1);
+                        if(this.dashboardComponent.cartBucket && resp.data[0].OrderDetails) {
+                            for (var i = 0; i < this.dashboardComponent.cartBucket.length; i++) {
+                                for (var j = 0; j < resp.data[0].OrderDetails.length; j++) {
+                                    if(this.dashboardComponent.cartBucket[i].SKUNumber == resp.data[0].OrderDetails[j].SKUNumber) {
+                                        const index: number = this.dashboardComponent.cartBucket.indexOf(this.dashboardComponent.cartBucket[i]);
+                                        if (index !== -1) {
+                                            this.dashboardComponent.cartBucket.splice(index, 1);
+                                        }
+                                        // this.dashboardComponent.cartBucket = this.cartInfo;
                                     }
-                                    // this.dashboardComponent.cartBucket = this.cartInfo;
                                 }
                             }
                         }
@@ -198,19 +204,21 @@ export class OrderPlacementComponent implements OnInit {
     onFFLChange(event) {
         console.log(event, this.storeListOfMaps.length);
         console.log('alllll',this.allStoreList.length);
-        if(event && event == true) {
-            var temp = [];
-            for(var i = 0; i < this.storeListOfMaps.length; i++) {
-                if(this.storeListOfMaps[i].StoreFFLId && this.storeListOfMaps[i].FFLNumber) {
-                    temp.push(this.storeListOfMaps[i]);
+        if(this.storeListOfMaps) {
+            if(event && event == true) {
+                var temp = [];
+                for(var i = 0; i < this.storeListOfMaps.length; i++) {
+                    if(this.storeListOfMaps[i].StoreFFLId && this.storeListOfMaps[i].FFLNumber) {
+                        temp.push(this.storeListOfMaps[i]);
+                    }
                 }
+                this.storeListOfMaps = temp;
             }
-            this.storeListOfMaps = temp;
+            else {
+                this.storeListOfMaps = this.allStoreList;
+            }
+            console.log(this.storeListOfMaps.length);
         }
-        else {
-            this.storeListOfMaps = this.allStoreList;
-        }
-        console.log(this.storeListOfMaps.length);
     }
 
 }

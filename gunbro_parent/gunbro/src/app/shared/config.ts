@@ -14,7 +14,7 @@ export const userRoles = {
 	"storeUser": 2,
 };
 export const userTypes = {
-	"superadmin" : "APPCO ADMIN",
+	"superadmin" : "APPCO ADMIN",	
 	"retaileradmin": "RETAILER ADMIN",
 	"admin": "STORE ADMIN",
 	"posuser": "STORE USER"
@@ -52,6 +52,7 @@ export const appcohesionURL = {
 	"cartListing_URL":apiUrl+"cartListing"
 	
 };
+export const cartRoute ="/dashboard/cart";
 export const distApiList = ["ss"];
 export const statusCode = {
 	"success_code": "200",

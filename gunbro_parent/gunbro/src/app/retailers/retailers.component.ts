@@ -91,7 +91,7 @@ export class RetailersComponent implements OnInit {
                       this.demoService.loading = false;
                       this.results = data.json();
                       if (this.results && this.results.status) {
-                          if (this.results.status.code == 200) {
+                          if (this.results.status.code == 200 && this.results.data) {
                               this.retailerStoreDetails = this.results.data;
                               for (var i = 0; i < this.results.data.length; i++) {
                                   // showing retailer profile details like location, address, fax and contact from first store location details.
