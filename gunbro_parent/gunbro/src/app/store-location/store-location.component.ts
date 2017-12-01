@@ -145,13 +145,12 @@ export class StoreLocationComponent implements OnInit {
 	    };
   		this.showCreateStore = true;
   	}
-	  changeListener(event) {
+	changeListener(event) {
 		var file: File = event.target.files[0];
 		var myReader: FileReader = new FileReader();
 
 		myReader.onloadend = (e) => {
 			this.ffldoc = myReader.result;
-			console.error(this.ffldoc);
 		}
 		myReader.readAsBinaryString(file);
 	}
