@@ -1,9 +1,9 @@
     <!-- Left Side Nav Start -->
-    
+
     <!-- Left Side Nav End -->
 
     <!-- Main Section Start -->
-    
+
     <div class="" style = "text-align: left" (click)="demoService.showclickorder = false || demoService.showRetailerProfile = false || demoService.showEditRetailerView = false;">
       <!-- Generic wrap start -->
       <div class="">
@@ -24,15 +24,15 @@
                 <span class="ac-prod-feat">Distributor<br><strong>{{demoService.productInfo && demoService.productInfo.distributor_name ? demoService.productInfo.distributor_name : ''}}</strong></span>
                 <span class="ac-prod-feat">UPC<strong><br>{{demoService.productInfo && demoService.productInfo.upc ? demoService.productInfo.upc : ''}}</strong> <!-- <i class="ac-tool-tip" title="Tooltip Descripion Here"></i> -->
                 </span>
-                <span class="ac-store-location">Select a Shipping method<br>
-                 
+                <!-- <span class="ac-store-location">Select a Shipping method<br>
+
                   <select name="selectedShipping" [(ngModel)]="selectedShipping">
                     <option *ngFor="let value of values" [ngValue]="value.key">{{value.name}}</option>
                   </select>
-                </span>
+                </span> -->
                 <div>
                     <span class="ac-prod-cost">Base Price<strong><em>$</em>{{demoService.productInfo && demoService.productInfo.retailerPrice ? demoService.productInfo.retailerPrice : 0}}</strong></span>
-                    
+
                     <span class="ac-prod-cost">Retailer Markup<strong><em>$</em>{{demoService.productInfo && demoService.productInfo.retailerMarkup ? demoService.productInfo.retailerMarkup : 0}}%</strong></span>
                     <span class="ac-prod-cost">Amount Payable<strong><em>$</em>{{demoService.productInfo && demoService.productInfo.productPrice ? demoService.productInfo.productPrice : 0 | number : '1.2-2'}}</strong></span>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="ac-prod-buying-options" *ngIf="demoService.productInfo && demoService.productInfo.distributor_name == 'SS' && ssProductQuantity && ssProductQuantity > '0'">
                     <!-- <input type="number" name="quantity" min="1" max="{{ssProductQuantity}}" [(ngModel)]="selectedQuantity" (ngModelChange)="onQuantityChange($event)"> -->
                     <!-- <button class="ac-result-quick-order" (click) = "placeOrder($event)">PLACE MY ORDER</button> -->
-                    <button class="ac-result-quick-order" (click) = "addToCartBucket($event,demoService.productInfo,true)">ADD TO CART</button>  
+                    <button class="ac-result-quick-order" (click) = "addToCartBucket($event,demoService.productInfo,true)">ADD TO CART</button>
                 </div>
                 <div class="ac-prod-buying-options" *ngIf="demoService.productInfo && demoService.productInfo.distributor_name != 'SS' && demoService.productInfo.inStock && demoService.productInfo.inStock > '0'">
                     <input type="number" name="quantity" min="1" max="{{demoService.productInfo.inStock}} " [(ngModel)]="selectedQuantity" (ngModelChange)="onQuantityChange($event)">
@@ -58,7 +58,7 @@
                   <h4> Only <span>{{ssProductQuantity}}</span> left in stock!</h4>
                 </div>
                 </div>
-               
+
                 <!-- <div class="ac-prod-buying-options" *ngIf="(demoService.productInfo && demoService.productInfo.inStock && demoService.productInfo.inStock <= '0') || (ssProductQuantity && ssProductQuantity <= '0')">
                     <button class="ac-result-quick-order">OUT OF STOCK</button>
                 </div> -->
@@ -140,15 +140,15 @@
           <div class="form-group">
             <label for="usr-store" class="field-wrapper required-field">STORE</label>
             <select class="form-control" name="selectedStore" [(ngModel)]="selectedStore" required>
-              
+
                <option *ngFor="let value of retailerStoreDetails" [ngValue]="value.StoreId" >{{value.StoreName}}</option>
             </select>
-           
+
             <!-- <select [(ngModel)]="selectedShipping">
               <option *ngFor="let value of values" [ngValue]="value.key">{{value.name}}</option>
             </select> -->
           </div>
-          
+
           <!-- <div class="form-group">
             <label for="usr_address">ADDRESS</label>
             <span class="form-control">Address</span>
@@ -303,7 +303,7 @@
       </div>
     </div>
     </div>
-  
+
     <!-- CREATE NEW EMPLOYEE : END -->
 
 
@@ -325,4 +325,3 @@
     <!-- success popup ends -->
     <!-- <div class="ac-actions-overlay" style="display:none;" (click)="demoService.showclickorder = false || demoService.showRetailerProfile = false || demoService.showEditRetailerView = false;"></div> -->
 
-    
