@@ -1,0 +1,7 @@
+version: 0.1
+phases:
+  install:
+    commands:
+      - npm install -g @angular/cli
+      - ng build --prod
+      - aws s3 sync ./dist s3://dev.appcohesion.io
