@@ -5,4 +5,4 @@ phases:
       - npm install
       - npm install -g @angular/cli
       - ng build --prod
-      - aws s3 sync ./dist s3://dev.appcohesion.io
+      - aws s3 sync ./dist s3://dev.appcohesio.io
